@@ -90,7 +90,7 @@ trait Verb {
     person <- VerbPerson.values
   } yield number + " " + person + " person: " + inflect(number, person)).toArray
 
-  def inflect(number: VerbNumber, person: VerbPerson): String
+  def inflect(number: VerbNumber, person: VerbPerson, negate: Boolean = false): String
 }
 
 object Byť extends Verb {
@@ -100,15 +100,15 @@ object Byť extends Verb {
     Array("som", "si", "je"),      // singular
     Array("sme", "ste", "sú")   // plural
   )
-  override def inflect(number: VerbNumber, person: VerbPerson): String =
-    konjugácia(number.id)(person.id)
+  override def inflect(number: VerbNumber, person: VerbPerson, negate: Boolean = false): String =
+    (if (negate) "nie " else "") + konjugácia(number.id)(person.id)
 }
 
 trait RegularVerb extends Verb {
   val root: String
   override val konjugácia: Array[Array[String]]
-  override def inflect(number: VerbNumber, person: VerbPerson): String =
-    root + konjugácia(number.id)(person.id)
+  override def inflect(number: VerbNumber, person: VerbPerson, negate: Boolean): String =
+    (if (negate) "ne" else "") + root + konjugácia(number.id)(person.id)
 }
 
 trait chytáť extends RegularVerb {
@@ -142,13 +142,15 @@ object Main extends App {
       number <- VerbNumber.values
       person <- VerbPerson.values
       pronoun <- Pronoun(gender.id)(number.id)(person.id)
+      negate <- Set(true, false)
     } {
-      // add a direct object
       if (verb.isTransitive) nouns.map(_.accusative).filter(_.isDefined).map(_.get).foreach { directObject: String =>
-        println(pronoun + " " + verb.inflect(number, person) + " " + directObject)
-      } else // no direct object
-          println(pronoun + " " + verb.inflect(number, person))
-
+        // include a direct object
+        println(pronoun + " " + verb.inflect(number, person, negate) + " " + directObject)
+      } else {
+        // no direct object
+        println(pronoun + " " + verb.inflect(number, person, negate))
+      }
     }
 
   }
