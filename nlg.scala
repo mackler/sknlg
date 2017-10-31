@@ -1,3 +1,28 @@
+// Pronouns
+
+object Gender extends Enumeration {
+  type Gender = Value
+  val Male, Female, Neuter = Value
+}
+
+val Pronoun: Array[Array[Array[Option[String]]]] = Array(
+  // dimensions are gender: number, person
+  Array(                          // muž.
+    Array(Some("ja"), Some("ty"), Some("on")),  // sing.
+    Array(Some("my"), Some("vy"), Some("oni")) // plur.
+  ),
+  Array (                         // žen.
+    Array(Some("ja"), Some("ty"), Some("ona")), // sing.
+    Array(Some("my"), Some("vy"), Some("ony")) // plur.
+  ),
+  Array(// stredného rodu
+    Array(None, None, Some("to")), // sing.
+    Array(None, None, None) // plur.
+  )
+)
+
+// Verbs
+
 // Number
 object VerbNumber extends Enumeration {
   type VerbNumber = Value
@@ -10,6 +35,7 @@ object VerbPerson extends Enumeration {
   val First, Second, Third  = Value
 }
 
+import Gender._
 import VerbNumber._
 import VerbPerson._
 
@@ -59,8 +85,22 @@ val verbs = Array(Byť, Mať)
 
 object Main extends App {
   verbs foreach { verb =>
-    println("Verb: " + verb.infinitive)
-    verb.konjuguj foreach { x => println(x) }
+    for {
+      number <- VerbNumber.values
+      person <- VerbPerson.values
+    } {
+      println(verb.inflect(number, person))
+    }
+
+    for {
+      gender <- Gender.values
+      number <- VerbNumber.values
+      person <- VerbPerson.values
+      pronoun <- Pronoun(gender.id)(number.id)(person.id)
+    } {
+      println(pronoun + " " + verb.inflect(number, person))
+    }
+
   }
 }
 
