@@ -14,14 +14,38 @@ import VerbNumber._
 import VerbPerson._
 
 trait Verb {
-  val root: String
-  val konjuguj: Array[Array[String]]
-  def inflect(number: VerbNumber, person: VerbPerson): String =
-    root + konjuguj(number.id)(person.id)
+  val konjugácia: Array[Array[String]]
+
+  val infinitive: String
+
+  def konjuguj: Array[String] = (for {
+    number <- VerbNumber.values
+    person <- VerbPerson.values
+  } yield number + " " + person + " person: " + inflect(number, person)).toArray
+
+  def inflect(number: VerbNumber, person: VerbPerson): String
 }
 
-trait chytáť extends Verb {
-  val konjuguj = Array(
+object Byť extends Verb {
+  override val infinitive = "byť"
+  override val konjugácia = Array(
+    Array("som", "si", "je"),      // singular
+    Array("sme", "ste", "sú")   // plural
+  )
+  override def inflect(number: VerbNumber, person: VerbPerson): String =
+    konjugácia(number.id)(person.id)
+}
+
+trait RegularVerb extends Verb {
+  val root: String
+  override val konjugácia: Array[Array[String]]
+  override def inflect(number: VerbNumber, person: VerbPerson): String =
+    root + konjugácia(number.id)(person.id)
+}
+
+trait chytáť extends RegularVerb {
+  override lazy val infinitive = root + "ať"
+  override val konjugácia = Array(
     Array("ám", "áš", "á"),      // singular
     Array("áme", "áte", "ajú")   // plural
   )
@@ -31,10 +55,13 @@ object Mať extends chytáť {
   override val root = "m"
 }
 
-for {
-  number <- VerbNumber.values
-  person <- VerbPerson.values
-} {
-  Console.println(number + " " + person + " person: " + Mať.inflect(number, person))
+val verbs = Array(Byť, Mať)
+
+object Main extends App {
+  verbs foreach { verb =>
+    println("Verb: " + verb.infinitive)
+    verb.konjuguj foreach { x => println(x) }
+  }
 }
 
+Main.main(Array[String]())
