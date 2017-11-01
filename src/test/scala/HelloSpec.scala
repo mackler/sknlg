@@ -1,9 +1,9 @@
-package example
+package org.mackler.sknlg
 
 import org.scalatest._
 
-class HelloSpec extends FlatSpec with Matchers {
-  "The Hello object" should "say hello" in {
-    Hello.greeting shouldEqual "hello"
+class ByťSpec extends FlatSpec with Matchers {
+  "The Byť object" should "return the infinitive" in {
+    Vocabulary.Byť.infinitive shouldEqual "byť"
   }
 }

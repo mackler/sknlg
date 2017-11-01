@@ -1,3 +1,5 @@
+package org.mackler.sknlg
+
 // Contant enumerations
 
 object Gender extends Enumeration {
