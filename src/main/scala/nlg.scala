@@ -1,45 +1,10 @@
 package org.mackler.sknlg
 
-// Contant enumerations
-
-object Gender extends Enumeration {
-  type Gender = Value
-  val Male, Female, Neuter = Value
-}
 import Gender._
-
-// Number
-object VerbNumber extends Enumeration {
-  type VerbNumber = Value
-  val Singular, Plural = Value
-}
-import VerbNumber._
-
-// Person
-object VerbPerson extends Enumeration {
-  type VerbPerson = Value
-  val First, Second, Third  = Value
-}
-import VerbPerson._
+import Person._
+import Number._
 
 object Vocabulary {
-  // Pronouns
-
-  val Pronoun: Array[Array[Array[Option[String]]]] = Array(
-    // dimensions are gender: number, person
-    Array(                          // muž.
-      Array(Some("ja"), Some("ty"), Some("on")),  // sing.
-      Array(Some("my"), Some("vy"), Some("oni")) // plur.
-    ),
-    Array (                         // žen.
-      Array(Some("ja"), Some("ty"), Some("ona")), // sing.
-      Array(Some("my"), Some("vy"), Some("ony")) // plur.
-    ),
-    Array(// stredného rodu
-      Array(None, None, Some("ono")), // sing.
-      Array(None, None, None) // plur.
-    )
-  )
 
   val Demonstrative: Array[Array[Array[Option[String]]]] = Array(
     // dimensions are gender: number, person
@@ -57,64 +22,45 @@ object Vocabulary {
     )
   )
 
-  // Nouns
-
-  trait Noun {
-    val gender: Gender
-    // these are just Options until I learn all the declensions
-    val nominative: Option[String]
-    val accusative: Option[String]
-  }
-
   object kufor extends Noun {
     override val gender = Male
-    override val nominative = Some("kufor")
-    override val accusative = Some("kufor")
+    val nominative = Some("kufor")
+    val accusative = Some("kufor")
+    val asText = "kufor"
+    val number = Singular
   }
 
   object auto extends Noun {
     override val gender = Male
-    override val nominative = None
-    override val accusative = Some("auto")
+    val nominative = None
+    val accusative = Some("auto")
+    val asText = "auto"
+    val number = Singular
   }
 
   val nouns = Set(kufor, auto)
 
-  // Verbs
+  class Byť(subject: Seq[Noun]) extends Verb(subject) {
+    import Byť._
 
-  trait Verb {
-    val infinitive: String
-    val konjugácia: Array[Array[String]]
-    val isTransitive: Boolean = false
-    val isCopulative: Boolean = false
-
-    def konjuguj: Array[String] = (for {
-      number <- VerbNumber.values
-      person <- VerbPerson.values
-    } yield number + " " + person + " person: " + inflect(number, person)).toArray
-
-    def inflect(number: VerbNumber, person: VerbPerson, negate: Boolean = false): String
-  }
-
-  object Byť extends Verb {
-    override val isCopulative = true
     override val infinitive = "byť"
+    override val isCopulative = true
     override val konjugácia = Array(
       Array("som", "si", "je"),      // singular
       Array("sme", "ste", "sú")   // plural
     )
-    override def inflect(number: VerbNumber, person: VerbPerson, negate: Boolean = false): String =
+    override def inflect(number: Number, person: Person, negate: Boolean = false): String =
       (if (negate) "nie " else "") + konjugácia(number.id)(person.id)
+
+    // add a subject and return a new verb instance
+    def subject(newSubject: Noun): Verb = new Byť(subject :+ newSubject)
+
+  }
+  object Byť {
+    def apply(subject: Seq[Noun] = Seq.empty[Noun]) = new Byť(subject)
   }
 
-  trait RegularVerb extends Verb {
-    val root: String
-    override val konjugácia: Array[Array[String]]
-    override def inflect(number: VerbNumber, person: VerbPerson, negate: Boolean): String =
-      (if (negate) "ne" else "") + root + konjugácia(number.id)(person.id)
-  }
-
-  trait chytáť extends RegularVerb {
+  abstract class chytáť(subject: Seq[Noun]) extends RegularVerb(subject) {
     override lazy val infinitive = root + "ať"
     override val konjugácia = Array(
       Array("ám", "áš", "á"),      // singular
@@ -122,7 +68,7 @@ object Vocabulary {
     )
   }
 
-  object Mať extends chytáť {
+  object Mať extends chytáť(Seq.empty[Noun]) {
     override val root = "m"
     override val isTransitive = true
   }
@@ -130,23 +76,24 @@ object Vocabulary {
   val verbs = Set(Byť, Mať)
 }
 
-object Main extends App {
+ object Main extends App {
   import Vocabulary._
 
   // conjugate all the verbs
   verbs foreach { verb =>
-    /*    for {
-      number <- VerbNumber.values
-      person <- VerbPerson.values
+    for {
+      number <- Number.values
+      person <- Person.values
     } {
-      println(verb.inflect(number, person))
-    }*/
+//      println(verb.inflect(number, person))
+      println(s" the number is $number and the person is $person")
+    }
 
     // conjugate all the verbs including pronouns
-    for {
+/*    for {
       gender <- Gender.values
-      number <- VerbNumber.values
-      person <- VerbPerson.values
+      number <- Number.values
+      person <- Person.values
       pronoun <- Pronoun(gender.id)(number.id)(person.id)
       negate <- Set(true, false)
     } {
@@ -157,7 +104,7 @@ object Main extends App {
         // no direct object
         println(pronoun + " " + verb.inflect(number, person, negate))
       }
-    }
+    }*/
 
   }
 }
