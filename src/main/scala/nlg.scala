@@ -61,18 +61,11 @@ val nouns = Set(Ja, Ty, On, Ona, To)
     def apply(subject: Seq[Noun] = Seq.empty[Noun]) = new Byť(subject)
   }
 
-  abstract class chytáť(subject: Seq[Noun]) extends RegularVerb(subject) {
-    override lazy val infinitive = root + "ať"
-    override val konjugácia = Array(
-      Array("ám", "áš", "á"),      // singular
-      Array("áme", "áte", "ajú")   // plural
-    )
-  }
-
-  object Mať extends chytáť(Seq.empty[Noun]) {
+  case class Mať(subject: Seq[Noun] = Seq.empty[Noun]) extends chytáť(subject) {
     override val root = "m"
     override val isTransitive = true
   }
+
 
   val verbs = Set(Byť, Mať)
 }
@@ -87,7 +80,7 @@ val nouns = Set(Ja, Ty, On, Ona, To)
       number <- Number.values
     } {
       println(Byť().subject(noun(number)).asText)
-//      println(s" the number is $number and the person is $person")
+      println(Mať(subject = Seq(noun(number))).asText)
     }
 
     // conjugate all the verbs including pronouns

@@ -46,3 +46,14 @@ abstract class RegularVerb(subject: Seq[Noun]) extends Verb(subject) {
   override def inflect(number: Number, person: Person, negate: Boolean): String =
     (if (negate) "ne" else "") + root + konjugácia(number.id)(person.id)
 }
+
+// A-type verbs
+
+abstract class chytáť(subject: Seq[Noun]) extends RegularVerb(subject) {
+  override lazy val infinitive = root + "ať"
+  override val konjugácia = Array(
+    Array("ám", "áš", "á"),      // singular
+    Array("áme", "áte", "ajú")   // plural
+  )
+}
+
