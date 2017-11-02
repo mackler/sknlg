@@ -8,6 +8,7 @@ trait Noun {
   def asText: String
   val gender: Gender
   val number: Number
+  val accusative: Option[String] = None
 }
 
 trait Pronoun extends Noun {

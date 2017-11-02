@@ -25,7 +25,7 @@ object Vocabulary {
   object kufor extends Noun {
     override val gender = Male
     val nominative = Some("kufor")
-    val accusative = Some("kufor")
+    override val accusative = Some("kufor")
     val asText = "kufor"
     val number = Singular
   }
@@ -33,17 +33,12 @@ object Vocabulary {
   object auto extends Noun {
     override val gender = Male
     val nominative = None
-    val accusative = Some("auto")
+    override val accusative = Some("auto")
     val asText = "auto"
     val number = Singular
   }
 
-//  val nouns = Set(kufor, auto)
-val nouns = Set(Ja, Ty, On, Ona, To)
-
-  class Byť(subject: Seq[Noun]) extends Verb(subject) {
-    import Byť._
-
+  case class Byť(subject: Seq[Noun] = Seq.empty[Noun]) extends Verb(subject) {
     override val infinitive = "byť"
     override val isCopulative = true
     override val konjugácia = Array(
@@ -57,48 +52,32 @@ val nouns = Set(Ja, Ty, On, Ona, To)
     def subject(newSubject: Noun): Verb = new Byť(subject :+ newSubject)
 
   }
-  object Byť {
-    def apply(subject: Seq[Noun] = Seq.empty[Noun]) = new Byť(subject)
-  }
 
-  case class Mať(subject: Seq[Noun] = Seq.empty[Noun]) extends chytáť(subject) {
+  case class Mať(subject: Seq[Noun] = Seq.empty[Noun], directObject: Option[Noun] = None)
+      extends chytáť(subject) with TransitiveVerb {
     override val root = "m"
     override val isTransitive = true
   }
 
-
   val verbs = Set(Byť, Mať)
 }
 
- object Main extends App {
+object Main extends App {
   import Vocabulary._
 
-  // conjugate all the verbs
-//  verbs foreach { verb =>
+  val nouns = Set(kufor, auto)
+  val pronouns = Set(Ja, Ty, On, Ona, To)
+
     for {
-      noun <- nouns
+      pronoun <- pronouns
       number <- Number.values
     } {
-      println(Byť().subject(noun(number)).asText)
-      println(Mať(subject = Seq(noun(number))).asText)
+      println( Byť(subject = Seq(pronoun(number))).asText )
+      for {
+        noun <- nouns
+      } {
+        println(Mať(subject = Seq(pronoun(number)), directObject = Some(noun)).asText)
+      }
     }
 
-    // conjugate all the verbs including pronouns
-/*    for {
-      gender <- Gender.values
-      number <- Number.values
-      person <- Person.values
-      pronoun <- Pronoun(gender.id)(number.id)(person.id)
-      negate <- Set(true, false)
-    } {
-      if (verb.isTransitive) nouns.map(_.accusative).filter(_.isDefined).map(_.get).foreach { directObject: String =>
-        // include a direct object
-        println(pronoun + " " + verb.inflect(number, person, negate) + " " + directObject)
-      } else {
-        // no direct object
-        println(pronoun + " " + verb.inflect(number, person, negate))
-      }
-    }*/
-
-//  }
 }

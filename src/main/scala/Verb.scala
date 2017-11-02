@@ -57,3 +57,7 @@ abstract class chytáť(subject: Seq[Noun]) extends RegularVerb(subject) {
   )
 }
 
+trait TransitiveVerb extends Verb {
+  val directObject: Option[Noun]
+  override def asText = super.asText + directObject.map(" " + _.accusative.get).getOrElse("")
+}
