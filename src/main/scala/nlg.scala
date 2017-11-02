@@ -38,7 +38,8 @@ object Vocabulary {
     val number = Singular
   }
 
-  val nouns = Set(kufor, auto)
+//  val nouns = Set(kufor, auto)
+val nouns = Set(Ja, Ty, On, Ona, To)
 
   class Byť(subject: Seq[Noun]) extends Verb(subject) {
     import Byť._
@@ -80,13 +81,13 @@ object Vocabulary {
   import Vocabulary._
 
   // conjugate all the verbs
-  verbs foreach { verb =>
+//  verbs foreach { verb =>
     for {
+      noun <- nouns
       number <- Number.values
-      person <- Person.values
     } {
-//      println(verb.inflect(number, person))
-      println(s" the number is $number and the person is $person")
+      println(Byť().subject(noun(number)).asText)
+//      println(s" the number is $number and the person is $person")
     }
 
     // conjugate all the verbs including pronouns
@@ -106,5 +107,5 @@ object Vocabulary {
       }
     }*/
 
-  }
+//  }
 }

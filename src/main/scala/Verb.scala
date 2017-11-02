@@ -8,15 +8,18 @@ abstract class Verb(subject: Seq[Noun]) {
 
   def asText: String  = subject.length match {
     case 0 =>
-      println(s"subject list length is zero and infinitive is $infinitive")
       infinitive
     case _ =>
-      val person = if (subject.exists(s => s.isInstanceOf[Ja])) Person.First else Person.Third
-      val number = if (subject.length > 1 || subject.exists(_.number == Number.Plural))
-        Number.Plural
-      else
-        Number.Singular
-      
+      val person =
+        if (subject.exists(s => s.isInstanceOf[Ja])) Person.First
+        else if (subject.exists(s => s.isInstanceOf[Ty])) Person.Second
+        else Person.Third
+      val number =
+        if (subject.length > 1 || subject.exists(_.number == Number.Plural))
+          Number.Plural
+        else
+          Number.Singular
+
       subject.map(_.asText).mkString(" ") + " " + inflect(number, person)
   }
 
