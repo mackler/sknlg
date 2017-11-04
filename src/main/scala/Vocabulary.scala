@@ -28,27 +28,36 @@ object Vocabulary {
    */
 
   case class Kufor(
-    override val `case`: Case   = Nominative,
     override val number: Number = Singular,
-    adjective: Option[Adjective]     = None
+    override val adjective: Option[Adjective] = None
   ) extends Noun {
     val gender = Male
-    val asText = (adjective map { a =>
-      a.asText(gender) + " "
-    }).getOrElse("") +
-    (`case` match {
-      case Nominative => "kufor"
-      case Accusative => "kufor"
-    })
+    override protected val skloňovanie = Array(
+      Array("kufor", "kufor"),
+      Array("kufor", "kufor")
+    )
+  }
+
+  case class Rieka(
+    override val number: Number = Singular,
+    override val adjective: Option[Adjective] = None
+  ) extends Noun {
+    override val gender = Female
+    override protected val skloňovanie = Array(
+      Array("rieka", "rieka"),
+      Array("", "")
+    )
   }
 
   object auto extends Noun {
     override val gender = Male
     val nominative = None
-  override val `case` = Nominative
-    override val accusative = Some("auto")
     val asText = "auto"
     val number = Singular
+    override protected val skloňovanie = Array(
+      Array("auto", "auto"),
+      Array("auto", "auto")
+    )
   }
 
   /*
@@ -58,6 +67,8 @@ object Vocabulary {
   case object Pekný extends Adjective {
     override def asText(gender: Gender) = gender match {
       case Male => "pekný"
+      case Female => "pekná"
+      case Neuter => "pekné"
     }
   }
 

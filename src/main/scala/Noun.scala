@@ -5,45 +5,52 @@ import Number._
 import Case._
 
 trait Noun {
-  def asText: String
   val gender: Gender
   val number: Number
-  val `case`: Case
-  val accusative: Option[String] = None
+  val adjective: Option[Adjective] = None
+  protected val skloňovanie: Array[Array[String]]
+
+  def asText(pád: Case = Nominative) =
+    (adjective map { a => a.asText(gender) + " " }).getOrElse("") +
+    skloňovanie(pád.id)(number.id)
 }
 
-trait Pronoun extends Noun {
-  protected val konjugácia: Array[String]
-  override lazy val asText: String = konjugácia(number.id)
-}
-
-case class Ja(val number: Number) extends Pronoun {
+case class Ja(val number: Number) extends Noun {
   val gender = Male
-  override val `case` = Nominative
-  override protected val konjugácia = Array("ja", "my")
+  override protected val skloňovanie = Array(
+      Array("ja", "my"),
+      Array("ma", "nás")
+    )
 }
 
-case class Ty(val number: Number) extends Pronoun {
+case class Ty(val number: Number) extends Noun {
   val gender = Male
-  override val `case` = Nominative
-  override protected val konjugácia = Array("ty", "vy")
+  override protected val skloňovanie = Array(
+      Array("ty", "vy"),
+      Array("ťa", "vás")
+    )
 }
 
-case class On(val number: Number) extends Pronoun {
+case class On(val number: Number) extends Noun {
   val gender = Male
-  override val `case` = Nominative
-  override protected val konjugácia = Array("on", "oni")
+  override protected val skloňovanie = Array(
+      Array("on", "oni"),
+      Array("ho", "ich")
+    )
 }
 
-case class Ona(val number: Number) extends Pronoun {
+case class Ona(val number: Number) extends Noun {
   val gender = Female
-  override val `case` = Nominative
-  override protected val konjugácia = Array("ona", "oni")
+  override protected val skloňovanie = Array(
+      Array("ona", "oni"),
+      Array("ho", "ich")
+    )
 }
 
-case class To(val number: Number) extends Pronoun {
+case class To(val number: Number) extends Noun {
   val gender = Neuter
-  override val `case` = Nominative
-  override protected val konjugácia = Array("to", "oni")
+  override protected val skloňovanie = Array(
+      Array("to", "oni"),
+      Array("error", "error")
+    )
 }
-

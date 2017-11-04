@@ -2,7 +2,7 @@ package org.mackler
 
 package object sknlg {
 
-  // Contant enumerations
+  // Constant enumerations
 
   object Person extends Enumeration {
     type Person = Value
@@ -19,7 +19,6 @@ package object sknlg {
     val Male, Female, Neuter = Value
   }
 
-  // Case
   object Case extends Enumeration {
     type Case = Value
     val Nominative, Accusative  = Value

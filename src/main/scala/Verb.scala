@@ -2,9 +2,9 @@ package org.mackler.sknlg
 
 import Person._
 import Number._
+import Case._
 
 abstract class Verb(subject: Seq[Noun]) {
-  import Verb._
 
   def asText: String  = subject.length match {
     case 0 =>
@@ -20,7 +20,7 @@ abstract class Verb(subject: Seq[Noun]) {
         else
           Number.Singular
 
-      subject.map(_.asText).mkString(" ") + " " + inflect(number, person)
+      subject.map(_.asText(Nominative)).mkString(" ") + " " + inflect(number, person)
   }
 
   val infinitive: String
@@ -34,10 +34,6 @@ abstract class Verb(subject: Seq[Noun]) {
   } yield number + " " + person + " person: " + inflect(number, person)).toArray
 
   def inflect(number: Number, person: Person.Person, negate: Boolean = false): String
-}
-
-object Verb {
-
 }
 
 abstract class RegularVerb(subject: Seq[Noun]) extends Verb(subject) {
@@ -59,5 +55,6 @@ abstract class chytáť(subject: Seq[Noun]) extends RegularVerb(subject) {
 
 trait TransitiveVerb extends Verb {
   val directObject: Option[Noun]
-  override def asText = super.asText + directObject.map(" " + _.accusative.get).getOrElse("")
+  override def asText =
+    super.asText + directObject.map(" " + _.asText(Accusative)).getOrElse("")
 }
