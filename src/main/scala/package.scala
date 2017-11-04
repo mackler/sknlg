@@ -4,23 +4,23 @@ package object sknlg {
 
   // Constant enumerations
 
-  object Person extends Enumeration {
-    type Person = Value
+  object Osoba extends Enumeration {
+    type Osoba = Value
     val First, Second, Third  = Value
   }
 
-  object Number extends Enumeration {
-    type Number = Value
-    val Singular, Plural = Value
+  object Čislo extends Enumeration {
+    type Čislo = Value
+    val Jednotné, Množné = Value
   }
 
-  object Gender extends Enumeration {
-    type Gender = Value
-    val Male, Female, Neuter = Value
+  object Rod extends Enumeration {
+    type Rod = Value
+    val Mužský, Ženský, Stredný = Value
   }
 
-  object Case extends Enumeration {
-    type Case = Value
+  object Pád extends Enumeration {
+    type Pád = Value
     val Nominative, Accusative  = Value
   }
 

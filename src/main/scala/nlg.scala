@@ -1,22 +1,22 @@
 package org.mackler.sknlg
 
-import Number._
+import Čislo._
 
 object Main extends App {
-  import Vocabulary._
+  import Slovník._
 
-  val nouns = Set[Noun](Kufor(), Auto())
+  val nouns = Set[PodstatméMeno](Kufor(), Auto())
   val pronouns = Set(Ja, Ty, On, Ona, To)
 
     for {
       pronoun <- pronouns
-      number <- Number.values
+      number <- Čislo.values
     } {
-      println( Byť(subject = Seq(pronoun(number))).asText )
+      println( Byť(podmet = Seq(pronoun(number))).asText )
       for {
         noun <- nouns
       } {
-        println(Mať(subject = Seq(pronoun(number)), directObject = Some(noun)).asText)
+        println(Mať(podmet = Seq(pronoun(number)), directPredmet = Some(noun)).asText)
       }
     }
 
