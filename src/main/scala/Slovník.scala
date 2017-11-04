@@ -65,11 +65,11 @@ object Slovník {
    */
 
   case object Pekný extends PrídavnéMeno {
-    override def asText(rod: Rod) = rod match {
-      case Mužský => "pekný"
-      case Ženský => "pekná"
-      case Stredný => "pekné"
-    }
+    protected val root = "pekn"
+  }
+
+  case object Krázny extends PrídavnéMeno {
+    protected val root = "krázn"
   }
 
   /*
