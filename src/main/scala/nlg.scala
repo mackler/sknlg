@@ -5,7 +5,7 @@ import Number._
 object Main extends App {
   import Vocabulary._
 
-  val nouns = Set[Noun](Kufor(), auto)
+  val nouns = Set[Noun](Kufor(), Auto())
   val pronouns = Set(Ja, Ty, On, Ona, To)
 
     for {

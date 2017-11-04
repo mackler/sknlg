@@ -49,14 +49,14 @@ object Vocabulary {
     )
   }
 
-  object auto extends Noun {
-    override val gender = Male
-    val nominative = None
-    val asText = "auto"
-    val number = Singular
+  case class Auto(
+    override val number: Number = Singular,
+    override val adjective: Option[Adjective] = None
+  ) extends Noun {
+    override val gender = Neuter
     override protected val skloňovanie = Array(
-      Array("auto", "auto"),
-      Array("auto", "auto")
+      Array("auto", "chyba"),
+      Array("auto", "chyba")
     )
   }
 

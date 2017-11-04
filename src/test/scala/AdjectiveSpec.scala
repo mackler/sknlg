@@ -14,4 +14,8 @@ class AdjectiveSpec extends FlatSpec with Matchers {
     Vocabulary.Rieka(adjective = Some(Vocabulary.Pekný)).asText() shouldEqual "pekná rieka"
   }
 
+  "An adjective referring to a neuter noun" should "generate the neuter adjective" in {
+    Vocabulary.Auto(adjective = Some(Vocabulary.Pekný)).asText() shouldEqual "pekné auto"
+  }
+
 }

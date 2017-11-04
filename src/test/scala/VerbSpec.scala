@@ -82,10 +82,10 @@ class VerbSpec extends FlatSpec with Matchers {
   // Transitive Verbs can have a direct object
 
   "The mať object 1st/sing with a direct object" should "return the correct text" in {
-    Vocabulary.Mať(subject = Seq(Ja(Singular)), directObject = Some(Vocabulary.auto)).asText shouldEqual "ja mám auto"
+    Vocabulary.Mať(subject = Seq(Ja(Singular)), directObject = Some(Vocabulary.Auto())).asText shouldEqual "ja mám auto"
   }
   "The mať object 1st/plur with a direct object" should "return the correct text" in {
-    Vocabulary.Mať(subject = Seq(Ja(Plural)), directObject = Some(Vocabulary.auto)).asText shouldEqual "my máme auto"
+    Vocabulary.Mať(subject = Seq(Ja(Plural)), directObject = Some(Vocabulary.Auto())).asText shouldEqual "my máme auto"
   }
 
 }
