@@ -5,7 +5,7 @@ import Čislo._
 object Main extends App {
   import Slovník._
 
-  val nouns = Set[PodstatméMenoFactory](Kufor, Rieka, Auto)
+  val nouns = Set[PodstatméMenoFactory](Auto, Býk, Dieťa, Dievča, Dunaj, Hrad, Kaviareň, Kocúr, Krava, Kufor, Mača, Mačka, Mesto, Muž, Namestie, Rieka, Radosť, Srdce, Teľa, Učiteľ, Učiteľka, Voda, Žena)
 
   def conjgations {
     val pronouns = Set(Ja, Ty, On, Ona, To)
@@ -30,8 +30,8 @@ object Main extends App {
       noun <- nouns
       adjective <- adjectives
     } {
-      println("default without adjective: " + noun().asText())
-      println("with specified adjective: " + noun(prídavnéMeno = Some(adjective)).asText())
+//      println("default without adjective: " + noun().asText())
+      println(noun(prídavnéMeno = Some(adjective)).asText())
     }
 
 

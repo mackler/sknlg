@@ -16,12 +16,18 @@ package object sknlg {
 
   object Rod extends Enumeration {
     type Rod = Value
-    val Mužský, Ženský, Stredný = Value
+    val MužskýŽivotný, MužskýNeživotný, Ženský, Stredný = Value
   }
 
   object Pád extends Enumeration {
     type Pád = Value
     val Nominative, Accusative  = Value
   }
+
+  object Skloňovanie extends Enumeration {
+    type Skloňovanie = Value
+    val Chlap, Hrdina, Dub, Stroj, Žena, Ulica, Dlaň, Kosť, Mesto, Srdce, Vysvedčenie, Dievča = Value
+  }
+
 
 }

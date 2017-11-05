@@ -17,12 +17,12 @@ trait PrídavnéMeno {
   def asText(rod: Rod) = root + {
     if (longFinal(root))
       rod match {
-        case Mužský => "y"
+        case MužskýŽivotný | MužskýNeživotný => "y"
         case Ženský => "a"
         case Stredný => "e"
       }
       else rod match {
-        case Mužský => "ý"
+        case MužskýŽivotný | MužskýNeživotný  => "ý"
         case Ženský => "á"
         case Stredný => "é"
       }
