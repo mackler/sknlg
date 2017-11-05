@@ -5,14 +5,27 @@ import Čislo._
 import Pád._
 
 trait PodstatméMeno {
-  val rod: Rod
-  val čislo: Čislo
-  val adjective: Option[PrídavnéMeno] = None
+  val rod:          Rod
+  val čislo:        Čislo
+  val prídavnéMeno: Option[PrídavnéMeno] = None
   protected val skloňovanie: Array[Array[String]]
 
   def asText(pád: Pád = Nominative) =
-    (adjective map { a => a.asText(rod) + " " }).getOrElse("") +
+    (prídavnéMeno map { a => a.asText(rod) + " " }).getOrElse("") +
     skloňovanie(pád.id)(čislo.id)
+}
+
+abstract class PodstatméMenoFactory(rod: Rod, skloňovanie: Array[Array[String]]) {
+  class PodstatméMenoInstance(
+    override           val rod          : Rod,
+    override protected val skloňovanie  : Array[Array[String]],
+    override           val čislo        : Čislo,
+    override           val prídavnéMeno : Option[PrídavnéMeno]
+  ) extends PodstatméMeno
+
+  def apply(čislo: Čislo = Jednotné, prídavnéMeno: Option[PrídavnéMeno] = None) = {
+    new PodstatméMenoInstance(rod, skloňovanie, čislo, prídavnéMeno)
+  }
 }
 
 case class Ja(val čislo: Čislo) extends PodstatméMeno {

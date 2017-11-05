@@ -27,50 +27,40 @@ object Slovník {
    * PodstatméMeno
    */
 
-  case class Kufor(
-    override val čislo: Čislo = Jednotné,
-    override val adjective: Option[PrídavnéMeno] = None
-  ) extends PodstatméMeno {
-    val rod = Mužský
-    override protected val skloňovanie = Array(
+  object Kufor extends PodstatméMenoFactory(rod = Mužský, skloňovanie = Array(
       Array("kufor", "kufor"),
       Array("kufor", "kufor")
     )
-  }
-
-  case class Rieka(
-    override val čislo: Čislo = Jednotné,
-    override val adjective: Option[PrídavnéMeno] = None
-  ) extends PodstatméMeno {
-    override val rod = Ženský
-    override protected val skloňovanie = Array(
-      Array("rieka", "rieka"),
-      Array("", "")
-    )
-  }
-
-  case class Auto(
-    override val čislo: Čislo = Jednotné,
-    override val adjective: Option[PrídavnéMeno] = None
-  ) extends PodstatméMeno {
-    override val rod = Stredný
-    override protected val skloňovanie = Array(
+  )
+  object Auto extends PodstatméMenoFactory(rod = Stredný, skloňovanie = Array(
       Array("auto", "chyba"),
       Array("auto", "chyba")
     )
-  }
+  )
+  object Rieka extends PodstatméMenoFactory(rod = Ženský, skloňovanie = Array(
+      Array("rieka", "rieka"),
+      Array("", "")
+    )
+  )
 
   /*
    * PrídavnéMeno
    */
 
-  case object Pekný extends PrídavnéMeno {
-    protected val root = "pekn"
-  }
-
-  case object Krázny extends PrídavnéMeno {
-    protected val root = "krázn"
-  }
+  case object Čistý extends PrídavnéMeno { protected val root = "čist" }
+  case object Dobrý extends PrídavnéMeno { protected val root = "dobr" }
+  case object Hnedý extends PrídavnéMeno { protected val root = "hned" }
+  case object Krázny extends PrídavnéMeno { protected val root = "krázn" }
+  case object Malý extends PrídavnéMeno { protected val root = "mal" }
+  case object Mladý extends PrídavnéMeno { protected val root = "mlad" }
+  case object Modrý extends PrídavnéMeno { protected val root = "modr" }
+  case object Nový extends PrídavnéMeno { protected val root = "nov" }
+  case object Pekný extends PrídavnéMeno { protected val root = "pekn" }
+  case object Škaredý extends PrídavnéMeno { protected val root = "škared" }
+  case object Špinavý extends PrídavnéMeno { protected val root = "špinav" }
+  case object Starý extends PrídavnéMeno { protected val root = "star" }
+  case object Veľký extends PrídavnéMeno { protected val root = "veľk" }
+  case object Zlý extends PrídavnéMeno { protected val root = "zl" }
 
   /*
    * Sloveso
