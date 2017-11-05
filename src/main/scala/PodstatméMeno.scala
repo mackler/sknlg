@@ -5,11 +5,43 @@ import Čislo._
 import Pád._
 import Skloňovanie._
 
-trait PodstatméMeno {
+abstract class PodstatméMenoFactory(entry: String, rod: Rod) {
+  class PodstatméMenoInstance(
+    override protected val entry        : String,
+    override           val rod          : Rod,
+    override           val čislo        : Čislo,
+    override           val prídavnéMeno : Option[PrídavnéMeno],
+    override protected val demonstrative: Boolean
+  ) extends PodstatméMeno
+
+  def apply(čislo: Čislo = Jednotné, prídavnéMeno: Option[PrídavnéMeno] = None, demonstrative: Boolean = false) = {
+    new PodstatméMenoInstance(entry, rod, čislo, prídavnéMeno, demonstrative)
+  }
+}
+
+trait Noun {
+  val čislo:        Čislo
+  protected def decline(pád: Pád): String
+  def asText(pád: Pád = Nominative) =
+    decline(pád)
+}
+
+trait PodstatméMeno extends Noun {
   protected val entry: String
   val rod:          Rod
-  val čislo:        Čislo
   val prídavnéMeno: Option[PrídavnéMeno] = None
+  protected val demonstrative: Boolean
+
+  override def asText(pád: Pád = Nominative) =
+    (if (demonstrative) ten(rod, čislo, pád) + " " else "") +
+    (prídavnéMeno map { a => a.asText(rod) + " " }).getOrElse("") +
+    super.asText(pád)
+
+  object Spoluhláska {
+    val hard = Set("g", "h", "ch", "k", "d", "n", "t")
+    val soft = Set("c", "dz", "j", "ď", "ť", "ľ", "ň", "ž", "č")
+    val neutral = Set("b", "f", "l", "m", "p", "r", "s", "v", "z")
+  }
   private lazy val skloňovanie = rod match {
     case MužskýŽivotný =>
       if (entry.endsWith("a"))                               Hrdina
@@ -30,7 +62,28 @@ trait PodstatméMeno {
       else if (entry.endsWith("a") || entry.endsWith("ä"))   Dievča
     }
 
-  protected def decline(pád: Pád): String = {
+  // demonstrative ten, tá, to
+  def ten(rod: Rod, čislo: Čislo, pád: Pád): String = {
+    rod match {
+      case MužskýŽivotný | MužskýNeživotný =>
+        čislo match {
+          case Jednotné => "ten"
+          case Množné => "chyba"
+        }
+      case Ženský =>
+        čislo match {
+          case Jednotné => "tá"
+          case Množné =>  "chyba"
+        }
+      case Stredný =>
+        čislo match {
+          case Jednotné => "to"
+          case Množné =>  "chyba"
+        }
+    }
+  }
+
+  override protected def decline(pád: Pád): String = {
     skloňovanie match {
       case Chlap => pád match {
         case Nominative => čislo match {
@@ -72,77 +125,4 @@ trait PodstatméMeno {
     }
   }
 
-  def asText(pád: Pád = Nominative) =
-    (prídavnéMeno map { a => a.asText(rod) + " " }).getOrElse("") + decline(pád)
-//    skloňovanie(pád.id)(čislo.id)
-}
-
-abstract class PodstatméMenoFactory(entry: String, rod: Rod) {
-  class PodstatméMenoInstance(
-    override protected val entry        : String,
-    override           val rod          : Rod,
-    override           val čislo        : Čislo,
-    override           val prídavnéMeno : Option[PrídavnéMeno]
-  ) extends PodstatméMeno
-
-  def apply(čislo: Čislo = Jednotné, prídavnéMeno: Option[PrídavnéMeno] = None) = {
-    new PodstatméMenoInstance(entry, rod, čislo, prídavnéMeno)
-  }
-}
-
-object Spoluhláska {
-  val hard = Set("g", "h", "ch", "k", "d", "n", "t")
-  val soft = Set("c", "dz", "j", "ď", "ť", "ľ", "ň", "ž", "č")
-  val neutral = Set("b", "f", "l", "m", "p", "r", "s", "v", "z")
-}
-
-trait Zámeno extends PodstatméMeno {
-  protected val skloňovanie: Array[Array[String]]
-  override def decline(pád: Pád = Nominative) =
-    skloňovanie(pád.id)(čislo.id)
-}
-
-case class Ja(val čislo: Čislo) extends Zámeno {
-  val entry = "ja"
-  val rod = MužskýŽivotný
-  override protected val skloňovanie = Array(
-      Array(entry, "my"),
-      Array("ma", "nás")
-    )
-}
-
-case class Ty(val čislo: Čislo) extends Zámeno {
-  override val entry = "ty"
-  val rod = MužskýŽivotný
-  override protected val skloňovanie = Array(
-      Array(entry, "vy"),
-      Array("ťa", "vás")
-    )
-}
-
-case class On(val čislo: Čislo) extends Zámeno {
-  override val entry = "on"
-  val rod = MužskýŽivotný
-  override protected val skloňovanie = Array(
-      Array(entry, "oni"),
-      Array("ho", "ich")
-    )
-}
-
-case class Ona(val čislo: Čislo) extends Zámeno {
-  override val entry = "ona"
-  val rod = Ženský
-  override protected val skloňovanie = Array(
-      Array(entry, "oni"),
-      Array("ho", "ich")
-    )
-}
-
-case class To(val čislo: Čislo) extends Zámeno {
-  override val entry = "to"
-  val rod = Stredný
-  override protected val skloňovanie = Array(
-      Array(entry, "oni"),
-      Array("error", "error")
-    )
 }

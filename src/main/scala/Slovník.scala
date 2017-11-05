@@ -7,22 +7,6 @@ import Pád._
 
 object Slovník {
 
-  val Demonstrative: Array[Array[Array[Option[String]]]] = Array(
-    // dimensions are rod: čislo, person
-    Array(                          // muž.
-      Array(None, None, Some("ten")),  // sing.
-      Array(None, None, None) // plur.
-    ),
-    Array (                         // žen.
-      Array(None, None, Some("tá")),  // sing.
-      Array(None, None, None) // plur.
-    ),
-    Array(// stredny rod
-      Array(None, None, Some("to")), // sing.
-      Array(None, None, None) // plur.
-    )
-  )
-
   /*
    * PodstatméMeno
    */
@@ -40,7 +24,6 @@ object Slovník {
   object Kufor extends PodstatméMenoFactory(entry = "kufor", rod = MužskýNeživotný)
   // ending in sort consonant
   object Dunaj extends PodstatméMenoFactory(entry = "Dunaj", rod = MužskýNeživotný)
-
 
   // Feminine
   // ending in -a preceded by a hard consonant (or neutral for krava)
@@ -91,7 +74,7 @@ object Slovník {
    * Sloveso
    */
 
-  case class Byť(podmet: Seq[PodstatméMeno] = Seq.empty[PodstatméMeno]) extends Sloveso(podmet) {
+  case class Byť(podmet: Seq[Noun] = Seq.empty[PodstatméMeno]) extends Sloveso(podmet) {
     override val infinitív = "byť"
     override val isCopulative = true
     override val časovanie = Array(
@@ -106,7 +89,7 @@ object Slovník {
 
   }
 
-  case class Mať(podmet: Seq[PodstatméMeno] = Seq.empty[PodstatméMeno], directPredmet: Option[PodstatméMeno] = None)
+  case class Mať(podmet: Seq[Noun] = Seq.empty[PodstatméMeno], directPredmet: Option[PodstatméMeno] = None)
       extends chytáť(podmet) with SlovesoPrechodné {
     override val root = "m"
     override val isTransitive = true

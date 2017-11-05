@@ -30,8 +30,7 @@ object Main extends App {
       noun <- nouns
       adjective <- adjectives
     } {
-//      println("default without adjective: " + noun().asText())
-      println(noun(prídavnéMeno = Some(adjective)).asText())
+      println(noun(demonstrative = true, prídavnéMeno = Some(adjective)).asText())
     }
 
 
