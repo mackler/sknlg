@@ -5,13 +5,12 @@ import Čislo._
 object Main extends App {
   import Slovník._
 
-  val nouns = Set[PodstatméMenoFactory](Auto, Býk, Dieťa, Dievča, Dunaj, Hrad, Kaviareň, Kocúr, Krava, Kufor, Mača, Mačka, Mesto, Muž, Namestie, Rieka, Radosť, Srdce, Teľa, Učiteľ, Učiteľka, Voda, Žena)
-
-  def conjgations {
-    val pronouns = Set(Ja, Ty, On, Ona, To)
+  def conjugations() {
+    val subjects = Set(Ja, Ty)
+    val nouns = Set(Slovník.Kufor)
 
     for {
-      pronoun <- pronouns
+      pronoun <- subjects
       number <- Čislo.values
     } {
       println( Byť(podmet = Seq(pronoun(number))).asText )
@@ -23,9 +22,11 @@ object Main extends App {
     }
   }
 
-  val adjectives = Seq(Čistý, Zlý, Dobrý, Hnedý, Krázny, Malý, Mladý, Modrý, Nový, Pekný, Škaredý, Špinavý, Starý, Veľký)
 
   def genderedAdjectives() {
+    val nouns = Set[PodstatméMenoFactory](Auto, Býk, Dieťa, Dievča, Dunaj, Hrad, Kaviareň, Kocúr, Krava, Kufor, Mača, Mačka, Mesto, Muž, Namestie, Rieka, Radosť, Srdce, Teľa, Učiteľ, Učiteľka, Voda, Žena)
+  val adjectives = Seq(Čistý, Zlý, Dobrý, Hnedý, Krázny, Malý, Mladý, Modrý, Nový, Pekný, Škaredý, Špinavý, Starý, Veľký)
+
     for {
       noun <- nouns
       adjective <- adjectives
@@ -36,6 +37,6 @@ object Main extends App {
 
   }
 
-  genderedAdjectives()
+  conjugations()
 
 }

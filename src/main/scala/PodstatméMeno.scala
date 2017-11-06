@@ -19,6 +19,7 @@ abstract class PodstatméMenoFactory(entry: String, rod: Rod) {
   }
 }
 
+/* This is the superclass of both pronouns and common nouns */
 trait Noun {
   val čislo:        Čislo
   protected def decline(pád: Pád): String
@@ -26,11 +27,20 @@ trait Noun {
     decline(pád)
 }
 
+/* Person names */
+object Pomenovanie {
+  def apply(name: String, rod: Rod) = new Noun {
+    override val čislo = Jednotné
+    override def decline(pad: Pád = Nominative) = name
+  }
+}
+
+/* These are only common nouns (not pronouns) */
 trait PodstatméMeno extends Noun {
-  protected val entry: String
-  val rod:          Rod
-  val prídavnéMeno: Option[PrídavnéMeno] = None
-  protected val demonstrative: Boolean
+  protected val entry         : String   // form of the slovo as listed in a slovník
+  val rod                     : Rod
+  val prídavnéMeno            : Option[PrídavnéMeno] = None
+  protected val demonstrative : Boolean
 
   override def asText(pád: Pád = Nominative) =
     (if (demonstrative) ten(rod, čislo, pád) + " " else "") +

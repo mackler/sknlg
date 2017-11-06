@@ -27,11 +27,6 @@ abstract class Sloveso(podmet: Seq[Noun]) {
       podmet.map(_.asText(Nominative)).mkString(" ") + " " + inflect(čislo, person)
   }
 
-/*  def konjuguj: Array[String] = (for {
-    čislo <- Čislo.values
-    person <- Osoba.values
-  } yield čislo + " " + person + " person: " + inflect(čislo, person)).toArray
- */
   def inflect(čislo: Čislo, person: Osoba.Osoba, negate: Boolean = false): String
 }
 
