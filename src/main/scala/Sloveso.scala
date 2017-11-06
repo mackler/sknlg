@@ -4,7 +4,7 @@ import Osoba._
 import Čislo._
 import Pád._
 
-abstract class Sloveso(podmet: Seq[Noun]) {
+abstract class Sloveso(podmet: Seq[Noun], príslovka: Option[String]) {
   val infinitív: String
   val časovanie: Array[Array[String]]
   val isTransitive: Boolean = false
@@ -24,13 +24,16 @@ abstract class Sloveso(podmet: Seq[Noun]) {
         else
           Čislo.Jednotné
 
-      podmet.map(_.asText(Nominative)).mkString(" ") + " " + inflect(čislo, person)
+      podmet.map(_.asText(Nominative)).mkString(" ") + " " +
+      príslovka.map(_ + " ").getOrElse("") +
+      inflect(čislo, person)
   }
 
   def inflect(čislo: Čislo, person: Osoba.Osoba, negate: Boolean = false): String
 }
 
-abstract class RegularSloveso(podmet: Seq[Noun]) extends Sloveso(podmet) {
+abstract class RegularSloveso(podmet: Seq[Noun], príslovka: Option[String])
+    extends Sloveso(podmet, príslovka) {
   val root: String
   override val časovanie: Array[Array[String]]
   override def inflect(čislo: Čislo, person: Osoba, negate: Boolean): String =
@@ -39,7 +42,8 @@ abstract class RegularSloveso(podmet: Seq[Noun]) extends Sloveso(podmet) {
 
 // A-type verbs
 
-abstract class chytáť(podmet: Seq[Noun]) extends RegularSloveso(podmet) {
+abstract class chytáť(podmet: Seq[Noun], príslovka: Option[String])
+    extends RegularSloveso(podmet, príslovka) {
   override lazy val infinitív = root + "ať"
   override val časovanie = Array(
     Array("ám", "áš", "á"),      // singular

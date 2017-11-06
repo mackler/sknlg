@@ -10,7 +10,7 @@ trait Zámeno extends Noun {
     skloňovanie(pád.id)(čislo.id)
 }
 
-case class Ja(val čislo: Čislo) extends Zámeno {
+case class Ja(val čislo: Čislo = Jednotné) extends Zámeno {
   val rod = MužskýŽivotný
   override protected val skloňovanie = Array(
       Array("ja", "my"),
