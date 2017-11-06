@@ -22,7 +22,7 @@ abstract class Sloveso(podmet: Seq[Noun], príslovka: Option[String]) {
         else
           Čislo.Jednotné
 
-      podmet.map(_.asText(Nominative)).mkString(" ") + " " +
+      podmet.map(_.asText(Nominative)).mkString(" a ") + " " +
       príslovka.map(_ + " ").getOrElse("") +
       inflect(čislo, person)
   }
@@ -60,6 +60,12 @@ class Chytať(podmet: Seq[Noun], príslovka: Option[String])
         }
     }
 
+}
+
+abstract class ChytaťFactory(infinitív: String) {
+  class ChytaťInstance(override val infinitív: String = infinitív, podmet: Seq[Noun], príslovka: Option[String]) extends Chytať(podmet, príslovka)
+  def apply(podmet: Seq[Noun] = Seq.empty[Noun], príslovka: Option[String] = None) =
+    new ChytaťInstance(infinitív, podmet, príslovka)
 }
 
 /* Some verbs can take direct objects */

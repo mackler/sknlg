@@ -103,4 +103,6 @@ object Slovník {
     override val infinitív = "bývať"
   }
 
+  object Čakať extends ChytaťFactory("čakať")
+
 }
