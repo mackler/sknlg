@@ -6,8 +6,6 @@ import Pád._
 
 abstract class Sloveso(podmet: Seq[Noun], príslovka: Option[String]) {
   val infinitív: String
-  val časovanie: Array[Array[String]]
-  val isTransitive: Boolean = false
   val isCopulative: Boolean = false
 
   def asText: String  = podmet.length match {
@@ -34,25 +32,39 @@ abstract class Sloveso(podmet: Seq[Noun], príslovka: Option[String]) {
 
 abstract class RegularSloveso(podmet: Seq[Noun], príslovka: Option[String])
     extends Sloveso(podmet, príslovka) {
-  val root: String
-  override val časovanie: Array[Array[String]]
-  override def inflect(čislo: Čislo, person: Osoba, negate: Boolean): String =
-    (if (negate) "ne" else "") + root + časovanie(čislo.id)(person.id)
+  lazy val root: String = infinitív.replaceFirst("ať", "")
 }
 
-// A-type verbs
+// This is the paradigmatic "A-type" verb
 
-abstract class chytáť(podmet: Seq[Noun], príslovka: Option[String])
+class Chytať(podmet: Seq[Noun], príslovka: Option[String])
     extends RegularSloveso(podmet, príslovka) {
-  override lazy val infinitív = root + "ať"
-  override val časovanie = Array(
-    Array("ám", "áš", "á"),      // singular
-    Array("áme", "áte", "ajú")   // plural
-  )
+  override val infinitív = "chytať"
+
+  override def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String =
+    (if (negate) "ne" else "") +
+    root +
+    {
+      val a = if (finalSyllableIsLong(root)) "a" else "á"
+        čislo match {
+          case Jednotné => osoba match {
+            case First =>  a + "m"
+            case Second => a + "š"
+            case Third =>  a
+          }
+          case Množné => osoba match {
+            case First =>  a + "me"
+            case Second => a + "te"
+            case Third =>  "ajú"
+          }
+        }
+    }
+
 }
+
+/* Some verbs can take direct objects */
 
 trait SlovesoPrechodné extends Sloveso {
   val directPredmet: Option[PodstatméMeno]
-  override def asText =
-    super.asText + directPredmet.map(" " + _.asText(Accusative)).getOrElse("")
+  override def asText = super.asText + directPredmet.map(" " + _.asText(Accusative)).getOrElse("")
 }

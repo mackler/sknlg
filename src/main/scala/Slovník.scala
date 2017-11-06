@@ -78,7 +78,7 @@ object Slovník {
       extends Sloveso(podmet, príslovka) {
     override val infinitív = "byť"
     override val isCopulative = true
-    override val časovanie = Array(
+    val časovanie = Array(
       Array("som", "si", "je"),      // singular
       Array("sme", "ste", "sú")   // plural
     )
@@ -93,10 +93,14 @@ object Slovník {
   case class Mať(podmet: Seq[Noun]                    = Seq.empty[PodstatméMeno],
                  directPredmet: Option[PodstatméMeno] = None,
                  príslovka: Option[String]            = None)
-      extends chytáť(podmet, príslovka) with SlovesoPrechodné {
-    override val root = "m"
-    override val isTransitive = true
+      extends Chytať(podmet, príslovka) with SlovesoPrechodné {
+    override val infinitív = "mať"
   }
 
-  val verbs = Set(Byť, Mať)
+  case class Bývať(podmet: Seq[Noun]                    = Seq.empty[PodstatméMeno],
+                   príslovka: Option[String]            = None)
+      extends Chytať(podmet, príslovka) {
+    override val infinitív = "bývať"
+  }
+
 }
