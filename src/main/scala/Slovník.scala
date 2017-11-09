@@ -75,7 +75,7 @@ object Slovník {
    */
 
   case class Byť(podmet: Seq[Noun] = Seq.empty[PodstatméMeno], príslovka: Option[String] = None)
-      extends Sloveso(podmet, príslovka) {
+      extends Sloveso(podmet, None, príslovka) {
     override val infinitív = "byť"
     override val isCopulative = true
     val časovanie = Array(
@@ -90,19 +90,8 @@ object Slovník {
 
   }
 
-  case class Mať(podmet: Seq[Noun]                    = Seq.empty[PodstatméMeno],
-                 directPredmet: Option[PodstatméMeno] = None,
-                 príslovka: Option[String]            = None)
-      extends Chytať(podmet, príslovka) with SlovesoPrechodné {
-    override val infinitív = "mať"
-  }
-
-  case class Bývať(podmet: Seq[Noun]                    = Seq.empty[PodstatméMeno],
-                   príslovka: Option[String]            = None)
-      extends Chytať(podmet, príslovka) {
-    override val infinitív = "bývať"
-  }
-
-  object Čakať extends ChytaťFactory("čakať")
+  object Mať extends ATypeFactory("mať")
+  object Bývať extends ATypeFactory("bývať")
+  object Čakať extends ATypeFactory("čakať")
 
 }

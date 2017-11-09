@@ -113,9 +113,14 @@ class VerbSpec extends FlatSpec with Matchers {
     Slovník.Bývať(podmet = Seq(To(Množné))).asText shouldEqual "oni bývajú"
   }
 
-  // Verb subjects may consist of multiple nouns
-  "The Čakať object with a subject of two proper nouns" should "conjugate as the third person plural" in {
+  // Instransitive Verb subjects may consist of multiple nouns
+  "The Čakať verb with a subject of two proper nouns" should "conjugate as the third person plural" in {
     Slovník.Čakať(podmet = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))).asText shouldEqual "Igor a Peter čakajú"
   }
 
+  // Transitive Verb subjects may consist of multiple nouns
+  "The Mať verb with a subject of two proper nouns" should "conjugate as the third person plural" in {
+    Slovník.Mať(podmet = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný)),
+                directPredmet = Some(Slovník.Auto())).asText shouldEqual "Igor a Peter majú auto"
+  }
 }

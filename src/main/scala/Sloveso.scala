@@ -4,8 +4,9 @@ import Osoba._
 import Čislo._
 import Pád._
 
-abstract class Sloveso(podmet: Seq[Noun], príslovka: Option[String]) {
+abstract class Sloveso(podmet: Seq[Noun], directPredmet: Option[PodstatméMeno], príslovka: Option[String]) {
   val infinitív: String
+  lazy val root: String = infinitív.replaceFirst("ať", "")
   val isCopulative: Boolean = false
 
   def asText: String  = podmet.length match {
@@ -24,24 +25,11 @@ abstract class Sloveso(podmet: Seq[Noun], príslovka: Option[String]) {
 
       podmet.map(_.asText(Nominative)).mkString(" a ") + " " +
       príslovka.map(_ + " ").getOrElse("") +
-      inflect(čislo, person)
+      inflect(čislo, person, false) +
+      directPredmet.map(" " + _.asText(Accusative)).getOrElse("")
   }
 
-  def inflect(čislo: Čislo, person: Osoba.Osoba, negate: Boolean = false): String
-}
-
-abstract class RegularSloveso(podmet: Seq[Noun], príslovka: Option[String])
-    extends Sloveso(podmet, príslovka) {
-  lazy val root: String = infinitív.replaceFirst("ať", "")
-}
-
-// This is the paradigmatic "A-type" verb
-
-class Chytať(podmet: Seq[Noun], príslovka: Option[String])
-    extends RegularSloveso(podmet, príslovka) {
-  override val infinitív = "chytať"
-
-  override def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String =
+  def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String =
     (if (negate) "ne" else "") +
     root +
     {
@@ -59,13 +47,21 @@ class Chytať(podmet: Seq[Noun], príslovka: Option[String])
           }
         }
     }
-
 }
 
-abstract class ChytaťFactory(infinitív: String) {
-  class ChytaťInstance(override val infinitív: String = infinitív, podmet: Seq[Noun], príslovka: Option[String]) extends Chytať(podmet, príslovka)
-  def apply(podmet: Seq[Noun] = Seq.empty[Noun], príslovka: Option[String] = None) =
-    new ChytaťInstance(infinitív, podmet, príslovka)
+abstract class ATypeFactory(infinitív: String) {
+  class ATypeInstance(
+    override val infinitív: String = infinitív,
+    podmet: Seq[Noun],
+    directPredmet: Option[PodstatméMeno],
+    príslovka: Option[String]
+  ) extends Sloveso(podmet, directPredmet, príslovka)
+  def apply(
+    podmet: Seq[Noun] = Seq.empty[Noun],
+    directPredmet: Option[PodstatméMeno] = None,
+    príslovka: Option[String] = None
+  ) =
+    new ATypeInstance(infinitív, podmet, directPredmet, príslovka)
 }
 
 /* Some verbs can take direct objects */

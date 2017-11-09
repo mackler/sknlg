@@ -4,16 +4,26 @@ import Čislo._
 
 object Main extends App {
   import Slovník._
+  import Rod._
 
   def conjugations() {
-    val subjects = Set(Ja, Ty)
+    val pronouns = Set(Ja, Ty)
     val nouns = Set(Slovník.Kufor)
+    val properNouns = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))
 
     for {
-      pronoun <- subjects
+      pronoun <- pronouns
       number <- Čislo.values
     } {
-      println( Byť(podmet = Seq(pronoun(number))).asText )
+      val subjects: Set[Seq[Noun]] =
+        Set(Seq[Noun](pronoun(number))) ++
+        Set(if (number == Jednotné) Seq[Noun](pronoun(number), properNouns(1)) else Seq.empty[Noun])
+      for {
+        subject <- subjects
+      } {
+        println( Byť(podmet = subject).asText )
+      }
+
       for {
         noun <- nouns
       } {
