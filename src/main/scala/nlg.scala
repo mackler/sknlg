@@ -6,7 +6,7 @@ object Main extends App {
   import Slovník._
   import Rod._
 
-  def conjugations() {
+  def conjugations(): Set[String] = {
     val pronouns = Set(Ja, Ty, On, Ona)
     val nouns = Set(Slovník.Kufor)
     val properNouns: Seq[Noun] = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))
@@ -22,16 +22,17 @@ object Main extends App {
         }
       } ++ Set(Seq(properNouns(0)), Seq(properNouns(1)), properNouns)
 
-    for {
+    val r =for {
       subject <- subjects
-    } {
-      println( Bývať(podmet = subject, príslovka = Some("tu")).asText )
-      println( Byť(podmet = subject, príslovka = Some("tu")).asText )
-      println( Čakať(podmet = subject).asText )
-      nouns foreach { noun =>
-        println(Mať(podmet = subject, directPredmet = Some(noun())).asText)
-      }
+      negate <- Set(true, false)
+    } yield {
+      Set(Bývať(podmet = subject, príslovka = Some("tu"), záporný = negate).asText,
+       Byť(podmet = subject, príslovka = Some("tu"), záporný = negate).asText,
+       Čakať(podmet = subject, záporný = negate).asText) ++
+      nouns.map{ noun => Mať(podmet = subject, directPredmet = Some(noun()), záporný = negate).asText }
     }
+
+    r.flatten
   }
 
   def genderedAdjectives() {
@@ -48,6 +49,6 @@ object Main extends App {
 
   }
 
-  conjugations()
+  conjugations() foreach { line => println(line) }
 
 }
