@@ -74,8 +74,8 @@ object Slovník {
    * Sloveso
    */
 
-  case class Byť(podmet: Seq[Noun] = Seq.empty[PodstatméMeno], príslovka: Option[String] = None)
-      extends Sloveso(podmet, None, príslovka) {
+  case class Byť(podmet: Seq[Noun] = Seq.empty[PodstatméMeno], príslovka: Option[String] = None, záporný: Boolean = false)
+      extends Sloveso(podmet, None, príslovka, záporný) {
     override val infinitív = "byť"
     override val isCopulative = true
     val časovanie = Array(

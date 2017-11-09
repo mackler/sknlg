@@ -7,31 +7,32 @@ object Main extends App {
   import Rod._
 
   def conjugations() {
-    val pronouns = Set(Ja, Ty)
+    val pronouns = Set(Ja, Ty, On, Ona)
     val nouns = Set(Slovník.Kufor)
-    val properNouns = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))
+    val properNouns: Seq[Noun] = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))
+
+    val subjects: Set[Seq[Noun]] =
+      Čislo.values.flatMap { number =>
+        pronouns flatMap { pronoun =>
+          val proper: Set[Seq[Noun]] = Set(Seq[Noun](pronoun(number)))
+          val pro: Set[Seq[Noun]] = if (number == Jednotné && (pronoun == Ja || pronoun == Ty))
+                                      Set(Seq[Noun](pronoun(number), properNouns(1)))
+                                    else Set.empty[Seq[Noun]]
+          proper ++ pro
+        }
+      } ++ Set(Seq(properNouns(0)), Seq(properNouns(1)), properNouns)
 
     for {
-      pronoun <- pronouns
-      number <- Čislo.values
+      subject <- subjects
     } {
-      val subjects: Set[Seq[Noun]] =
-        Set(Seq[Noun](pronoun(number))) ++
-        Set(if (number == Jednotné) Seq[Noun](pronoun(number), properNouns(1)) else Seq.empty[Noun])
-      for {
-        subject <- subjects
-      } {
-        println( Byť(podmet = subject).asText )
-      }
-
-      for {
-        noun <- nouns
-      } {
-        println(Mať(podmet = Seq(pronoun(number)), directPredmet = Some(noun())).asText)
+      println( Bývať(podmet = subject, príslovka = Some("tu")).asText )
+      println( Byť(podmet = subject, príslovka = Some("tu")).asText )
+      println( Čakať(podmet = subject).asText )
+      nouns foreach { noun =>
+        println(Mať(podmet = subject, directPredmet = Some(noun())).asText)
       }
     }
   }
-
 
   def genderedAdjectives() {
     val nouns = Set[PodstatméMenoFactory](Auto, Býk, Dieťa, Dievča, Dunaj, Hrad, Kaviareň, Kocúr, Krava, Kufor, Mača, Mačka, Mesto, Muž, Namestie, Rieka, Radosť, Srdce, Teľa, Učiteľ, Učiteľka, Voda, Žena)

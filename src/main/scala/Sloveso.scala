@@ -4,7 +4,9 @@ import Osoba._
 import Čislo._
 import Pád._
 
-abstract class Sloveso(podmet: Seq[Noun], directPredmet: Option[PodstatméMeno], príslovka: Option[String]) {
+abstract class Sloveso(
+  podmet: Seq[Noun], directPredmet: Option[PodstatméMeno], príslovka: Option[String], záporný: Boolean
+) {
   val infinitív: String
   lazy val root: String = infinitív.replaceFirst("ať", "")
   val isCopulative: Boolean = false
@@ -25,7 +27,7 @@ abstract class Sloveso(podmet: Seq[Noun], directPredmet: Option[PodstatméMeno],
 
       podmet.map(_.asText(Nominative)).mkString(" a ") + " " +
       príslovka.map(_ + " ").getOrElse("") +
-      inflect(čislo, person, false) +
+      inflect(čislo, person, záporný) +
       directPredmet.map(" " + _.asText(Accusative)).getOrElse("")
   }
 
@@ -54,19 +56,14 @@ abstract class ATypeFactory(infinitív: String) {
     override val infinitív: String = infinitív,
     podmet: Seq[Noun],
     directPredmet: Option[PodstatméMeno],
-    príslovka: Option[String]
-  ) extends Sloveso(podmet, directPredmet, príslovka)
+    príslovka: Option[String],
+    záporný: Boolean
+  ) extends Sloveso(podmet, directPredmet, príslovka, záporný)
   def apply(
     podmet: Seq[Noun] = Seq.empty[Noun],
     directPredmet: Option[PodstatméMeno] = None,
-    príslovka: Option[String] = None
+    príslovka: Option[String] = None,
+    záporný: Boolean = false
   ) =
-    new ATypeInstance(infinitív, podmet, directPredmet, príslovka)
-}
-
-/* Some verbs can take direct objects */
-
-trait SlovesoPrechodné extends Sloveso {
-  val directPredmet: Option[PodstatméMeno]
-  override def asText = super.asText + directPredmet.map(" " + _.asText(Accusative)).getOrElse("")
+    new ATypeInstance(infinitív, podmet, directPredmet, príslovka, záporný)
 }

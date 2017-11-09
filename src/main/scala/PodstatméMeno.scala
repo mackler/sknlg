@@ -28,11 +28,9 @@ trait Noun {
 }
 
 /* Person names */
-object Pomenovanie {
-  def apply(name: String, rod: Rod) = new Noun {
-    override val čislo = Jednotné
-    override def decline(pad: Pád = Nominative) = name
-  }
+case class Pomenovanie(name: String, rod: Rod) extends Noun {
+  override val čislo = Jednotné
+  override def decline(pad: Pád = Nominative) = name
 }
 
 /* These are only common nouns (not pronouns) */
