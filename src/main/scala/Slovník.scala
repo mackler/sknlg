@@ -79,10 +79,10 @@ object Slovník {
     override val infinitív = "byť"
     override val isCopulative = true
     val časovanie = Array(
-      Array("som", "si", "je"),      // singular
+      Array("som", "si", "je"),   // singular
       Array("sme", "ste", "sú")   // plural
     )
-    override def inflect(čislo: Čislo, person: Osoba, negate: Boolean = false): String =
+    override def inflect(čislo: Čislo, person: Osoba, negate: Boolean): String =
       (if (negate) "nie " else "") + časovanie(čislo.id)(person.id)
 
     // add a podmet and return a new verb instance

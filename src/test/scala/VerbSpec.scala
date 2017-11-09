@@ -124,10 +124,14 @@ class VerbSpec extends FlatSpec with Matchers {
                 directPredmet = Some(Slovník.Auto())).asText shouldEqual "Igor a Peter majú auto"
   }
 
-  // Verbs can be negated
+  // Regular can be negated
   "The Mať verb negated" should "be in the negative" in {
     Slovník.Mať(podmet = Seq(Ja()), directPredmet = Some(Slovník.Auto()), záporný = true).asText shouldEqual "ja nemám auto"
   }
 
+  // Byť can be negated
+  "The Byť verb negated" should "be in the negative" in {
+    Slovník.Byť(podmet = Seq(Ja()), príslovka = Some("tu"), záporný = true).asText shouldEqual "ja tu nie som"
+  }
 
 }
