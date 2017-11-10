@@ -19,13 +19,12 @@ abstract class PodstatméMenoFactory(entry: String, rod: Rod) {
   }
 }
 
-/* This is the superclass of both pronouns and common nouns */
+/* This is the superclass of both pronouns (zámeno) and common nouns (podstatmé meno) */
 trait Noun {
 val rod: Rod
   val čislo:        Čislo
   protected def decline(pád: Pád): String
-  def asText(pád: Pád = Nominative) =
-    decline(pád)
+  def asText(pád: Pád = Nominative) = decline(pád)
 }
 
 /* Person names */
@@ -57,7 +56,7 @@ trait PodstatméMeno extends Noun {
       else                                                   Chlap
     case MužskýNeživotný =>
       if (Spoluhláska.soft.exists(entry.endsWith))           Stroj
-      else                                                   Dub
+      else /* ends with hard or neutral consonant */         Dub
     case Ženský =>
       if (Set("c","s","p","v","st").exists(entry.endsWith))  Kosť
       else if ((Spoluhláska.hard ++ Spoluhláska.neutral).exists(c => entry.endsWith(c + "a")))
@@ -119,12 +118,19 @@ trait PodstatméMeno extends Noun {
           case Množné   => entry.replaceFirst("a$", "u")
         }
       }
-      case Ulica => entry
+      case Ulica => čislo match {
+        case Jednotné => entry
+        case Množné => entry.replaceFirst("a$", "e")
+      }
       case Dlaň => entry
+      case Kosť => čislo match {
+        case Jednotné => entry
+        case Množné => entry + "i"
+      }
 
       case Mesto => čislo match {
         case Jednotné => entry
-        case Množné   => entry + "á"
+        case Množné   => entry.replaceFirst("o$", "á")
       }
       case Srdce => entry
       case Vysvedčenie => čislo match {

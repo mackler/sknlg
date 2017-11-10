@@ -64,6 +64,16 @@ object Main extends App {
 
   }
 
-  exM2Adjectives foreach { line => println(line) }
+  /* Exercise corresponding to Mistrík Chapter 3 - declining nouns: singular/plural, nominative/accusative */
+  def exM3Nouns: Set[String] = {
+    val nouns = Set(Auto, Breh, Cena, Dedina, Dom, Dvor, Hlava, Kniha, Kvet, Les, Lúka, Mesto, Minúta, Muž, Noha,
+                    Obchod, Obraz, Otázka, Pán, Plot, Prst,
+                    Rieka, Ruka, Škola, Stanica, Stavba, Stena, Strom, Trieda, Vec, Ulica, Večer, Voz, Záhrada)
+    for {
+      noun <- nouns
+    } yield Byť(podmet =Seq(noun())).asText
+  }
+
+  exM3Nouns foreach { line => println(line) }
 
 }

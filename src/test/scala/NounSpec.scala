@@ -60,4 +60,34 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
     Slovník.Byť(podmet = Seq(Pomenovanie("Igor", MužskýŽivotný))).asText shouldEqual "Igor je"
   }
 
+  /*
+   * Pluralize Nouns in the Nominative Case
+   */
+ 
+  "A masculine noun following dub" should "decline in the nominative plural" in {
+    Slovník.Voz(čislo = Množné).asText() shouldEqual "vozy"
+  }
+
+  "A feminine noun following žena" should "decline in the nominative plural" in {
+    Slovník.Stavba(čislo = Množné).asText() shouldEqual "stavby"
+  }
+
+  "A feminine noun following ulica" should "decline in the nominative plural" in {
+    Slovník.Stanica(čislo = Množné).asText() shouldEqual "stanice"
+  }
+
+  "A feminine noun following kosť" should "decline in the nominative plural" in {
+    Slovník.Vec(čislo = Množné).asText() shouldEqual "veci"
+  }
+
+  "A neuter noun following mesto" should "decline in the nominative plural" in {
+    Slovník.Auto(čislo = Množné).asText() shouldEqual "autá"
+  }
+
+  /*
+   * Accusative Case Declensions
+   */
+
+
+
 }
