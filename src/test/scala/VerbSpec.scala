@@ -134,4 +134,9 @@ class VerbSpec extends FlatSpec with Matchers {
     Slovník.Byť(podmet = Seq(Ja()), príslovka = Some("tu"), záporný = true).asText shouldEqual "ja tu nie som"
   }
 
+  // Byť can be a copula 
+  "The Byť verb" should "connect a subject to a predicate adjective" in {
+    Slovník.Byť(podmet = Seq(Ja()), prísudok = Some(Slovník.Dobrý)).asText shouldEqual "ja som dobrý"
+  }
+
 }

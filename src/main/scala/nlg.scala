@@ -6,7 +6,8 @@ object Main extends App {
   import Slovník._
   import Rod._
 
-  def conjugations(): Set[String] = {
+  /* Exercises corresponding to Naughton Unit 1 Verb Conjugation and negation */
+  def exN1ATypeVerbs(): Set[String] = {
     val pronouns = Set(Ja, Ty, On, Ona)
     val nouns = Set(Slovník.Kufor)
     val properNouns: Seq[Noun] = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))
@@ -35,7 +36,8 @@ object Main extends App {
     r.flatten
   }
 
-  def genderedAdjectives() {
+  /* Exercises corresponding to Naughton Unit 1 Adjectives */
+  def exN1AGendersAdjective() {
     val nouns = Set[PodstatméMenoFactory](Auto, Býk, Dieťa, Dievča, Dunaj, Hrad, Kaviareň, Kocúr, Krava, Kufor, Mača, Mačka, Mesto, Muž, Namestie, Rieka, Radosť, Srdce, Teľa, Učiteľ, Učiteľka, Voda, Žena)
   val adjectives = Seq(Čistý, Zlý, Dobrý, Hnedý, Krázny, Malý, Mladý, Modrý, Nový, Pekný, Škaredý, Špinavý, Starý, Veľký)
 
@@ -49,6 +51,19 @@ object Main extends App {
 
   }
 
-  conjugations() foreach { line => println(line) }
+  /* Exercise corresponding to Mistrík Chapter 2 - adjective, noun gender */
+  def exM2Adjectives: Set[String] = {
+    val nouns = Set(Čelo, Dedina, Deň, Dieťa, Dlaň, Dom, Hlava, Chlapec, Kniha, Kôň, Les, Lúka, Mesto, Mlieko, Muž, Noha, Obraz, Oko, Pani, Pán,
+                    Prst, Rameno, Ráno, Ruka, Sklo, Stena, Strom, Škola, Trieda, Tvár, Ulica, Večer, Voda, Záhrada)
+    val adjectives = Set(Čistý, Dobrý, Malý, Nový, Pekný, Veľký, Vysoký, Zelený, Zlý)
+
+    for {
+      noun <- nouns
+      adjective <- adjectives
+    } yield Byť(podmet = Seq(noun()), prísudok = Some(adjective)).asText
+
+  }
+
+  exM2Adjectives foreach { line => println(line) }
 
 }

@@ -2,8 +2,8 @@ package org.mackler.sknlg
 
 import Rod._
 
-trait PrídavnéMeno {
-  protected val root: String
+case class PrídavnéMeno(entry: String) {
+  private val root = entry.replaceFirst("ý$", "")
 
   def asText(rod: Rod) = root + {
     if (finalSyllableIsLong(root))

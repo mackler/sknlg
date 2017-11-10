@@ -17,30 +17,64 @@ object Slovník {
   object Učiteľ extends PodstatméMenoFactory(entry = "učitel", rod = MužskýŽivotný)
   object Býk extends PodstatméMenoFactory(entry = "býk", rod = MužskýŽivotný)
   object Kocúr extends PodstatméMenoFactory(entry = "kocúr", rod = MužskýŽivotný)
+  // other masculine animate
+  object Chlapec extends PodstatméMenoFactory(entry = "chlapec", rod = MužskýŽivotný)
+  object Kôň extends PodstatméMenoFactory(entry = "kôň", rod = MužskýŽivotný)
 
   // Masculine Inanimate
   // ending in hard consonant
+  object Deň extends PodstatméMenoFactory(entry = "deň", rod = MužskýNeživotný)
   object Hrad extends PodstatméMenoFactory(entry = "hrad", rod = MužskýNeživotný)
   object Kufor extends PodstatméMenoFactory(entry = "kufor", rod = MužskýNeživotný)
+  object Pán extends PodstatméMenoFactory(entry = "pán", rod = MužskýNeživotný)
+  object Prst extends PodstatméMenoFactory(entry = "prst", rod = MužskýNeživotný)
   // ending in sort consonant
   object Dunaj extends PodstatméMenoFactory(entry = "Dunaj", rod = MužskýNeživotný)
+  // ending in a neutral consonant
+  object Dom extends PodstatméMenoFactory(entry = "dom", rod = MužskýNeživotný)
+  object Les extends PodstatméMenoFactory(entry = "les", rod = MužskýNeživotný)
+  object Obraz extends PodstatméMenoFactory(entry = "obraz", rod = MužskýNeživotný)
+  object Strom extends PodstatméMenoFactory(entry = "strom", rod = MužskýNeživotný)
+  object Večer extends PodstatméMenoFactory(entry = "večer", rod = MužskýNeživotný)
 
   // Feminine
-  // ending in -a preceded by a hard consonant (or neutral for krava)
+  // ending in -a preceded by a hard consonant (or neutral for krava, hlavab, škola)
+  object Dedina extends PodstatméMenoFactory(entry = "dedina", rod = Ženský)
+  object Hlava extends PodstatméMenoFactory(entry = "hlava", rod = Ženský)
+  object Kniha extends PodstatméMenoFactory(entry = "kniha", rod = Ženský)
   object Krava extends PodstatméMenoFactory(entry = "krava", rod = Ženský)
+  object Lúka extends PodstatméMenoFactory(entry = "lúka", rod = Ženský)
   object Mačka extends PodstatméMenoFactory(entry = "mačka", rod = Ženský)
+  object Noha extends PodstatméMenoFactory(entry = "noha", rod = Ženský)
   object Rieka extends PodstatméMenoFactory(entry = "rieka", rod = Ženský)
+  object Ruka extends PodstatméMenoFactory(entry = "ruka", rod = Ženský)
+  object Škola extends PodstatméMenoFactory(entry = "škola", rod = Ženský)
+  object Stena extends PodstatméMenoFactory(entry = "stena", rod = Ženský)
+  object Trieda extends PodstatméMenoFactory(entry = "trieda", rod = Ženský)
   object Učiteľka extends PodstatméMenoFactory(entry = "učiteľka", rod = Ženský)
   object Voda extends PodstatméMenoFactory(entry = "voda", rod = Ženský)
   object Žena extends PodstatméMenoFactory(entry = "žena", rod = Ženský)
+  object Záhrada extends PodstatméMenoFactory(entry = "záhrada", rod = Ženský)
   // following dlaň
+  object Dlaň extends PodstatméMenoFactory(entry = "dlaň", rod = Ženský)
   object Kaviareň extends PodstatméMenoFactory(entry = "kaviareň", rod = Ženský)
   object Radosť extends PodstatméMenoFactory(entry = "radosť", rod = Ženský)
+  // uncategorized Feminine
+  object Tvár extends PodstatméMenoFactory(entry = "tvár", rod = Ženský)
+  object Ulica extends PodstatméMenoFactory(entry = "ulica", rod = Ženský)
+  object Pani extends PodstatméMenoFactory(entry = "pani", rod = Ženský)
+
 
   // Neuter
   // ending in -o
   object Auto extends PodstatméMenoFactory(entry = "auto", rod = Stredný)
+  object Čelo extends PodstatméMenoFactory(entry = "čelo", rod = Stredný)
   object Mesto extends PodstatméMenoFactory(entry = "mesto", rod = Stredný)
+  object Mlieko extends PodstatméMenoFactory(entry = "mlieko", rod = Stredný)
+  object Oko extends PodstatméMenoFactory(entry = "oko", rod = Stredný)
+  object Rameno extends PodstatméMenoFactory(entry = "rameno", rod = Stredný)
+  object Ráno extends PodstatméMenoFactory(entry = "ráno", rod = Stredný)
+  object Sklo extends PodstatméMenoFactory(entry = "sklo", rod = Stredný)
   // ending -e
   object Srdce extends PodstatméMenoFactory(entry = "srdce", rod = Stredný)
   // ending -ie
@@ -55,29 +89,34 @@ object Slovník {
    * PrídavnéMeno
    */
 
-  case object Čistý extends PrídavnéMeno { protected val root = "čist" }
-  case object Dobrý extends PrídavnéMeno { protected val root = "dobr" }
-  case object Hnedý extends PrídavnéMeno { protected val root = "hned" }
-  case object Krázny extends PrídavnéMeno { protected val root = "krázn" }
-  case object Malý extends PrídavnéMeno { protected val root = "mal" }
-  case object Mladý extends PrídavnéMeno { protected val root = "mlad" }
-  case object Modrý extends PrídavnéMeno { protected val root = "modr" }
-  case object Nový extends PrídavnéMeno { protected val root = "nov" }
-  case object Pekný extends PrídavnéMeno { protected val root = "pekn" }
-  case object Škaredý extends PrídavnéMeno { protected val root = "škared" }
-  case object Špinavý extends PrídavnéMeno { protected val root = "špinav" }
-  case object Starý extends PrídavnéMeno { protected val root = "star" }
-  case object Veľký extends PrídavnéMeno { protected val root = "veľk" }
-  case object Zlý extends PrídavnéMeno { protected val root = "zl" }
+  val Čistý = new PrídavnéMeno("čistý")
+  val Dobrý = new PrídavnéMeno("dobrý")
+  val Hnedý = new PrídavnéMeno("hnedý")
+  val Krázny = new PrídavnéMeno("krázný")
+  val Malý = new PrídavnéMeno("malý")
+  val Mladý = new PrídavnéMeno("mladý")
+  val Modrý = new PrídavnéMeno("modrý")
+  val Nový = new PrídavnéMeno("nový")
+  val Pekný = new PrídavnéMeno("pekný")
+  val Škaredý = new PrídavnéMeno("škaredý")
+  val Špinavý = new PrídavnéMeno("špinavý")
+  val Starý = new PrídavnéMeno("starý")
+  val Veľký = new PrídavnéMeno("veľký")
+  val Vysoký = new PrídavnéMeno("vysoký")
+  val Zelený = new PrídavnéMeno("zelený")
+  val Zlý = new PrídavnéMeno("zlý")
 
   /*
    * Sloveso
    */
 
-  case class Byť(podmet: Seq[Noun] = Seq.empty[PodstatméMeno], príslovka: Option[String] = None, záporný: Boolean = false)
-      extends Sloveso(podmet, None, príslovka, záporný) {
+  case class Byť(
+    podmet: Seq[Noun] = Seq.empty[PodstatméMeno],
+    príslovka: Option[String] = None,
+    záporný: Boolean = false,
+    prísudok: Option[PrídavnéMeno] = None
+  ) extends Sloveso(podmet, None, príslovka, záporný) {
     override val infinitív = "byť"
-    override val isCopulative = true
     val časovanie = Array(
       Array("som", "si", "je"),   // singular
       Array("sme", "ste", "sú")   // plural
@@ -86,7 +125,10 @@ object Slovník {
       (if (negate) "nie " else "") + časovanie(čislo.id)(person.id)
 
     // add a podmet and return a new verb instance
-    def podmet(newPodmet: PodstatméMeno): Sloveso = new Byť(podmet :+ newPodmet)
+//    def podmet(newPodmet: PodstatméMeno): Sloveso = new Byť(podmet :+ newPodmet)
+    override def asText = super.asText + prísudok.map { adjective =>
+      " " + adjective.asText(if (podmet.length == 0) Stredný else podmet(0).rod)
+    }.getOrElse("")
 
   }
 
