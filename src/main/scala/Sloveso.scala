@@ -51,8 +51,8 @@ abstract class Sloveso(
     }
 }
 
-abstract class ATypeFactory(infinitív: String) {
-  class ATypeInstance(
+abstract class Type1Factory(infinitív: String) {
+  class Type1Instance(
     override val infinitív: String = infinitív,
     podmet: Seq[Noun],
     directPredmet: Option[PodstatméMeno],
@@ -65,5 +65,40 @@ abstract class ATypeFactory(infinitív: String) {
     príslovka: Option[String] = None,
     záporný: Boolean = false
   ) =
-    new ATypeInstance(infinitív, podmet, directPredmet, príslovka, záporný)
+    new Type1Instance(infinitív, podmet, directPredmet, príslovka, záporný)
+}
+
+
+class SlovesoType13Factory(infinitív: String) {
+  class SlovesoType13(
+    override val infinitív: String = infinitív,
+    podmet: Seq[Noun],
+    directPredmet: Option[PodstatméMeno],
+    príslovka: Option[String],
+    záporný: Boolean
+  ) extends Sloveso(podmet, directPredmet, príslovka, záporný) {
+    override def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String = {
+      infinitív.replaceFirst("ieť$", "") +
+      (čislo match {
+        case Jednotné => osoba match {
+          case First =>  "ím"
+          case Second => "íš"
+          case Third =>  "í"
+        }
+        case Množné => osoba match {
+          case First =>  "íme"
+          case Second => "íte"
+          case Third =>  "ia"
+        }
+      })
+    }
+    
+  }
+  def apply(
+    podmet: Seq[Noun] = Seq.empty[Noun],
+    directPredmet: Option[PodstatméMeno] = None,
+    príslovka: Option[String] = None,
+    záporný: Boolean = false
+  ) =
+    new SlovesoType13(infinitív, podmet, directPredmet, príslovka, záporný)
 }

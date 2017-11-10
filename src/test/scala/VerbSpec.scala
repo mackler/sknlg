@@ -48,7 +48,7 @@ class VerbSpec extends FlatSpec with Matchers {
     Slovník.Byť(podmet = Seq(To(Množné))).asText shouldEqual "oni sú"
   }
 
-  // Mať is a regular verb
+  // Mať is a regular verb of Type 1 following "chytať" - "chytám"
 
   "The Mať object without podmet noun" should "generate the infinitive" in {
     Slovník.Mať().asText shouldEqual "mať"
@@ -138,5 +138,35 @@ class VerbSpec extends FlatSpec with Matchers {
   "The Byť verb" should "connect a subject to a predicate adjective" in {
     Slovník.Byť(podmet = Seq(Ja()), prísudok = Some(Slovník.Dobrý)).asText shouldEqual "ja som dobrý"
   }
+
+  // Type 13 verbs follow "vidieť" - "vidím"
+  "The Vidieť object without podmet noun" should "generate the infinitive" in {
+    Slovník.Vidieť().asText shouldEqual "vidieť"
+  }
+  "The Vidieť object with a 1st/male/singular podmet pronoun" should "return the first person singular" in {
+    Slovník.Vidieť(podmet = Seq(Ja(Jednotné))).asText shouldEqual "ja vidím"
+  }
+  "The Vidieť object with a 2nd/male/singular podmet pronoun" should "return the second person singular" in {
+    Slovník.Vidieť(podmet = Seq(Ty(Jednotné))).asText shouldEqual "ty vidíš"
+  }
+  "The Vidieť object with a 1st/male/plural podmet pronoun" should "return the first person plural" in {
+    Slovník.Vidieť(podmet = Seq(Ja(Množné))).asText shouldEqual "my vidíme"
+  }
+  "The Vidieť object with a 2nd/male/plural podmet pronoun" should "return the second person plural" in {
+    Slovník.Vidieť(podmet = Seq(Ty(Množné))).asText shouldEqual "vy vidíte"
+  }
+  "The Vidieť object with a 3rd/male/singular podmet pronoun" should "return the third person male singular" in {
+    Slovník.Vidieť(podmet = Seq(On(Jednotné))).asText shouldEqual "on vidí"
+  }
+  "The Vidieť object with a 3rd/female/singular podmet pronoun" should "return the third person female singular" in {
+    Slovník.Vidieť(podmet = Seq(Ona(Jednotné))).asText shouldEqual "ona vidí"
+  }
+  "The Vidieť object with a 3rd/neuter/singular podmet pronoun" should "return the third person neuter singular" in {
+    Slovník.Vidieť(podmet = Seq(To(Jednotné))).asText shouldEqual "to vidí"
+  }
+  "The Vidieť object with a 3rd/neuter/plural podmet pronoun" should "return the third person plural" in {
+    Slovník.Vidieť(podmet = Seq(To(Množné))).asText shouldEqual "oni vidia"
+  }
+
 
 }

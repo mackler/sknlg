@@ -78,6 +78,7 @@ object Slovník {
   object Kaviareň extends PodstatméMenoFactory(entry = "kaviareň", rod = Ženský)
   object Radosť extends PodstatméMenoFactory(entry = "radosť", rod = Ženský)
   // ending in consonant in nominative singular, -i in genitive singular, e.g., "kosť"
+  object Pomoc extends PodstatméMenoFactory(entry = "pomoc", rod = Ženský)
   object Vec extends PodstatméMenoFactory(entry = "vec", rod = Ženský)
   // uncategorized Feminine
   object Tvár extends PodstatméMenoFactory(entry = "tvár", rod = Ženský)
@@ -143,16 +144,19 @@ object Slovník {
     override def inflect(čislo: Čislo, person: Osoba, negate: Boolean): String =
       (if (negate) "nie " else "") + časovanie(čislo.id)(person.id)
 
-    // add a podmet and return a new verb instance
-//    def podmet(newPodmet: PodstatméMeno): Sloveso = new Byť(podmet :+ newPodmet)
     override def asText = super.asText + prísudok.map { adjective =>
       " " + adjective.asText(if (podmet.length == 0) Stredný else podmet(0).rod)
     }.getOrElse("")
 
   }
 
-  object Mať extends ATypeFactory("mať")
-  object Bývať extends ATypeFactory("bývať")
-  object Čakať extends ATypeFactory("čakať")
+  // Type1 Verbs follow "chytať" - "chytám"
+  object Mať extends Type1Factory("mať")
+  object Bývať extends Type1Factory("bývať")
+  object Čakať extends Type1Factory("čakať")
+  object Hľadám extends Type1Factory("hľadám")
+
+  // Type 13 verbs follow "vidieť" - "vidím"
+  val Vidieť = new SlovesoType13Factory("vidieť")
 
 }

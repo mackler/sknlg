@@ -6,13 +6,11 @@ object Main extends App {
   import Slovník._
   import Rod._
 
-  /* Exercises corresponding to Naughton Unit 1 Verb Conjugation and negation */
-  def exN1ATypeVerbs(): Set[String] = {
+  /* Combinations of sentence subjects, both singular and plural, proper names and pronouns. */
+  val subjects: Set[Seq[Noun]] = {
     val pronouns = Set(Ja, Ty, On, Ona)
-    val nouns = Set(Slovník.Kufor)
     val properNouns: Seq[Noun] = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))
 
-    val subjects: Set[Seq[Noun]] =
       Čislo.values.flatMap { number =>
         pronouns flatMap { pronoun =>
           val proper: Set[Seq[Noun]] = Set(Seq[Noun](pronoun(number)))
@@ -22,6 +20,11 @@ object Main extends App {
           proper ++ pro
         }
       } ++ Set(Seq(properNouns(0)), Seq(properNouns(1)), properNouns)
+  }
+
+  /* Exercises corresponding to Naughton Unit 1 Verb Conjugation and negation */
+  def exN1ATypeVerbs(): Set[String] = {
+    val nouns = Set(Slovník.Kufor)
 
     val r =for {
       subject <- subjects
@@ -69,9 +72,20 @@ object Main extends App {
     val nouns = Set(Auto, Breh, Cena, Dedina, Dom, Dvor, Hlava, Kniha, Kvet, Les, Lúka, Mesto, Minúta, Muž, Noha,
                     Obchod, Obraz, Otázka, Pán, Plot, Prst,
                     Rieka, Ruka, Škola, Stanica, Stavba, Stena, Strom, Trieda, Vec, Ulica, Večer, Voz, Záhrada)
-    for {
+
+    val singularNominative = nouns.map(noun => Byť(podmet = Seq(noun()), príslovka = Some("tu")).asText) 
+    val pluralNominative = nouns.map(noun => Byť(podmet = Seq(noun(čislo = Množné)), príslovka = Some("tu")).asText)
+
+    val verbs = Set(Hľadám)
+
+    val accusative = for {
+      verb <- verbs
       noun <- nouns
-    } yield Byť(podmet =Seq(noun())).asText
+      number <- Set(Jednotné, Množné)
+      subject <- subjects
+    } yield verb( podmet = subject, directPredmet = Some(noun(čislo = number)) ).asText
+
+    accusative
   }
 
   exM3Nouns foreach { line => println(line) }
