@@ -62,8 +62,9 @@ abstract class Type1Factory(infinitív: String) {
     príslovka: Option[String],
     záporný: Boolean
   ) extends Sloveso(podmet, directPredmet, príslovka, záporný) with TransitiveVerb {
-    def setPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
+    def setPodmet(p: Noun)= this.copy(podmet = podmet :+ p)
     def setPredmet(o: PodstatnéMeno): Sloveso = this.copy(directPredmet = Some(o))
+    def toggleZáporný() = this.copy(záporný = !záporný)
   }
   def apply(
     podmet: Seq[Noun] = Seq.empty[Noun],

@@ -102,11 +102,11 @@ trait PodstatnéMeno extends Noun {
       case Chlap => pád match {
         case Nominatív => čislo match {
           case Jednotné => entry
-          case Množné   => entry.replaceFirst("a$", "i")
+          case Množné   => entry + "i"
         }
         case Akusatív => čislo match {
-          case Jednotné => entry.replaceFirst("a$", "a")
-          case Množné   => entry.replaceFirst("a$", "ov")
+          case Jednotné => entry + "a"
+          case Množné   => entry + "ov"
         }
       }
       case Dub => čislo match {
@@ -120,13 +120,19 @@ trait PodstatnéMeno extends Noun {
           case Množné   => entry.replaceFirst("a$", "y")
         }
         case Akusatív => čislo match {
-          case Jednotné => entry.replaceFirst("a$", "a")
-          case Množné   => entry.replaceFirst("a$", "u")
+          case Jednotné => entry.replaceFirst("a$", "u") // was a
+          case Množné   => entry.replaceFirst("a$", "y") // was u
         }
       }
-      case Ulica => čislo match {
-        case Jednotné => entry
-        case Množné => entry.replaceFirst("a$", "e")
+      case Ulica => pád match {
+        case Nominatív =>  čislo match {
+          case Jednotné => entry
+          case Množné => entry.replaceFirst("a$", "e")
+        }
+        case Akusatív =>  čislo match {
+          case Jednotné => entry.replaceFirst("a$", "u")
+          case Množné => entry.replaceFirst("a$", "e")
+        }
       }
       case Dlaň => entry
       case Kosť => čislo match {

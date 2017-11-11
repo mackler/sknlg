@@ -26,7 +26,7 @@ case class Ty(val čislo: Čislo = Jednotné) extends Zámeno {
     )
 }
 
-case class On(val čislo: Čislo) extends Zámeno {
+case class On(val čislo: Čislo = Jednotné) extends Zámeno {
   val rod = MužskýŽivotný
   override protected val skloňovanie = Array(
       Array("on", "oni"),

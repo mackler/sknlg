@@ -64,7 +64,6 @@ object Slovník {
   object Ruka extends PodstatnéMenoFactory(entry = "ruka", rod = Ženský)
   object Stavba extends PodstatnéMenoFactory(entry = "stavba", rod = Ženský)
   object Stena extends PodstatnéMenoFactory(entry = "stena", rod = Ženský)
-  object Stanica extends PodstatnéMenoFactory(entry = "stanica", rod = Ženský)
   object Škola extends PodstatnéMenoFactory(entry = "škola", rod = Ženský)
   object Trieda extends PodstatnéMenoFactory(entry = "trieda", rod = Ženský)
   object Učiteľka extends PodstatnéMenoFactory(entry = "učiteľka", rod = Ženský)
@@ -72,6 +71,7 @@ object Slovník {
   object Žena extends PodstatnéMenoFactory(entry = "žena", rod = Ženský)
   object Záhrada extends PodstatnéMenoFactory(entry = "záhrada", rod = Ženský)
   // ending in -a preceding by a soft consonant, e.g., "ulica"
+  object Stanica extends PodstatnéMenoFactory(entry = "stanica", rod = Ženský)
   object Ulica extends PodstatnéMenoFactory(entry = "ulica", rod = Ženský)
   // following dlaň
   object Dlaň extends PodstatnéMenoFactory(entry = "dlaň", rod = Ženský)
@@ -179,7 +179,7 @@ object Slovník {
   object Mať extends Type1Factory("mať")
   object Bývať extends Type1Factory("bývať")
   object Čakať extends Type1Factory("čakať")
-  object Hľadám extends Type1Factory("hľadám")
+  object Hľadať extends Type1Factory("hľadať")
   object Poznať extends Type1Factory("poznať")
 
   // Type 11 verbs follow "pracuvať"

@@ -10,5 +10,8 @@ class ZámenoSpec extends FlatSpec with Matchers {
   "A second-person pronoun" should "default to singular" in {
     Ty().asText() shouldEqual "ty"
   }
+  "A third-person pronoun" should "default to singular" in {
+    On().asText() shouldEqual "on"
+  }
 
 }

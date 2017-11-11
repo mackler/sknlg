@@ -107,8 +107,18 @@ class VerbSpec extends FlatSpec with Matchers {
     Slovník.Mať(podmet = Seq(To(Množné))).asText shouldEqual "oni majú"
   }
 
-  // Transitive Verbs can have a direct object
+  // A verb can be negated
+  "The Mať object constructed with a 1st/male/plural podmet pronoun" should "be negatable" in {
+    Slovník.Mať(podmet = Seq(Ja(Množné))).toggleZáporný().asText shouldEqual "my nemáme"
+  }
+  "The Mať object with a 1st/male/plural podmet pronoun added" should "be negatable" in {
+    Slovník.Mať().setPodmet(Ja(Množné)).toggleZáporný().asText shouldEqual "my nemáme"
+  }
+  "The Mať object with a 3rd/male/singular podmet pronoun" should "be negatable" in {
+    Slovník.Mať(podmet = Seq(On(Jednotné))).toggleZáporný.asText shouldEqual "on nemá"
+  }
 
+  // Transitive Verbs can have a direct object
   "The Mať object 1st/sing with a direct object" should "return the correct text" in {
     Slovník.Mať(podmet = Seq(Ja(Jednotné)), directPredmet = Some(Slovník.Auto())).asText shouldEqual "ja mám auto"
   }

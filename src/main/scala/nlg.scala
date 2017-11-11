@@ -67,40 +67,42 @@ object Main extends App {
 
   }
 
-  /* Exercise corresponding to Mistrík Chapter 3 - declining nouns: singular/plural, nominative/accusative */
-  def exM3Nouns: Set[String] = {
-    val nouns = Set(Auto, Breh, Cena, Dedina, Dom, Dvor, Hlava, Kniha, Kvet, Les, Lúka, Mesto, Minúta, Muž, Noha,
-                    Obchod, Obraz, Otázka, Pán, Plot, Prst,
-                    Rieka, Ruka, Škola, Stanica, Stavba, Stena, Strom, Trieda, Vec, Ulica, Večer, Voz, Záhrada)
+  /* Exercises corresponding to Mistrík Chapter 3 - declining nouns: singular/plural, nominative/accusative */
+  val exM3Nouns = Set(Auto, Breh, Cena, Dedina, Dom, Dvor, Hlava, Kniha, Kvet, Les, Lúka, Mesto, Minúta, Muž, Noha,
+    Obchod, Obraz, Otázka, Pán, Plot, Prst,
+    Rieka, Ruka, Škola, Stanica, Stavba, Stena, Strom, Trieda, Vec, Ulica, Večer, Voz, Záhrada)
+  def exM3Plural: Set[String] = {
 
-    val singularNominative = nouns.map(noun => Byť(podmet = Seq(noun()), príslovka = Some("tu")).asText) 
-    val pluralNominative = nouns.map(noun => Byť(podmet = Seq(noun(čislo = Množné)), príslovka = Some("tu")).asText)
-
-    val verbs = Set(Hľadám() setPodmet Ja(),
+    val singularNominative = exM3Nouns.map(noun => Byť(podmet = Seq(noun()), príslovka = Some("tu")).asText) 
+    val pluralNominative = exM3Nouns.map(noun => Byť(podmet = Seq(noun(čislo = Množné)), príslovka = Some("tu")).asText)
+    singularNominative ++ pluralNominative
+  }
+  def exM3Accusative: Set[String] = {
+    val verbs = Set(Hľadať() setPodmet Ja(),
                     Mať() setPodmet Ja(),
                     Poznať() setPodmet Ty(čislo = Množné),
                     Vidieť() setPodmet Ja(),
-                    Ísť().setPodmet(Ty(čislo = Množné)).asInstanceOf[TransitiveVerb],
                     Obrátiť().setPodmet(Ty(čislo = Množné)),
+                    Potrebovať().setPodmet(Ja()),
                     Mať().setPodmet(Ty(čislo = Jednotné)),
-                    Mať().setPodmet(Ja(čislo = Množné))
+                    Mať().setPodmet(On(čislo = Množné)),
+                    Mať().setPodmet(Ja(čislo = Množné)).toggleZáporný,
+                    Mať().setPodmet(On()).toggleZáporný
     )
 
     val accusative: Set[String] = for {
       verb <- verbs
-      noun <- nouns
+      noun <- exM3Nouns
       number <- Set(Jednotné, Množné)
       subject <- subjects
     } yield {
-      val n = noun()
-      val preposition = if(verb.isInstanceOf[Ísť]) Some("cez") else None
-      val directObject = preposition.map(n.predložka).getOrElse(n) setČislo number
+      val directObject = noun() setČislo number
       verb setPredmet directObject asText
     }
 
     accusative
   }
 
-  exM3Nouns foreach { line => println(line) }
+  exM3Accusative foreach { line => println(line) }
 
 }

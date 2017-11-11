@@ -21,15 +21,15 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the nominative case plural" in {
-    Slovník.Učiteľ(čislo = Množné).asText() shouldEqual "učitel"
+    Slovník.Učiteľ(čislo = Množné).asText() shouldEqual "učiteli"
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the accusative case singular" in {
-    Slovník.Učiteľ().asText(pád = Akusatív) shouldEqual "učitel"
+    Slovník.Učiteľ().asText(pád = Akusatív) shouldEqual "učitela"
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the accusative case plural" in {
-    Slovník.Učiteľ(čislo = Množné).asText(pád = Akusatív) shouldEqual "učitel"
+    Slovník.Učiteľ(čislo = Množné).asText(pád = Akusatív) shouldEqual "učitelov"
   }
 
   "A masculine, inanimate noun ending in a soft consonant" should "decline in the accusative case singular" in {
@@ -60,6 +60,15 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
     Slovník.Byť(podmet = Seq(Pomenovanie("Igor", MužskýŽivotný))).asText shouldEqual "Igor je"
   }
 
+  "A feminine noun following ulica" should "decline in the accusative case singular" in {
+    Slovník.Ulica(čislo = Jednotné).asText(pád = Akusatív) shouldEqual "ulicu"
+  }
+  "A feminine noun following ulica" should "decline in the accusative case plural" in {
+    Slovník.Ulica(čislo = Množné).asText(pád = Akusatív) shouldEqual "ulice"
+  }
+
+
+
   /*
    * Pluralize Nouns in the Nominatív Case
    */
@@ -83,6 +92,28 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   "A neuter noun following mesto" should "decline in the nominative plural" in {
     Slovník.Auto(čislo = Množné).asText() shouldEqual "autá"
   }
+
+  // more declinations
+  "A feminine noun following žena" should "decline in the accusative singular" in {
+    Slovník.Stavba(čislo = Jednotné).asText(pád = Akusatív) shouldEqual "stavbu"
+  }
+  "A feminine noun following žena" should "decline in the accusative plural" in {
+    Slovník.Stavba(čislo = Množné).asText(pád = Akusatív) shouldEqual "stavby"
+  }
+
+  "A masculine noun following chlap" should "decline in the nominative singular" in {
+    Slovník.Muž(čislo = Jednotné).asText(pád = Nominatív) shouldEqual "muž"
+  }
+  "A masculine noun following chlap" should "decline in the nominative plural" in {
+    Slovník.Muž(čislo = Množné).asText(pád = Nominatív) shouldEqual "muži"
+  }
+  "A masculine noun following chlap" should "decline in the accusative singular" in {
+    Slovník.Muž(čislo = Jednotné).asText(pád = Akusatív) shouldEqual "muža"
+  }
+  "A masculine noun following chlap" should "decline in the accusative plural" in {
+    Slovník.Muž(čislo = Množné).asText(pád = Akusatív) shouldEqual "mužov"
+  }
+
 
   /*
    * Prepositions
