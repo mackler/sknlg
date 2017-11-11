@@ -48,6 +48,35 @@ class VerbSpec extends FlatSpec with Matchers {
     Slovník.Byť(podmet = Seq(To(Množné))).asText shouldEqual "oni sú"
   }
 
+  // Ísť is irregular
+
+  "The Ísť object without a subject noun" should "generate the infinitive" in {
+    Slovník.Ísť().asText shouldEqual "ísť"
+  }
+  "The Ísť object with a singular first person subject noun" should "generate the correct inflection" in {
+    (Slovník.Ísť() setPodmet Ja(čislo = Jednotné)).asText shouldEqual "ja idem"
+  }
+  "The Ísť object with a singular second person subject noun" should "generate the correct inflection" in {
+    (Slovník.Ísť() setPodmet Ty(čislo = Jednotné)).asText shouldEqual "ty ideš"
+  }
+  "The Ísť object with a singular third person subject noun" should "generate the correct inflection" in {
+    (Slovník.Ísť() setPodmet On(čislo = Jednotné)).asText shouldEqual "on ide"
+  }
+  "The Ísť object with a plural first person subject noun" should "generate the correct inflection" in {
+    (Slovník.Ísť() setPodmet Ja(čislo = Množné)).asText shouldEqual "my ideme"
+  }
+  "The Ísť object with a plural second person subject noun" should "generate the correct inflection" in {
+    (Slovník.Ísť() setPodmet Ty(čislo = Množné)).asText shouldEqual "vy idete"
+  }
+  "The Ísť object with a plural third person subject noun" should "generate the correct inflection" in {
+    (Slovník.Ísť() setPodmet On(čislo = Množné)).asText shouldEqual "oni idú"
+  }
+
+
+  /*
+   * Regular Verbs
+   */
+
   // Mať is a regular verb of Type 1 following "chytať" - "chytám"
 
   "The Mať object without podmet noun" should "generate the infinitive" in {
@@ -137,6 +166,21 @@ class VerbSpec extends FlatSpec with Matchers {
   // Byť can be a copula 
   "The Byť verb" should "connect a subject to a predicate adjective" in {
     Slovník.Byť(podmet = Seq(Ja()), prísudok = Some(Slovník.Dobrý)).asText shouldEqual "ja som dobrý"
+  }
+
+  // Type 11 verbs follow "pracuvať" - "pracujem"
+  "The Potrebovať object with a 2nd/male/plural podmet pronoun" should "return the second person plural" in {
+    Slovník.Potrebovať(podmet = Seq(Ja())).asText shouldEqual "ja potrebujem"
+  }
+
+
+  // Type 12 verbs follow "robiť" - "robím"
+  "The Robiť object with a 2nd/male/plural podmet pronoun" should "return the second person plural" in {
+    Slovník.Robiť(podmet = Seq(Ty(Množné))).asText shouldEqual "vy robíte"
+  }
+  // Type 12 verbs must conjugate in accordance with the rhythmic rule
+  "The Obrátiť object with a 2nd/male/plural podmet pronoun" should "return the second person plural" in {
+    Slovník.Obrátiť(podmet = Seq(Ty(Množné))).asText shouldEqual "vy obrátite"
   }
 
   // Type 13 verbs follow "vidieť" - "vidím"

@@ -6,13 +6,19 @@ import Pád._
 import Skloňovanie._
 
 abstract class PodstatnéMenoFactory(entry: String, rod: Rod) {
-  class PodstatnéMenoInstance(
+  case class PodstatnéMenoInstance(
     override protected val entry        : String,
     override           val rod          : Rod,
     override           val čislo        : Čislo,
     override           val prídavnéMeno : Option[PrídavnéMeno],
-    override protected val demonstrative: Boolean
-  ) extends PodstatnéMeno
+    override protected val demonstrative: Boolean,
+    _predložka: Option[String] = None
+  ) extends PodstatnéMeno {
+    def predložka(p: String) = this.copy(_predložka = Some(p))
+    def predložka() = _predložka
+    def setČislo(č: Čislo) = this.copy(čislo = č)
+    override def asText(pád: Pád) = _predložka.map(_ + " ").getOrElse("") + super.asText(pád)
+  }
 
   def apply(čislo: Čislo = Jednotné, prídavnéMeno: Option[PrídavnéMeno] = None, demonstrative: Boolean = false) = {
     new PodstatnéMenoInstance(entry, rod, čislo, prídavnéMeno, demonstrative)
@@ -24,13 +30,13 @@ trait Noun {
 val rod: Rod
   val čislo:        Čislo
   protected def decline(pád: Pád): String
-  def asText(pád: Pád = Nominative) = decline(pád)
+  def asText(pád: Pád = Nominatív) = decline(pád)
 }
 
 /* Person names */
 case class Pomenovanie(name: String, rod: Rod) extends Noun {
   override val čislo = Jednotné
-  override def decline(pad: Pád = Nominative) = name
+  override def decline(pad: Pád = Nominatív) = name
 }
 
 /* These are only common nouns (not pronouns) */
@@ -40,7 +46,7 @@ trait PodstatnéMeno extends Noun {
   val prídavnéMeno            : Option[PrídavnéMeno] = None
   protected val demonstrative : Boolean
 
-  override def asText(pád: Pád = Nominative) =
+  override def asText(pád: Pád = Nominatív) =
     (if (demonstrative) ten(rod, čislo, pád) + " " else "") +
     (prídavnéMeno map { a => a.asText(rod) + " " }).getOrElse("") +
     super.asText(pád)
@@ -94,11 +100,11 @@ trait PodstatnéMeno extends Noun {
   override protected def decline(pád: Pád): String = {
     skloňovanie match {
       case Chlap => pád match {
-        case Nominative => čislo match {
+        case Nominatív => čislo match {
           case Jednotné => entry
           case Množné   => entry.replaceFirst("a$", "i")
         }
-        case Accusative => čislo match {
+        case Akusatív => čislo match {
           case Jednotné => entry.replaceFirst("a$", "a")
           case Množné   => entry.replaceFirst("a$", "ov")
         }
@@ -109,11 +115,11 @@ trait PodstatnéMeno extends Noun {
       }
       case Stroj => entry
       case Žena => pád match {
-        case Nominative => čislo match {
+        case Nominatív => čislo match {
           case Jednotné => entry
           case Množné   => entry.replaceFirst("a$", "y")
         }
-        case Accusative => čislo match {
+        case Akusatív => čislo match {
           case Jednotné => entry.replaceFirst("a$", "a")
           case Množné   => entry.replaceFirst("a$", "u")
         }

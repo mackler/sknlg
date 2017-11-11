@@ -130,6 +130,8 @@ object Slovník {
    * Sloveso
    */
 
+  // Irregular verbs: to be, to go
+
   case class Byť(
     podmet: Seq[Noun] = Seq.empty[PodstatnéMeno],
     príslovka: Option[String] = None,
@@ -152,12 +154,41 @@ object Slovník {
 
   }
 
+  case class Ísť(
+    podmet: Seq[Noun] = Seq.empty[PodstatnéMeno],
+    príslovka: Option[String] = None,
+    záporný: Boolean = false,
+    prísudok: Option[PrídavnéMeno] = None,
+    directPredmet: Option[PodstatnéMeno] = None // TODO probably not really a direct object
+  ) extends Sloveso(podmet, None, príslovka, záporný) with TransitiveVerb {
+    override val infinitív = "ísť"
+    override def setPodmet(p: Noun) = this.copy(podmet = podmet :+ p)
+    def setPredmet(o: PodstatnéMeno): Sloveso = this.copy(directPredmet = Some(o))
+
+    val časovanie = Array(
+      Array("idem", "ideš", "ide"),   // singular
+      Array("ideme", "idete", "idú")   // plural
+    )
+    override def inflect(čislo: Čislo, person: Osoba, negate: Boolean): String =
+      (if (negate) "nie " else "") + časovanie(čislo.id)(person.id)
+
+  }
+
+
   // Type1 Verbs follow "chytať" - "chytám"
   object Mať extends Type1Factory("mať")
   object Bývať extends Type1Factory("bývať")
   object Čakať extends Type1Factory("čakať")
   object Hľadám extends Type1Factory("hľadám")
   object Poznať extends Type1Factory("poznať")
+
+  // Type 11 verbs follow "pracuvať"
+  val Potrebovať = new SlovesoType11Factory("potrebovať")
+
+  // Type 12 verbs follow "robiť"
+  // TOTO WARNING I ONLY GUESSED THIS VERB's TYPE!!!!
+  val Obrátiť = new SlovesoType12Factory("obrátiť")
+  val Robiť = new SlovesoType12Factory("robiť")
 
   // Type 13 verbs follow "vidieť" - "vidím"
   val Vidieť = new SlovesoType13Factory("vidieť")

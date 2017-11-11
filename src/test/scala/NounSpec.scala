@@ -25,15 +25,15 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the accusative case singular" in {
-    Slovník.Učiteľ().asText(pád = Accusative) shouldEqual "učitel"
+    Slovník.Učiteľ().asText(pád = Akusatív) shouldEqual "učitel"
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the accusative case plural" in {
-    Slovník.Učiteľ(čislo = Množné).asText(pád = Accusative) shouldEqual "učitel"
+    Slovník.Učiteľ(čislo = Množné).asText(pád = Akusatív) shouldEqual "učitel"
   }
 
   "A masculine, inanimate noun ending in a soft consonant" should "decline in the accusative case singular" in {
-    Slovník.Dunaj(čislo = Množné).asText(pád = Accusative) shouldEqual "Dunaj"
+    Slovník.Dunaj(čislo = Množné).asText(pád = Akusatív) shouldEqual "Dunaj"
   }
 
   "A feminine noun ending in soft consonant -a" should "decline in the nominative case singular" in {
@@ -41,7 +41,7 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   }
 
   "A feminine noun following dlaň" should "decline in the accusative case singular" in {
-    Slovník.Radosť(čislo = Množné).asText(pád = Accusative) shouldEqual "radosť"
+    Slovník.Radosť(čislo = Množné).asText(pád = Akusatív) shouldEqual "radosť"
   }
 
   "A neuter noun ending in '-e'" should "decline in the nominative case singular" in {
@@ -61,7 +61,7 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   }
 
   /*
-   * Pluralize Nouns in the Nominative Case
+   * Pluralize Nouns in the Nominatív Case
    */
  
   "A masculine noun following dub" should "decline in the nominative plural" in {
@@ -85,9 +85,19 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   }
 
   /*
-   * Accusative Case Declensions
+   * Prepositions
    */
-
-
+  val withPreposition = Slovník.Auto() predložka "cez"
+  "A noun" should "take a preposition" in {
+    withPreposition.asText() shouldEqual "cez auto"
+  }
+  // if a noun already has a preposition, we should be able to change it's number
+  "A noun with a preposition" should "change its number" in {
+    (withPreposition setČislo Množné).asText() shouldEqual "cez autá"
+  }
+  // a noun's preposition (or lack of) is accessible
+  "A noun" should "return its preposition" in {
+    withPreposition.predložka() shouldEqual Some("cez")
+  }
 
 }

@@ -76,14 +76,27 @@ object Main extends App {
     val singularNominative = nouns.map(noun => Byť(podmet = Seq(noun()), príslovka = Some("tu")).asText) 
     val pluralNominative = nouns.map(noun => Byť(podmet = Seq(noun(čislo = Množné)), príslovka = Some("tu")).asText)
 
-    val verbs = Set(Hľadám() setPodmet Ja(), Mať() setPodmet Ja(), Poznať() setPodmet Ty(čislo = Množné), Vidieť() setPodmet Ja())
+    val verbs = Set(Hľadám() setPodmet Ja(),
+                    Mať() setPodmet Ja(),
+                    Poznať() setPodmet Ty(čislo = Množné),
+                    Vidieť() setPodmet Ja(),
+                    Ísť().setPodmet(Ty(čislo = Množné)).asInstanceOf[TransitiveVerb],
+                    Obrátiť().setPodmet(Ty(čislo = Množné)),
+                    Mať().setPodmet(Ty(čislo = Jednotné)),
+                    Mať().setPodmet(Ja(čislo = Množné))
+    )
 
     val accusative: Set[String] = for {
       verb <- verbs
       noun <- nouns
       number <- Set(Jednotné, Množné)
       subject <- subjects
-    } yield verb setPredmet noun(čislo = number) asText;
+    } yield {
+      val n = noun()
+      val preposition = if(verb.isInstanceOf[Ísť]) Some("cez") else None
+      val directObject = preposition.map(n.predložka).getOrElse(n) setČislo number
+      verb setPredmet directObject asText
+    }
 
     accusative
   }

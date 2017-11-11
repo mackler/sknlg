@@ -25,10 +25,10 @@ abstract class Sloveso(
           Čislo.Množné
         else
           Čislo.Jednotné
-      podmet.map(_.asText(Nominative)).mkString(" a ") + " " +
+      podmet.map(_.asText(Nominatív)).mkString(" a ") + " " +
       príslovka.map(_ + " ").getOrElse("") +
       inflect(čislo, person, záporný)
-  }) + directPredmet.map(" " + _.asText(Accusative)).getOrElse("")
+  }) + directPredmet.map(" " + _.asText(Akusatív)).getOrElse("")
 
   def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String =
     (if (negate) "ne" else "") +
@@ -74,6 +74,82 @@ abstract class Type1Factory(infinitív: String) {
     new Type1Instance(infinitív, podmet, directPredmet, príslovka, záporný)
 }
 
+// Type11 Verbs Follow "procuvať"
+class SlovesoType11Factory(infinitív: String) {
+  case class SlovesoType11(
+    override val infinitív: String = infinitív,
+    podmet: Seq[Noun],
+    directPredmet: Option[PodstatnéMeno],
+    príslovka: Option[String],
+    záporný: Boolean
+  ) extends Sloveso(podmet, directPredmet, príslovka, záporný) with TransitiveVerb {
+    def setPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
+    def setPredmet(o: PodstatnéMeno): TransitiveVerb = this.copy(directPredmet = Some(o))
+
+    override def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String = {
+      val stem = infinitív.replaceFirst("ovať$", "")
+      stem +
+      (čislo match {
+        case Jednotné => osoba match {
+          case First =>  "ujem"
+          case Second => "chyba"
+          case Third =>  "chyba"
+        }
+        case Množné => osoba match {
+          case First =>  "chyba"
+          case Second => "chyba"
+          case Third =>  "chyba"
+        }
+      })
+    }
+  }
+  def apply(
+    podmet: Seq[Noun] = Seq.empty[Noun],
+    directPredmet: Option[PodstatnéMeno] = None,
+    príslovka: Option[String] = None,
+    záporný: Boolean = false
+  ) =
+    new SlovesoType11(infinitív, podmet, directPredmet, príslovka, záporný)
+}
+
+// Type12 Verbs Follow "robiť"
+class SlovesoType12Factory(infinitív: String) {
+  case class SlovesoType12(
+    override val infinitív: String = infinitív,
+    podmet: Seq[Noun],
+    directPredmet: Option[PodstatnéMeno],
+    príslovka: Option[String],
+    záporný: Boolean
+  ) extends Sloveso(podmet, directPredmet, príslovka, záporný) with TransitiveVerb {
+    def setPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
+    def setPredmet(o: PodstatnéMeno): TransitiveVerb = this.copy(directPredmet = Some(o))
+
+    override def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String = {
+      val stem = infinitív.replaceFirst("iť$", "")
+      val i = if (finalSyllableIsLong(stem)) "i" else "í"
+      stem +
+      (čislo match {
+        case Jednotné => osoba match {
+          case First =>  "chyba"
+          case Second => "chyba"
+          case Third =>  "chyba"
+        }
+        case Množné => osoba match {
+          case First =>  "chyba"
+          case Second => i + "te"
+          case Third =>  "chyba"
+        }
+      })
+    }
+  }
+  def apply(
+    podmet: Seq[Noun] = Seq.empty[Noun],
+    directPredmet: Option[PodstatnéMeno] = None,
+    príslovka: Option[String] = None,
+    záporný: Boolean = false
+  ) =
+    new SlovesoType12(infinitív, podmet, directPredmet, príslovka, záporný)
+}
 
 class SlovesoType13Factory(infinitív: String) {
   case class SlovesoType13(
@@ -101,7 +177,6 @@ class SlovesoType13Factory(infinitív: String) {
         }
       })
     }
-    
   }
   def apply(
     podmet: Seq[Noun] = Seq.empty[Noun],
