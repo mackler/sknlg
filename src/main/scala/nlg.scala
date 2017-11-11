@@ -41,7 +41,7 @@ object Main extends App {
 
   /* Exercises corresponding to Naughton Unit 1 Adjectives */
   def exN1AGendersAdjective() {
-    val nouns = Set[PodstatméMenoFactory](Auto, Býk, Dieťa, Dievča, Dunaj, Hrad, Kaviareň, Kocúr, Krava, Kufor, Mača, Mačka, Mesto, Muž, Namestie, Rieka, Radosť, Srdce, Teľa, Učiteľ, Učiteľka, Voda, Žena)
+    val nouns = Set[PodstatnéMenoFactory](Auto, Býk, Dieťa, Dievča, Dunaj, Hrad, Kaviareň, Kocúr, Krava, Kufor, Mača, Mačka, Mesto, Muž, Namestie, Rieka, Radosť, Srdce, Teľa, Učiteľ, Učiteľka, Voda, Žena)
   val adjectives = Seq(Čistý, Zlý, Dobrý, Hnedý, Krázny, Malý, Mladý, Modrý, Nový, Pekný, Škaredý, Špinavý, Starý, Veľký)
 
     for {
@@ -76,14 +76,14 @@ object Main extends App {
     val singularNominative = nouns.map(noun => Byť(podmet = Seq(noun()), príslovka = Some("tu")).asText) 
     val pluralNominative = nouns.map(noun => Byť(podmet = Seq(noun(čislo = Množné)), príslovka = Some("tu")).asText)
 
-    val verbs = Set(Hľadám)
+    val verbs = Set(Hľadám() setPodmet Ja(), Mať() setPodmet Ja(), Poznať() setPodmet Ty(čislo = Množné), Vidieť() setPodmet Ja())
 
-    val accusative = for {
+    val accusative: Set[String] = for {
       verb <- verbs
       noun <- nouns
       number <- Set(Jednotné, Množné)
       subject <- subjects
-    } yield verb( podmet = subject, directPredmet = Some(noun(čislo = number)) ).asText
+    } yield verb setPredmet noun(čislo = number) asText;
 
     accusative
   }

@@ -5,15 +5,16 @@ import Čislo._
 import Pád._
 
 abstract class Sloveso(
-  podmet: Seq[Noun], directPredmet: Option[PodstatméMeno], príslovka: Option[String], záporný: Boolean
+  podmet: Seq[Noun], directPredmet: Option[PodstatnéMeno], príslovka: Option[String], záporný: Boolean
 ) {
   val infinitív: String
   lazy val root: String = infinitív.replaceFirst("ať", "")
   val isCopulative: Boolean = false
 
-  def asText: String  = podmet.length match {
+  def setPodmet(p: Noun): Sloveso
+  def asText: String  = (podmet.length match {
     case 0 =>
-      infinitív
+      infinitív + príslovka.map(_ + " ").getOrElse("")
     case _ =>
       val person =
         if (podmet.exists(s => s.isInstanceOf[Ja])) Osoba.First
@@ -24,12 +25,10 @@ abstract class Sloveso(
           Čislo.Množné
         else
           Čislo.Jednotné
-
       podmet.map(_.asText(Nominative)).mkString(" a ") + " " +
       príslovka.map(_ + " ").getOrElse("") +
-      inflect(čislo, person, záporný) +
-      directPredmet.map(" " + _.asText(Accusative)).getOrElse("")
-  }
+      inflect(čislo, person, záporný)
+  }) + directPredmet.map(" " + _.asText(Accusative)).getOrElse("")
 
   def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String =
     (if (negate) "ne" else "") +
@@ -51,17 +50,24 @@ abstract class Sloveso(
     }
 }
 
+trait TransitiveVerb extends Sloveso {
+  def setPredmet(o: PodstatnéMeno): Sloveso
+}
+
 abstract class Type1Factory(infinitív: String) {
-  class Type1Instance(
+  case class Type1Instance(
     override val infinitív: String = infinitív,
     podmet: Seq[Noun],
-    directPredmet: Option[PodstatméMeno],
+    directPredmet: Option[PodstatnéMeno],
     príslovka: Option[String],
     záporný: Boolean
-  ) extends Sloveso(podmet, directPredmet, príslovka, záporný)
+  ) extends Sloveso(podmet, directPredmet, príslovka, záporný) with TransitiveVerb {
+    def setPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
+    def setPredmet(o: PodstatnéMeno): Sloveso = this.copy(directPredmet = Some(o))
+  }
   def apply(
     podmet: Seq[Noun] = Seq.empty[Noun],
-    directPredmet: Option[PodstatméMeno] = None,
+    directPredmet: Option[PodstatnéMeno] = None,
     príslovka: Option[String] = None,
     záporný: Boolean = false
   ) =
@@ -70,13 +76,16 @@ abstract class Type1Factory(infinitív: String) {
 
 
 class SlovesoType13Factory(infinitív: String) {
-  class SlovesoType13(
+  case class SlovesoType13(
     override val infinitív: String = infinitív,
     podmet: Seq[Noun],
-    directPredmet: Option[PodstatméMeno],
+    directPredmet: Option[PodstatnéMeno],
     príslovka: Option[String],
     záporný: Boolean
-  ) extends Sloveso(podmet, directPredmet, príslovka, záporný) {
+  ) extends Sloveso(podmet, directPredmet, príslovka, záporný) with TransitiveVerb {
+    def setPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
+    def setPredmet(o: PodstatnéMeno): TransitiveVerb = this.copy(directPredmet = Some(o))
+
     override def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String = {
       infinitív.replaceFirst("ieť$", "") +
       (čislo match {
@@ -96,7 +105,7 @@ class SlovesoType13Factory(infinitív: String) {
   }
   def apply(
     podmet: Seq[Noun] = Seq.empty[Noun],
-    directPredmet: Option[PodstatméMeno] = None,
+    directPredmet: Option[PodstatnéMeno] = None,
     príslovka: Option[String] = None,
     záporný: Boolean = false
   ) =

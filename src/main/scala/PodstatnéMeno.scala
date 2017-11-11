@@ -5,17 +5,17 @@ import Čislo._
 import Pád._
 import Skloňovanie._
 
-abstract class PodstatméMenoFactory(entry: String, rod: Rod) {
-  class PodstatméMenoInstance(
+abstract class PodstatnéMenoFactory(entry: String, rod: Rod) {
+  class PodstatnéMenoInstance(
     override protected val entry        : String,
     override           val rod          : Rod,
     override           val čislo        : Čislo,
     override           val prídavnéMeno : Option[PrídavnéMeno],
     override protected val demonstrative: Boolean
-  ) extends PodstatméMeno
+  ) extends PodstatnéMeno
 
   def apply(čislo: Čislo = Jednotné, prídavnéMeno: Option[PrídavnéMeno] = None, demonstrative: Boolean = false) = {
-    new PodstatméMenoInstance(entry, rod, čislo, prídavnéMeno, demonstrative)
+    new PodstatnéMenoInstance(entry, rod, čislo, prídavnéMeno, demonstrative)
   }
 }
 
@@ -34,7 +34,7 @@ case class Pomenovanie(name: String, rod: Rod) extends Noun {
 }
 
 /* These are only common nouns (not pronouns) */
-trait PodstatméMeno extends Noun {
+trait PodstatnéMeno extends Noun {
   protected val entry         : String   // form of the slovo as listed in a slovník
   override  val rod          : Rod // removing this line causes an exception that looks like a bug
   val prídavnéMeno            : Option[PrídavnéMeno] = None
