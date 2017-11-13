@@ -112,15 +112,20 @@ object Slovník {
 
   val Čistý = new PrídavnéMeno("čistý")
   val Dobrý = new PrídavnéMeno("dobrý")
-  val Hnedý = new PrídavnéMeno("hnedý")
-  val Hlavny = new PrídavnéMeno("hlavny")
+  val Ešte = new PrídavnéMeno("hnedý")
+ val Hnedý = new PrídavnéMeno("hnedý")
+  val Hlavný = new PrídavnéMeno("hlavny")
   val Hospodársky = new PrídavnéMeno("hospodársky")
   // TODO jeden, jedna, jedno
   val Jednoduchý = new PrídavnéMeno("jednoduchý")
   val Krázny = new PrídavnéMeno("krázný")
+  // TODO this is actually not an adjective but an interrogative pronoun
+  val Ktorý = new PrídavnéMeno("ktorý")
   val Malý = new PrídavnéMeno("malý")
   val Mladý = new PrídavnéMeno("mladý")
   val Modrý = new PrídavnéMeno("modrý")
+  // TODO this is not actually an adjective but an indefinite pronoun
+  val Nejaký = new PrídavnéMeno("nejaký")
   val Nízky = new PrídavnéMeno("nízky")
   val Nový = new PrídavnéMeno("nový")
   val Pekný = new PrídavnéMeno("pekný")
@@ -130,6 +135,8 @@ object Slovník {
   val Škaredý = new PrídavnéMeno("škaredý")
   val Špinavý = new PrídavnéMeno("špinavý")
   val Starý = new PrídavnéMeno("starý")
+  // This is not actually an adjective but a demonstrative pronoun
+  val Taký = new PrídavnéMeno("taký")
   val Veľký = new PrídavnéMeno("veľký")
   val Vysoký = new PrídavnéMeno("vysoký")
   val Zelený = new PrídavnéMeno("zelený")
@@ -149,6 +156,8 @@ object Slovník {
   ) extends Sloveso(podmet, None, príslovka, záporný) {
     override val infinitív = "byť"
     def setPodmet(p: Noun): Sloveso = this.copy(podmet = podmet :+ p)
+    def toggleZáporný() = this.copy(záporný = !záporný)
+    def setZáporný(z: Boolean) = this.copy(záporný = z)
 
     val časovanie = Array(
       Array("som", "si", "je"),   // singular
@@ -173,6 +182,8 @@ object Slovník {
     override val infinitív = "ísť"
     override def setPodmet(p: Noun) = this.copy(podmet = podmet :+ p)
     def setPredmet(o: PodstatnéMeno): Sloveso = this.copy(directPredmet = Some(o))
+    def toggleZáporný() = this.copy(záporný = !záporný)
+    def setZáporný(z: Boolean) = this.copy(záporný = z)
 
     val časovanie = Array(
       Array("idem", "ideš", "ide"),   // singular

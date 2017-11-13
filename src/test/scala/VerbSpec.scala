@@ -108,14 +108,24 @@ class VerbSpec extends FlatSpec with Matchers {
   }
 
   // A verb can be negated
+  // ...by toggling
   "The Mať object constructed with a 1st/male/plural podmet pronoun" should "be negatable" in {
     Slovník.Mať(podmet = Seq(Ja(Množné))).toggleZáporný().asText shouldEqual "my nemáme"
   }
-  "The Mať object with a 1st/male/plural podmet pronoun added" should "be negatable" in {
+  "The Mať object with a 1st/male/plural podmet pronoun added" should "be negatable by toggle" in {
     Slovník.Mať().setPodmet(Ja(Množné)).toggleZáporný().asText shouldEqual "my nemáme"
   }
   "The Mať object with a 3rd/male/singular podmet pronoun" should "be negatable" in {
     Slovník.Mať(podmet = Seq(On(Jednotné))).toggleZáporný.asText shouldEqual "on nemá"
+  }
+  // ...and by setting
+  "The Mať object with a 1st/male/plural podmet pronoun added" should "be negatable by setting" in {
+    // note: true means negate it
+    Slovník.Mať().setPodmet(Ja(Množné)).setZáporný(true).asText shouldEqual "my nemáme"
+  }
+  "The negated Mať object with a 1st/male/plural podmet pronoun added" should "be un-negatable by setting" in {
+    // note: false means the verb is in the affirmative
+    Slovník.Mať().setPodmet(Ja(Množné)).toggleZáporný().setZáporný(false).asText shouldEqual "my máme"
   }
 
   // Transitive Verbs can have a direct object

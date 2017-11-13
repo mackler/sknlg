@@ -10,6 +10,8 @@ abstract class Sloveso(
   val infinitív: String
   lazy val root: String = infinitív.replaceFirst("ať", "")
   val isCopulative: Boolean = false
+  def toggleZáporný(): Sloveso
+  def setZáporný(z: Boolean): Sloveso
 
   def setPodmet(p: Noun): Sloveso
   def asText: String  = (podmet.length match {
@@ -65,6 +67,7 @@ abstract class Type1Factory(infinitív: String) {
     def setPodmet(p: Noun)= this.copy(podmet = podmet :+ p)
     def setPredmet(o: PodstatnéMeno): Sloveso = this.copy(directPredmet = Some(o))
     def toggleZáporný() = this.copy(záporný = !záporný)
+    def setZáporný(z: Boolean) = this.copy(záporný = z)
   }
   def apply(
     podmet: Seq[Noun] = Seq.empty[Noun],
@@ -86,6 +89,8 @@ class SlovesoType11Factory(infinitív: String) {
   ) extends Sloveso(podmet, directPredmet, príslovka, záporný) with TransitiveVerb {
     def setPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
     def setPredmet(o: PodstatnéMeno): TransitiveVerb = this.copy(directPredmet = Some(o))
+    def toggleZáporný() = this.copy(záporný = !záporný)
+    def setZáporný(z: Boolean) = this.copy(záporný = z)
 
     override def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String = {
       val stem = infinitív.replaceFirst("ovať$", "")
@@ -124,6 +129,8 @@ class SlovesoType12Factory(infinitív: String) {
   ) extends Sloveso(podmet, directPredmet, príslovka, záporný) with TransitiveVerb {
     def setPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
     def setPredmet(o: PodstatnéMeno): TransitiveVerb = this.copy(directPredmet = Some(o))
+    def toggleZáporný() = this.copy(záporný = !záporný)
+    def setZáporný(z: Boolean) = this.copy(záporný = z)
 
     override def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String = {
       val stem = infinitív.replaceFirst("iť$", "")
@@ -162,6 +169,8 @@ class SlovesoType13Factory(infinitív: String) {
   ) extends Sloveso(podmet, directPredmet, príslovka, záporný) with TransitiveVerb {
     def setPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
     def setPredmet(o: PodstatnéMeno): TransitiveVerb = this.copy(directPredmet = Some(o))
+    def toggleZáporný() = this.copy(záporný = !záporný)
+    def setZáporný(z: Boolean) = this.copy(záporný = z)
 
     override def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String = {
       infinitív.replaceFirst("ieť$", "") +

@@ -35,6 +35,6 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
   }
 
   "A adjective with a root ending in a long syllable" should "obey the rhythmic rule in the nominative case" in {
-    Slovník.Kniha().setPrídavnéMeno(Slovník.Nízky).asText() shouldEqual "nízka kniha"
+    Slovník.Kniha() setPrídavnéMeno Slovník.Nízky asText() shouldEqual "nízka kniha"
   }
 }

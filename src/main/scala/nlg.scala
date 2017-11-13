@@ -72,7 +72,6 @@ object Main extends App {
     Obchod, Obraz, Otázka, Pán, Plot, Prst,
     Rieka, Ruka, Škola, Stanica, Stavba, Stena, Strom, Trieda, Vec, Ulica, Večer, Voz, Záhrada)
   def exM3Plural: Set[String] = {
-
     val singularNominative = exM3Nouns.map(noun => Byť(podmet = Seq(noun()), príslovka = Some("tu")).asText) 
     val pluralNominative = exM3Nouns.map(noun => Byť(podmet = Seq(noun(čislo = Množné)), príslovka = Some("tu")).asText)
     singularNominative ++ pluralNominative
@@ -99,10 +98,27 @@ object Main extends App {
       val directObject = noun() setČislo number
       verb setPredmet directObject asText
     }
-
     accusative
   }
 
-  exM3Accusative foreach { line => println(line) }
+  def exM3Adjectives: Set[String] = {
+    val adjectives = Set(Dobrý, Hlavný, Jednoduchý, Ktorý, Nejaký, Nízky, Nový, Posledný, Pekný, Pravý, Široký, Taký, Vysoký)
+
+    val r = for {
+      adjective <- adjectives
+      noun <- exM3Nouns
+      number <- Set(Jednotné, Množné)
+      negate <- Set(true, false)
+    } yield {
+      val directObject = noun() setČislo number
+      Set(
+        (Mať() setPodmet Ja() setPredmet directObject setZáporný(negate)).asText
+      )
+    }
+
+    r.flatten
+  }
+
+  exM3Adjectives foreach { line => println(line) }
 
 }
