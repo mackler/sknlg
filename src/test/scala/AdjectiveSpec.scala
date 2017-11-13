@@ -33,4 +33,8 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
   "A one-sylable prídavnéMeno referring to a neuter noun" should "generate the neuter prídavnéMeno" in {
     Slovník.Auto(prídavnéMeno = Some(Slovník.Zlý)).asText() shouldEqual "zlé auto"
   }
+
+  "A adjective with a root ending in a long syllable" should "obey the rhythmic rule in the nominative case" in {
+    Slovník.Kniha().setPrídavnéMeno(Slovník.Nízky).asText() shouldEqual "nízka kniha"
+  }
 }

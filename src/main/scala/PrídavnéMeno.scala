@@ -3,7 +3,7 @@ package org.mackler.sknlg
 import Rod._
 
 case class PrídavnéMeno(entry: String) {
-  private val root = entry.replaceFirst("ý$", "")
+  private val root = entry.replaceFirst(".$", "")
 
   def asText(rod: Rod) = root + {
     if (finalSyllableIsLong(root))

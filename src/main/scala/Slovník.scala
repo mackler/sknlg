@@ -18,7 +18,7 @@ object Slovník {
    */
 
   // Masculine Animate
-  // not ending in -a, e.g., "chlap"
+  // not ending in -a, e.g., "chlap", "muž"
   object Býk extends PodstatnéMenoFactory(entry = "býk", rod = MužskýŽivotný)
   object Muž extends PodstatnéMenoFactory(entry = "muž", rod = MužskýŽivotný)
   object Chlapec extends PodstatnéMenoFactory(entry = "chlapec", rod = MužskýŽivotný)
@@ -26,10 +26,10 @@ object Slovník {
   object Kôň extends PodstatnéMenoFactory(entry = "kôň", rod = MužskýŽivotný)
   object Pán extends PodstatnéMenoFactory(entry = "pán", rod = MužskýNeživotný)
   object Učiteľ extends PodstatnéMenoFactory(entry = "učitel", rod = MužskýŽivotný)
-  // ending in -a, e.g., "hrdina"
+  // ending in -a, e.g., "hrdina", "kolega""
 
   // Masculine Inanimate
-  // ending in hard or neutral consonant, e.g., "dub"
+  // ending in hard or neutral consonant, e.g., "dub", "plán"
   object Breh extends PodstatnéMenoFactory(entry = "breh", rod = MužskýNeživotný)
   object Deň extends PodstatnéMenoFactory(entry = "deň", rod = MužskýNeživotný)
   object Dom extends PodstatnéMenoFactory(entry = "dom", rod = MužskýNeživotný)
@@ -45,7 +45,7 @@ object Slovník {
   object Strom extends PodstatnéMenoFactory(entry = "strom", rod = MužskýNeživotný)
   object Večer extends PodstatnéMenoFactory(entry = "večer", rod = MužskýNeživotný)
   object Voz extends PodstatnéMenoFactory(entry = "voz", rod = MužskýNeživotný)
-  // ending in soft consonant
+  // ending in soft consonant, e.g., "počitač"
   object Dunaj extends PodstatnéMenoFactory(entry = "Dunaj", rod = MužskýNeživotný)
 
   // Feminine
@@ -60,6 +60,7 @@ object Slovník {
   object Minúta extends PodstatnéMenoFactory(entry = "minúta", rod = Ženský)
   object Noha extends PodstatnéMenoFactory(entry = "noha", rod = Ženský)
   object Otázka extends PodstatnéMenoFactory(entry = "otázka", rod = Ženský)
+  object Rada extends PodstatnéMenoFactory(entry = "rada", rod = Ženský)
   object Rieka extends PodstatnéMenoFactory(entry = "rieka", rod = Ženský)
   object Ruka extends PodstatnéMenoFactory(entry = "ruka", rod = Ženský)
   object Stavba extends PodstatnéMenoFactory(entry = "stavba", rod = Ženský)
@@ -70,14 +71,14 @@ object Slovník {
   object Voda extends PodstatnéMenoFactory(entry = "voda", rod = Ženský)
   object Žena extends PodstatnéMenoFactory(entry = "žena", rod = Ženský)
   object Záhrada extends PodstatnéMenoFactory(entry = "záhrada", rod = Ženský)
-  // ending in -a preceding by a soft consonant, e.g., "ulica"
+  // ending in -a preceding by a soft consonant, e.g., "ulica", "stanica"
   object Stanica extends PodstatnéMenoFactory(entry = "stanica", rod = Ženský)
   object Ulica extends PodstatnéMenoFactory(entry = "ulica", rod = Ženský)
-  // following dlaň
+  // following "dlaň", "loď"
   object Dlaň extends PodstatnéMenoFactory(entry = "dlaň", rod = Ženský)
   object Kaviareň extends PodstatnéMenoFactory(entry = "kaviareň", rod = Ženský)
   object Radosť extends PodstatnéMenoFactory(entry = "radosť", rod = Ženský)
-  // ending in consonant in nominative singular, -i in genitive singular, e.g., "kosť"
+  // ending in consonant in nominative singular, -i in genitive singular, e.g., "kosť", "miestnosť"
   object Pomoc extends PodstatnéMenoFactory(entry = "pomoc", rod = Ženský)
   object Vec extends PodstatnéMenoFactory(entry = "vec", rod = Ženský)
   // uncategorized Feminine
@@ -95,11 +96,11 @@ object Slovník {
   object Rameno extends PodstatnéMenoFactory(entry = "rameno", rod = Stredný)
   object Ráno extends PodstatnéMenoFactory(entry = "ráno", rod = Stredný)
   object Sklo extends PodstatnéMenoFactory(entry = "sklo", rod = Stredný)
-  // ending -e
+  // ending -e, e.g., "more"
   object Srdce extends PodstatnéMenoFactory(entry = "srdce", rod = Stredný)
-  // ending -ie
+  // ending -ie, e.g., "poschodie""
   object Namestie extends PodstatnéMenoFactory(entry = "namestie", rod = Stredný)
-  // ending -a or -ä
+  // ending -a or -ä, e.g., "dievča"
   object Dieťa extends PodstatnéMenoFactory(entry = "dieťa", rod = Stredný)
   object Dievča extends PodstatnéMenoFactory(entry = "dievča", rod = Stredný)
   object Mača extends PodstatnéMenoFactory(entry = "mača", rod = Stredný)
@@ -112,12 +113,20 @@ object Slovník {
   val Čistý = new PrídavnéMeno("čistý")
   val Dobrý = new PrídavnéMeno("dobrý")
   val Hnedý = new PrídavnéMeno("hnedý")
+  val Hlavny = new PrídavnéMeno("hlavny")
+  val Hospodársky = new PrídavnéMeno("hospodársky")
+  // TODO jeden, jedna, jedno
+  val Jednoduchý = new PrídavnéMeno("jednoduchý")
   val Krázny = new PrídavnéMeno("krázný")
   val Malý = new PrídavnéMeno("malý")
   val Mladý = new PrídavnéMeno("mladý")
   val Modrý = new PrídavnéMeno("modrý")
+  val Nízky = new PrídavnéMeno("nízky")
   val Nový = new PrídavnéMeno("nový")
   val Pekný = new PrídavnéMeno("pekný")
+  val Posledný = new PrídavnéMeno("posledný")
+  val Pravý = new PrídavnéMeno("pravý")
+  val Široký = new PrídavnéMeno("široký")
   val Škaredý = new PrídavnéMeno("škaredý")
   val Špinavý = new PrídavnéMeno("špinavý")
   val Starý = new PrídavnéMeno("starý")

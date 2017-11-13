@@ -17,6 +17,8 @@ abstract class PodstatnéMenoFactory(entry: String, rod: Rod) {
     def predložka(p: String) = this.copy(_predložka = Some(p))
     def predložka() = _predložka
     def setČislo(č: Čislo) = this.copy(čislo = č)
+    def setPrídavnéMeno(p: PrídavnéMeno): PodstatnéMeno = this.copy(prídavnéMeno = Some(p))
+
     override def asText(pád: Pád) = _predložka.map(_ + " ").getOrElse("") + super.asText(pád)
   }
 
@@ -42,7 +44,7 @@ case class Pomenovanie(name: String, rod: Rod) extends Noun {
 /* These are only common nouns (not pronouns) */
 trait PodstatnéMeno extends Noun {
   protected val entry         : String   // form of the slovo as listed in a slovník
-  override  val rod          : Rod // removing this line causes an exception that looks like a bug
+  override  val rod           : Rod // removing this line causes an exception that looks like a bug
   val prídavnéMeno            : Option[PrídavnéMeno] = None
   protected val demonstrative : Boolean
 
@@ -53,19 +55,20 @@ trait PodstatnéMeno extends Noun {
 
   object Spoluhláska {
     val hard = Set("g", "h", "ch", "k", "d", "n", "t")
-    val soft = Set("c", "dz", "j", "ď", "ť", "ľ", "ň", "ž", "č")
     val neutral = Set("b", "f", "l", "m", "p", "r", "s", "v", "z")
+    val mäkký = Set("c", "dz", "j", "ď", "ť", "ľ", "ň", "ž", "č")
+    val tvrdný = hard ++ neutral
   }
   private lazy val skloňovanie = rod match {
     case MužskýŽivotný =>
       if (entry.endsWith("a"))                               Hrdina
       else                                                   Chlap
     case MužskýNeživotný =>
-      if (Spoluhláska.soft.exists(entry.endsWith))           Stroj
+      if (Spoluhláska.mäkký.exists(entry.endsWith))           Stroj
       else /* ends with hard or neutral consonant */         Dub
     case Ženský =>
       if (Set("c","s","p","v","st").exists(entry.endsWith))  Kosť
-      else if ((Spoluhláska.hard ++ Spoluhláska.neutral).exists(c => entry.endsWith(c + "a")))
+      else if (Spoluhláska.tvrdný.exists(c => entry.endsWith(c + "a")))
                                                              Žena
         else if (entry.endsWith("a"))                        Ulica
         else                                                 Dlaň
