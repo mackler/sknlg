@@ -1,22 +1,41 @@
 package org.mackler.sknlg
 
 import Rod._
+import Čislo._
+import Pád._
 
 case class PrídavnéMeno(entry: String) {
   private val root = entry.replaceFirst(".$", "")
+  val (y, e, a, u, i) =
+    if (finalSyllableIsLong(root)) ("y", "e", "a", "u", "i")
+    else                           ("ý", "é", "á", "ú", "í")
 
-  def asText(rod: Rod) = root + {
-    if (finalSyllableIsLong(root))
-      rod match {
-        case MužskýŽivotný | MužskýNeživotný => "y"
-        case Ženský => "a"
-        case Stredný => "e"
+  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív) = root + {
+    čislo match {
+      case Jednotné => rod match {
+        case MužskýNeživotný => y
+        case MužskýŽivotný => pád match {
+          case Nominatív => y
+          case Akusatív => e + "ho"
+        }
+        case Ženský => pád match {
+          case Nominatív => a
+          case Akusatív => u
+        }
+        case Stredný => e
       }
-      else rod match {
-        case MužskýŽivotný | MužskýNeživotný  => "ý"
-        case Ženský => "á"
-        case Stredný => "é"
+
+      case Množné => rod match {
+        case MužskýŽivotný => pád match {
+          case Nominatív => i
+          case Akusatív => y + "ch"
+        }
+        case MužskýNeživotný | Ženský | Stredný => pád match {
+          case Nominatív => e
+          case Akusatív => e
+        }
       }
+    }
   }
 
 }
