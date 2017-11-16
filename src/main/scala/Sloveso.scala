@@ -5,7 +5,7 @@ import Čislo._
 import Pád._
 
 abstract class Sloveso(
-  podmet: Seq[Noun], directPredmet: Option[PodstatnéMeno], príslovka: Option[String], záporný: Boolean
+  podmet: Seq[NounPhrase], directPredmet: Option[PodstatnéMeno], príslovka: Option[String], záporný: Boolean
 ) {
   val infinitív: String
   lazy val root: String = infinitív.replaceFirst("ať", "")
@@ -14,7 +14,8 @@ abstract class Sloveso(
   def setZáporný(z: Boolean): Sloveso
 
   def setPodmet(p: Noun): Sloveso
-  def asText: String  = (podmet.length match {
+  def asText: String  = {
+  (podmet.length match {
     case 0 =>
       infinitív + príslovka.map(_ + " ").getOrElse("")
     case _ =>
@@ -23,7 +24,8 @@ abstract class Sloveso(
         else if (podmet.exists(s => s.isInstanceOf[Ty])) Osoba.Second
         else Osoba.Third
       val čislo =
-        if (podmet.length > 1 || podmet.exists(_.čislo == Čislo.Množné))
+        if (podmet.length > 1 || 
+            podmet(0).isInstanceOf[Noun] && podmet(0).asInstanceOf[Noun].čislo == Čislo.Množné)
           Čislo.Množné
         else
           Čislo.Jednotné
@@ -31,7 +33,7 @@ abstract class Sloveso(
       príslovka.map(_ + " ").getOrElse("") +
       inflect(čislo, person, záporný)
   }) + directPredmet.map(" " + _.asText(Akusatív)).getOrElse("")
-
+  }
   def inflect(čislo: Čislo, osoba: Osoba, negate: Boolean): String =
     (if (negate) "ne" else "") +
     root +

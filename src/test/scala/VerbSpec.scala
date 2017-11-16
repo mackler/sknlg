@@ -6,48 +6,6 @@ import org.scalatest._
 
 class VerbSpec extends FlatSpec with Matchers {
 
-  // Byť is an irregular verb
-
-  "The Byť object without podmet noun" should "generate the infinitive" in {
-    Slovník.Byť().asText shouldEqual "byť"
-  }
-
-  "The Byť object with a 1st/male/singular podmet pronoun" should "return the first person singular" in {
-    Slovník.Byť(podmet = Seq(Ja(Jednotné))).asText shouldEqual "ja som"
-  }
-
-  "The Byť object with a 1st/male/plural podmet pronoun" should "return the first person plural" in {
-    Slovník.Byť(podmet = Seq(Ja(Množné))).asText shouldEqual "my sme"
-  }
-
-  "The Byť object with a 2nd/male/singular podmet pronoun" should "return the second person singular" in {
-    Slovník.Byť(podmet = Seq(Ty(Jednotné))).asText shouldEqual "ty si"
-  }
-
-  "The Byť object with a 2nd/male/plural podmet pronoun" should "return the second person plural" in {
-    Slovník.Byť(podmet = Seq(Ty(Množné))).asText shouldEqual "vy ste"
-  }
-
-  "The Byť object with a 3nd/male/singular podmet pronoun" should "return the third person male singular" in {
-    Slovník.Byť(podmet = Seq(On(Jednotné))).asText shouldEqual "on je"
-  }
-
-  "The Byť object with a 3rd/male/plural podmet pronoun" should "return the third person male plural" in {
-    Slovník.Byť(podmet = Seq(On(Množné))).asText shouldEqual "oni sú"
-  }
-
-  "The Byť object with a 3rd/female/singular podmet pronoun" should "return the third person female singular" in {
-    Slovník.Byť(podmet = Seq(Ona(Jednotné))).asText shouldEqual "ona je"
-  }
-
-  "The Byť object with a 3rd/neutar/singular podmet pronoun" should "return the third person neuter singular" in {
-    Slovník.Byť(podmet = Seq(To(Jednotné))).asText shouldEqual "to je"
-  }
-
-  "The Byť object with a 3rd/neuter/plural podmet pronoun" should "return the third person neuter plural" in {
-    Slovník.Byť(podmet = Seq(To(Množné))).asText shouldEqual "oni sú"
-  }
-
   // Ísť is irregular
 
   "The Ísť object without a subject noun" should "generate the infinitive" in {
@@ -104,7 +62,7 @@ class VerbSpec extends FlatSpec with Matchers {
     Slovník.Mať(podmet = Seq(To(Jednotné))).asText shouldEqual "to má"
   }
   "The Mať object with a 3rd/neuter/plural podmet pronoun" should "return the third person plural" in {
-    Slovník.Mať(podmet = Seq(To(Množné))).asText shouldEqual "oni majú"
+    Slovník.Mať(podmet = Seq(To(Množné))).asText shouldEqual "ony majú"
   }
 
   // A verb can be negated
@@ -159,10 +117,10 @@ class VerbSpec extends FlatSpec with Matchers {
     Slovník.Bývať(podmet = Seq(To(Jednotné))).asText shouldEqual "to býva"
   }
   "The Bývať object with a 3rd/neuter/plural podmet pronoun" should "return the third person plural" in {
-    Slovník.Bývať(podmet = Seq(To(Množné))).asText shouldEqual "oni bývajú"
+    Slovník.Bývať(podmet = Seq(To(Množné))).asText shouldEqual "ony bývajú"
   }
 
-  // Instransitive Verb subjects may consist of multiple nouns
+  // Intransitive Verb subjects may consist of multiple nouns
   "The Čakať verb with a subject of two proper nouns" should "conjugate as the third person plural" in {
     Slovník.Čakať(podmet = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))).asText shouldEqual "Igor a Peter čakajú"
   }
@@ -173,20 +131,14 @@ class VerbSpec extends FlatSpec with Matchers {
                 directPredmet = Some(Slovník.Auto())).asText shouldEqual "Igor a Peter majú auto"
   }
 
-  // Regular can be negated
+  // Regular verbs can be negated
   "The Mať verb negated" should "be in the negative" in {
     Slovník.Mať(podmet = Seq(Ja()), directPredmet = Some(Slovník.Auto()), záporný = true).asText shouldEqual "ja nemám auto"
   }
 
-  // Byť can be negated
-  "The Byť verb negated" should "be in the negative" in {
-    Slovník.Byť(podmet = Seq(Ja()), príslovka = Some("tu"), záporný = true).asText shouldEqual "ja tu nie som"
-  }
-
-  // Byť can be a copula 
-  "The Byť verb" should "connect a subject to a predicate adjective" in {
-    Slovník.Byť(podmet = Seq(Ja()), prísudok = Some(Slovník.Dobrý)).asText shouldEqual "ja som dobrý"
-  }
+  /*
+   * other regular paradigms
+   */
 
   // Type 11 verbs follow "pracuvať" - "pracujem"
   "The Potrebovať object with a 2nd/male/plural podmet pronoun" should "return the second person plural" in {
@@ -229,7 +181,7 @@ class VerbSpec extends FlatSpec with Matchers {
     Slovník.Vidieť(podmet = Seq(To(Jednotné))).asText shouldEqual "to vidí"
   }
   "The Vidieť object with a 3rd/neuter/plural podmet pronoun" should "return the third person plural" in {
-    Slovník.Vidieť(podmet = Seq(To(Množné))).asText shouldEqual "oni vidia"
+    Slovník.Vidieť(podmet = Seq(To(Množné))).asText shouldEqual "ony vidia"
   }
 
 

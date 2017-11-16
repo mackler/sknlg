@@ -17,19 +17,19 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the nominative case singular" in {
-    Slovník.Učiteľ().asText() shouldEqual "učitel"
+    Slovník.Učiteľ().asText() shouldEqual "učiteľ"
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the nominative case plural" in {
-    Slovník.Učiteľ(čislo = Množné).asText() shouldEqual "učiteli"
+    Slovník.Učiteľ(čislo = Množné).asText() shouldEqual "učiteľi"
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the accusative case singular" in {
-    Slovník.Učiteľ().asText(pád = Akusatív) shouldEqual "učitela"
+    Slovník.Učiteľ().asText(pád = Akusatív) shouldEqual "učiteľa"
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the accusative case plural" in {
-    Slovník.Učiteľ(čislo = Množné).asText(pád = Akusatív) shouldEqual "učitelov"
+    Slovník.Učiteľ(čislo = Množné).asText(pád = Akusatív) shouldEqual "učiteľov"
   }
 
   "A masculine, inanimate noun ending in a soft consonant" should "decline in the accusative case singular" in {
@@ -118,7 +118,11 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   /*
    * Prepositions
    */
-  val withPreposition = Slovník.Auto() predložka "cez"
+
+// I've changed my mind about "cez" since I wrote these tests.
+// I now think "ísť cez" is the verb that takes a direct object, ie, the
+// preposition goes with the verb, not with the noun as these tests imply.
+/*  val withPreposition = Slovník.Auto() predložka "cez"
   "A noun" should "take a preposition" in {
     withPreposition.asText() shouldEqual "cez auto"
   }
@@ -129,6 +133,16 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   // a noun's preposition (or lack of) is accessible
   "A noun" should "return its preposition" in {
     withPreposition.predložka() shouldEqual Some("cez")
+  }*/
+
+  /*
+   * Noun Phrases can be nouns, pronouns, adjectives, determinatives, etc.
+   * Some may have the gender fixed, such as a common noun.  Some can have their
+   * gender set, such as adjectives
+   */
+  "A common noun" should "provide its gender" in {
+    Slovník.Muž().rod shouldEqual MužskýŽivotný
   }
 
 }
+

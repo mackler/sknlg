@@ -11,7 +11,7 @@ abstract class PodstatnéMenoFactory(entry: String, rod: Rod) {
     override           val rod          : Rod,
     override           val čislo        : Čislo,
     override           val prídavnéMeno : Option[PrídavnéMeno],
-    override protected val demonstrative: Boolean,
+    protected val demonstrative: Boolean,
     _predložka: Option[String] = None
   ) extends PodstatnéMeno {
     def predložka(p: String) = this.copy(_predložka = Some(p))
@@ -19,20 +19,25 @@ abstract class PodstatnéMenoFactory(entry: String, rod: Rod) {
     def setČislo(č: Čislo) = this.copy(čislo = č)
     def setPrídavnéMeno(p: PrídavnéMeno): PodstatnéMeno = this.copy(prídavnéMeno = Some(p))
 
-    override def asText(pád: Pád) = _predložka.map(_ + " ").getOrElse("") + super.asText(pád)
+    override def asText(pád: Pád): String = _predložka.map(_ + " ").getOrElse("") + super.asText(pád)
   }
 
-  def apply(čislo: Čislo = Jednotné, prídavnéMeno: Option[PrídavnéMeno] = None, demonstrative: Boolean = false) = {
-    new PodstatnéMenoInstance(entry, rod, čislo, prídavnéMeno, demonstrative)
-  }
+  def apply(
+    čislo: Čislo = Jednotné,
+    prídavnéMeno: Option[PrídavnéMeno] = None,
+    demonstrative: Boolean = false
+  ) = new PodstatnéMenoInstance(entry, rod, čislo, prídavnéMeno, demonstrative)
+
 }
 
 /* This is the superclass of both pronouns (zámeno) and common nouns (podstatmé meno) */
-trait Noun {
-val rod: Rod
-  val čislo:        Čislo
+trait Noun extends NounPhrase {
+  val rod   : Rod
+  val čislo : Čislo
   protected def decline(pád: Pád): String
-  def asText(pád: Pád = Nominatív) = decline(pád)
+  override def asText(pád: Pád = Nominatív): String = {
+    decline(pád)
+  }
 }
 
 /* Person names */
@@ -47,17 +52,18 @@ trait PodstatnéMeno extends Noun {
   override  val rod           : Rod // removing this line causes an exception that looks like a bug
   val prídavnéMeno            : Option[PrídavnéMeno] = None
   protected val demonstrative : Boolean
+  def setČislo(č: Čislo): PodstatnéMeno
 
   override def asText(pád: Pád = Nominatív) =
-    (if (demonstrative) ten(rod, čislo, pád) + " " else "") +
+    (if (demonstrative) Ten.asText(rod, čislo, pád) + " " else "") +
     (prídavnéMeno map { a => a.asText(rod) + " " }).getOrElse("") +
     super.asText(pád)
 
   object Spoluhláska {
     val hard = Set("g", "h", "ch", "k", "d", "n", "t")
     val neutral = Set("b", "f", "l", "m", "p", "r", "s", "v", "z")
-    val mäkký = Set("c", "dz", "j", "ď", "ť", "ľ", "ň", "ž", "č")
     val tvrdný = hard ++ neutral
+    val mäkký = Set("c", "dz", "j", "ď", "ť", "ľ", "ň", "ž", "č")
   }
   private lazy val skloňovanie = rod match {
     case MužskýŽivotný =>
@@ -78,27 +84,6 @@ trait PodstatnéMeno extends Noun {
       else if (entry.endsWith("e"))                          Srdce
       else if (entry.endsWith("a") || entry.endsWith("ä"))   Dievča
     }
-
-  // demonstrative ten, tá, to
-  def ten(rod: Rod, čislo: Čislo, pád: Pád): String = {
-    rod match {
-      case MužskýŽivotný | MužskýNeživotný =>
-        čislo match {
-          case Jednotné => "ten"
-          case Množné => "chyba"
-        }
-      case Ženský =>
-        čislo match {
-          case Jednotné => "tá"
-          case Množné =>  "chyba"
-        }
-      case Stredný =>
-        čislo match {
-          case Jednotné => "to"
-          case Množné =>  "chyba"
-        }
-    }
-  }
 
   override protected def decline(pád: Pád): String = {
     skloňovanie match {

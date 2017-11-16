@@ -42,4 +42,17 @@ package object sknlg {
     }
   }
 
+  // supertrait for adjectives and demonstratives
+  // TODO need a better name: common nouns decline, but their gender is fixed.
+  trait Declines extends NounPhrase {
+    def asText(rod: Rod.Value, čislo: Čislo.Value, pád: Pád.Value): String
+  }
+
+  trait NounPhrase { def asText(pád: Pád.Value): String }
+
+  case class Príslovka(head: String) extends NounPhrase {
+    def asText = head
+    override def asText(pád: Pád.Value): String = asText
+  }
+
 }

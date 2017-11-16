@@ -48,7 +48,8 @@ object Main extends App {
       noun <- nouns
       adjective <- adjectives
     } {
-      println(noun(demonstrative = true, prídavnéMeno = Some(adjective)).asText())
+// change demonstrative to determiner
+//      println(noun(demonstrative = true, prídavnéMeno = Some(adjective)).asText())
     }
 
 
@@ -63,7 +64,7 @@ object Main extends App {
     for {
       noun <- nouns
       adjective <- adjectives
-    } yield Byť(podmet = Seq(noun()), prísudok = Some(adjective)).asText
+    } yield Byť(podmet = Seq(noun()), complement = Some(adjective)).asText
 
   }
 
@@ -101,24 +102,25 @@ object Main extends App {
     accusative
   }
 
-  def exM3Adjectives: Set[String] = {
+  def exM3Adjectives(number: Čislo): Set[String] = {
     val adjectives = Set(Dobrý, Hlavný, Jednoduchý, Ktorý, Nejaký, Nízky, Nový, Posledný, Pekný, Pravý, Široký, Taký, Vysoký)
 
     val r = for {
       adjective <- adjectives
       noun <- exM3Nouns
       number <- Set(Jednotné, Množné)
-      negate <- Set(true, false)
     } yield {
-      val directObject = noun() setČislo number
+      val modifiedNoun = noun() setČislo number setPrídavnéMeno adjective
       Set(
-        (Mať() setPodmet Ja() setPredmet directObject setZáporný(negate)).asText
+        Mať() setPodmet Ja() setPredmet modifiedNoun asText/*,
+        Byť setPodmet modifiedNoun*/
       )
     }
 
     r.flatten
   }
 
-  exM3Adjectives foreach { line => println(line) }
+  // we do singular and plural separately because there are some duplicate forms between them
+  exM3Adjectives(Jednotné) foreach { line => println(line) }
 
 }
