@@ -13,7 +13,6 @@ abstract class Sloveso(
   def toggleZáporný(): Sloveso
   def setZáporný(z: Boolean): Sloveso
 
-  def setPodmet(p: Noun): Sloveso
   def asText: String  = {
   (podmet.length match {
     case 0 =>
@@ -66,8 +65,8 @@ abstract class Type1Factory(infinitív: String) {
     príslovka: Option[String],
     záporný: Boolean
   ) extends Sloveso(podmet, directPredmet, príslovka, záporný) with TransitiveVerb {
-    def setPodmet(p: Noun)= this.copy(podmet = podmet :+ p)
-    def setPredmet(o: PodstatnéMeno): Sloveso = this.copy(directPredmet = Some(o))
+    def addPodmet(p: Noun)= this.copy(podmet = podmet :+ p)
+    def setPredmet(o: PodstatnéMeno) = this.copy(directPredmet = Some(o))
     def toggleZáporný() = this.copy(záporný = !záporný)
     def setZáporný(z: Boolean) = this.copy(záporný = z)
   }
@@ -89,7 +88,7 @@ class SlovesoType11Factory(infinitív: String) {
     príslovka: Option[String],
     záporný: Boolean
   ) extends Sloveso(podmet, directPredmet, príslovka, záporný) with TransitiveVerb {
-    def setPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
+    def addPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
     def setPredmet(o: PodstatnéMeno): TransitiveVerb = this.copy(directPredmet = Some(o))
     def toggleZáporný() = this.copy(záporný = !záporný)
     def setZáporný(z: Boolean) = this.copy(záporný = z)
@@ -129,7 +128,7 @@ class SlovesoType12Factory(infinitív: String) {
     príslovka: Option[String],
     záporný: Boolean
   ) extends Sloveso(podmet, directPredmet, príslovka, záporný) with TransitiveVerb {
-    def setPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
+    def addPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
     def setPredmet(o: PodstatnéMeno): TransitiveVerb = this.copy(directPredmet = Some(o))
     def toggleZáporný() = this.copy(záporný = !záporný)
     def setZáporný(z: Boolean) = this.copy(záporný = z)
@@ -169,7 +168,7 @@ class SlovesoType13Factory(infinitív: String) {
     príslovka: Option[String],
     záporný: Boolean
   ) extends Sloveso(podmet, directPredmet, príslovka, záporný) with TransitiveVerb {
-    def setPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
+    def addPodmet(p: Noun): TransitiveVerb = this.copy(podmet = podmet :+ p)
     def setPredmet(o: PodstatnéMeno): TransitiveVerb = this.copy(directPredmet = Some(o))
     def toggleZáporný() = this.copy(záporný = !záporný)
     def setZáporný(z: Boolean) = this.copy(záporný = z)

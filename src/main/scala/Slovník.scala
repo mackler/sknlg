@@ -164,7 +164,6 @@ object Slovník {
     }
 
     override val infinitív = "byť"
-    def setPodmet(p: Noun): Sloveso = this.copy(podmet = podmet :+ p)
     def toggleZáporný() = this.copy(záporný = !záporný)
     def setZáporný(z: Boolean) = this.copy(záporný = z)
     def setComplement(p: NounPhrase) = copy(complement = Some(p))
@@ -268,7 +267,7 @@ object Slovník {
     directPredmet: Option[PodstatnéMeno] = None // TODO probably not really a direct object
   ) extends Sloveso(podmet, None, príslovka, záporný) with TransitiveVerb {
     override val infinitív = "ísť"
-    override def setPodmet(p: Noun) = this.copy(podmet = podmet :+ p)
+    def addPodmet(p: Noun) = this.copy(podmet = podmet :+ p)
     def setPredmet(o: PodstatnéMeno): Sloveso = this.copy(directPredmet = Some(o))
     def toggleZáporný() = this.copy(záporný = !záporný)
     def setZáporný(z: Boolean) = this.copy(záporný = z)

@@ -78,16 +78,16 @@ object Main extends App {
     singularNominative ++ pluralNominative
   }
   def exM3Accusative: Set[String] = {
-    val verbs = Set(Hľadať() setPodmet Ja(),
-                    Mať() setPodmet Ja(),
-                    Poznať() setPodmet Ty(čislo = Množné),
-                    Vidieť() setPodmet Ja(),
-                    Obrátiť().setPodmet(Ty(čislo = Množné)),
-                    Potrebovať().setPodmet(Ja()),
-                    Mať().setPodmet(Ty(čislo = Jednotné)),
-                    Mať().setPodmet(On(čislo = Množné)),
-                    Mať().setPodmet(Ja(čislo = Množné)).toggleZáporný,
-                    Mať().setPodmet(On()).toggleZáporný
+    val verbs = Set(Hľadať() addPodmet Ja(),
+                    Mať() addPodmet Ja(),
+                    Poznať() addPodmet Ty(čislo = Množné),
+                    Vidieť() addPodmet Ja(),
+                    Obrátiť().addPodmet(Ty(čislo = Množné)),
+                    Potrebovať().addPodmet(Ja()),
+                    Mať().addPodmet(Ty(čislo = Jednotné)),
+                    Mať().addPodmet(On(čislo = Množné)),
+                    Mať().addPodmet(Ja(čislo = Množné)).toggleZáporný,
+                    Mať().addPodmet(On()).toggleZáporný
     )
 
     val accusative: Set[String] = for {
@@ -112,8 +112,8 @@ object Main extends App {
     } yield {
       val modifiedNoun = noun() setČislo number setPrídavnéMeno adjective
       Set(
-        Mať() setPodmet Ja() setPredmet modifiedNoun asText/*,
-        Byť setPodmet modifiedNoun*/
+        Mať() addPodmet Ja() setPredmet modifiedNoun asText,
+        Byť() addPodmet Príslovka("tu") setComplement modifiedNoun asText
       )
     }
 

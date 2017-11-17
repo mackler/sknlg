@@ -56,7 +56,7 @@ trait PodstatnéMeno extends Noun {
 
   override def asText(pád: Pád = Nominatív) =
     (if (demonstrative) Ten.asText(rod, čislo, pád) + " " else "") +
-    (prídavnéMeno map { a => a.asText(rod) + " " }).getOrElse("") +
+    (prídavnéMeno map { a => a.asText(rod, čislo, pád) + " " }).getOrElse("") +
     super.asText(pád)
 
   object Spoluhláska {
