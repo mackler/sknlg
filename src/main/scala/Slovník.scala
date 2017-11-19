@@ -24,7 +24,7 @@ object Slovník {
   object Chlapec extends PodstatnéMenoFactory(entry = "chlapec", rod = MužskýŽivotný)
   object Kocúr extends PodstatnéMenoFactory(entry = "kocúr", rod = MužskýŽivotný)
   object Kôň extends PodstatnéMenoFactory(entry = "kôň", rod = MužskýŽivotný)
-  object Pán extends PodstatnéMenoFactory(entry = "pán", rod = MužskýNeživotný)
+  object Pán extends PodstatnéMenoFactory(entry = "pán", rod = MužskýŽivotný)
   object Učiteľ extends PodstatnéMenoFactory(entry = "učiteľ", rod = MužskýŽivotný)
   // ending in -a, e.g., "hrdina", "kolega""
 

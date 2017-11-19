@@ -12,8 +12,8 @@ perl -i -p -e 's/ mám / have /' $file
 
 perl -i -p -e 's/ muž(|a)($| )/ man$2/' $file
 perl -i -p -e 's/ muž(i|ov)($| )/ men$2/' $file
-perl -i -p -e 's/ pán($| )/ gentleman$1/' $file
-perl -i -p -e 's/ pány($| )/ gentlemen$1/' $file
+perl -i -p -e 's/ pán(|a)($| )/ gentleman$2/' $file
+perl -i -p -e 's/ pán(i|ov)($| )/ gentlemen$2/' $file
 
 perl -i -p -e 's/ dom($| )/ home$1/' $file
 perl -i -p -e 's/ domy($| )/ homes$1/' $file
@@ -69,7 +69,7 @@ perl -i -p -e 's/ steny($| )/ wallss$1/' $file
 perl -i -p -e 's/ riek(a|u)($| )/ river$2/' $file
 perl -i -p -e 's/ rieky($| )/ rivers$1/' $file
 perl -i -p -e 's/ lúk(a|u)($| )/ meadow$2/' $file
-perl -i -p -e 's/ lúky($| )/ meadowss$1/' $file
+perl -i -p -e 's/ lúky($| )/ meadows$1/' $file
 
 perl -i -p -e 's/ ulic(a|u)($| )/ street$2/' $file
 perl -i -p -e 's/ ulice($| )/ streets$1/' $file
@@ -104,4 +104,3 @@ perl -i -p -e 's/ have (?!which)(?!some)(.+)(?<!s)(?<!men)(?<!feet)$/ have a $1$
 perl -i -p -e 's/ is (?!some)(?!which)/ is a /' $file
 perl -i -p -e 's/ a such / such a /' $file
 perl -i -p -e 's/.*which.*/$&?/' $file
-perl -i -p -e 's/ have (.+ class)/ have a $1/' $file
