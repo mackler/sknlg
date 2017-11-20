@@ -100,7 +100,10 @@ perl -i -p -e 's/ pekn[^$ ]+($| )/ fine$1/' $file
 perl -i -p -e 's/ posledn[^$ ]+($| )/ last$1/' $file
 
 
+# add article before singular adjectives, excluding "which" and "some"
 perl -i -p -e 's/ have (?!which)(?!some)(.+)(?<!s)(?<!men)(?<!feet)$/ have a $1$2/' $file
+# Since "class" ends in 's' is is incorrectly identified as plural by the preceeding line
+perl -i -p -e 's/ have (?!which)(?!some)(.+)(class)$/ have a $1$2/' $file
 perl -i -p -e 's/ is (?!some)(?!which)/ is a /' $file
 perl -i -p -e 's/ a such / such a /' $file
 perl -i -p -e 's/.*which.*/$&?/' $file

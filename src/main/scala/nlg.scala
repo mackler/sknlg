@@ -108,7 +108,6 @@ object Main extends App {
     val r = for {
       adjective <- adjectives
       noun <- exM3Nouns
-      number <- Set(Jednotné, Množné)
     } yield {
       val modifiedNoun = noun() setČislo number setPrídavnéMeno adjective
       Set(
@@ -121,6 +120,6 @@ object Main extends App {
   }
 
   // we do singular and plural separately because there are some duplicate forms between them
-  exM3Adjectives(Jednotné) foreach { line => println(line) }
+  exM3Adjectives(Množné) foreach { line => println(line) }
 
 }
