@@ -10,10 +10,12 @@ trait Sloveso {
   val podmet: Seq[NounPhrase]
   val príslovka: Option[String]
   val záporný: Boolean
+  val predložka: Option[String] = None
 
   def addPodmet(p: NounPhrase): Sloveso
 
-  protected def asTextInfinitive: String = infinitív + príslovka.map(_ + " ").getOrElse("")
+  protected def asTextInfinitive: String =
+    infinitív + príslovka.map(_ + " ").getOrElse("") + predložka.map(" " + _).getOrElse("")
 
   def asText: String  = {
     (podmet.length match {
@@ -50,7 +52,7 @@ object SlovesoFactory {
     val _infinitív = infinitív
     val _paradigm = paradigm
     case class SlovesoInstance(
-      podmet        : Seq[NounPhrase]             = Seq.empty[Noun],
+      podmet        : Seq[NounPhrase]       = Seq.empty[Noun],
       directPredmet : Option[PodstatnéMeno] = None,
       príslovka     : Option[String]        = None,
       záporný       : Boolean               = false
@@ -70,9 +72,9 @@ object SlovesoFactory {
 }
 
 object SlovesoType1 {
-  def apply(infinitív: String) = SlovesoFactory(infinitív, { (čislo: Čislo, osoba: Osoba, záporny: Boolean) =>
+  def apply(infinitív: String) = SlovesoFactory(infinitív, { (čislo: Čislo, osoba: Osoba, záporný: Boolean) =>
     val stem = infinitív.substring(0, infinitív.length -2 )
-    (if (záporny) "ne" else "") +
+    (if (záporný) "ne" else "") +
     stem +
     {
        val a = if (finalSyllableIsLong(stem)) "a" else "á"
@@ -94,8 +96,8 @@ object SlovesoType1 {
 
 // Type11 Verbs Follow "procuvať"
 object SlovesoType11 {
-  def apply(infinitív: String) = SlovesoFactory(infinitív, { (čislo: Čislo, osoba: Osoba, záporny: Boolean) =>
-    (if (záporny) "ne" else "") +
+  def apply(infinitív: String) = SlovesoFactory(infinitív, { (čislo: Čislo, osoba: Osoba, záporný: Boolean) =>
+    (if (záporný) "ne" else "") +
     infinitív.substring(0, infinitív.length -4) +
     (čislo match {
       case Jednotné => osoba match {
@@ -110,7 +112,7 @@ object SlovesoType11 {
 
 // Type12 Verbs Follow "robiť"
 object SlovesoType12 {
-  def apply(infinitív: String) = SlovesoFactory(infinitív, { (čislo: Čislo, osoba: Osoba, záporny: Boolean) =>
+  def apply(infinitív: String) = SlovesoFactory(infinitív, { (čislo: Čislo, osoba: Osoba, záporný: Boolean) =>
     val stem = infinitív.substring(0, infinitív.length -2 )
     val i = if (finalSyllableIsLong(stem)) "i" else "í"
     stem +
@@ -126,7 +128,7 @@ object SlovesoType12 {
 }
 
 object SlovesoType13 {
-  def apply(infinitív: String) = SlovesoFactory(infinitív, { (čislo: Čislo, osoba: Osoba, záporny: Boolean) =>
+  def apply(infinitív: String) = SlovesoFactory(infinitív, { (čislo: Čislo, osoba: Osoba, záporný: Boolean) =>
     infinitív.substring(0, infinitív.length -3) +
     (čislo match {
       case Jednotné => osoba match {

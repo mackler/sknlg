@@ -8,63 +8,63 @@ import org.scalatest._
 class PodstatméMenoSpec extends FlatSpec with Matchers {
 
   "A noun-object in a Set" should "allow companion class construction using default parameters" in {
-    val set = Set(Slovník.Kufor, Slovník.Auto)
+    val set = Set(slovník.Kufor, slovník.Auto)
     for {
-      noun <- set if noun.eq(Slovník.Kufor)
+      noun <- set if noun.eq(slovník.Kufor)
     } {
       noun().asText() shouldEqual "kufor"
     }
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the nominative case singular" in {
-    Slovník.Učiteľ().asText() shouldEqual "učiteľ"
+    slovník.Učiteľ().asText() shouldEqual "učiteľ"
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the nominative case plural" in {
-    Slovník.Učiteľ(čislo = Množné).asText() shouldEqual "učiteľi"
+    slovník.Učiteľ(čislo = Množné).asText() shouldEqual "učiteľi"
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the accusative case singular" in {
-    Slovník.Učiteľ().asText(pád = Akusatív) shouldEqual "učiteľa"
+    slovník.Učiteľ().asText(pád = Akusatív) shouldEqual "učiteľa"
   }
 
   "A masculine, animate noun not ending in 'a'" should "decline in the accusative case plural" in {
-    Slovník.Učiteľ(čislo = Množné).asText(pád = Akusatív) shouldEqual "učiteľov"
+    slovník.Učiteľ(čislo = Množné).asText(pád = Akusatív) shouldEqual "učiteľov"
   }
 
   "A masculine, inanimate noun ending in a soft consonant" should "decline in the accusative case singular" in {
-    Slovník.Dunaj(čislo = Množné).asText(pád = Akusatív) shouldEqual "Dunaj"
+    slovník.Dunaj(čislo = Množné).asText(pád = Akusatív) shouldEqual "Dunaj"
   }
 
   "A feminine noun ending in soft consonant -a" should "decline in the nominative case singular" in {
-    Slovník.Krava().asText() shouldEqual "krava"
+    slovník.Krava().asText() shouldEqual "krava"
   }
 
   "A feminine noun following dlaň" should "decline in the accusative case singular" in {
-    Slovník.Radosť(čislo = Množné).asText(pád = Akusatív) shouldEqual "radosť"
+    slovník.Radosť(čislo = Množné).asText(pád = Akusatív) shouldEqual "radosť"
   }
 
   "A neuter noun ending in '-e'" should "decline in the nominative case singular" in {
-    Slovník.Srdce().asText() shouldEqual "srdce"
+    slovník.Srdce().asText() shouldEqual "srdce"
   }
 
   "A neuter noun ending in '-ie'" should "decline in the nominative case singular" in {
-    Slovník.Namestie().asText() shouldEqual "namestie"
+    slovník.Namestie().asText() shouldEqual "namestie"
   }
 
   "A neuter noun ending in '-a'" should "decline in the nominative case singular" in {
-    Slovník.Mača().asText() shouldEqual "mača"
+    slovník.Mača().asText() shouldEqual "mača"
   }
 
   "A proper noun" should "be usable as a verb subject" in {
-    Slovník.Byť(podmet = Seq(Pomenovanie("Igor", MužskýŽivotný))).asText shouldEqual "Igor je"
+    slovník.Byť(podmet = Seq(Pomenovanie("Igor", MužskýŽivotný))).asText shouldEqual "Igor je"
   }
 
   "A feminine noun following ulica" should "decline in the accusative case singular" in {
-    Slovník.Ulica(čislo = Jednotné).asText(pád = Akusatív) shouldEqual "ulicu"
+    slovník.Ulica(čislo = Jednotné).asText(pád = Akusatív) shouldEqual "ulicu"
   }
   "A feminine noun following ulica" should "decline in the accusative case plural" in {
-    Slovník.Ulica(čislo = Množné).asText(pád = Akusatív) shouldEqual "ulice"
+    slovník.Ulica(čislo = Množné).asText(pád = Akusatív) shouldEqual "ulice"
   }
 
 
@@ -74,44 +74,44 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
    */
  
   "A masculine noun following dub" should "decline in the nominative plural" in {
-    Slovník.Voz(čislo = Množné).asText() shouldEqual "vozy"
+    slovník.Voz(čislo = Množné).asText() shouldEqual "vozy"
   }
 
   "A feminine noun following žena" should "decline in the nominative plural" in {
-    Slovník.Stavba(čislo = Množné).asText() shouldEqual "stavby"
+    slovník.Stavba(čislo = Množné).asText() shouldEqual "stavby"
   }
 
   "A feminine noun following ulica" should "decline in the nominative plural" in {
-    Slovník.Stanica(čislo = Množné).asText() shouldEqual "stanice"
+    slovník.Stanica(čislo = Množné).asText() shouldEqual "stanice"
   }
 
   "A feminine noun following kosť" should "decline in the nominative plural" in {
-    Slovník.Vec(čislo = Množné).asText() shouldEqual "veci"
+    slovník.Vec(čislo = Množné).asText() shouldEqual "veci"
   }
 
   "A neuter noun following mesto" should "decline in the nominative plural" in {
-    Slovník.Auto(čislo = Množné).asText() shouldEqual "autá"
+    slovník.Auto(čislo = Množné).asText() shouldEqual "autá"
   }
 
   // more declinations
   "A feminine noun following žena" should "decline in the accusative singular" in {
-    Slovník.Stavba(čislo = Jednotné).asText(pád = Akusatív) shouldEqual "stavbu"
+    slovník.Stavba(čislo = Jednotné).asText(pád = Akusatív) shouldEqual "stavbu"
   }
   "A feminine noun following žena" should "decline in the accusative plural" in {
-    Slovník.Stavba(čislo = Množné).asText(pád = Akusatív) shouldEqual "stavby"
+    slovník.Stavba(čislo = Množné).asText(pád = Akusatív) shouldEqual "stavby"
   }
 
   "A masculine noun following chlap" should "decline in the nominative singular" in {
-    Slovník.Muž(čislo = Jednotné).asText(pád = Nominatív) shouldEqual "muž"
+    slovník.Muž(čislo = Jednotné).asText(pád = Nominatív) shouldEqual "muž"
   }
   "A masculine noun following chlap" should "decline in the nominative plural" in {
-    Slovník.Muž(čislo = Množné).asText(pád = Nominatív) shouldEqual "muži"
+    slovník.Muž(čislo = Množné).asText(pád = Nominatív) shouldEqual "muži"
   }
   "A masculine noun following chlap" should "decline in the accusative singular" in {
-    Slovník.Muž(čislo = Jednotné).asText(pád = Akusatív) shouldEqual "muža"
+    slovník.Muž(čislo = Jednotné).asText(pád = Akusatív) shouldEqual "muža"
   }
   "A masculine noun following chlap" should "decline in the accusative plural" in {
-    Slovník.Muž(čislo = Množné).asText(pád = Akusatív) shouldEqual "mužov"
+    slovník.Muž(čislo = Množné).asText(pád = Akusatív) shouldEqual "mužov"
   }
 
 
@@ -122,7 +122,7 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
 // I've changed my mind about "cez" since I wrote these tests.
 // I now think "ísť cez" is the verb that takes a direct object, ie, the
 // preposition goes with the verb, not with the noun as these tests imply.
-/*  val withPreposition = Slovník.Auto() predložka "cez"
+/*  val withPreposition = slovník.Auto() predložka "cez"
   "A noun" should "take a preposition" in {
     withPreposition.asText() shouldEqual "cez auto"
   }
@@ -141,7 +141,7 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
    * gender set, such as adjectives
    */
   "A common noun" should "provide its gender" in {
-    Slovník.Muž().rod shouldEqual MužskýŽivotný
+    slovník.Muž().rod shouldEqual MužskýŽivotný
   }
 
 }

@@ -6,9 +6,13 @@ file=$1
 
 perl -i -p -e 's/^ja /I /' $file
 perl -i -p -e 's/^tu /here /' $file
+perl -i -p -e "s/^vy /y'all /" $file
 perl -i -p -e 's/ sú / are /' $file
 perl -i -p -e 's/ je / is /' $file
 perl -i -p -e 's/ mám / have /' $file
+perl -i -p -e 's/ idete / are going /' $file
+
+perl -i -p -e 's/ cez / via /' $file
 
 perl -i -p -e 's/ muž(|a)($| )/ man$2/' $file
 perl -i -p -e 's/ muž(i|ov)($| )/ men$2/' $file
@@ -65,7 +69,7 @@ perl -i -p -e 's/ hlavy($| )/ heads$1/' $file
 perl -i -p -e 's/ minút(a|u)($| )/ minute$2/' $file
 perl -i -p -e 's/ minúty($| )/ minutes$1/' $file
 perl -i -p -e 's/ sten(a|u)($| )/ wall$2/' $file
-perl -i -p -e 's/ steny($| )/ wallss$1/' $file
+perl -i -p -e 's/ steny($| )/ walls$1/' $file
 perl -i -p -e 's/ riek(a|u)($| )/ river$2/' $file
 perl -i -p -e 's/ rieky($| )/ rivers$1/' $file
 perl -i -p -e 's/ lúk(a|u)($| )/ meadow$2/' $file
@@ -106,4 +110,8 @@ perl -i -p -e 's/ have (?!which)(?!some)(.+)(?<!s)(?<!men)(?<!feet)$/ have a $1$
 perl -i -p -e 's/ have (?!which)(?!some)(.+)(class)$/ have a $1$2/' $file
 perl -i -p -e 's/ is (?!some)(?!which)/ is a /' $file
 perl -i -p -e 's/ a such / such a /' $file
+
+perl -i -p -e 's/ going via (.+)(?<!s)(?<!men)$/ going via a $1/' $file
+
+
 perl -i -p -e 's/.*which.*/$&?/' $file

@@ -10,7 +10,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
    * We want to be able to construct verbs one part at a time, each step returning a new
    * instance with the given member set.
    */
-  val infinitive = Slovník.Mať
+  val infinitive = slovník.Mať
   "A regular Type1 verb object without parameters" should "generate the infinitive" in {
     infinitive.asText shouldEqual "mať"
   }
@@ -21,7 +21,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
     withSubject.asText shouldEqual "ja mám"
   }
 
-  val infinitiveWithObject = infinitive setPredmet Slovník.Kufor()
+  val infinitiveWithObject = infinitive setPredmet slovník.Kufor()
   // add a direct object to the infinitive
   "A regular Type1 verb with no subject" should "accept a direct object" in {
     infinitiveWithObject.asText shouldEqual "mať kufor"
@@ -29,7 +29,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
 
   // add a direct object to the verb with a subject
   "A regular Type1 verb with a subject" should "accept a direct object" in {
-    (withSubject setPredmet Slovník.Kufor() asText) shouldEqual "ja mám kufor"
+    (withSubject setPredmet slovník.Kufor() asText) shouldEqual "ja mám kufor"
   }
 
   // add a subject to the verb with a direct object
@@ -39,7 +39,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
   }
 
   // We can do the same for verbs of a different type
-  val infinitive13 = Slovník.Vidieť
+  val infinitive13 = slovník.Vidieť
   "A regular Type13 verb object without parameters" should "generate the infinitive" in {
     infinitive13.asText shouldEqual "vidieť"
   }
@@ -51,7 +51,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
   }
 
   // add an object to the Type13 that has a subject
-  val type13WithSubjectAndObject = type13WithSubject setPredmet Slovník.Kufor()
+  val type13WithSubjectAndObject = type13WithSubject setPredmet slovník.Kufor()
   "An Type13 verb with a subject" should "accept a direct object" in {
     type13WithSubjectAndObject.asText shouldEqual "ja vidím kufor"
   }

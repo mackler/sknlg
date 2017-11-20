@@ -3,7 +3,7 @@ package org.mackler.sknlg
 import Čislo._
 
 object Main extends App {
-  import Slovník._
+  import slovník._
   import Rod._
 
   /* Combinations of sentence subjects, both singular and plural, proper names and pronouns. */
@@ -24,7 +24,7 @@ object Main extends App {
 
   /* Exercises corresponding to Naughton Unit 1 Verb Conjugation and negation */
   def exN1ATypeVerbs(): Set[String] = {
-    val nouns = Set(Slovník.Kufor)
+    val nouns = Set(Kufor)
 
     val r =for {
       subject <- subjects
@@ -78,7 +78,7 @@ object Main extends App {
     singularNominative ++ pluralNominative
   }
   def exM3Accusative: Set[String] = {
-    val verbs = Set(Hľadať addPodmet Ja(),
+    val verbs = Set(/*Hľadať addPodmet Ja(),
                     Mať addPodmet Ja(),
                     Poznať addPodmet Ty(čislo = Množné),
                     Vidieť addPodmet Ja(),
@@ -87,7 +87,8 @@ object Main extends App {
                     Mať.addPodmet(Ty(čislo = Jednotné)),
                     Mať.addPodmet(On(čislo = Množné)),
                     Mať.addPodmet(Ja(čislo = Množné)).toggleZáporný,
-                    Mať.addPodmet(On()).toggleZáporný
+                    Mať.addPodmet(On()).toggleZáporný*/
+                    Ísť.setPredložka("cez").addPodmet(Ty(čislo = Množné))
     )
 
     val accusative: Set[String] = for {
@@ -119,7 +120,20 @@ object Main extends App {
     r.flatten
   }
 
+  /* Some words from Krížom Krážom */
+  val KK1nouns = Set(Manžel, Manželka, Izba, Spolubývajúci, Spolubývajúca)
+  val KK1adjectives = Set(Slobodný, Ženatý, Zaujímavý )
+
+  /* Exercise corresponding to Mistrík chapter 4 */
+/*  def exM4: Set[String] = {
+    val verbs = Set(Vstávať, Mať, Byť, Bývať, Začinať, Poznať, Chodievať, Žiadať, konať, znamenať, Nevychaádzať,
+                 Nechávať, Nerozprávať, Prichádzať, Nespávať, Pamätať)
+    val nouns = Set(Večer, Vlak, Učiteľ, Poriadok, Práca, Auto, Obraz, Čislo)
+    val adjectives = Set(Voľný, Čistý, Dobrý, Nový, Veľký, Nejaký, Vlastný, Iný)
+    Set.empty[String]
+  }*/
+
   // we do singular and plural separately because there are some duplicate forms between them
-  exM3Adjectives(Množné) foreach { line => println(line) }
+  exM3Accusative foreach { line => println(line) }
 
 }

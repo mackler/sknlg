@@ -11,7 +11,7 @@ import Pád._
  * Neutral consonants: b, f, l, m, p, r, s, v, z  
  */
 
-object Slovník {
+package object slovník {
 
   /*
    * PodstatnéMeno
@@ -24,7 +24,9 @@ object Slovník {
   object Chlapec extends PodstatnéMenoFactory(entry = "chlapec", rod = MužskýŽivotný)
   object Kocúr extends PodstatnéMenoFactory(entry = "kocúr", rod = MužskýŽivotný)
   object Kôň extends PodstatnéMenoFactory(entry = "kôň", rod = MužskýŽivotný)
+  object Manžel extends PodstatnéMenoFactory(entry = "manžel", rod = MužskýŽivotný)
   object Pán extends PodstatnéMenoFactory(entry = "pán", rod = MužskýŽivotný)
+  object Spolubývajúci extends PodstatnéMenoFactory(entry = "spolubývajúci", rod = MužskýŽivotný)
   object Učiteľ extends PodstatnéMenoFactory(entry = "učiteľ", rod = MužskýŽivotný)
   // ending in -a, e.g., "hrdina", "kolega""
 
@@ -53,10 +55,12 @@ object Slovník {
   object Cena extends PodstatnéMenoFactory(entry = "cena", rod = Ženský)
   object Dedina extends PodstatnéMenoFactory(entry = "dedina", rod = Ženský)
   object Hlava extends PodstatnéMenoFactory(entry = "hlava", rod = Ženský)
+  object Izba extends PodstatnéMenoFactory(entry = "izba", rod = Ženský)
   object Kniha extends PodstatnéMenoFactory(entry = "kniha", rod = Ženský)
   object Krava extends PodstatnéMenoFactory(entry = "krava", rod = Ženský)
   object Lúka extends PodstatnéMenoFactory(entry = "lúka", rod = Ženský)
   object Mačka extends PodstatnéMenoFactory(entry = "mačka", rod = Ženský)
+  object Manželka extends PodstatnéMenoFactory(entry = "manželka", rod = Ženský)
   object Minúta extends PodstatnéMenoFactory(entry = "minúta", rod = Ženský)
   object Noha extends PodstatnéMenoFactory(entry = "noha", rod = Ženský)
   object Otázka extends PodstatnéMenoFactory(entry = "otázka", rod = Ženský)
@@ -72,6 +76,7 @@ object Slovník {
   object Žena extends PodstatnéMenoFactory(entry = "žena", rod = Ženský)
   object Záhrada extends PodstatnéMenoFactory(entry = "záhrada", rod = Ženský)
   // ending in -a preceding by a soft consonant, e.g., "ulica", "stanica"
+  object Spolubývajúca extends PodstatnéMenoFactory(entry = "spolubývajúca", rod = Ženský)
   object Stanica extends PodstatnéMenoFactory(entry = "stanica", rod = Ženský)
   object Ulica extends PodstatnéMenoFactory(entry = "ulica", rod = Ženský)
   // following "dlaň", "loď"
@@ -133,155 +138,47 @@ object Slovník {
   val Pravý = new PrídavnéMeno("pravý")
   val Široký = new PrídavnéMeno("široký")
   val Škaredý = new PrídavnéMeno("škaredý")
+  val Slobodný = new PrídavnéMeno("slobodný")
   val Špinavý = new PrídavnéMeno("špinavý")
   val Starý = new PrídavnéMeno("starý")
   // This is not actually an adjective but a demonstrative pronoun
   val Taký = new PrídavnéMeno("taký")
   val Veľký = new PrídavnéMeno("veľký")
   val Vysoký = new PrídavnéMeno("vysoký")
+  val Zaujímavý = new PrídavnéMeno("Zaujímavý")
   val Zelený = new PrídavnéMeno("zelený")
+  val Ženatý = new PrídavnéMeno("Ženatý")
   val Zlý = new PrídavnéMeno("zlý")
 
   /*
    * Sloveso
    */
 
-  // Irregular verbs: to be, to go
-
-  case class Byť(
-    podmet: Seq[NounPhrase] = Seq.empty[PodstatnéMeno],
-    príslovka: Option[String] = None,
-    záporný: Boolean = false,
-    complement: Option[NounPhrase] = None
-  ) extends Sloveso {
-    // can't use require here because of erasure
-    complement match {
-      case None => // ok
-      case Some(_:PodstatnéMeno) => // ok
-      case Some(_:PrídavnéMeno) => // ok
-      case Some(_:Príslovka) => // ok
-      case _ => throw new Exception(s"predicate must be a noun, adjective or adverb")
-    }
-
-    val infinitív = "byť"
-    def toggleZáporný() = this.copy(záporný = !záporný)
-    def setZáporný(z: Boolean) = this.copy(záporný = z)
-    def setComplement(p: NounPhrase) = copy(complement = Some(p))
-    def addPodmet(p: NounPhrase) = copy(podmet = podmet :+ p)
-
-    val časovanie = Array(
-      Array("som", "si", "je"),   // singular
-      Array("sme", "ste", "sú")   // plural
-    )
-    override val paradigm = { (čislo: Čislo, person: Osoba, negate: Boolean) =>
-      (if (negate) "nie " else "") + časovanie(čislo.id)(person.id)
-    }
-
-    override def asText = {
-      // There may or may not be a subject, may or may not be a complement
-      // If there are both, the case must match; and we try to match gender and number
-      val haveSubject = podmet.length > 0
-      val haveComplement = complement.isDefined
-      if (!haveSubject)
-        // No subject: use the infinitive, possibly with a "complement"
-        infinitív +
-        complement.map { c =>
-          " " + (c match {
-            case s: Príslovka => s.asText
-            case p: PodstatnéMeno => p.asText(Nominatív)
-            case p: PrídavnéMeno => p.asText(Stredný, Jednotné, Nominatív)
-          })
-        }.getOrElse("")
-      else if (!haveComplement)
-        // No complement: we can treat it like any other verb and use the inherited `asText()` emthod
-        super.asText
-      else {
-        // we have both a subject and a complement, so we try to match gender & number
-        // if only one is a common noun, use its gender for the other
-        val dComplement = complement.get
-
-        val podmetRod: Option[Rod] =
-         if (podmet.exists(p => p.isInstanceOf[Noun] && p.asInstanceOf[Noun].rod == MužskýŽivotný))
-            Some(MužskýŽivotný)
-          else if (podmet.exists(p => p.isInstanceOf[Noun] && p.asInstanceOf[Noun].rod == MužskýNeživotný))
-            Some(MužskýNeživotný)
-          else if (podmet.exists(p => p.isInstanceOf[Noun] && p.asInstanceOf[Noun].rod == Ženský))
-            Some(Ženský)
-          else if (!podmet.exists(p => p.isInstanceOf[Noun]) && dComplement.isInstanceOf[Noun])
-            Some(dComplement.asInstanceOf[Noun].rod)
-          else if (podmet.exists(p => p.isInstanceOf[Noun] && p.asInstanceOf[Noun].rod == Stredný))
-            Some(Stredný)
-          else None;
-
-        val complementRod: Rod = dComplement match {
-          case p: PodstatnéMeno => p.rod
-          case _ => podmetRod.getOrElse(Stredný)
-        }
-
-        val podmetČislo =
-          if (podmet.length > 1)
-            Množné
-          else if (podmet(0).isInstanceOf[PodstatnéMeno])
-            podmet(0).asInstanceOf[PodstatnéMeno].čislo
-          else if (!podmet(0).isInstanceOf[PodstatnéMeno] && dComplement.isInstanceOf[Noun])
-            dComplement.asInstanceOf[Noun].čislo
-          else if (podmet(0).isInstanceOf[Noun])
-            podmet(0).asInstanceOf[Noun].čislo
-          else
-            Jednotné
-
-        val osoba = if (podmet.exists(_.isInstanceOf[Ja])) First
-        else if  (podmet.exists(_.isInstanceOf[Ty])) Second
-        else Third
-
-        // Now we've calculated the gender & number; here is the return value:
-        // (1) first the subject
-        podmet.map { p =>
-          if (p == Ten) {
-            Ten.asText(podmetRod.getOrElse(Stredný), podmetČislo, Nominatív)
-          }
-          else if (p.isInstanceOf[On]) p.asInstanceOf[On] setČislo podmetČislo asText(Nominatív)
-          else if (p.isInstanceOf[Ty] && podmet.length == 1) p.asInstanceOf[Ty] setČislo podmetČislo asText(Nominatív)
-          else if (p.isInstanceOf[Ja] && podmet.length == 1) p.asInstanceOf[Ja] setČislo podmetČislo asText(Nominatív)
-          else p.asText(Nominatív)
-        }.mkString(" a ") + " " +
-        // (2) next the verb
-        paradigm(podmetČislo, osoba, záporný) + " " +
-        // (3) finally the complement
-        (dComplement match {
-          case p: Pomenovanie => p.asText(Nominatív)
-          case p: PodstatnéMeno => p setČislo podmetČislo asText Nominatív
-          case p: PrídavnéMeno =>
-            p.asText(complementRod, podmetČislo, Nominatív)
-          case p: Príslovka => p.asText
-        })
-      }
-    }
-
-  }
-
-  case class Ísť(
-    podmet: Seq[NounPhrase] = Seq.empty[PodstatnéMeno],
-    príslovka: Option[String] = None,
-    záporný: Boolean = false,
-    directPredmet: Option[PodstatnéMeno] = None // TODO probably not really a direct object
-  ) extends Sloveso {
+  // Irregular verbs: to go
+  case class ísť(
+    val podmet: Seq[NounPhrase] = Seq.empty[PodstatnéMeno],
+    val príslovka: Option[String] = None,
+    val záporný: Boolean = false,
+    directPredmet: Option[PodstatnéMeno] = None, // use only with a preposition
+    override val predložka: Option[String] = None
+  ) extends RegularSloveso {
     override val infinitív = "ísť"
     def addPodmet(p: NounPhrase) = this.copy(podmet = podmet :+ p)
     def setPredmet(o: PodstatnéMeno) = this.copy(directPredmet = Some(o))
     def toggleZáporný() = this.copy(záporný = !záporný)
     def setZáporný(z: Boolean) = this.copy(záporný = z)
+    def setPredložka(p: String) = this.copy(predložka = Some(p))
 
     val časovanie = Array(
       Array("idem", "ideš", "ide"),   // singular
       Array("ideme", "idete", "idú")   // plural
     )
     override val paradigm = { (čislo: Čislo, person: Osoba, negate: Boolean) =>
-      (if (negate) "nie " else "") + časovanie(čislo.id)(person.id)
+      (if (negate) "nie " else "") +
+      časovanie(čislo.id)(person.id) + predložka.map(" " + _).getOrElse("")
     }
-
   }
-
+  val Ísť = ísť()
 
   // Type1 Verbs follow "chytať" - "chytám"
   val Mať = SlovesoType1("mať")
