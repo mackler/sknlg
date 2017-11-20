@@ -113,7 +113,7 @@ object Slovník {
   val Čistý = new PrídavnéMeno("čistý")
   val Dobrý = new PrídavnéMeno("dobrý")
   val Ešte = new PrídavnéMeno("hnedý")
- val Hnedý = new PrídavnéMeno("hnedý")
+  val Hnedý = new PrídavnéMeno("hnedý")
   val Hlavný = new PrídavnéMeno("hlavny")
   val Hospodársky = new PrídavnéMeno("hospodársky")
   // TODO jeden, jedna, jedno
@@ -153,7 +153,7 @@ object Slovník {
     príslovka: Option[String] = None,
     záporný: Boolean = false,
     complement: Option[NounPhrase] = None
-  ) extends Sloveso(podmet, None, príslovka, záporný) {
+  ) extends Sloveso {
     // can't use require here because of erasure
     complement match {
       case None => // ok
@@ -163,7 +163,7 @@ object Slovník {
       case _ => throw new Exception(s"predicate must be a noun, adjective or adverb")
     }
 
-    override val infinitív = "byť"
+    val infinitív = "byť"
     def toggleZáporný() = this.copy(záporný = !záporný)
     def setZáporný(z: Boolean) = this.copy(záporný = z)
     def setComplement(p: NounPhrase) = copy(complement = Some(p))
@@ -173,8 +173,9 @@ object Slovník {
       Array("som", "si", "je"),   // singular
       Array("sme", "ste", "sú")   // plural
     )
-    override def inflect(čislo: Čislo, person: Osoba, negate: Boolean): String =
+    override val paradigm = { (čislo: Čislo, person: Osoba, negate: Boolean) =>
       (if (negate) "nie " else "") + časovanie(čislo.id)(person.id)
+    }
 
     override def asText = {
       // There may or may not be a subject, may or may not be a complement
@@ -245,7 +246,7 @@ object Slovník {
           else p.asText(Nominatív)
         }.mkString(" a ") + " " +
         // (2) next the verb
-        inflect(podmetČislo, osoba, záporný) + " " +
+        paradigm(podmetČislo, osoba, záporný) + " " +
         // (3) finally the complement
         (dComplement match {
           case p: Pomenovanie => p.asText(Nominatív)
@@ -260,15 +261,14 @@ object Slovník {
   }
 
   case class Ísť(
-    podmet: Seq[Noun] = Seq.empty[PodstatnéMeno],
+    podmet: Seq[NounPhrase] = Seq.empty[PodstatnéMeno],
     príslovka: Option[String] = None,
     záporný: Boolean = false,
-//    complement: Option[PrídavnéMeno] = None,
     directPredmet: Option[PodstatnéMeno] = None // TODO probably not really a direct object
-  ) extends Sloveso(podmet, None, príslovka, záporný) with TransitiveVerb {
+  ) extends Sloveso {
     override val infinitív = "ísť"
-    def addPodmet(p: Noun) = this.copy(podmet = podmet :+ p)
-    def setPredmet(o: PodstatnéMeno): Sloveso = this.copy(directPredmet = Some(o))
+    def addPodmet(p: NounPhrase) = this.copy(podmet = podmet :+ p)
+    def setPredmet(o: PodstatnéMeno) = this.copy(directPredmet = Some(o))
     def toggleZáporný() = this.copy(záporný = !záporný)
     def setZáporný(z: Boolean) = this.copy(záporný = z)
 
@@ -276,28 +276,29 @@ object Slovník {
       Array("idem", "ideš", "ide"),   // singular
       Array("ideme", "idete", "idú")   // plural
     )
-    override def inflect(čislo: Čislo, person: Osoba, negate: Boolean): String =
+    override val paradigm = { (čislo: Čislo, person: Osoba, negate: Boolean) =>
       (if (negate) "nie " else "") + časovanie(čislo.id)(person.id)
+    }
 
   }
 
 
   // Type1 Verbs follow "chytať" - "chytám"
-  object Mať extends Type1Factory("mať")
-  object Bývať extends Type1Factory("bývať")
-  object Čakať extends Type1Factory("čakať")
-  object Hľadať extends Type1Factory("hľadať")
-  object Poznať extends Type1Factory("poznať")
+  val Mať = SlovesoType1("mať")
+  val Bývať = SlovesoType1("bývať")
+  val Čakať = SlovesoType1("čakať")
+  val Hľadať = SlovesoType1("hľadať")
+  val Poznať = SlovesoType1("poznať")
 
   // Type 11 verbs follow "pracuvať"
-  val Potrebovať = new SlovesoType11Factory("potrebovať")
+  val Potrebovať = SlovesoType11("potrebovať")
 
   // Type 12 verbs follow "robiť"
   // TOTO WARNING I ONLY GUESSED THIS VERB's TYPE!!!!
-  val Obrátiť = new SlovesoType12Factory("obrátiť")
-  val Robiť = new SlovesoType12Factory("robiť")
+  val Obrátiť = SlovesoType12("obrátiť")
+  val Robiť = SlovesoType12("robiť")
 
   // Type 13 verbs follow "vidieť" - "vidím"
-  val Vidieť = new SlovesoType13Factory("vidieť")
+  val Vidieť = SlovesoType13("vidieť")
 
 }

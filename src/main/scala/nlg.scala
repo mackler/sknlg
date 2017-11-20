@@ -30,10 +30,10 @@ object Main extends App {
       subject <- subjects
       negate <- Set(true, false)
     } yield {
-      Set(Bývať(podmet = subject, príslovka = Some("tu"), záporný = negate).asText,
+      Set(Bývať setPodmet subject setPríslovka "tu" setZáporný negate asText,
        Byť(podmet = subject, príslovka = Some("tu"), záporný = negate).asText,
-       Čakať(podmet = subject, záporný = negate).asText) ++
-      nouns.map{ noun => Mať(podmet = subject, directPredmet = Some(noun()), záporný = negate).asText }
+       Čakať setPodmet subject setZáporný negate asText) ++
+      nouns.map{ noun => Mať setPodmet subject setPredmet noun() setZáporný negate asText }
     }
 
     r.flatten
@@ -78,16 +78,16 @@ object Main extends App {
     singularNominative ++ pluralNominative
   }
   def exM3Accusative: Set[String] = {
-    val verbs = Set(Hľadať() addPodmet Ja(),
-                    Mať() addPodmet Ja(),
-                    Poznať() addPodmet Ty(čislo = Množné),
-                    Vidieť() addPodmet Ja(),
-                    Obrátiť().addPodmet(Ty(čislo = Množné)),
-                    Potrebovať().addPodmet(Ja()),
-                    Mať().addPodmet(Ty(čislo = Jednotné)),
-                    Mať().addPodmet(On(čislo = Množné)),
-                    Mať().addPodmet(Ja(čislo = Množné)).toggleZáporný,
-                    Mať().addPodmet(On()).toggleZáporný
+    val verbs = Set(Hľadať addPodmet Ja(),
+                    Mať addPodmet Ja(),
+                    Poznať addPodmet Ty(čislo = Množné),
+                    Vidieť addPodmet Ja(),
+                    Obrátiť.addPodmet(Ty(čislo = Množné)),
+                    Potrebovať.addPodmet(Ja()),
+                    Mať.addPodmet(Ty(čislo = Jednotné)),
+                    Mať.addPodmet(On(čislo = Množné)),
+                    Mať.addPodmet(Ja(čislo = Množné)).toggleZáporný,
+                    Mať.addPodmet(On()).toggleZáporný
     )
 
     val accusative: Set[String] = for {
@@ -112,7 +112,7 @@ object Main extends App {
     } yield {
       val modifiedNoun = noun() setČislo number setPrídavnéMeno adjective
       Set(
-        Mať() addPodmet Ja() setPredmet modifiedNoun asText,
+        Mať addPodmet Ja() setPredmet modifiedNoun asText,
         Byť() addPodmet Príslovka("tu") setComplement modifiedNoun asText
       )
     }

@@ -10,7 +10,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
    * We want to be able to construct verbs one part at a time, each step returning a new
    * instance with the given member set.
    */
-  val infinitive = Slovník.Mať()
+  val infinitive = Slovník.Mať
   "A regular Type1 verb object without parameters" should "generate the infinitive" in {
     infinitive.asText shouldEqual "mať"
   }
@@ -39,7 +39,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
   }
 
   // We can do the same for verbs of a different type
-  val infinitive13 = Slovník.Vidieť()
+  val infinitive13 = Slovník.Vidieť
   "A regular Type13 verb object without parameters" should "generate the infinitive" in {
     infinitive13.asText shouldEqual "vidieť"
   }

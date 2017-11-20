@@ -38,102 +38,102 @@ class VerbSpec extends FlatSpec with Matchers {
   // Mať is a regular verb of Type 1 following "chytať" - "chytám"
 
   "The Mať object without podmet noun" should "generate the infinitive" in {
-    Slovník.Mať().asText shouldEqual "mať"
+    Slovník.Mať.asText shouldEqual "mať"
   }
   "The Mať object with a 1st/male/singular podmet pronoun" should "return the first person singular" in {
-    Slovník.Mať(podmet = Seq(Ja(Jednotné))).asText shouldEqual "ja mám"
+    (Slovník.Mať setPodmet Seq(Ja(Jednotné)) asText) shouldEqual "ja mám"
   }
   "The Mať object with a 2nd/male/singular podmet pronoun" should "return the second person singular" in {
-    Slovník.Mať(podmet = Seq(Ty(Jednotné))).asText shouldEqual "ty máš"
+    (Slovník.Mať setPodmet Seq(Ty(Jednotné)) asText) shouldEqual "ty máš"
   }
   "The Mať object with a 1st/male/plural podmet pronoun" should "return the first person plural" in {
-    Slovník.Mať(podmet = Seq(Ja(Množné))).asText shouldEqual "my máme"
+    (Slovník.Mať setPodmet Seq(Ja(Množné)) asText) shouldEqual "my máme"
   }
   "The Mať object with a 2nd/male/plural podmet pronoun" should "return the second person plural" in {
-    Slovník.Mať(podmet = Seq(Ty(Množné))).asText shouldEqual "vy máte"
+    (Slovník.Mať setPodmet Seq(Ty(Množné)) asText) shouldEqual "vy máte"
   }
   "The Mať object with a 3rd/male/singular podmet pronoun" should "return the third person male singular" in {
-    Slovník.Mať(podmet = Seq(On(Jednotné))).asText shouldEqual "on má"
+    (Slovník.Mať setPodmet Seq(On(Jednotné)) asText) shouldEqual "on má"
   }
   "The Mať object with a 3rd/female/singular podmet pronoun" should "return the third person female singular" in {
-    Slovník.Mať(podmet = Seq(Ona(Jednotné))).asText shouldEqual "ona má"
+    (Slovník.Mať setPodmet Seq(Ona(Jednotné)) asText) shouldEqual "ona má"
   }
   "The Mať object with a 3rd/neuter/singular podmet pronoun" should "return the third person neuter singular" in {
-    Slovník.Mať(podmet = Seq(To(Jednotné))).asText shouldEqual "to má"
+    (Slovník.Mať setPodmet Seq(To(Jednotné)) asText) shouldEqual "to má"
   }
   "The Mať object with a 3rd/neuter/plural podmet pronoun" should "return the third person plural" in {
-    Slovník.Mať(podmet = Seq(To(Množné))).asText shouldEqual "ony majú"
+    (Slovník.Mať setPodmet Seq(To(Množné)) asText) shouldEqual "ony majú"
   }
 
   // A verb can be negated
   // ...by toggling
   "The Mať object constructed with a 1st/male/plural podmet pronoun" should "be negatable" in {
-    Slovník.Mať(podmet = Seq(Ja(Množné))).toggleZáporný().asText shouldEqual "my nemáme"
+    (Slovník.Mať setPodmet Seq(Ja(Množné)) toggleZáporný() asText) shouldEqual "my nemáme"
   }
   "The Mať object with a 1st/male/plural podmet pronoun added" should "be negatable by toggle" in {
-    Slovník.Mať().addPodmet(Ja(Množné)).toggleZáporný().asText shouldEqual "my nemáme"
+    Slovník.Mať.addPodmet(Ja(Množné)).toggleZáporný().asText shouldEqual "my nemáme"
   }
   "The Mať object with a 3rd/male/singular podmet pronoun" should "be negatable" in {
-    Slovník.Mať(podmet = Seq(On(Jednotné))).toggleZáporný.asText shouldEqual "on nemá"
+    (Slovník.Mať setPodmet Seq(On(Jednotné)) toggleZáporný() asText) shouldEqual "on nemá"
   }
   // ...and by setting
   "The Mať object with a 1st/male/plural podmet pronoun added" should "be negatable by setting" in {
     // note: true means negate it
-    Slovník.Mať().addPodmet(Ja(Množné)).setZáporný(true).asText shouldEqual "my nemáme"
+    Slovník.Mať.addPodmet(Ja(Množné)).setZáporný(true).asText shouldEqual "my nemáme"
   }
   "The negated Mať object with a 1st/male/plural podmet pronoun added" should "be un-negatable by setting" in {
     // note: false means the verb is in the affirmative
-    Slovník.Mať().addPodmet(Ja(Množné)).toggleZáporný().setZáporný(false).asText shouldEqual "my máme"
+    (Slovník.Mať addPodmet Ja(Množné) toggleZáporný() setZáporný(false) asText) shouldEqual "my máme"
   }
 
   // Transitive Verbs can have a direct object
   "The Mať object 1st/sing with a direct object" should "return the correct text" in {
-    Slovník.Mať(podmet = Seq(Ja(Jednotné)), directPredmet = Some(Slovník.Auto())).asText shouldEqual "ja mám auto"
+    (Slovník.Mať setPodmet Seq(Ja(Jednotné)) setPredmet Slovník.Auto() asText) shouldEqual "ja mám auto"
   }
   "The Mať object 1st/plur with a direct object" should "return the correct text" in {
-    Slovník.Mať(podmet = Seq(Ja(Množné)), directPredmet = Some(Slovník.Auto())).asText shouldEqual "my máme auto"
+    (Slovník.Mať setPodmet Seq(Ja(Množné)) setPredmet Slovník.Auto() asText) shouldEqual "my máme auto"
   }
 
   // Verbs with a long vowel in the final syllable of their root have short vowels in their inflections
   "The Bývať object with a 1st/male/singular podmet pronoun" should "return the first person singular" in {
-    Slovník.Bývať(podmet = Seq(Ja(Jednotné))).asText shouldEqual "ja bývam"
+    (Slovník.Bývať setPodmet Seq(Ja(Jednotné)) asText) shouldEqual "ja bývam"
   }
   "The Bývať object with a 2nd/male/singular podmet pronoun" should "return the second person singular" in {
-    Slovník.Bývať(podmet = Seq(Ty(Jednotné))).asText shouldEqual "ty bývaš"
+    (Slovník.Bývať setPodmet Seq(Ty(Jednotné)) asText) shouldEqual "ty bývaš"
   }
   "The Bývať object with a 1st/male/plural podmet pronoun" should "return the first person plural" in {
-    Slovník.Bývať(podmet = Seq(Ja(Množné))).asText shouldEqual "my bývame"
+    (Slovník.Bývať setPodmet Seq(Ja(Množné)) asText) shouldEqual "my bývame"
   }
   "The Bývať object with a 2nd/male/plural podmet pronoun" should "return the second person plural" in {
-    Slovník.Bývať(podmet = Seq(Ty(Množné))).asText shouldEqual "vy bývate"
+    (Slovník.Bývať setPodmet Seq(Ty(Množné)) asText) shouldEqual "vy bývate"
   }
   "The Bývať object with a 3rd/male/singular podmet pronoun" should "return the third person male singular" in {
-    Slovník.Bývať(podmet = Seq(On(Jednotné))).asText shouldEqual "on býva"
+    (Slovník.Bývať setPodmet Seq(On(Jednotné)) asText) shouldEqual "on býva"
   }
   "The Bývať object with a 3rd/female/singular podmet pronoun" should "return the third person female singular" in {
-    Slovník.Bývať(podmet = Seq(Ona(Jednotné))).asText shouldEqual "ona býva"
+    (Slovník.Bývať setPodmet Seq(Ona(Jednotné)) asText) shouldEqual "ona býva"
   }
   "The Bývať object with a 3rd/neuter/singular podmet pronoun" should "return the third person neuter singular" in {
-    Slovník.Bývať(podmet = Seq(To(Jednotné))).asText shouldEqual "to býva"
+    (Slovník.Bývať setPodmet Seq(To(Jednotné)) asText) shouldEqual "to býva"
   }
   "The Bývať object with a 3rd/neuter/plural podmet pronoun" should "return the third person plural" in {
-    Slovník.Bývať(podmet = Seq(To(Množné))).asText shouldEqual "ony bývajú"
+    (Slovník.Bývať setPodmet Seq(To(Množné)) asText) shouldEqual "ony bývajú"
   }
 
   // Intransitive Verb subjects may consist of multiple nouns
   "The Čakať verb with a subject of two proper nouns" should "conjugate as the third person plural" in {
-    Slovník.Čakať(podmet = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))).asText shouldEqual "Igor a Peter čakajú"
+    (Slovník.Čakať setPodmet Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný)) asText) shouldEqual "Igor a Peter čakajú"
   }
 
   // Transitive Verb subjects may consist of multiple nouns
   "The Mať verb with a subject of two proper nouns" should "conjugate as the third person plural" in {
-    Slovník.Mať(podmet = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný)),
-                directPredmet = Some(Slovník.Auto())).asText shouldEqual "Igor a Peter majú auto"
+    (Slovník.Mať setPodmet Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))
+       setPredmet Slovník.Auto() asText) shouldEqual "Igor a Peter majú auto"
   }
 
   // Regular verbs can be negated
   "The Mať verb negated" should "be in the negative" in {
-    Slovník.Mať(podmet = Seq(Ja()), directPredmet = Some(Slovník.Auto()), záporný = true).asText shouldEqual "ja nemám auto"
+    (Slovník.Mať setPodmet Seq(Ja()) setPredmet Slovník.Auto() setZáporný true asText) shouldEqual "ja nemám auto"
   }
 
   /*
@@ -141,47 +141,47 @@ class VerbSpec extends FlatSpec with Matchers {
    */
 
   // Type 11 verbs follow "pracuvať" - "pracujem"
-  "The Potrebovať object with a 2nd/male/plural podmet pronoun" should "return the second person plural" in {
-    Slovník.Potrebovať(podmet = Seq(Ja())).asText shouldEqual "ja potrebujem"
+  "The Potrebovať verb" should "conjugate with a 1st person single subject pronoun" in {
+    (Slovník.Potrebovať setPodmet Seq(Ja()) asText) shouldEqual "ja potrebujem"
   }
 
 
   // Type 12 verbs follow "robiť" - "robím"
   "The Robiť object with a 2nd/male/plural podmet pronoun" should "return the second person plural" in {
-    Slovník.Robiť(podmet = Seq(Ty(Množné))).asText shouldEqual "vy robíte"
+    Slovník.Robiť.setPodmet(Seq(Ty(Množné))).asText shouldEqual "vy robíte"
   }
   // Type 12 verbs must conjugate in accordance with the rhythmic rule
   "The Obrátiť object with a 2nd/male/plural podmet pronoun" should "return the second person plural" in {
-    Slovník.Obrátiť(podmet = Seq(Ty(Množné))).asText shouldEqual "vy obrátite"
+    Slovník.Obrátiť.setPodmet(Seq(Ty(Množné))).asText shouldEqual "vy obrátite"
   }
 
   // Type 13 verbs follow "vidieť" - "vidím"
   "The Vidieť object without podmet noun" should "generate the infinitive" in {
-    Slovník.Vidieť().asText shouldEqual "vidieť"
+    Slovník.Vidieť.asText shouldEqual "vidieť"
   }
   "The Vidieť object with a 1st/male/singular podmet pronoun" should "return the first person singular" in {
-    Slovník.Vidieť(podmet = Seq(Ja(Jednotné))).asText shouldEqual "ja vidím"
+    Slovník.Vidieť.setPodmet(Seq(Ja(Jednotné))).asText shouldEqual "ja vidím"
   }
   "The Vidieť object with a 2nd/male/singular podmet pronoun" should "return the second person singular" in {
-    Slovník.Vidieť(podmet = Seq(Ty(Jednotné))).asText shouldEqual "ty vidíš"
+    Slovník.Vidieť.setPodmet(Seq(Ty(Jednotné))).asText shouldEqual "ty vidíš"
   }
   "The Vidieť object with a 1st/male/plural podmet pronoun" should "return the first person plural" in {
-    Slovník.Vidieť(podmet = Seq(Ja(Množné))).asText shouldEqual "my vidíme"
+    Slovník.Vidieť.setPodmet(Seq(Ja(Množné))).asText shouldEqual "my vidíme"
   }
   "The Vidieť object with a 2nd/male/plural podmet pronoun" should "return the second person plural" in {
-    Slovník.Vidieť(podmet = Seq(Ty(Množné))).asText shouldEqual "vy vidíte"
+    Slovník.Vidieť.setPodmet(Seq(Ty(Množné))).asText shouldEqual "vy vidíte"
   }
   "The Vidieť object with a 3rd/male/singular podmet pronoun" should "return the third person male singular" in {
-    Slovník.Vidieť(podmet = Seq(On(Jednotné))).asText shouldEqual "on vidí"
+    Slovník.Vidieť.setPodmet(Seq(On(Jednotné))).asText shouldEqual "on vidí"
   }
   "The Vidieť object with a 3rd/female/singular podmet pronoun" should "return the third person female singular" in {
-    Slovník.Vidieť(podmet = Seq(Ona(Jednotné))).asText shouldEqual "ona vidí"
+    Slovník.Vidieť.setPodmet(Seq(Ona(Jednotné))).asText shouldEqual "ona vidí"
   }
   "The Vidieť object with a 3rd/neuter/singular podmet pronoun" should "return the third person neuter singular" in {
-    Slovník.Vidieť(podmet = Seq(To(Jednotné))).asText shouldEqual "to vidí"
+    Slovník.Vidieť.setPodmet(Seq(To(Jednotné))).asText shouldEqual "to vidí"
   }
   "The Vidieť object with a 3rd/neuter/plural podmet pronoun" should "return the third person plural" in {
-    Slovník.Vidieť(podmet = Seq(To(Množné))).asText shouldEqual "ony vidia"
+    Slovník.Vidieť.setPodmet(Seq(To(Množné))).asText shouldEqual "ony vidia"
   }
 
   /*
@@ -189,41 +189,41 @@ class VerbSpec extends FlatSpec with Matchers {
    */
   // First Singular
   "The Mať verb with a adjective-modified masculine-animate 'chlap' direct object" should "put the noun phrase into singular accusative case" in {
-    (Slovník.Mať() addPodmet Ja() setPredmet (Slovník.Muž() setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekného muža"
+    (Slovník.Mať addPodmet Ja() setPredmet (Slovník.Muž() setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekného muža"
   }
   "The Mať verb with a adjective-modified masculine-inanimate 'dub' direct object" should "put the noun phrase into singular accusative case" in {
-    (Slovník.Mať() addPodmet Ja() setPredmet (Slovník.Hrad() setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekný hrad"
+    (Slovník.Mať addPodmet Ja() setPredmet (Slovník.Hrad() setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekný hrad"
   }
   "The Mať verb with a adjective-modified feminine 'žena' direct object" should "put the noun phrase into singular accusative case" in {
-    (Slovník.Mať() addPodmet Ja() setPredmet (Slovník.Žena() setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám peknú ženu"
+    (Slovník.Mať addPodmet Ja() setPredmet (Slovník.Žena() setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám peknú ženu"
   }
   "The Mať verb with a adjective-modified feminine 'ulica' direct object" should "put the noun phrase into singular accusative case" in {
-    (Slovník.Mať() addPodmet Ja() setPredmet (Slovník.Stanica() setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám peknú stanicu"
+    (Slovník.Mať addPodmet Ja() setPredmet (Slovník.Stanica() setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám peknú stanicu"
   }
   "The Mať verb with a adjective-modified feminine 'kosť' direct object" should "put the noun phrase into singular accusative case" in {
-    (Slovník.Mať() addPodmet Ja() setPredmet (Slovník.Vec() setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám peknú vec"
+    (Slovník.Mať addPodmet Ja() setPredmet (Slovník.Vec() setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám peknú vec"
   }
   "The Mať verb with a adjective-modified feminine 'mesto' direct object" should "put the noun phrase into singular accusative case" in {
-    (Slovník.Mať() addPodmet Ja() setPredmet (Slovník.Auto() setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekné auto"
+    (Slovník.Mať addPodmet Ja() setPredmet (Slovník.Auto() setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekné auto"
   }
   // Then Plural
   "The Mať verb with a adjective-modified masculine-animate 'chlap' direct object" should "put the noun phrase into plural accusative case" in {
-    (Slovník.Mať() addPodmet Ja() setPredmet (Slovník.Muž() setČislo Množné setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekných mužov"
+    (Slovník.Mať addPodmet Ja() setPredmet (Slovník.Muž() setČislo Množné setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekných mužov"
   }
   "The Mať verb with a adjective-modified masculine-inanimate 'dub' direct object" should "put the noun phrase into plural accusative case" in {
-    (Slovník.Mať() addPodmet Ja() setPredmet (Slovník.Hrad() setČislo Množné setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekné hrady"
+    (Slovník.Mať addPodmet Ja() setPredmet (Slovník.Hrad() setČislo Množné setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekné hrady"
   }
   "The Mať verb with a adjective-modified feminine 'žena' direct object" should "put the noun phrase into plural accusative case" in {
-    (Slovník.Mať() addPodmet Ja() setPredmet (Slovník.Žena() setČislo Množné setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekné ženy"
+    (Slovník.Mať addPodmet Ja() setPredmet (Slovník.Žena() setČislo Množné setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekné ženy"
   }
   "The Mať verb with a adjective-modified feminine 'ulica' direct object" should "put the noun phrase into plural accusative case" in {
-    (Slovník.Mať() addPodmet Ja() setPredmet (Slovník.Stanica() setČislo Množné setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekné stanice"
+    (Slovník.Mať addPodmet Ja() setPredmet (Slovník.Stanica() setČislo Množné setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekné stanice"
   }
   "The Mať verb with a adjective-modified feminine 'kosť' direct object" should "put the noun phrase into plural accusative case" in {
-    (Slovník.Mať() addPodmet Ja() setPredmet (Slovník.Vec() setČislo Množné setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekné veci"
+    (Slovník.Mať addPodmet Ja() setPredmet (Slovník.Vec() setČislo Množné setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekné veci"
   }
   "The Mať verb with a adjective-modified feminine 'mesto' direct object" should "put the noun phrase into plural accusative case" in {
-    (Slovník.Mať() addPodmet Ja() setPredmet (Slovník.Auto() setČislo Množné setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekné autá"
+    (Slovník.Mať addPodmet Ja() setPredmet (Slovník.Auto() setČislo Množné setPrídavnéMeno Slovník.Pekný) asText) shouldEqual "ja mám pekné autá"
   }
 
 }

@@ -8,7 +8,7 @@ lazy val root = (project in file(".")).
       version      := "0.1.0-SNAPSHOT"
     )),
     name := "Slovak Natural Language Generation",
-    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-language:postfixOps"),
+    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-language:postfixOps", "-language:existentials", "-language:reflectiveCalls"),
     libraryDependencies += scalactic,
     libraryDependencies += scalaTest % Test
   )

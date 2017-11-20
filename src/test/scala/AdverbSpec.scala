@@ -11,11 +11,11 @@ class PríslovkaSpec extends FlatSpec with Matchers {
   }
 
   "An adverb" should "modify a regular intransitive verb" in {
-    Slovník.Bývať(podmet = Seq(Ja()), príslovka = Some("tu")).asText shouldEqual "ja tu bývam"
+    (Slovník.Bývať setPodmet Seq(Ja()) setPríslovka "tu" asText) shouldEqual "ja tu bývam"
   }
 
   "An adverb" should "modify a regular transitive verb" in {
-    Slovník.Mať(podmet = Seq(Ja()), directPredmet = Some(Slovník.Kufor()), príslovka = Some("tu")).asText shouldEqual "ja tu mám kufor"
+    (Slovník.Mať setPodmet Seq(Ja()) setPredmet Slovník.Kufor() setPríslovka "tu" asText) shouldEqual "ja tu mám kufor"
   }
 
 }
