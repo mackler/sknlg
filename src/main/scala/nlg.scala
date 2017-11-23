@@ -15,7 +15,7 @@ object Main extends App {
         pronouns flatMap { pronoun =>
           val proper: Set[Seq[Noun]] = Set(Seq[Noun](pronoun(number)))
           val pro: Set[Seq[Noun]] = if (number == Jednotné && (pronoun == Ja || pronoun == Ty))
-                                      Set(Seq[Noun](pronoun(number), properNouns(1)))
+                                      Set(Seq[Noun](properNouns(1), pronoun(number)))
                                     else Set.empty[Seq[Noun]]
           proper ++ pro
         }
@@ -78,7 +78,7 @@ object Main extends App {
     singularNominative ++ pluralNominative
   }
   def exM3Accusative: Set[String] = {
-    val verbs = Set(/*Hľadať addPodmet Ja(),
+    val verbs = Set(Hľadať addPodmet Ja(),
                     Mať addPodmet Ja(),
                     Poznať addPodmet Ty(čislo = Množné),
                     Vidieť addPodmet Ja(),
@@ -87,7 +87,7 @@ object Main extends App {
                     Mať.addPodmet(Ty(čislo = Jednotné)),
                     Mať.addPodmet(On(čislo = Množné)),
                     Mať.addPodmet(Ja(čislo = Množné)).toggleZáporný,
-                    Mať.addPodmet(On()).toggleZáporný*/
+                    Mať.addPodmet(On()).toggleZáporný,
                     Ísť.setPredložka("cez").addPodmet(Ty(čislo = Množné))
     )
 
@@ -124,16 +124,20 @@ object Main extends App {
   val KK1nouns = Set(Manžel, Manželka, Izba, Spolubývajúci, Spolubývajúca)
   val KK1adjectives = Set(Slobodný, Ženatý, Zaujímavý )
 
-  /* Exercise corresponding to Mistrík chapter 4 */
-/*  def exM4: Set[String] = {
-    val verbs = Set(Vstávať, Mať, Byť, Bývať, Začinať, Poznať, Chodievať, Žiadať, konať, znamenať, Nevychaádzať,
-                 Nechávať, Nerozprávať, Prichádzať, Nespávať, Pamätať)
-    val nouns = Set(Večer, Vlak, Učiteľ, Poriadok, Práca, Auto, Obraz, Čislo)
-    val adjectives = Set(Voľný, Čistý, Dobrý, Nový, Veľký, Nejaký, Vlastný, Iný)
-    Set.empty[String]
-  }*/
+  /* Some exercises corresponding to Mistrík chapter 4 */
+  def exM4: List[String] = {
+    val verbs = List[Sloveso](Vstávať, Mať, Byť(), Bývať, Začinať, Poznať, Chodievať, Žiadať, Konať, Znamenať, Vychádzať,
+                 Chávať, Rozprávať, Prichádzať, Spať, Pamätať)
+//    val nouns = Set(Večer, Vlak, Učiteľ, Poriadok, Práca, Auto, Obraz, Čislo)
+//    val adjectives = Set(Voľný, Čistý, Dobrý, Nový, Veľký, Nejaký, Vlastný, Iný)
+    for {
+      negate <- List(true,false)
+      subject <- subjects
+      verb <- verbs if verb.infinitív != "chávať"
+    } yield verb setPodmet subject setZáporný negate asText
+  }
 
   // we do singular and plural separately because there are some duplicate forms between them
-  exM3Accusative foreach { line => println(line) }
+  exM4 foreach { line => println(line) }
 
 }

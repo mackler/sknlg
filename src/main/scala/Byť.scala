@@ -26,6 +26,7 @@ case class Byť(
   def setZáporný(z: Boolean) = this.copy(záporný = z)
   def setComplement(p: NounPhrase) = copy(complement = Some(p))
   def addPodmet(p: NounPhrase) = copy(podmet = podmet :+ p)
+  def setPodmet(p: Seq[NounPhrase]) = copy(podmet = p)
 
   val časovanie = Array(
     Array("som", "si", "je"),   // singular

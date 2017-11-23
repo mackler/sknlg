@@ -4,12 +4,26 @@ file=$1
 
 # Primitive "translation" from Slovak to English
 
-perl -i -p -e 's/^ja /I /' $file
+perl -i -p -e 's/ a / and /' $file
+
 perl -i -p -e 's/^tu /here /' $file
+
+perl -i -p -e 's/((?<= )|(?<=^))ja /I /' $file
+perl -i -p -e "s/^ty /you /" $file
+perl -i -p -e "s/^my /we /" $file
 perl -i -p -e "s/^vy /y'all /" $file
-perl -i -p -e 's/ sú / are /' $file
-perl -i -p -e 's/ je / is /' $file
-perl -i -p -e 's/ mám / have /' $file
+perl -i -p -e "s/^on /he /" $file
+perl -i -p -e "s/^ona /she /" $file
+perl -i -p -e "s/^oni /they /" $file
+perl -i -p -e "s/^ony /they /" $file
+
+perl -i -p -e 's/ som(?= |$)/ am/' $file
+perl -i -p -e 's/ (si|sú|sme|ste)(?= |$)/ are/' $file
+perl -i -p -e 's/ je(?= |$)/ is/' $file
+
+perl -i -p -e 's/ nie (am|is|are)(?=$| )/ $1 not/' $file
+
+
 perl -i -p -e 's/ idete / are going /' $file
 
 perl -i -p -e 's/ cez / via /' $file
@@ -18,6 +32,64 @@ perl -i -p -e 's/ muž(|a)($| )/ man$2/' $file
 perl -i -p -e 's/ muž(i|ov)($| )/ men$2/' $file
 perl -i -p -e 's/ pán(|a)($| )/ gentleman$2/' $file
 perl -i -p -e 's/ pán(i|ov)($| )/ gentlemen$2/' $file
+
+perl -i -p -e 's/ býva(?=$| )/ resides/' $file
+perl -i -p -e 's/ býva[^ \n]+(?=$| )/ reside/' $file
+perl -i -p -e 's/ nebýva(?=$| )/ does not reside/' $file
+perl -i -p -e 's/ nebýva[^ \n]+(?=$| )/ do not reside/' $file
+perl -i -p -e 's/ chodiev(a|á)[^ \n]+(?=$| )/ go/' $file
+perl -i -p -e 's/ chodievá(?=$| )/ goes/' $file
+perl -i -p -e 's/ nechodiev(a|á)[^ \n]+(?=$| )/ do not go/' $file
+perl -i -p -e 's/ nechodievá(?=$| )/ does not go/' $file
+perl -i -p -e 's/ kon(a|á)[^ \n]+(?=$| )/ act/' $file
+perl -i -p -e 's/ koná(?=$| )/ acts/' $file
+perl -i -p -e 's/ nekon(a|á)[^ \n]+(?=$| )/ do not act/' $file
+perl -i -p -e 's/ nekoná(?=$| )/ does not act/' $file
+perl -i -p -e 's/ m(a|á)[^ \n]+(?=$| )/ have/' $file
+perl -i -p -e 's/ má(?=$| )/ has/' $file
+perl -i -p -e 's/ nem(a|á)[^ \n]+(?=$| )/ do not have/' $file
+perl -i -p -e 's/ nemá(?=$| )/ does not have/' $file
+perl -i -p -e 's/ pamätá(?=$| )/ remembers/' $file
+perl -i -p -e 's/ pamät[^ \n]+(?=$| )/ remember/' $file
+perl -i -p -e 's/ nepamätá(?=$| )/ does not remember/' $file
+perl -i -p -e 's/ nepamät[^ \n]+(?=$| )/ do not remember/' $file
+perl -i -p -e 's/ pozn(a|á)[^ \n]+(?=$| )/ know/' $file
+perl -i -p -e 's/ pozná(?=$| )/ knows/' $file
+perl -i -p -e 's/ nepozn(a|á)[^ \n]+(?=$| )/ know not/' $file
+perl -i -p -e 's/ nepozná(?=$| )/ knows not/' $file
+perl -i -p -e 's/ prichádza[^ \n]+(?=$| )/ arrive/' $file
+perl -i -p -e 's/ prichádza(?=$| )/ arrives/' $file
+perl -i -p -e 's/ neprichádza[^ \n]+(?=$| )/ do not arrive/' $file
+perl -i -p -e 's/ neprichádza(?=$| )/ does not arrive/' $file
+perl -i -p -e 's/ rozpráva[^ \n]+(?=$| )/ speak/' $file
+perl -i -p -e 's/ rozpráva(?=$| )/ speaks/' $file
+perl -i -p -e 's/ nerozpráva[^ \n]+(?=$| )/ do not speak/' $file
+perl -i -p -e 's/ nerozpráva(?=$| )/ does not speak/' $file
+perl -i -p -e 's/ sp(a|á)[^ \n]+(?=$| )/ sleep/' $file
+perl -i -p -e 's/ spá(?=$| )/ sleeps/' $file
+perl -i -p -e 's/ nesp(a|á)[^ \n]+(?=$| )/ do not sleep/' $file
+perl -i -p -e 's/ nespá(?=$| )/ does not sleep/' $file
+perl -i -p -e 's/ vstáva[^ \n]+(?=$| )/ get up/' $file
+perl -i -p -e 's/ vstáva(?=$| )/ gets up/' $file
+perl -i -p -e 's/ nevstáva[^ \n]+(?=$| )/ do not get up/' $file
+perl -i -p -e 's/ nevstáva(?=$| )/ does not get up/' $file
+perl -i -p -e 's/ vychádza[^ \n]+(?=$| )/ go out/' $file
+perl -i -p -e 's/ vychádza(?=$| )/ goes out/' $file
+perl -i -p -e 's/ nevychádza[^ \n]+(?=$| )/ do not go out/' $file
+perl -i -p -e 's/ nevychádza(?=$| )/ does not go out/' $file
+perl -i -p -e 's/ začin(a|á)[^ \n]+(?=$| )/ begin/' $file
+perl -i -p -e 's/ začiná(?=$| )/ begins/' $file
+perl -i -p -e 's/ nezačin(a|á)[^ \n]+(?=$| )/ do not begin/' $file
+perl -i -p -e 's/ nezačiná(?=$| )/ does not begin/' $file
+perl -i -p -e 's/ žiad(a|á)[^ \n]+(?=$| )/ ask/' $file
+perl -i -p -e 's/ žiadá(?=$| )/ asks/' $file
+perl -i -p -e 's/ nežiad(a|á)[^ \n]+(?=$| )/ do not ask/' $file
+perl -i -p -e 's/ nežiadá(?=$| )/ does not ask/' $file
+perl -i -p -e 's/ znamen(a|á)[^ \n]+(?=$| )/ mean/' $file
+perl -i -p -e 's/ znamená(?=$| )/ means/' $file
+perl -i -p -e 's/ neznamen(a|á)[^ \n]+(?=$| )/ do not mean/' $file
+perl -i -p -e 's/ neznamená(?=$| )/ does not mean/' $file
+
 
 perl -i -p -e 's/ dom($| )/ home$1/' $file
 perl -i -p -e 's/ domy($| )/ homes$1/' $file
@@ -108,7 +180,9 @@ perl -i -p -e 's/ posledn[^$ ]+($| )/ last$1/' $file
 perl -i -p -e 's/ have (?!which)(?!some)(.+)(?<!s)(?<!men)(?<!feet)$/ have a $1$2/' $file
 # Since "class" ends in 's' is is incorrectly identified as plural by the preceeding line
 perl -i -p -e 's/ have (?!which)(?!some)(.+)(class)$/ have a $1$2/' $file
-perl -i -p -e 's/ is (?!some)(?!which)/ is a /' $file
+
+# this one causes problem with 'ona nie je' -> 'she is not' becomes "she is a not'
+#perl -i -p -e 's/ is (?!some)(?!which)/ is a /' $file
 perl -i -p -e 's/ a such / such a /' $file
 
 perl -i -p -e 's/ going via (.+)(?<!s)(?<!men)$/ going via a $1/' $file

@@ -13,6 +13,8 @@ trait Sloveso {
   val predložka: Option[String] = None
 
   def addPodmet(p: NounPhrase): Sloveso
+  def setPodmet(p: Seq[NounPhrase]): Sloveso
+  def setZáporný(z: Boolean): Sloveso
 
   protected def asTextInfinitive: String =
     infinitív + príslovka.map(_ + " ").getOrElse("") + predložka.map(" " + _).getOrElse("")

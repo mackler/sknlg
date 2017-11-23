@@ -164,6 +164,7 @@ package object slovník {
   ) extends RegularSloveso {
     override val infinitív = "ísť"
     def addPodmet(p: NounPhrase) = this.copy(podmet = podmet :+ p)
+    def setPodmet(p: Seq[NounPhrase]) = this.copy(podmet = p)
     def setPredmet(o: PodstatnéMeno) = this.copy(directPredmet = Some(o))
     def toggleZáporný() = this.copy(záporný = !záporný)
     def setZáporný(z: Boolean) = this.copy(záporný = z)
@@ -181,11 +182,26 @@ package object slovník {
   val Ísť = ísť()
 
   // Type1 Verbs follow "chytať" - "chytám"
-  val Mať = SlovesoType1("mať")
+
   val Bývať = SlovesoType1("bývať")
   val Čakať = SlovesoType1("čakať")
   val Hľadať = SlovesoType1("hľadať")
+  // apparently this is not really a word, but its negative is
+  val Chávať = SlovesoType1("chávať")
+  val Chodievať = SlovesoType1("chodievať")
+  val Konať = SlovesoType1("konať")
+  val Mať = SlovesoType1("mať")
+  val Pamätať = SlovesoType1("pamätať")
   val Poznať = SlovesoType1("poznať")
+  val Prichádzať = SlovesoType1("prichádzať")
+  val Rozprávať = SlovesoType1("rozprávať")
+  // nespavať appears in the Mistrík textbook
+   val Spať = SlovesoType1("spať")
+  val Vstávať = SlovesoType1("vstávať")
+  val Vychádzať = SlovesoType1("vychádzať")
+  val Začinať = SlovesoType1("začinať")
+  val Žiadať = SlovesoType1("žiadať")
+  val Znamenať = SlovesoType1("znamenať")
 
   // Type 11 verbs follow "pracuvať"
   val Potrebovať = SlovesoType11("potrebovať")
