@@ -9,7 +9,7 @@ perl -i -p -e 's/ a / and /' $file
 perl -i -p -e 's/^tu /here /' $file
 
 perl -i -p -e 's/((?<= )|(?<=^))ja /I /' $file
-perl -i -p -e "s/^ty /you /" $file
+perl -i -p -e "s/((?<= )|(?<=^))ty /you /" $file
 perl -i -p -e "s/^my /we /" $file
 perl -i -p -e "s/^vy /y'all /" $file
 perl -i -p -e "s/^on /he /" $file
@@ -37,10 +37,10 @@ perl -i -p -e 's/ býva(?=$| )/ resides/' $file
 perl -i -p -e 's/ býva[^ \n]+(?=$| )/ reside/' $file
 perl -i -p -e 's/ nebýva(?=$| )/ does not reside/' $file
 perl -i -p -e 's/ nebýva[^ \n]+(?=$| )/ do not reside/' $file
-perl -i -p -e 's/ chodiev(a|á)[^ \n]+(?=$| )/ go/' $file
-perl -i -p -e 's/ chodievá(?=$| )/ goes/' $file
-perl -i -p -e 's/ nechodiev(a|á)[^ \n]+(?=$| )/ do not go/' $file
-perl -i -p -e 's/ nechodievá(?=$| )/ does not go/' $file
+perl -i -p -e 's/ chodieva[^ \n]+(?=$| )/ go/' $file
+perl -i -p -e 's/ chodieva(?=$| )/ goes/' $file
+perl -i -p -e 's/ nechodieva[^ \n]+(?=$| )/ do not go/' $file
+perl -i -p -e 's/ nechodieva/ does not go/' $file
 perl -i -p -e 's/ kon(a|á)[^ \n]+(?=$| )/ act/' $file
 perl -i -p -e 's/ koná(?=$| )/ acts/' $file
 perl -i -p -e 's/ nekon(a|á)[^ \n]+(?=$| )/ do not act/' $file

@@ -45,6 +45,7 @@ package object slovník {
   object Plot extends PodstatnéMenoFactory(entry = "plot", rod = MužskýNeživotný)
   object Prst extends PodstatnéMenoFactory(entry = "prst", rod = MužskýNeživotný)
   object Strom extends PodstatnéMenoFactory(entry = "strom", rod = MužskýNeživotný)
+  object Vatikán extends PodstatnéMenoFactory(entry = "strom", rod = MužskýNeživotný) // vatikánsky
   object Večer extends PodstatnéMenoFactory(entry = "večer", rod = MužskýNeživotný)
   object Voz extends PodstatnéMenoFactory(entry = "voz", rod = MužskýNeživotný)
   // ending in soft consonant, e.g., "počitač"
@@ -53,12 +54,19 @@ package object slovník {
   // Feminine
   // ending in -a preceded by a hard or neutral consonant, e.g., "žena"
   object Amerika extends PodstatnéMenoFactory(entry = "Amerika", rod = Ženský)
+  object Bosna extends PodstatnéMenoFactory(entry = "Amerika", rod = Ženský) // Bosniak/Bosniačka - bosniacky (unsure)
+  object Británia extends PodstatnéMenoFactory(entry = "Británia", rod = Ženský) // Brit/Britka - britský
   object Cena extends PodstatnéMenoFactory(entry = "cena", rod = Ženský)
+  object ČiernaHora extends PodstatnéMenoFactory(entry = "Čierna Hora", rod = Ženský) // Čiernohorec/Čiernohorka
+  object Čína extends PodstatnéMenoFactory(entry = "Čierna Hora", rod = Ženský) // Číňan/Číňanka - čínsky
   object Dedina extends PodstatnéMenoFactory(entry = "dedina", rod = Ženský)
+  object Európa extends PodstatnéMenoFactory(entry = "Európa", rod = Ženský)
+  object Hercegovina extends PodstatnéMenoFactory(entry = "Hercegovina", rod = Ženský) // Hercegovinec/?? - hercegovský
   object Hlava extends PodstatnéMenoFactory(entry = "hlava", rod = Ženský)
   object Izba extends PodstatnéMenoFactory(entry = "izba", rod = Ženský)
   object Kniha extends PodstatnéMenoFactory(entry = "kniha", rod = Ženský)
   object Krava extends PodstatnéMenoFactory(entry = "krava", rod = Ženský)
+  object Litva extends PodstatnéMenoFactory(entry = "Litva", rod = Ženský) // Litovciv/?? - litovský
   object Lúka extends PodstatnéMenoFactory(entry = "lúka", rod = Ženský)
   object Mačka extends PodstatnéMenoFactory(entry = "mačka", rod = Ženský)
   object Manželka extends PodstatnéMenoFactory(entry = "manželka", rod = Ženský)
@@ -96,24 +104,48 @@ package object slovník {
 
   // Neuter
   // ending in -o, e.g., "mesto"
+  object Albánsko extends PodstatnéMenoFactory(entry = "auto", rod = Stredný) // Albánec/Albánka - albánsky
   object Auto extends PodstatnéMenoFactory(entry = "auto", rod = Stredný)
+  object Belgicko extends PodstatnéMenoFactory(entry = "Belgicko", rod = Stredný) // Belgičan/Belgičanka - belgický
+  object Bielorusko extends PodstatnéMenoFactory(entry = "Bielorusko", rod = Stredný) // Bielorus/Bieloruska - bieloruský
   object Čelo extends PodstatnéMenoFactory(entry = "čelo", rod = Stredný)
   object Česko extends PodstatnéMenoFactory(entry = "Česko", rod = Stredný)
+  object Chorvátsko extends PodstatnéMenoFactory(entry = "Chorvátsko", rod = Stredný) // Chorvát/Chorvátka - chorvátsky
+  object Estónsko extends PodstatnéMenoFactory(entry = "Estónsko", rod = Stredný) // Estónec/Estónka - estónsky
+  object Fínsko extends PodstatnéMenoFactory(entry = "Fínsko", rod = Stredný) // Fín/Fínka - fínsky
   object Francúzsko extends PodstatnéMenoFactory(entry = "Francúzsko", rod = Stredný)
+  object Grécko extends PodstatnéMenoFactory(entry = "Francúzsko", rod = Stredný) // Grék/Grékyňa - grécky
+  object Holandsko extends PodstatnéMenoFactory(entry = "Holandsko", rod = Stredný) // Holanďan/Holanďanka - holandský
+  object Írsko extends PodstatnéMenoFactory(entry = "Írsko", rod = Stredný) // Ír/Írka - írsky
+  object Japonsko extends PodstatnéMenoFactory(entry = "Írsko", rod = Stredný) // Japonec/Japonka - japonský
+  object Lichtenštajnsko extends PodstatnéMenoFactory(entry = "Írsko", rod = Stredný) // Lichtenštajnčan/Lichtenštajnčanka
+  object Lotyšsko extends PodstatnéMenoFactory(entry = "Lotyšsko", rod = Stredný) // lotyš/Lotyška - lotyšský
+  object Luxembursko extends PodstatnéMenoFactory(entry = "Luxembursko", rod = Stredný) // Luxemburčan/Luxemburčanka - luxemburský
   object Mesto extends PodstatnéMenoFactory(entry = "mesto", rod = Stredný)
   object Maďarsko extends PodstatnéMenoFactory(entry = "Maďarsko", rod = Stredný)
+  object Macedónsko extends PodstatnéMenoFactory(entry = "Maďarsko", rod = Stredný) // Macedónec/Macedónka - macedónsky
   object Mlieko extends PodstatnéMenoFactory(entry = "mlieko", rod = Stredný)
+  object Monako extends PodstatnéMenoFactory(entry = "mlieko", rod = Stredný) // Monačan/Monačanka
+  object Moldavsko extends PodstatnéMenoFactory(entry = "Moldavsko", rod = Stredný) // Moldavčan/Moldavčanka - moldavský
   object Nemecko extends PodstatnéMenoFactory(entry = "Nemecko", rod = Stredný)
+  object Nórsko extends PodstatnéMenoFactory(entry = "Nórsko", rod = Stredný) // Nór/Nórka - nórsky
   object Oko extends PodstatnéMenoFactory(entry = "oko", rod = Stredný)
   object Poľsko extends PodstatnéMenoFactory(entry = "Poľsko", rod = Stredný)
+  object Portugalsko extends PodstatnéMenoFactory(entry = "Portugalsko", rod = Stredný) // Portugalec/Portugalka - portugalský
   object Rakúsko extends PodstatnéMenoFactory(entry = "Rakúsko", rod = Stredný)
   object Rameno extends PodstatnéMenoFactory(entry = "rameno", rod = Stredný)
   object Ráno extends PodstatnéMenoFactory(entry = "ráno", rod = Stredný)
+  object Rumunsko extends PodstatnéMenoFactory(entry = "ráno", rod = Stredný) // Rumun/Rumunka - rumunský
   object Rusko extends PodstatnéMenoFactory(entry = "Rusko", rod = Stredný)
   object Sklo extends PodstatnéMenoFactory(entry = "sklo", rod = Stredný)
   object Slovensko extends PodstatnéMenoFactory(entry = "Slovensko", rod = Stredný)
+  object Slovinsko extends PodstatnéMenoFactory(entry = "Slovensko", rod = Stredný) // Slovinec/Slovinka - slovinský
   object Španielsko extends PodstatnéMenoFactory(entry = "Španielsko", rod = Stredný)
+  object Srbsko extends PodstatnéMenoFactory(entry = "Srbsko", rod = Stredný) // Srb/srbský - srbský
+  object Švédsko extends PodstatnéMenoFactory(entry = "Švédsko", rod = Stredný) // Švéd/Švédka - švédsky
+  object Švajčiarsko extends PodstatnéMenoFactory(entry = "Švajčiarsko", rod = Stredný) // Švajčiar/Švajčiarka - švajčiarsky
   object Taliansko extends PodstatnéMenoFactory(entry = "Taliansko", rod = Stredný)
+  object Turecko extends PodstatnéMenoFactory(entry = "Taliansko", rod = Stredný) // ??? - turecký
 
   // Neuter ending in "-e", e.g., "more"
   object Srdce extends PodstatnéMenoFactory(entry = "srdce", rod = Stredný)
