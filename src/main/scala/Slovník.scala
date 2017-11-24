@@ -52,6 +52,7 @@ package object slovník {
 
   // Feminine
   // ending in -a preceded by a hard or neutral consonant, e.g., "žena"
+  object Amerika extends PodstatnéMenoFactory(entry = "Amerika", rod = Ženský)
   object Cena extends PodstatnéMenoFactory(entry = "cena", rod = Ženský)
   object Dedina extends PodstatnéMenoFactory(entry = "dedina", rod = Ženský)
   object Hlava extends PodstatnéMenoFactory(entry = "hlava", rod = Ženský)
@@ -75,7 +76,9 @@ package object slovník {
   object Voda extends PodstatnéMenoFactory(entry = "voda", rod = Ženský)
   object Žena extends PodstatnéMenoFactory(entry = "žena", rod = Ženský)
   object Záhrada extends PodstatnéMenoFactory(entry = "záhrada", rod = Ženský)
-  // ending in -a preceding by a soft consonant, e.g., "ulica", "stanica"
+  object Ukrajina extends PodstatnéMenoFactory(entry = "Ukrajina", rod = Ženský)
+
+  // Feminine ending in -a preceding by a soft consonant, e.g., "ulica", "stanica"
   object Spolubývajúca extends PodstatnéMenoFactory(entry = "spolubývajúca", rod = Ženský)
   object Stanica extends PodstatnéMenoFactory(entry = "stanica", rod = Ženský)
   object Ulica extends PodstatnéMenoFactory(entry = "ulica", rod = Ženský)
@@ -95,13 +98,24 @@ package object slovník {
   // ending in -o, e.g., "mesto"
   object Auto extends PodstatnéMenoFactory(entry = "auto", rod = Stredný)
   object Čelo extends PodstatnéMenoFactory(entry = "čelo", rod = Stredný)
+  object Česko extends PodstatnéMenoFactory(entry = "Česko", rod = Stredný)
+  object Francúzsko extends PodstatnéMenoFactory(entry = "Francúzsko", rod = Stredný)
   object Mesto extends PodstatnéMenoFactory(entry = "mesto", rod = Stredný)
+  object Maďarsko extends PodstatnéMenoFactory(entry = "Maďarsko", rod = Stredný)
   object Mlieko extends PodstatnéMenoFactory(entry = "mlieko", rod = Stredný)
+  object Nemecko extends PodstatnéMenoFactory(entry = "Nemecko", rod = Stredný)
   object Oko extends PodstatnéMenoFactory(entry = "oko", rod = Stredný)
+  object Poľsko extends PodstatnéMenoFactory(entry = "Poľsko", rod = Stredný)
+  object Rakúsko extends PodstatnéMenoFactory(entry = "Rakúsko", rod = Stredný)
   object Rameno extends PodstatnéMenoFactory(entry = "rameno", rod = Stredný)
   object Ráno extends PodstatnéMenoFactory(entry = "ráno", rod = Stredný)
+  object Rusko extends PodstatnéMenoFactory(entry = "Rusko", rod = Stredný)
   object Sklo extends PodstatnéMenoFactory(entry = "sklo", rod = Stredný)
-  // ending -e, e.g., "more"
+  object Slovensko extends PodstatnéMenoFactory(entry = "Slovensko", rod = Stredný)
+  object Španielsko extends PodstatnéMenoFactory(entry = "Španielsko", rod = Stredný)
+  object Taliansko extends PodstatnéMenoFactory(entry = "Taliansko", rod = Stredný)
+
+  // Neuter ending in "-e", e.g., "more"
   object Srdce extends PodstatnéMenoFactory(entry = "srdce", rod = Stredný)
   // ending -ie, e.g., "poschodie""
   object Namestie extends PodstatnéMenoFactory(entry = "namestie", rod = Stredný)
@@ -154,33 +168,6 @@ package object slovník {
    * Sloveso
    */
 
-  // Irregular verbs: to go
-  case class ísť(
-    val podmet: Seq[NounPhrase] = Seq.empty[PodstatnéMeno],
-    val príslovka: Option[String] = None,
-    val záporný: Boolean = false,
-    directPredmet: Option[PodstatnéMeno] = None, // use only with a preposition
-    override val predložka: Option[String] = None
-  ) extends RegularSloveso {
-    override val infinitív = "ísť"
-    def addPodmet(p: NounPhrase) = this.copy(podmet = podmet :+ p)
-    def setPodmet(p: Seq[NounPhrase]) = this.copy(podmet = p)
-    def setPredmet(o: PodstatnéMeno) = this.copy(directPredmet = Some(o))
-    def toggleZáporný() = this.copy(záporný = !záporný)
-    def setZáporný(z: Boolean) = this.copy(záporný = z)
-    def setPredložka(p: String) = this.copy(predložka = Some(p))
-
-    val časovanie = Array(
-      Array("idem", "ideš", "ide"),   // singular
-      Array("ideme", "idete", "idú")   // plural
-    )
-    override val paradigm = { (čislo: Čislo, person: Osoba, negate: Boolean) =>
-      (if (negate) "nie " else "") +
-      časovanie(čislo.id)(person.id) + predložka.map(" " + _).getOrElse("")
-    }
-  }
-  val Ísť = ísť()
-
   // Type1 Verbs follow "chytať" - "chytám"
 
   val Bývať = SlovesoType1("bývať")
@@ -213,5 +200,32 @@ package object slovník {
 
   // Type 13 verbs follow "vidieť" - "vidím"
   val Vidieť = SlovesoType13("vidieť")
+
+  // Irregular verb: to go
+  case class ísť(
+    val podmet: Seq[NounPhrase] = Seq.empty[PodstatnéMeno],
+    val príslovka: Option[String] = None,
+    val záporný: Boolean = false,
+    directPredmet: Option[PodstatnéMeno] = None, // use only with a preposition
+    override val predložka: Option[String] = None
+  ) extends RegularSloveso {
+    override val infinitív = "ísť"
+    def addPodmet(p: NounPhrase) = this.copy(podmet = podmet :+ p)
+    def setPodmet(p: Seq[NounPhrase]) = this.copy(podmet = p)
+    def setPredmet(o: PodstatnéMeno) = this.copy(directPredmet = Some(o))
+    def toggleZáporný() = this.copy(záporný = !záporný)
+    def setZáporný(z: Boolean) = this.copy(záporný = z)
+    def setPredložka(p: String) = this.copy(predložka = Some(p))
+
+    val časovanie = Array(
+      Array("idem", "ideš", "ide"),   // singular
+      Array("ideme", "idete", "idú")   // plural
+    )
+    override val paradigm = { (čislo: Čislo, person: Osoba, negate: Boolean) =>
+      (if (negate) "nie " else "") +
+      časovanie(čislo.id)(person.id) + predložka.map(" " + _).getOrElse("")
+    }
+  }
+  val Ísť = ísť()
 
 }

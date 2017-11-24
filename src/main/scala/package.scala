@@ -21,7 +21,7 @@ package object sknlg {
 
   object Pád extends Enumeration {
     type Pád = Value
-    val Nominatív, Akusatív  = Value
+    val Nominatív, Genitív, Akusatív  = Value
   }
 
   object Skloňovanie extends Enumeration {
@@ -33,14 +33,17 @@ package object sknlg {
    *  make the final vowel short if the preceding syllable is long.
    * TODO obviously this will fail with a non-vowel vowel, i.e. 'ŕ' or 'ĺ'
    */
-  def finalSyllableIsLong(s: String): Boolean = {
+  // this is the first version I wrote.  I doesn't detect dipthongs as long, but
+  // I'm leaving it here until I'm sure the regexp version works for all possible cases.
+/*  def finalSyllableIsLong(s: String): Boolean = {
     if (s.length <= 1) false // root contains no vowel
     else s.last match {
       case 'a' | 'e' | 'i' | 'o' | 'u' | 'y' => false // last syllable in the root is short
       case 'á' | 'é' | 'í' | 'ó' | 'ú' | 'ý' => true
       case _ => finalSyllableIsLong(s.init)
     }
-  }
+  }*/
+  def finalSyllableIsLong(s: String): Boolean = s.matches(".*(ie|[áéíóúý])[^aáäeéiíoóuúyý]+$")
 
   // supertrait for adjectives and demonstratives
   // TODO need a better name: common nouns decline, but their gender is fixed.

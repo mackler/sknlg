@@ -115,6 +115,14 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   }
 
 
+  // Genetive
+  "A feminine noun following Ženo" should "decline in the genitive singular" in {
+    slovník.Ukrajina().asText(pád = Genitív) shouldEqual "Ukrajiny"
+  }
+  "A neuter noun following mesto" should "decline in the genitive singular" in {
+    slovník.Slovensko().asText(pád = Genitív) shouldEqual "Slovenska"
+  }
+
   /*
    * Prepositions
    */

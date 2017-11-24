@@ -70,7 +70,7 @@ trait PodstatnéMeno extends Noun {
       if (entry.endsWith("a"))                               Hrdina
       else                                                   Chlap
     case MužskýNeživotný =>
-      if (Spoluhláska.mäkký.exists(entry.endsWith))           Stroj
+      if (Spoluhláska.mäkký.exists(entry.endsWith))          Stroj
       else /* ends with hard or neutral consonant */         Dub
     case Ženský =>
       if (Set("c","s","p","v","st").exists(entry.endsWith))  Kosť
@@ -102,14 +102,15 @@ trait PodstatnéMeno extends Noun {
         case Množné   => entry + "y"
       }
       case Stroj => entry
-      case Žena => pád match {
-        case Nominatív => čislo match {
-          case Jednotné => entry
-          case Množné   => entry.replaceFirst("a$", "y")
+      case Žena => čislo match {
+        case Jednotné => pád match {
+          case Nominatív => entry
+          case Genitív => entry.replaceFirst("a$", "y")
+          case Akusatív => entry.replaceFirst("a$", "u")
         }
-        case Akusatív => čislo match {
-          case Jednotné => entry.replaceFirst("a$", "u") // was a
-          case Množné   => entry.replaceFirst("a$", "y") // was u
+        case Množné => pád match {
+          case Nominatív => entry.replaceFirst("a$", "y")
+          case Akusatív => entry.replaceFirst("a$", "y")
         }
       }
       case Ulica => pád match {
@@ -129,7 +130,10 @@ trait PodstatnéMeno extends Noun {
       }
 
       case Mesto => čislo match {
-        case Jednotné => entry
+        case Jednotné => pád match {
+          case Nominatív | Akusatív => entry
+          case Genitív => entry.replaceFirst("o$", "a")
+        }
         case Množné   => entry.replaceFirst("o$", "á")
       }
       case Srdce => entry

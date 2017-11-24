@@ -137,6 +137,8 @@ object Main extends App {
     } yield verb setPodmet subject setZáporný negate asText
   }
 
+  val krajina = Set(Amerika, Česko, Francúzsko, Maďarsko, Nemecko, Poľsko, Rakúsko, Rusko, Slovensko, Španielsko, Ukrajina)
+
   // we do singular and plural separately because there are some duplicate forms between them
   exM4 foreach { line => println(line) }
 

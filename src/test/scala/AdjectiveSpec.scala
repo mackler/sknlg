@@ -173,6 +173,5 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
     slovník.Nízky.asText(rod = Stredný, čislo = Množné, pád = Akusatív) shouldEqual "nízke"
   }
 
-
 }
 
