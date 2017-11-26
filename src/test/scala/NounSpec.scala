@@ -120,7 +120,7 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
     slovník.Ukrajina().asText(pád = Genitív) shouldEqual "Ukrajiny"
   }
   "A neuter noun following mesto" should "decline in the genitive singular" in {
-    slovník.Slovensko().asText(pád = Genitív) shouldEqual "Slovenska"
+    slovník.Mesto().asText(pád = Genitív) shouldEqual "mesta"
   }
 
   /*

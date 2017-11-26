@@ -138,7 +138,6 @@ package object slovník {
   object Rumunsko extends PodstatnéMenoFactory(entry = "ráno", rod = Stredný) // Rumun/Rumunka - rumunský
   object Rusko extends PodstatnéMenoFactory(entry = "Rusko", rod = Stredný)
   object Sklo extends PodstatnéMenoFactory(entry = "sklo", rod = Stredný)
-  object Slovensko extends PodstatnéMenoFactory(entry = "Slovensko", rod = Stredný)
   object Slovinsko extends PodstatnéMenoFactory(entry = "Slovensko", rod = Stredný) // Slovinec/Slovinka - slovinský
   object Španielsko extends PodstatnéMenoFactory(entry = "Španielsko", rod = Stredný)
   object Srbsko extends PodstatnéMenoFactory(entry = "Srbsko", rod = Stredný) // Srb/srbský - srbský
@@ -156,6 +155,16 @@ package object slovník {
   object Dievča extends PodstatnéMenoFactory(entry = "dievča", rod = Stredný)
   object Mača extends PodstatnéMenoFactory(entry = "mača", rod = Stredný)
   object Teľa extends PodstatnéMenoFactory(entry = "teľa", rod = Stredný)
+
+  /*
+   * Country and other place names
+   */
+
+  // Feminine place names
+
+  // Neuter place names
+  val Slovensko = PlaceName(entry = "Slovensko", rod = Stredný,
+                            demonymMužský = "Slovák", demonymŽenský = "Slovenka", adjectival = "slovenský")
 
   /*
    * PrídavnéMeno

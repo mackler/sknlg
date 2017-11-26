@@ -18,7 +18,8 @@ case class Byť(
     case Some(_:PodstatnéMeno) => // ok
     case Some(_:PrídavnéMeno) => // ok
     case Some(_:Príslovka) => // ok
-    case _ => throw new Exception(s"predicate must be a noun, adjective or adverb")
+    case Some(_:Demonym) => // ok
+    case _ => throw new Exception(s"predicate must be a noun, adjective, demonym or adverb")
   }
 
   val infinitív = "byť"
@@ -110,8 +111,8 @@ case class Byť(
       (dComplement match {
         case p: Pomenovanie => p.asText(Nominatív)
         case p: PodstatnéMeno => p setČislo podmetČislo asText Nominatív
-        case p: PrídavnéMeno =>
-          p.asText(complementRod, podmetČislo, Nominatív)
+        case p: PrídavnéMeno => p.asText(complementRod, podmetČislo, Nominatív)
+        case p: Demonym => p.asText(complementRod, podmetČislo, Nominatív)
         case p: Príslovka => p.asText
       })
     }

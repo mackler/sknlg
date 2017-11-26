@@ -42,6 +42,7 @@ trait Noun extends NounPhrase {
 
 /* Person names */
 case class Pomenovanie(name: String, rod: Rod) extends Noun {
+  require(rod == MužskýŽivotný || rod == Ženský)
   override val čislo = Jednotné
   override def decline(pad: Pád = Nominatív) = name
 }
