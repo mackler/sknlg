@@ -43,7 +43,7 @@ package object sknlg {
       case _ => finalSyllableIsLong(s.init)
     }
   }*/
-  def finalSyllableIsLong(s: String): Boolean = s.matches(".*(ie|[áéíóúý])[^aáäeéiíoóuúyý]+$")
+  def finalSyllableIsLong(s: String): Boolean = s.matches(".*(i(e|a|u)|[áéíóúý])[^aáäeéiíoóuúyý]+$")
 
   // supertrait for adjectives and demonstratives
   // TODO need a better name: common nouns decline, but their gender is fixed.
