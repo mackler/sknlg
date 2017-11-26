@@ -25,10 +25,16 @@ trait PlaceName extends PodstatnéMeno {
     object ženskský extends PodstatnéMenoFactory(entry = demonymŽenský, rod = Ženský)
   }
   def asPrídavnéMeno: PrídavnéMeno = adjectival
+  def asOrigin: Príslovka = {
+    val p = super.asText(Genitív)
+    Príslovka("z" + (if (p.matches("^[szSZ].*")) "o" else "") + " " + p)
+  }
 }
 
 object PlaceName {
-  def apply(entry: String, rod: Rod, demonymMužský: String, demonymŽenský: String, adjectival: String): PlaceName = {
+  def apply(
+    entry: String, rod: Rod, demonymMužský: String, demonymŽenský: String, adjectival: String
+  ): PlaceName = {
     val _entry = entry
     val _demonymMužský = demonymMužský
     val _demonymŽenský = demonymŽenský

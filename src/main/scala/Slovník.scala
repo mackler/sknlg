@@ -113,7 +113,6 @@ package object slovník {
   object Chorvátsko extends PodstatnéMenoFactory(entry = "Chorvátsko", rod = Stredný) // Chorvát/Chorvátka - chorvátsky
   object Estónsko extends PodstatnéMenoFactory(entry = "Estónsko", rod = Stredný) // Estónec/Estónka - estónsky
   object Fínsko extends PodstatnéMenoFactory(entry = "Fínsko", rod = Stredný) // Fín/Fínka - fínsky
-  object Francúzsko extends PodstatnéMenoFactory(entry = "Francúzsko", rod = Stredný)
   object Grécko extends PodstatnéMenoFactory(entry = "Francúzsko", rod = Stredný) // Grék/Grékyňa - grécky
   object Holandsko extends PodstatnéMenoFactory(entry = "Holandsko", rod = Stredný) // Holanďan/Holanďanka - holandský
   object Írsko extends PodstatnéMenoFactory(entry = "Írsko", rod = Stredný) // Ír/Írka - írsky
@@ -163,6 +162,8 @@ package object slovník {
   // Feminine place names
 
   // Neuter place names
+  val Francúzsko = PlaceName(entry = "Francúzsko", rod = Stredný,
+                            demonymMužský = "Francúz", demonymŽenský = "Francúzka", adjectival = "francúzsky")
   val Slovensko = PlaceName(entry = "Slovensko", rod = Stredný,
                             demonymMužský = "Slovák", demonymŽenský = "Slovenka", adjectival = "slovenský")
 
@@ -172,7 +173,7 @@ package object slovník {
 
   val Čistý = new PrídavnéMeno("čistý")
   val Dobrý = new PrídavnéMeno("dobrý")
-  val Ešte = new PrídavnéMeno("hnedý")
+//  val Ešte = new PrídavnéMeno("hnedý")
   val Hnedý = new PrídavnéMeno("hnedý")
   val Hlavný = new PrídavnéMeno("hlavny")
   val Hospodársky = new PrídavnéMeno("hospodársky")

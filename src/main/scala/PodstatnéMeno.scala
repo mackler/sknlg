@@ -50,7 +50,7 @@ case class Pomenovanie(name: String, rod: Rod) extends Noun {
 /* These are only common nouns (not pronouns) */
 trait PodstatnéMeno extends Noun {
   protected val entry         : String   // form of the slovo as listed in a slovník
-  override  val rod           : Rod // removing this line causes an exception that looks like a bug
+  override  val rod           : Rod // removing this line caused an exception that looked like a bug
   val prídavnéMeno            : Option[PrídavnéMeno] = None
   protected val demonstrative : Boolean
   def setČislo(č: Čislo): PodstatnéMeno
