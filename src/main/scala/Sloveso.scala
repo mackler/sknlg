@@ -8,7 +8,7 @@ trait Sloveso {
   val infinitív: String
   val paradigm: (Čislo, Osoba, Boolean) => String
   val podmet: Seq[NounPhrase]
-  val príslovka: Option[String]
+  val príslovka: Option[Príslovka]
   val záporný: Boolean
   val predložka: Option[String] = None
 
@@ -17,7 +17,7 @@ trait Sloveso {
   def setZáporný(z: Boolean): Sloveso
 
   protected def asTextInfinitive: String =
-    infinitív + príslovka.map(_ + " ").getOrElse("") + predložka.map(" " + _).getOrElse("")
+    infinitív + príslovka.map(_.asText + " ").getOrElse("") + predložka.map(" " + _).getOrElse("")
 
   def asText: String  = {
     (podmet.length match {
@@ -35,8 +35,8 @@ trait Sloveso {
           else
             Čislo.Jednotné
         podmet.map(_.asText(Nominatív)).mkString(" a ") + " " +
-        príslovka.map(_ + " ").getOrElse("") +
-        paradigm(čislo, osoba, záporný)
+        paradigm(čislo, osoba, záporný) +
+        príslovka.map(" " + _.asText).getOrElse("")
     })
   }
 }
@@ -56,7 +56,7 @@ object SlovesoFactory {
     case class SlovesoInstance(
       podmet        : Seq[NounPhrase]       = Seq.empty[Noun],
       directPredmet : Option[PodstatnéMeno] = None,
-      príslovka     : Option[String]        = None,
+      príslovka     : Option[Príslovka]        = None,
       záporný       : Boolean               = false
     ) extends RegularSloveso {
       val infinitív = _infinitív
@@ -65,7 +65,7 @@ object SlovesoFactory {
       def addPodmet(p: NounPhrase)= this.copy(podmet = podmet :+ p)
       def setPodmet(s: Seq[NounPhrase])= this.copy(podmet = s)
       def setPredmet(o: PodstatnéMeno) = this.copy(directPredmet = Some(o))
-      def setPríslovka(p: String) = this.copy(príslovka = Some(p))
+      def setPríslovka(p: Príslovka) = this.copy(príslovka = Some(p))
       def toggleZáporný() = this.copy(záporný = !záporný)
       def setZáporný(z: Boolean) = this.copy(záporný = z)
     }

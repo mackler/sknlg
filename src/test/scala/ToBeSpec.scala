@@ -52,7 +52,7 @@ class ByťSpec extends FlatSpec with Matchers {
 
   // Byť can be negated
   "The Byť verb negated" should "be in the negative" in {
-    slovník.Byť(podmet = Seq(Ja()), príslovka = Some("tu"), záporný = true).asText shouldEqual "ja tu nie som"
+    slovník.Byť(podmet = Seq(Ja()), príslovka = Some("tu"), záporný = true).asText shouldEqual "ja nie som tu"
   }
 
   /*

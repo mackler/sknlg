@@ -246,7 +246,7 @@ package object slovník {
   // Irregular verb: to go
   case class ísť(
     val podmet: Seq[NounPhrase] = Seq.empty[PodstatnéMeno],
-    val príslovka: Option[String] = None,
+    val príslovka: Option[Príslovka] = None,
     val záporný: Boolean = false,
     directPredmet: Option[PodstatnéMeno] = None, // use only with a preposition
     override val predložka: Option[String] = None

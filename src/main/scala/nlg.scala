@@ -30,8 +30,8 @@ object Main extends App {
       subject <- subjects
       negate <- Set(true, false)
     } yield {
-      Set(Bývať setPodmet subject setPríslovka "tu" setZáporný negate asText,
-       Byť(podmet = subject, príslovka = Some("tu"), záporný = negate).asText,
+      Set(Bývať setPodmet subject setPríslovka Príslovka("tu") setZáporný negate asText,
+       Byť(podmet = subject, príslovka = Some(Príslovka("tu")), záporný = negate).asText,
        Čakať setPodmet subject setZáporný negate asText) ++
       nouns.map{ noun => Mať setPodmet subject setPredmet noun() setZáporný negate asText }
     }
@@ -73,8 +73,10 @@ object Main extends App {
     Obchod, Obraz, Otázka, Pán, Plot, Prst,
     Rieka, Ruka, Škola, Stanica, Stavba, Stena, Strom, Trieda, Vec, Ulica, Večer, Voz, Záhrada)
   def exM3Plural: Set[String] = {
-    val singularNominative = exM3Nouns.map(noun => Byť(podmet = Seq(noun()), príslovka = Some("tu")).asText) 
-    val pluralNominative = exM3Nouns.map(noun => Byť(podmet = Seq(noun(čislo = Množné)), príslovka = Some("tu")).asText)
+    val singularNominative =
+      exM3Nouns.map(noun => Byť(podmet = Seq(noun()), príslovka = Some(Príslovka("tu"))).asText)
+    val pluralNominative =
+      exM3Nouns.map(noun => Byť(podmet = Seq(noun(čislo = Množné)), príslovka = Some(Príslovka("tu"))).asText)
     singularNominative ++ pluralNominative
   }
   def exM3Accusative: Set[String] = {

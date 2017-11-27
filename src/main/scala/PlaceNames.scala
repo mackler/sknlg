@@ -25,6 +25,7 @@ trait PlaceName extends PodstatnéMeno {
     object ženskský extends PodstatnéMenoFactory(entry = demonymŽenský, rod = Ženský)
   }
   def asPrídavnéMeno: PrídavnéMeno = adjectival
+  def asPríslovka: Príslovka = Príslovka("po " + asPrídavnéMeno.asText(Stredný).replaceFirst(".$", "y"))
   def asOrigin: Príslovka = {
     val p = super.asText(Genitív)
     Príslovka("z" + (if (p.matches("^[szSZ].*")) "o" else "") + " " + p)

@@ -45,7 +45,7 @@ package object sknlg {
   }*/
   def finalSyllableIsLong(s: String): Boolean = s.matches(".*(i(e|a|u)|[áéíóúý])[^aáäeéiíoóuúyý]+$")
 
-  // supertrait for adjectives and demonstratives
+  // supertrait for adjectives, place names and demonstratives
   // TODO need a better name: common nouns decline, but their gender is fixed.
   trait Declines extends NounPhrase {
     def asText(rod: Rod.Value, čislo: Čislo.Value, pád: Pád.Value): String
@@ -57,5 +57,7 @@ package object sknlg {
     def asText = head
     override def asText(pád: Pád.Value): String = asText
   }
+
+  implicit def stringToPríslovka(s: String) = Príslovka(s)
 
 }

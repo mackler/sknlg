@@ -45,6 +45,14 @@ class PlaceNameSpec extends FlatSpec with Matchers {
     (Byť() addPodmet Ja() setComplement Slovensko.asOrigin asText) shouldEqual "ja som zo Slovenska"
   }
 
+  /* Knowing/speaking/reading/etc a language */
+  "A place name" should "convert to an adverb phrase" in {
+    (Slovensko.asPríslovka asText) shouldEqual "po slovensky"
+  }
+  "A place name's language adverb" should "apply to a verb" in {
+    (Žiadať addPodmet Pomenovanie("Peter", MužskýŽivotný) setPríslovka Slovensko.asPríslovka asText) shouldEqual
+    "Peter žiada po slovensky"
+  }
 
 }
 

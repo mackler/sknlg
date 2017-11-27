@@ -8,7 +8,7 @@ import Čislo._
 
 case class Byť(
   podmet: Seq[NounPhrase] = Seq.empty[PodstatnéMeno],
-  príslovka: Option[String] = None,
+  príslovka: Option[Príslovka] = None,
   záporný: Boolean = false,
   complement: Option[NounPhrase] = None
 ) extends Sloveso {
