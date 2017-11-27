@@ -11,7 +11,7 @@ import org.scalatest._
 class PlaceNameSpec extends FlatSpec with Matchers {
 
   "A country name" should "have a gender" in {
-    (Byť() addPodmet Británia setComplement Pekný asText) shouldEqual "Británia je pekná"
+    (Byť() addPodmet Európa setComplement Pekný asText) shouldEqual "Európa je pekná"
   }
   "A masculine proper name" should "be complemented by a demonym" in {
     (Byť() addPodmet Pomenovanie("Peter", MužskýŽivotný) setComplement Slovensko.demonym.get asText) shouldEqual
@@ -35,6 +35,11 @@ class PlaceNameSpec extends FlatSpec with Matchers {
     val myPlace = PlaceName(entry = "whatevera", rod = Ženský,
                             demonymMužský = "abc", demonymŽenský = "othera", adjectival = "whateversky")
     (Byť() addPodmet Ona() setComplement myPlace.demonym.get asText) shouldEqual "ona je othera"
+  }
+
+  /* Multi-word place name */
+  "A two-word place name" should "decline all words" in {
+    (Vidieť addPodmet Ja() setPredmet Británia asText) shouldEqual "ja vidím Veľkú Britániu"
   }
 
   /* Adjectival forms of place names */

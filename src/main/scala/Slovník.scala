@@ -126,7 +126,7 @@ package object slovník {
   val Amerika = PlaceName(entry = "Amerika", rod = Ženský, demonymMužský = "Američan", adjectival = "americký")
   val Bosna = PlaceName(entry = "Bosna", rod = Ženský,
                             demonymMužský = "Bosniak", demonymŽenský = "Bosniačka", adjectival = "bosniansky")
-  val Británia = PlaceName(entry = "Británia", rod = Ženský, demonymMužský = "Brit", adjectival = "britský")
+  val Británia = PlaceName(entry = "Veľká Británia", rod = Ženský, demonymMužský = "Brit", adjectival = "britský")
   val ČiernaHora = PlaceName(entry = "Čierna Hora", rod = Ženský, demonymMužský = "Čiernohorec", adjectival = "čiernohorský")
   val Čína = PlaceName(entry = "Čína", rod = Ženský, demonymMužský = "Číňan", adjectival = "čínsky")
   val Európa = PlaceName(entry = "Európa", rod = Ženský, demonymMužský = "Európan", adjectival = "európsky")

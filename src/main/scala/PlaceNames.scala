@@ -32,23 +32,28 @@ trait PlaceName extends PodstatnéMeno {
     val p = super.asText(Genitív)
     Príslovka("z" + (if (p.matches("^[szSZ].*")) "o" else "") + " " + p)
   }
+
+
 }
 
 object PlaceName {
   def apply(
     entry: String, rod: Rod, demonymMužský: String = "", demonymŽenský: String = "", adjectival: String
   ): PlaceName = {
-    val _entry = entry
+    val parts: Array[String] = entry.split("\\s+")
+    require(parts.length <= 2)
+    val _entry = parts(parts.length-1)
+    val _prídavnéMeno = if (parts.length == 2) Some(new PrídavnéMeno(parts(0))) else None
     val _demonymMužský = if (demonymMužský.length > 0) Some(demonymMužský) else None
     val _demonymŽenský = if (demonymŽenský.length > 0) Some(demonymŽenský) else None
     val _adjectival = adjectival
     val _rod = rod
     case class PlaceNameInstance(
-      čislo: Čislo = Jednotné,
-      override val prídavnéMeno: Option[PrídavnéMeno] = None
+      čislo: Čislo = Jednotné
     ) extends PlaceName {
       val entry = _entry
       val rod = _rod
+      override val prídavnéMeno = _prídavnéMeno
       val demonymMužský = _demonymMužský
       val demonymŽenský = _demonymŽenský
       val adjectival = PrídavnéMeno(_adjectival)
@@ -56,7 +61,6 @@ object PlaceName {
     }
 
     PlaceNameInstance()
-
   }
 
 }
