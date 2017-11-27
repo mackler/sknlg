@@ -16,13 +16,15 @@ trait Demonym extends NounPhrase {
 }
 
 trait PlaceName extends PodstatnéMeno {
-  val demonymMužský: String
-  val demonymŽenský: String
+  val demonymMužský: Option[String]
+  val demonymŽenský: Option[String]
   val adjectival: PrídavnéMeno
   val demonstrative = false
-  def demonym = new Demonym {
-    object mužský extends PodstatnéMenoFactory(entry = demonymMužský, rod = MužskýŽivotný)
-    object ženskský extends PodstatnéMenoFactory(entry = demonymŽenský, rod = Ženský)
+  def demonym: Option[Demonym] = demonymMužský map { m =>
+    new Demonym {
+      object mužský extends PodstatnéMenoFactory(entry = m, rod = MužskýŽivotný)
+      object ženskský extends PodstatnéMenoFactory(entry = demonymŽenský.getOrElse(m.replaceFirst("(ec)?$", "ka")), rod = Ženský)
+    }
   }
   def asPrídavnéMeno: PrídavnéMeno = adjectival
   def asPríslovka: Príslovka = Príslovka("po " + asPrídavnéMeno.asText(Stredný).replaceFirst(".$", "y"))
@@ -34,11 +36,11 @@ trait PlaceName extends PodstatnéMeno {
 
 object PlaceName {
   def apply(
-    entry: String, rod: Rod, demonymMužský: String, demonymŽenský: String, adjectival: String
+    entry: String, rod: Rod, demonymMužský: String = "", demonymŽenský: String = "", adjectival: String
   ): PlaceName = {
     val _entry = entry
-    val _demonymMužský = demonymMužský
-    val _demonymŽenský = demonymŽenský
+    val _demonymMužský = if (demonymMužský.length > 0) Some(demonymMužský) else None
+    val _demonymŽenský = if (demonymŽenský.length > 0) Some(demonymŽenský) else None
     val _adjectival = adjectival
     val _rod = rod
     case class PlaceNameInstance(

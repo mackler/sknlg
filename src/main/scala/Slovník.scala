@@ -45,7 +45,6 @@ package object slovník {
   object Plot extends PodstatnéMenoFactory(entry = "plot", rod = MužskýNeživotný)
   object Prst extends PodstatnéMenoFactory(entry = "prst", rod = MužskýNeživotný)
   object Strom extends PodstatnéMenoFactory(entry = "strom", rod = MužskýNeživotný)
-  object Vatikán extends PodstatnéMenoFactory(entry = "strom", rod = MužskýNeživotný) // vatikánsky
   object Večer extends PodstatnéMenoFactory(entry = "večer", rod = MužskýNeživotný)
   object Voz extends PodstatnéMenoFactory(entry = "voz", rod = MužskýNeživotný)
   // ending in soft consonant, e.g., "počitač"
@@ -53,20 +52,12 @@ package object slovník {
 
   // Feminine
   // ending in -a preceded by a hard or neutral consonant, e.g., "žena"
-  object Amerika extends PodstatnéMenoFactory(entry = "Amerika", rod = Ženský)
-  object Bosna extends PodstatnéMenoFactory(entry = "Amerika", rod = Ženský) // Bosniak/Bosniačka - bosniacky (unsure)
-  object Británia extends PodstatnéMenoFactory(entry = "Británia", rod = Ženský) // Brit/Britka - britský
   object Cena extends PodstatnéMenoFactory(entry = "cena", rod = Ženský)
-  object ČiernaHora extends PodstatnéMenoFactory(entry = "Čierna Hora", rod = Ženský) // Čiernohorec/Čiernohorka
-  object Čína extends PodstatnéMenoFactory(entry = "Čierna Hora", rod = Ženský) // Číňan/Číňanka - čínsky
   object Dedina extends PodstatnéMenoFactory(entry = "dedina", rod = Ženský)
-  object Európa extends PodstatnéMenoFactory(entry = "Európa", rod = Ženský)
-  object Hercegovina extends PodstatnéMenoFactory(entry = "Hercegovina", rod = Ženský) // Hercegovinec/?? - hercegovský
   object Hlava extends PodstatnéMenoFactory(entry = "hlava", rod = Ženský)
   object Izba extends PodstatnéMenoFactory(entry = "izba", rod = Ženský)
   object Kniha extends PodstatnéMenoFactory(entry = "kniha", rod = Ženský)
   object Krava extends PodstatnéMenoFactory(entry = "krava", rod = Ženský)
-  object Litva extends PodstatnéMenoFactory(entry = "Litva", rod = Ženský) // Litovciv/?? - litovský
   object Lúka extends PodstatnéMenoFactory(entry = "lúka", rod = Ženský)
   object Mačka extends PodstatnéMenoFactory(entry = "mačka", rod = Ženský)
   object Manželka extends PodstatnéMenoFactory(entry = "manželka", rod = Ženský)
@@ -84,7 +75,6 @@ package object slovník {
   object Voda extends PodstatnéMenoFactory(entry = "voda", rod = Ženský)
   object Žena extends PodstatnéMenoFactory(entry = "žena", rod = Ženský)
   object Záhrada extends PodstatnéMenoFactory(entry = "záhrada", rod = Ženský)
-  object Ukrajina extends PodstatnéMenoFactory(entry = "Ukrajina", rod = Ženský)
 
   // Feminine ending in -a preceding by a soft consonant, e.g., "ulica", "stanica"
   object Spolubývajúca extends PodstatnéMenoFactory(entry = "spolubývajúca", rod = Ženský)
@@ -101,49 +91,19 @@ package object slovník {
   object Tvár extends PodstatnéMenoFactory(entry = "tvár", rod = Ženský)
   object Pani extends PodstatnéMenoFactory(entry = "pani", rod = Ženský)
 
-
   // Neuter
   // ending in -o, e.g., "mesto"
   object Albánsko extends PodstatnéMenoFactory(entry = "auto", rod = Stredný) // Albánec/Albánka - albánsky
   object Auto extends PodstatnéMenoFactory(entry = "auto", rod = Stredný)
-  object Belgicko extends PodstatnéMenoFactory(entry = "Belgicko", rod = Stredný) // Belgičan/Belgičanka - belgický
-  object Bielorusko extends PodstatnéMenoFactory(entry = "Bielorusko", rod = Stredný) // Bielorus/Bieloruska - bieloruský
   object Čelo extends PodstatnéMenoFactory(entry = "čelo", rod = Stredný)
-  object Česko extends PodstatnéMenoFactory(entry = "Česko", rod = Stredný)
-  object Chorvátsko extends PodstatnéMenoFactory(entry = "Chorvátsko", rod = Stredný) // Chorvát/Chorvátka - chorvátsky
-  object Estónsko extends PodstatnéMenoFactory(entry = "Estónsko", rod = Stredný) // Estónec/Estónka - estónsky
-  object Fínsko extends PodstatnéMenoFactory(entry = "Fínsko", rod = Stredný) // Fín/Fínka - fínsky
-  object Grécko extends PodstatnéMenoFactory(entry = "Francúzsko", rod = Stredný) // Grék/Grékyňa - grécky
-  object Holandsko extends PodstatnéMenoFactory(entry = "Holandsko", rod = Stredný) // Holanďan/Holanďanka - holandský
-  object Írsko extends PodstatnéMenoFactory(entry = "Írsko", rod = Stredný) // Ír/Írka - írsky
-  object Japonsko extends PodstatnéMenoFactory(entry = "Írsko", rod = Stredný) // Japonec/Japonka - japonský
-  object Lichtenštajnsko extends PodstatnéMenoFactory(entry = "Írsko", rod = Stredný) // Lichtenštajnčan/Lichtenštajnčanka
-  object Lotyšsko extends PodstatnéMenoFactory(entry = "Lotyšsko", rod = Stredný) // lotyš/Lotyška - lotyšský
-  object Luxembursko extends PodstatnéMenoFactory(entry = "Luxembursko", rod = Stredný) // Luxemburčan/Luxemburčanka - luxemburský
   object Mesto extends PodstatnéMenoFactory(entry = "mesto", rod = Stredný)
-  object Maďarsko extends PodstatnéMenoFactory(entry = "Maďarsko", rod = Stredný)
-  object Macedónsko extends PodstatnéMenoFactory(entry = "Maďarsko", rod = Stredný) // Macedónec/Macedónka - macedónsky
   object Mlieko extends PodstatnéMenoFactory(entry = "mlieko", rod = Stredný)
   object Monako extends PodstatnéMenoFactory(entry = "mlieko", rod = Stredný) // Monačan/Monačanka
-  object Moldavsko extends PodstatnéMenoFactory(entry = "Moldavsko", rod = Stredný) // Moldavčan/Moldavčanka - moldavský
-  object Nemecko extends PodstatnéMenoFactory(entry = "Nemecko", rod = Stredný)
-  object Nórsko extends PodstatnéMenoFactory(entry = "Nórsko", rod = Stredný) // Nór/Nórka - nórsky
   object Oko extends PodstatnéMenoFactory(entry = "oko", rod = Stredný)
-  object Poľsko extends PodstatnéMenoFactory(entry = "Poľsko", rod = Stredný)
-  object Portugalsko extends PodstatnéMenoFactory(entry = "Portugalsko", rod = Stredný) // Portugalec/Portugalka - portugalský
-  object Rakúsko extends PodstatnéMenoFactory(entry = "Rakúsko", rod = Stredný)
   object Rameno extends PodstatnéMenoFactory(entry = "rameno", rod = Stredný)
   object Ráno extends PodstatnéMenoFactory(entry = "ráno", rod = Stredný)
   object Rumunsko extends PodstatnéMenoFactory(entry = "ráno", rod = Stredný) // Rumun/Rumunka - rumunský
-  object Rusko extends PodstatnéMenoFactory(entry = "Rusko", rod = Stredný)
   object Sklo extends PodstatnéMenoFactory(entry = "sklo", rod = Stredný)
-  object Slovinsko extends PodstatnéMenoFactory(entry = "Slovensko", rod = Stredný) // Slovinec/Slovinka - slovinský
-  object Španielsko extends PodstatnéMenoFactory(entry = "Španielsko", rod = Stredný)
-  object Srbsko extends PodstatnéMenoFactory(entry = "Srbsko", rod = Stredný) // Srb/srbský - srbský
-  object Švédsko extends PodstatnéMenoFactory(entry = "Švédsko", rod = Stredný) // Švéd/Švédka - švédsky
-  object Švajčiarsko extends PodstatnéMenoFactory(entry = "Švajčiarsko", rod = Stredný) // Švajčiar/Švajčiarka - švajčiarsky
-  object Taliansko extends PodstatnéMenoFactory(entry = "Taliansko", rod = Stredný)
-  object Turecko extends PodstatnéMenoFactory(entry = "Taliansko", rod = Stredný) // ??? - turecký
 
   // Neuter ending in "-e", e.g., "more"
   object Srdce extends PodstatnéMenoFactory(entry = "srdce", rod = Stredný)
@@ -159,13 +119,61 @@ package object slovník {
    * Country and other place names
    */
 
+  // Masculine place names
+  val Vatikán = PlaceName(entry = "strom", rod = MužskýNeživotný, adjectival = "vatikánsky")
+
   // Feminine place names
+  val Amerika = PlaceName(entry = "Amerika", rod = Ženský, demonymMužský = "Američan", adjectival = "americký")
+  val Bosna = PlaceName(entry = "Bosna", rod = Ženský,
+                            demonymMužský = "Bosniak", demonymŽenský = "Bosniačka", adjectival = "bosniansky")
+  val Británia = PlaceName(entry = "Británia", rod = Ženský, demonymMužský = "Brit", adjectival = "britský")
+  val ČiernaHora = PlaceName(entry = "Čierna Hora", rod = Ženský, demonymMužský = "Čiernohorec", adjectival = "čiernohorský")
+  val Čína = PlaceName(entry = "Čína", rod = Ženský, demonymMužský = "Číňan", adjectival = "čínsky")
+  val Európa = PlaceName(entry = "Európa", rod = Ženský, demonymMužský = "Európan", adjectival = "európsky")
+  val Hercegovina = PlaceName(entry = "Hercegovina", rod = Ženský, demonymMužský = "Hercegovinec", adjectival = "hercegovský")
+  val Litva = PlaceName(entry = "Litva", rod = Ženský, demonymMužský = "Litovčan", adjectival = "litovský")
+  val Ukrajina = PlaceName(entry = "Ukrajina", rod = Ženský, demonymMužský = "Ukrajinec", adjectival = "ukrajinský")
 
   // Neuter place names
-  val Francúzsko = PlaceName(entry = "Francúzsko", rod = Stredný,
-                            demonymMužský = "Francúz", demonymŽenský = "Francúzka", adjectival = "francúzsky")
+  val Anglicko = PlaceName(entry = "Anglicko", rod = Stredný, demonymMužský = "Angličan", adjectival = "anglický")
+  val Belgicko = PlaceName(entry = "Belgicko", rod = Stredný, demonymMužský = "Belgičan", adjectival = "belgický")
+  val Bielorusko = PlaceName(entry = "Bielorusko", rod = Stredný, demonymMužský = "Bielorus", adjectival = "bieloruský")
+  val Česko = PlaceName(entry = "Česko", rod = Stredný, demonymMužský = "Čech", demonymŽenský = "Češka", adjectival = "český")
+  val Kanada = PlaceName(entry = "Kanada ", rod = Stredný, demonymMužský = "Kanaďan", adjectival = "kanadský")
+  val Estónsko = PlaceName(entry = "Estónsko", rod = Stredný, demonymMužský = "Estónec", adjectival = "estónsky")
+  val Fínsko = PlaceName(entry = "Fínsko", rod = Stredný, demonymMužský = "Fín", adjectival = "fínsky")
+  val Francúzsko = PlaceName(entry = "Francúzsko", rod = Stredný, demonymMužský = "Francúz", adjectival = "francúzsky")
+  val Grécko = PlaceName(entry = "Francúzsko", rod = Stredný,
+                            demonymMužský = "Grék", demonymŽenský = "Grékyňa", adjectival = "grécky")
+  val Holandsko = PlaceName(entry = "Holandsko", rod = Stredný, demonymMužský = "Holanďan", adjectival = "holandský")
+  val Chorvátsko = PlaceName(entry = "Chorvátsko", rod = Stredný, demonymMužský = "Chorvát", adjectival = "chorvátsky")
+  val Írsko = PlaceName(entry = "Írsko", rod = Stredný, demonymMužský = "Ír", adjectival = "írsky")
+  val Japonsko = PlaceName(entry = "Japonsko", rod = Stredný, demonymMužský = "Japonec", adjectival = "japonský")
+  val Lichtenštajnsko = PlaceName(entry = "Lichtenštajnsko", rod = Stredný,
+                            demonymMužský = "Lichtenštajnčan", adjectival = "lichtenštajnský")
+  val Lotyšsko = PlaceName(entry = "Lotyšsko", rod = Stredný, demonymMužský = "Lotyš", adjectival = "lotyšský")
+  val Luxembursko = PlaceName(entry = "Luxembursko", rod = Stredný, demonymMužský = "Luxemburčan", adjectival = "luxemburský")
+  val Macedónsko = PlaceName(entry = "Maďarsko", rod = Stredný, demonymMužský = "Macedónec", adjectival = "macedónsky")
+  val Maďarsko = PlaceName(entry = "Maďarsko", rod = Stredný, demonymMužský = "Maďar", adjectival = "maďarský")
+  val Mexiko = PlaceName(entry = "Mexiko", rod = Stredný, demonymMužský = "Mexičan", adjectival = "mexický")
+  val Moldavsko = PlaceName(entry = "Moldavsko", rod = Stredný, demonymMužský = "Moldavčan", adjectival = "moldavský")
+  val Nemecko = PlaceName(entry = "Nemecko", rod = Stredný, demonymMužský = "Nemec", adjectival = "nemecký")
+  val Nórsko = PlaceName(entry = "Nórsko", rod = Stredný, demonymMužský = "Nór", adjectival = "nórsky")
+  val Poľsko = PlaceName(entry = "Poľsko", rod = Stredný,
+                            demonymMužský = "Poliak", demonymŽenský = "Poľka", adjectival = "poľský")
+  val Portugalsko = PlaceName(entry = "Portugalsko", rod = Stredný, demonymMužský = "Portugalec", adjectival = "portugalský")
+  val Rakúsko = PlaceName(entry = "Rakúsko", rod = Stredný, demonymMužský = "Rakúšan", adjectival = "rakúsky")
+  val Rusko = PlaceName(entry = "Rusko", rod = Stredný, demonymMužský = "Rus", adjectival = "ruský")
+  val Škótsko = PlaceName(entry = "Škótsko", rod = Stredný, demonymMužský = "Škót", adjectival = "škótsky")
   val Slovensko = PlaceName(entry = "Slovensko", rod = Stredný,
                             demonymMužský = "Slovák", demonymŽenský = "Slovenka", adjectival = "slovenský")
+  val Slovinsko = PlaceName(entry = "Slovensko", rod = Stredný, demonymMužský = "Slovinec", adjectival = "slovinský")
+  val Španielsko = PlaceName(entry = "Španielsko", rod = Stredný, demonymMužský = "Španiel", adjectival = "španielsky")
+  val Srbsko = PlaceName(entry = "Srbsko", rod = Stredný, demonymMužský = "Srb", adjectival = "srbský")
+  val Švédsko = PlaceName(entry = "Švédsko", rod = Stredný, demonymMužský = "Švéd", adjectival = "švédsky")
+  val Švajčiarsko = PlaceName(entry = "Švajčiarsko", rod = Stredný, demonymMužský = "Švajčiar", adjectival = "švajčiarsky")
+  val Taliansko = PlaceName(entry = "Taliansko", rod = Stredný, demonymMužský = "Talian", adjectival = "taliansky")
+  val Turecko = PlaceName(entry = "Turecko", rod = Stredný, adjectival = "turecký")
 
   /*
    * PrídavnéMeno

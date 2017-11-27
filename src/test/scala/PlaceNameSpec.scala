@@ -11,16 +11,33 @@ import org.scalatest._
 class PlaceNameSpec extends FlatSpec with Matchers {
 
   "A country name" should "have a gender" in {
-    (Byť() addPodmet Británia() setComplement Pekný asText) shouldEqual "Británia je pekná"
+    (Byť() addPodmet Británia setComplement Pekný asText) shouldEqual "Británia je pekná"
   }
   "A masculine proper name" should "be complemented by a demonym" in {
-    (Byť() addPodmet Pomenovanie("Peter", MužskýŽivotný) setComplement Slovensko.demonym asText) shouldEqual
+    (Byť() addPodmet Pomenovanie("Peter", MužskýŽivotný) setComplement Slovensko.demonym.get asText) shouldEqual
     "Peter je Slovák"
   }
   "A feminine proper name" should "be complemented by a demonym" in {
-    (Byť() addPodmet Pomenovanie("Maria", Ženský) setComplement Slovensko.demonym asText) shouldEqual
+    (Byť() addPodmet Pomenovanie("Maria", Ženský) setComplement Slovensko.demonym.get asText) shouldEqual
     "Maria je Slovenka"
   }
+  "A place name" should "generate a feminine demonym from a male" in {
+    val myPlace = PlaceName(entry = "whatevera", rod = Ženský,
+                            demonymMužský = "abc", adjectival = "whateversky")
+    (Byť() addPodmet Ona() setComplement myPlace.demonym.get asText) shouldEqual "ona je abcka"
+  }
+  "A place name" should "generate a feminine demonym from a male anding in -ec" in {
+    val myPlace = PlaceName(entry = "whatevera", rod = Ženský,
+                            demonymMužský = "abec", adjectival = "whateversky")
+    (Byť() addPodmet Ona() setComplement myPlace.demonym.get asText) shouldEqual "ona je abka"
+  }
+  "A place name" should "not generate a feminine demonym when one is given" in {
+    val myPlace = PlaceName(entry = "whatevera", rod = Ženský,
+                            demonymMužský = "abc", demonymŽenský = "othera", adjectival = "whateversky")
+    (Byť() addPodmet Ona() setComplement myPlace.demonym.get asText) shouldEqual "ona je othera"
+  }
+
+  /* Adjectival forms of place names */
   "A masculine noun" should "be complemented by a geographic adjective" in {
     (Byť() addPodmet Hrad() setComplement Slovensko.adjectival asText) shouldEqual
     "hrad je slovenský"
