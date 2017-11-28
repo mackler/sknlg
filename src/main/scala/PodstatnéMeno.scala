@@ -99,7 +99,10 @@ trait PodstatnéMeno extends Noun {
         }
       }
       case Dub => čislo match {
-        case Jednotné => entry
+        case Jednotné => pád match {
+          case Nominatív | Akusatív => entry
+          case Genitív => entry + "a"
+        }
         case Množné   => entry + "y"
       }
       case Stroj => entry
@@ -114,14 +117,16 @@ trait PodstatnéMeno extends Noun {
           case Akusatív => entry.replaceFirst("a$", "y")
         }
       }
-      case Ulica => pád match {
-        case Nominatív =>  čislo match {
-          case Jednotné => entry
-          case Množné => entry.replaceFirst("a$", "e")
+      case Ulica => čislo match {
+        case Jednotné => pád match {
+          case Nominatív => entry
+          case Genitív => entry.replaceFirst("a$", "e")
+          case Akusatív => entry.replaceFirst("a$", "u")
         }
-        case Akusatív =>  čislo match {
-          case Jednotné => entry.replaceFirst("a$", "u")
-          case Množné => entry.replaceFirst("a$", "e")
+        case Množné => pád match {
+          case Nominatív => entry.replaceFirst("a$", "e")
+          case Genitív => entry.replaceFirst("a$", "")
+          case Akusatív => entry.replaceFirst("a$", "e")
         }
       }
       case Dlaň => entry

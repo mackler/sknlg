@@ -40,7 +40,7 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
     slovník.Krava().asText() shouldEqual "krava"
   }
 
-  "A feminine noun following dlaň" should "decline in the accusative case singular" in {
+  "A feminine noun following dlaň" should "decline in the accusative case plural" in {
     slovník.Radosť(čislo = Množné).asText(pád = Akusatív) shouldEqual "radosť"
   }
 
@@ -60,14 +60,30 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
     slovník.Byť(podmet = Seq(Pomenovanie("Igor", MužskýŽivotný))).asText shouldEqual "Igor je"
   }
 
+  /*
+   * Feminine Nouns
+   */
+  // Following ULICA
+  // Singular
+  "A feminine noun following ulica" should "decline in the nominative singular" in {
+    slovník.Stanica().asText(pád = Nominatív) shouldEqual "stanica"
+  }
+  "A feminine noun following ulica" should "decline in the genitive singular" in {
+    slovník.Stanica().asText(pád = Genitív) shouldEqual "stanice"
+  }
   "A feminine noun following ulica" should "decline in the accusative case singular" in {
-    slovník.Ulica(čislo = Jednotné).asText(pád = Akusatív) shouldEqual "ulicu"
+    slovník.Ulica().asText(pád = Akusatív) shouldEqual "ulicu"
+  }
+  // Plural
+  "A feminine noun following ulica" should "decline in the nominative plural" in {
+    slovník.Stanica(čislo = Množné).asText() shouldEqual "stanice"
+  }
+  "A feminine noun following ulica" should "decline in the genitive case plural" in {
+    slovník.Ulica(čislo = Množné).asText(pád = Genitív) shouldEqual "ulic"
   }
   "A feminine noun following ulica" should "decline in the accusative case plural" in {
     slovník.Ulica(čislo = Množné).asText(pád = Akusatív) shouldEqual "ulice"
   }
-
-
 
   /*
    * Pluralize Nouns in the Nominatív Case
@@ -81,9 +97,6 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
     slovník.Stavba(čislo = Množné).asText() shouldEqual "stavby"
   }
 
-  "A feminine noun following ulica" should "decline in the nominative plural" in {
-    slovník.Stanica(čislo = Množné).asText() shouldEqual "stanice"
-  }
 
   "A feminine noun following kosť" should "decline in the nominative plural" in {
     slovník.Vec(čislo = Množné).asText() shouldEqual "veci"
@@ -115,8 +128,8 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   }
 
 
-  // Genetive
-  "A feminine noun following Ženo" should "decline in the genitive singular" in {
+  // whatever...
+  "A feminine noun following žena" should "decline in the genitive singular" in {
     slovník.Žena().asText(pád = Genitív) shouldEqual "ženy"
   }
   "A neuter noun following mesto" should "decline in the genitive singular" in {

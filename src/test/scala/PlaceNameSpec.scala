@@ -63,7 +63,16 @@ class PlaceNameSpec extends FlatSpec with Matchers {
   "A place name starting with the letter 'S'" should "convert to an origin phrase" in {
     (Slovensko.asOrigin asText) shouldEqual "zo Slovenska"
   }
-  "A place origin" should "complement a verb's subject" in {
+  "A masculine place origin" should "complement a verb's subject" in {
+    (Byť() addPodmet Ja() setComplement Vatikán.asOrigin asText) shouldEqual "ja som z Vatikána"
+  }
+  "A feminine place origin" should "complement a verb's subject" in {
+    (Byť() addPodmet Ja() setComplement Amerika.asOrigin asText) shouldEqual "ja som z Ameriky"
+  }
+  "A neuter place origin" should "complement a verb's subject" in {
+    (Byť() addPodmet Ja() setComplement Francúzsko.asOrigin asText) shouldEqual "ja som z Francúzska"
+  }
+  "A place origin starting with S" should "complement a verb's subject" in {
     (Byť() addPodmet Ja() setComplement Slovensko.asOrigin asText) shouldEqual "ja som zo Slovenska"
   }
 

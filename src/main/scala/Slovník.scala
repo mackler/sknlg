@@ -120,7 +120,7 @@ package object slovník {
    */
 
   // Masculine place names
-  val Vatikán = PlaceName(entry = "strom", rod = MužskýNeživotný, adjectival = "vatikánsky")
+  val Vatikán = PlaceName(entry = "Vatikán", rod = MužskýNeživotný, adjectival = "vatikánsky")
 
   // Feminine place names
   val Amerika = PlaceName(entry = "Amerika", rod = Ženský, demonymMužský = "Američan", adjectival = "americký")
@@ -143,7 +143,7 @@ package object slovník {
   val Estónsko = PlaceName(entry = "Estónsko", rod = Stredný, demonymMužský = "Estónec", adjectival = "estónsky")
   val Fínsko = PlaceName(entry = "Fínsko", rod = Stredný, demonymMužský = "Fín", adjectival = "fínsky")
   val Francúzsko = PlaceName(entry = "Francúzsko", rod = Stredný, demonymMužský = "Francúz", adjectival = "francúzsky")
-  val Grécko = PlaceName(entry = "Francúzsko", rod = Stredný,
+  val Grécko = PlaceName(entry = "Grécko", rod = Stredný,
                             demonymMužský = "Grék", demonymŽenský = "Grékyňa", adjectival = "grécky")
   val Holandsko = PlaceName(entry = "Holandsko", rod = Stredný, demonymMužský = "Holanďan", adjectival = "holandský")
   val Chorvátsko = PlaceName(entry = "Chorvátsko", rod = Stredný, demonymMužský = "Chorvát", adjectival = "chorvátsky")
@@ -167,13 +167,17 @@ package object slovník {
   val Škótsko = PlaceName(entry = "Škótsko", rod = Stredný, demonymMužský = "Škót", adjectival = "škótsky")
   val Slovensko = PlaceName(entry = "Slovensko", rod = Stredný,
                             demonymMužský = "Slovák", demonymŽenský = "Slovenka", adjectival = "slovenský")
-  val Slovinsko = PlaceName(entry = "Slovensko", rod = Stredný, demonymMužský = "Slovinec", adjectival = "slovinský")
+  val Slovinsko = PlaceName(entry = "Slovinsko", rod = Stredný, demonymMužský = "Slovinec", adjectival = "slovinský")
   val Španielsko = PlaceName(entry = "Španielsko", rod = Stredný, demonymMužský = "Španiel", adjectival = "španielsky")
   val Srbsko = PlaceName(entry = "Srbsko", rod = Stredný, demonymMužský = "Srb", adjectival = "srbský")
   val Švédsko = PlaceName(entry = "Švédsko", rod = Stredný, demonymMužský = "Švéd", adjectival = "švédsky")
   val Švajčiarsko = PlaceName(entry = "Švajčiarsko", rod = Stredný, demonymMužský = "Švajčiar", adjectival = "švajčiarsky")
   val Taliansko = PlaceName(entry = "Taliansko", rod = Stredný, demonymMužský = "Talian", adjectival = "taliansky")
   val Turecko = PlaceName(entry = "Turecko", rod = Stredný, adjectival = "turecký")
+
+  val allKrajiny = List(Amerika, Anglicko, Belgicko, Bielorusko, Bosna, Británia, Česko, ČiernaHora, Čína, Estónsko, Fínsko, Francúzsko, Grécko, Hercegovina, Holandsko, Chorvátsko, Írsko, Japonsko, Kanada, Lichtenštajnsko, Litva, Lotyšsko, Luxembursko, Macedónsko, Maďarsko, Mexiko, Moldavsko, Nemecko, Nórsko, Poľsko, Portugalsko, Rakúsko, Rusko, Škótsko, Slovensko, Slovinsko, Španielsko, Srbsko, Švajčiarsko, Švédsko, Taliansko, Turecko, Ukrajina, Vatikán)
+
+  val allPlaces = allKrajiny :+ Európa
 
   /*
    * PrídavnéMeno
@@ -222,6 +226,7 @@ package object slovník {
 
   val Bývať = SlovesoType1("bývať")
   val Čakať = SlovesoType1("čakať")
+  val Čítať = SlovesoType1("čítať")
   val Hľadať = SlovesoType1("hľadať")
   // apparently this is not really a word, but its negative is
   val Chávať = SlovesoType1("chávať")
@@ -245,6 +250,7 @@ package object slovník {
 
   // Type 12 verbs follow "robiť"
   // TOTO WARNING I ONLY GUESSED THIS VERB's TYPE!!!!
+  val Hovoriť = SlovesoType12("hovoriť")
   val Obrátiť = SlovesoType12("obrátiť")
   val Robiť = SlovesoType12("robiť")
 

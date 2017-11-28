@@ -139,9 +139,45 @@ object Main extends App {
     } yield verb setPodmet subject setZáporný negate asText
   }
 
-  val krajina = Set(Amerika, Česko, Francúzsko, Maďarsko, Nemecko, Poľsko, Rakúsko, Rusko, Slovensko, Španielsko, Ukrajina)
+  /* Countries, places, languages */
+  def exPlaces: Set[String] = {
+    val vlado = Pomenovanie("Vladimir", MužskýŽivotný)
+    val natália = Pomenovanie("Natália", Ženský)
 
-  // we do singular and plural separately because there are some duplicate forms between them
-  exM4 foreach { line => println(line) }
+    val places = for {
+      place <- allPlaces
+    } yield Set (
+      Byť() addPodmet place setComplement Pekný asText,
+      Vidieť addPodmet Ja() setPredmet place asText,
+      Byť() addPodmet vlado setComplement place.asOrigin asText
+    )
+
+    val demonyms = for {
+      place <- allPlaces if place.demonym.isDefined
+      demonym <- place.demonym
+    } yield Set(
+      Byť() addPodmet vlado setComplement place.demonym.get asText,
+      Byť() addPodmet natália setComplement place.demonym.get asText,
+      Byť() addPodmet Pomenovanie("Jakub", MužskýŽivotný) addPodmet vlado
+        setComplement place.demonym.get asText,
+      Byť() addPodmet Pomenovanie("Sofia", Ženský) addPodmet natália
+        setComplement place.demonym.get asText
+    )
+
+    val languages = for {
+      country <- allKrajiny
+    } yield Set(
+//      Vidieť addPodmet vlado setPríslovka country.asPríslovka asText,
+      Čítať addPodmet vlado setPríslovka country.asPríslovka asText,
+      Hovoriť addPodmet vlado setPríslovka country.asPríslovka asText,
+      Mať addPodmet Ja() setPredmet (Auto() setPrídavnéMeno country.adjectival) asText,
+      Mať addPodmet Ja() setPredmet (Kniha() setPrídavnéMeno country.adjectival) asText,
+      Mať addPodmet Ja() setPredmet (Obchod() setPrídavnéMeno country.adjectival) asText
+    )
+
+    (places ++ demonyms ++ languages).flatten.toSet
+  }
+
+  exPlaces foreach { line => println(line) }
 
 }

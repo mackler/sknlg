@@ -120,7 +120,9 @@ object SlovesoType12 {
     stem +
     (čislo match {
       case Jednotné => osoba match {
-        case _ =>  throw new Exception("not implemented")
+        case First =>  i + "m"
+        case Second => i + "š"
+        case Third =>  i
       }
       case Množné => osoba match {
         case Second => i + "te"

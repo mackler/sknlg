@@ -22,6 +22,7 @@ case class PrídavnéMeno(entry: String) extends NounPhrase {
         }
         case Ženský => pád match {
           case Nominatív => a
+          case Genitív => "ej"
           case Akusatív => u
         }
         case Stredný => e

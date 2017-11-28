@@ -27,6 +27,8 @@ perl -i -p -e 's/ nie (am|is|are)(?=$| )/ $1 not/' $file
 perl -i -p -e 's/ idete / are going /' $file
 
 perl -i -p -e 's/ cez / via /' $file
+perl -i -p -e 's/ po / /' $file
+perl -i -p -e 's/ zo? / from /' $file
 
 perl -i -p -e 's/ muž(|a)($| )/ man$2/' $file
 perl -i -p -e 's/ muž(i|ov)($| )/ men$2/' $file
@@ -45,7 +47,7 @@ perl -i -p -e 's/ kon(a|á)[^ \n]+(?=$| )/ act/' $file
 perl -i -p -e 's/ koná(?=$| )/ acts/' $file
 perl -i -p -e 's/ nekon(a|á)[^ \n]+(?=$| )/ do not act/' $file
 perl -i -p -e 's/ nekoná(?=$| )/ does not act/' $file
-perl -i -p -e 's/ m(a|á)[^ \n]+(?=$| )/ have/' $file
+perl -i -p -e 's/ m(a|á)[^ \n]{1,4}(?=$| )/ have/' $file
 perl -i -p -e 's/ má(?=$| )/ has/' $file
 perl -i -p -e 's/ nem(a|á)[^ \n]+(?=$| )/ do not have/' $file
 perl -i -p -e 's/ nemá(?=$| )/ does not have/' $file
@@ -89,6 +91,10 @@ perl -i -p -e 's/ znamen(a|á)[^ \n]+(?=$| )/ mean/' $file
 perl -i -p -e 's/ znamená(?=$| )/ means/' $file
 perl -i -p -e 's/ neznamen(a|á)[^ \n]+(?=$| )/ do not mean/' $file
 perl -i -p -e 's/ neznamená(?=$| )/ does not mean/' $file
+
+perl -i -p -e 's/ číta[^ ]*(?=$| )/ reads/' $file
+perl -i -p -e 's/ hovor[^ ]*(?=$| )/ speaks/' $file
+perl -i -p -e 's/ vidím(?=$| )/ see/' $file
 
 
 perl -i -p -e 's/ dom($| )/ home$1/' $file
@@ -172,14 +178,202 @@ perl -i -p -e 's/ tak[^$ ]+($| )/ such$1/' $file
 perl -i -p -e 's/ nízk[^$ ]+($| )/ low$1/' $file
 perl -i -p -e 's/ jednoduch[^$ ]+($| )/ simple$1/' $file
 perl -i -p -e 's/ dobr[^$ ]+($| )/ good$1/' $file
-perl -i -p -e 's/ pekn[^$ ]+($| )/ fine$1/' $file
+perl -i -p -e 's/ pekn[^$ \n]+(?=$| )/ nice/' $file
 perl -i -p -e 's/ posledn[^$ ]+($| )/ last$1/' $file
 
+# Place names
+perl -i -p -e 's/Anglick.(?=$| )/England/' $file
+perl -i -p -e 's/Amerik.(?=$| )/America/' $file
+perl -i -p -e 's/Belgick.(?=$| )/Belgium/' $file
+perl -i -p -e 's/Bielorusk.(?=$| )/Belarus/' $file
+perl -i -p -e 's/Bosn.(?=$| )/Bosnia/' $file
+perl -i -p -e 's/Veľk.[^\s]? Británi.(?=$| )/Great Britain/' $file
+perl -i -p -e 's/Čiern.[^ ]? Hor.(?=$| )/Montenegro/' $file
+perl -i -p -e 's/(?=^| )Belgick.(?=$| )/Belgium/' $file
+perl -i -p -e 's/Česk.(?=$| )/Czechia/' $file
+perl -i -p -e 's/Čiern. Hor.(?=$| )/Montenegro/' $file
+perl -i -p -e 's/Čín(a|u|y)(?=$| )/China/' $file
+perl -i -p -e 's/Estónsk.(?=$| )/Estonia/' $file
+perl -i -p -e 's/Európ.(?=$| )/Europe/' $file
+perl -i -p -e 's/Fínsk.(?=$| )/Finland/' $file
+perl -i -p -e 's/Francúzsk.(?=$| )/France/' $file
+perl -i -p -e 's/Gréck.(?=$| )/Greece/' $file
+perl -i -p -e 's/Hercegovin.(?=$| )/Herzegovina/' $file
+perl -i -p -e 's/Holandsk.(?=$| )/Holland/' $file
+perl -i -p -e 's/Chorvátsk.(?=$| )/Croatia/' $file
+perl -i -p -e 's/Írsk.(?=$| )/Ireland/' $file
+perl -i -p -e 's/Japonsk.(?=$| )/Japan/' $file
+perl -i -p -e 's/Kanad.(?=$| )/Canada/' $file
+perl -i -p -e 's/Lichtenštajnsk.(?=$| )/Liechtenstein/' $file
+perl -i -p -e 's/Litv.(?=$| )/Lithuania/' $file
+perl -i -p -e 's/Lotyšsk.(?=$| )/Latvia/' $file
+perl -i -p -e 's/Luxembursk.(?=$| )/Luxembourg/' $file
+perl -i -p -e 's/Mexik.(?=$| )/Mexico/' $file
+perl -i -p -e 's/Maďarsk.(?=$| )/Hungary/' $file
+perl -i -p -e 's/Moldavsk.(?=$| )/Moldova/' $file
+perl -i -p -e 's/Nemeck.(?=$| )/Germany/' $file
+perl -i -p -e 's/Nórsk.(?=$| )/Norway/' $file
+perl -i -p -e 's/Poľsk.(?=$| )/Poland/' $file
+perl -i -p -e 's/Portugalsk.(?=$| )/Portugal/' $file
+perl -i -p -e 's/Rakúsk[ao](?=$| )/Austria/' $file
+perl -i -p -e 's/Rusko(?=$| )/Russia/' $file
+perl -i -p -e 's/(from )Ruska(?=$| )/$1Russia/' $file
+perl -i -p -e 's/Škótsk.(?=$| )/Scotland/' $file
+perl -i -p -e 's/Slovensk.(?=$| )/Slovakia/' $file
+perl -i -p -e 's/Slovinsk.(?=$| )/Slovenia/' $file
+perl -i -p -e 's/Španielsk.(?=$| )/Spain/' $file
+perl -i -p -e 's/Srbsk.(?=$| )/Serbia/' $file
+perl -i -p -e 's/Švajčiarsk.(?=$| )/Switzerland/' $file
+perl -i -p -e 's/Švédsk.(?=$| )/Sweden/' $file
+perl -i -p -e 's/Taliansk.(?=$| )/Italy/' $file
+perl -i -p -e 's/Tureck.(?=$| )/Turkey/' $file
+perl -i -p -e 's/Ukrajin.(?=$| )/Ukraine/' $file
+perl -i -p -e 's/Vatikán.?(?=$| )/the Vatican/' $file
+
+
+# Place name adjectives
+perl -i -p -e 's/ americk[^$ \n]+(?=$| )/ american/' $file
+perl -i -p -e 's/ anglick[^$ \n]+(?=$| )/ english/' $file
+perl -i -p -e 's/ belgick[^$ \n]+(?=$| )/ belgian/' $file
+perl -i -p -e 's/ bielorusk[^$ \n]+(?=$| )/ belarusian/' $file
+perl -i -p -e 's/ bosniansk[^$ \n]+(?=$| )/ bosnian/' $file
+perl -i -p -e 's/ britsk[^$ \n]+(?=$| )/ british/' $file
+perl -i -p -e 's/ česk[^$ \n]+(?=$| )/ czech/' $file
+perl -i -p -e 's/ čiernohorsk[^$ \n]+(?=$| )/ montenegrin/' $file
+perl -i -p -e 's/ čínsk[^$ \n]+(?=$| )/ chinese/' $file
+perl -i -p -e 's/ estónsk[^$ \n]+(?=$| )/ estonian/' $file
+perl -i -p -e 's/ fínsk[^$ \n]+(?=$| )/ finnish/' $file
+perl -i -p -e 's/ francúzsk[^$ \n]+(?=$| )/ french/' $file
+perl -i -p -e 's/ gréck[^$ \n]+(?=$| )/ greek/' $file
+perl -i -p -e 's/ hercegovsk[^$ \n]+(?=$| )/ herzegovinian/' $file
+perl -i -p -e 's/ holandsk[^$ \n]+(?=$| )/ dutch/' $file
+perl -i -p -e 's/ chorvátsk[^$ \n]+(?=$| )/ croatian/' $file
+perl -i -p -e 's/ írsk[^$ \n]+(?=$| )/ irish/' $file
+perl -i -p -e 's/ japonsk[^$ \n]+(?=$| )/ japanese/' $file
+perl -i -p -e 's/ kanadsk[^$ \n]+(?=$| )/ canadian/' $file
+perl -i -p -e 's/ lichtenštajnsk[^$ \n]+(?=$| )/ liechtensteinish/' $file
+perl -i -p -e 's/ litovsk[^$ \n]+(?=$| )/ lithuanian/' $file
+perl -i -p -e 's/ lotyšsk[^$ \n]+(?=$| )/ latvian/' $file
+perl -i -p -e 's/ luxembursk[^$ \n]+(?=$| )/ luxembourgish/' $file
+perl -i -p -e 's/ macedónsk[^$ \n]+(?=$| )/ macedonian/' $file
+perl -i -p -e 's/ maďarsk[^$ \n]+(?=$| )/ hungarian/' $file
+perl -i -p -e 's/ mexick[^$ \n]+(?=$| )/ mexican/' $file
+perl -i -p -e 's/ moldavsk[^$ \n]+(?=$| )/ moldavian/' $file
+perl -i -p -e 's/ nemeck[^$ \n]+(?=$| )/ german/' $file
+perl -i -p -e 's/ nórsk[^$ \n]+(?=$| )/ norwegian/' $file
+perl -i -p -e 's/ poľsk[^$ \n]+(?=$| )/ polish/' $file
+perl -i -p -e 's/ portugalsk[^$ \n]+(?=$| )/ portugese/' $file
+perl -i -p -e 's/ rakúsk[^$ \n]+(?=$| )/ austrian/' $file
+perl -i -p -e 's/ rusk[^$ \n]+(?=$| )/ russian/' $file
+perl -i -p -e 's/ škótsk[^$ \n]+(?=$| )/ scottish/' $file
+perl -i -p -e 's/ slovensk[^$ \n]+(?=$| )/ slovakian/' $file
+perl -i -p -e 's/ slovinsk[^$ \n]+(?=$| )/ slovenian/' $file
+perl -i -p -e 's/ španielsk[^$ \n]+(?=$| )/ spanish/' $file
+perl -i -p -e 's/ srbsk[^$ \n]+(?=$| )/ serbian/' $file
+perl -i -p -e 's/ švajčiarsk[^$ \n]+(?=$| )/ swiss/' $file
+perl -i -p -e 's/ švédsk[^$ \n]+(?=$| )/ swedish/' $file
+perl -i -p -e 's/ taliansk[^$ \n]+(?=$| )/ italian/' $file
+perl -i -p -e 's/ tureck[^$ \n]+(?=$| )/ turkish/' $file
+perl -i -p -e 's/ ukrajinsk[^$ \n]+(?=$| )/ ukranian/' $file
+perl -i -p -e 's/ vatikánsk[^$ \n]+(?=$| )/ vatican/' $file
+
+# Demonyms
+perl -i -p -e 's/ Angličan(?=$| )/ an Englishman/' $file
+perl -i -p -e 's/ Angličanka(?=$| )/ English/' $file
+perl -i -p -e 's/ Angličani?(?=$| )/ Englishmen/' $file
+perl -i -p -e 's/ Angličanky(?=$| )/ English/' $file
+perl -i -p -e 's/ Američan(ka)?(?=$| )/ an American/' $file
+perl -i -p -e 's/ Američan(i|ky)(?=$| )/ Americans/' $file
+perl -i -p -e 's/ Belgičan(ka)?(?=$| )/ a Belgian/' $file
+perl -i -p -e 's/ Belgičan(i|ky)(?=$| )/ Belgians/' $file
+perl -i -p -e 's/ Bielorus(?=$| )/ a Belarusian/' $file
+perl -i -p -e 's/ Bielorusi(?=$| )/ Belarusians/' $file
+perl -i -p -e 's/ Bosnia(k|čka)(?=$| )/ a Bosnian/' $file
+perl -i -p -e 's/ Bosnia(ki|čky)(?=$| )/ Bosnians/' $file
+perl -i -p -e 's/ Brit(ka)?(?=$| )/ a brit/' $file
+perl -i -p -e 's/ Brit(i|ky)(?=$| )/ brits/' $file
+perl -i -p -e 's/ Če(ch|ška)(?=$| )/ a Czech/' $file
+perl -i -p -e 's/ Če(chi|šky)(?=$| )/ Czechs/' $file
+perl -i -p -e 's/ Čiernohor(ec|ka)(?=$| )/ a Montenegrin/' $file
+perl -i -p -e 's/ Čiernohor(eci|ky)(?=$| )/ Montenegrins/' $file
+perl -i -p -e 's/ Číňan(ka)?(?=$| )/ Chinese/' $file
+perl -i -p -e 's/ Číňan(i|ky)(?=$| )/ Chinese/' $file
+perl -i -p -e 's/ Estón(ec|ka)(?=$| )/ an Estonian/' $file
+perl -i -p -e 's/ Estón(eci|ky)(?=$| )/ Estonians/' $file
+perl -i -p -e 's/ Európanka(?=$| )/ a European/' $file
+perl -i -p -e 's/ Európan(i|ky)(?=$| )/ Europeans/' $file
+perl -i -p -e 's/ Fín(ka)?(?=$| )/ a Finn/' $file
+perl -i -p -e 's/ Fín(i|ky)(?=$| )/ Finns/' $file
+perl -i -p -e 's/ Francúz[^\n ]*(?=$| )/ French/' $file
+perl -i -p -e 's/ Grék(yňa)?(?=$| )/ a Greek/' $file
+perl -i -p -e 's/ Grék(i|yňe)(?=$| )/ Greeks/' $file
+perl -i -p -e 's/ Hercegovin(ec|ka)(?=$| )/ a Herzegovinian/' $file
+perl -i -p -e 's/ Hercegovin(eci|ky)(?=$| )/ Herzegovinians/' $file
+perl -i -p -e 's/ Holanďan(ka)?(?=$| )/ Dutch/' $file
+perl -i -p -e 's/ Holanďan(i|ky)(?=$| )/ Dutch/' $file
+perl -i -p -e 's/ Chorvát(ka)?(?=$| )/ a Croat/' $file
+perl -i -p -e 's/ Chorvát(i|ky)(?=$| )/ Croatians/' $file
+perl -i -p -e 's/ Ír(?=$| )/ an Irishman/' $file
+perl -i -p -e 's/ Írka(?=$| )/ an Irishwoman/' $file
+perl -i -p -e 's/ Ír(i|ky)(?=$| )/ Irish/' $file
+perl -i -p -e 's/ Japon(ec|ka)(?=$| )/ Japanese/' $file
+perl -i -p -e 's/ Japon(eci|ky)(?=$| )/ Japanese/' $file
+perl -i -p -e 's/ Kanaďan(ka)?(?=$| )/ a Canadian/' $file
+perl -i -p -e 's/ Kanaďan(i|ky)(?=$| )/ Canadians/' $file
+perl -i -p -e 's/ Lichtenštajnčan(ka)?(?=$| )/ a Liechtensteiner/' $file
+perl -i -p -e 's/ Lichtenštajnčan(i|ky)(?=$| )/ Liechtensteiners/' $file
+perl -i -p -e 's/ Litovčan(ka)?(?=$| )/ a Lithuanian/' $file
+perl -i -p -e 's/ Litovčan(i|ky)(?=$| )/ Lithuanians/' $file
+perl -i -p -e 's/ Lotyš(ka)?(?=$| )/ a Latvian/' $file
+perl -i -p -e 's/ Lotyš(i|ky)(?=$| )/ Latvians/' $file
+perl -i -p -e 's/ Luxemburčan(ka)(?=$| )/ a Luxembourger/' $file
+perl -i -p -e 's/ Luxemburčan(i|k.)(?=$| )/ Luxembourgers/' $file
+perl -i -p -e 's/ Macedón(ec|ka)(?=$| )/ a Macedonian/' $file
+perl -i -p -e 's/ Macedón(eci|ky)(?=$| )/ Macedonians/' $file
+perl -i -p -e 's/ Maďar(ka)?(?=$| )/ a Hungarian/' $file
+perl -i -p -e 's/ Maďar(i|ky)(?=$| )/ Hungarians/' $file
+perl -i -p -e 's/ Mexičan(ka)?(?=$| )/ a Mexican/' $file
+perl -i -p -e 's/ Mexičan(i|ky)(?=$| )/ Mexicans/' $file
+perl -i -p -e 's/ Moldavčan(ka)?(?=$| )/ a Moldavian/' $file
+perl -i -p -e 's/ Moldavčan(i|ky)(?=$| )/ Moldavians/' $file
+perl -i -p -e 's/ Nem(ec|ka)(?=$| )/ a German/' $file
+perl -i -p -e 's/ Nem(ec|ky)(?=$| )/ a German/' $file
+perl -i -p -e 's/ Nemeci(?=$| )/ Germans/' $file
+perl -i -p -e 's/ Nór(ka)?(?=$| )/ a Norwegian/' $file
+perl -i -p -e 's/ Nór(i|ky)(?=$| )/ Norwegians/' $file
+perl -i -p -e 's/ (Poľka|Poliak)(?=$| )/ a Pole/' $file
+perl -i -p -e 's/ (Poliaki|Poľky)(?=$| )/ Poles/' $file
+perl -i -p -e 's/ Portugal(ec|ka)(?=$| )/ a Portugese/' $file
+perl -i -p -e 's/ Portugal(eci|ky)(?=$| )/ Portugese/' $file
+perl -i -p -e 's/ Rakúšan(ka)?(?=$| )/ an Austrian/' $file
+perl -i -p -e 's/ Rakúšan[^ \n]*(?=$| )/ Austrians/' $file
+perl -i -p -e 's/ Rus(ka)?(?=$| )/ a Russian/' $file
+perl -i -p -e 's/ Rus(i|ky)(?=$| )/ Russians/' $file
+perl -i -p -e 's/ Škót(ka)?(?=$| )/ a Scot/' $file
+perl -i -p -e 's/ Škót(i|ky)(?=$| )/ Scots/' $file
+perl -i -p -e 's/ Slov(ák|enka)(?=$| )/ a Slovak/' $file
+perl -i -p -e 's/ (Slováki|Slovenky)(?=$| )/ Slovaks/' $file
+perl -i -p -e 's/ Slovin(ec|ka)(?=$| )/ a Slovene/' $file
+perl -i -p -e 's/ (Slovinky|Slovineci)(?=$| )/ Slovenians/' $file
+perl -i -p -e 's/ Španiel(ka)?(?=$| )/ a Spaniard/' $file
+perl -i -p -e 's/ Španiel(i|ky)(?=$| )/ Spaniards/' $file
+perl -i -p -e 's/ Srb(ka)?(?=$| )/ a Serb/' $file
+perl -i -p -e 's/ Srb(i|ky)(?=$| )/ Serbians/' $file
+perl -i -p -e 's/ Švajčiar(ka)?(?=$| )/ Swiss/' $file
+perl -i -p -e 's/ Švajčiar(i|ky)(?=$| )/ Swiss/' $file
+perl -i -p -e 's/ Švéd(ka)?(?=$| )/ a Swede/' $file
+perl -i -p -e 's/ Švéd(i|ky)(?=$| )/ Swedes/' $file
+perl -i -p -e 's/ Talian(ka)?(?=$| )/ an Italian/' $file
+perl -i -p -e 's/ Talian(i|ky)(?=$| )/ Italians/' $file
+perl -i -p -e 's/ Ukrajin(ec|ka)(?=$| )/ a Ukranian/' $file
+perl -i -p -e 's/ Ukrajin(eci|ky)(?=$| )/ Ukranians/' $file
 
 # add article before singular adjectives, excluding "which" and "some"
 perl -i -p -e 's/ have (?!which)(?!some)(.+)(?<!s)(?<!men)(?<!feet)$/ have a $1$2/' $file
 # Since "class" ends in 's' is is incorrectly identified as plural by the preceeding line
 perl -i -p -e 's/ have (?!which)(?!some)(.+)(class)$/ have a $1$2/' $file
+perl -i -p -e 's/ a (a|i)/ an $1/' $file
+
 
 # this one causes problem with 'ona nie je' -> 'she is not' becomes "she is a not'
 #perl -i -p -e 's/ is (?!some)(?!which)/ is a /' $file

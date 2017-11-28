@@ -61,6 +61,9 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
   "An adjective" should "decline in the feminine-gender, singular-number, nominative-case" in {
     slovník.Pekný.asText(rod = Ženský, čislo = Jednotné, pád = Nominatív) shouldEqual "pekná"
   }
+  "An adjective" should "decline in the feminine-gender, singular-number, genitive-case" in {
+    slovník.Pekný.asText(rod = Ženský, čislo = Jednotné, pád = Genitív) shouldEqual "peknej"
+  }
   // Singular: Accusative Case, Feminine
   "An adjective" should "decline in the feminine-gender, singular-number, accusative-case" in {
     slovník.Pekný.asText(rod = Ženský, čislo = Jednotné, pád = Akusatív) shouldEqual "peknú"
