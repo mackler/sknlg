@@ -95,6 +95,7 @@ perl -i -p -e 's/ neznamená(?=$| )/ does not mean/' $file
 perl -i -p -e 's/ číta[^ ]*(?=$| )/ reads/' $file
 perl -i -p -e 's/ hovor[^ ]*(?=$| )/ speaks/' $file
 perl -i -p -e 's/ vidím(?=$| )/ see/' $file
+perl -i -p -e 's/ vie(?=$| )/ knows/' $file
 
 
 perl -i -p -e 's/ dom($| )/ home$1/' $file

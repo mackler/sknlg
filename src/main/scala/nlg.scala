@@ -145,7 +145,7 @@ object Main extends App {
     val natália = Pomenovanie("Natália", Ženský)
 
     val places = for {
-      place <- allPlaces
+      place <- List(Kanada) //allPlaces
     } yield Set (
       Byť() addPodmet place setComplement Pekný asText,
       Vidieť addPodmet Ja() setPredmet place asText,
@@ -153,7 +153,7 @@ object Main extends App {
     )
 
     val demonyms = for {
-      place <- allPlaces if place.demonym.isDefined
+      place <- List(Kanada) //allPlaces if place.demonym.isDefined
       demonym <- place.demonym
     } yield Set(
       Byť() addPodmet vlado setComplement place.demonym.get asText,
@@ -165,9 +165,9 @@ object Main extends App {
     )
 
     val languages = for {
-      country <- allKrajiny
+      country <- List(Kanada) //allKrajiny
     } yield Set(
-//      Vidieť addPodmet vlado setPríslovka country.asPríslovka asText,
+      Vedieť addPodmet vlado setPríslovka country.asPríslovka asText,
       Čítať addPodmet vlado setPríslovka country.asPríslovka asText,
       Hovoriť addPodmet vlado setPríslovka country.asPríslovka asText,
       Mať addPodmet Ja() setPredmet (Auto() setPrídavnéMeno country.adjectival) asText,

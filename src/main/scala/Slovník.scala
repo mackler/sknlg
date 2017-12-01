@@ -131,6 +131,7 @@ package object slovník {
   val Čína = PlaceName(entry = "Čína", rod = Ženský, demonymMužský = "Číňan", adjectival = "čínsky")
   val Európa = PlaceName(entry = "Európa", rod = Ženský, demonymMužský = "Európan", adjectival = "európsky")
   val Hercegovina = PlaceName(entry = "Hercegovina", rod = Ženský, demonymMužský = "Hercegovinec", adjectival = "hercegovský")
+  val Kanada = PlaceName(entry = "Kanada ", rod = Ženský, demonymMužský = "Kanaďan", adjectival = "kanadský")
   val Litva = PlaceName(entry = "Litva", rod = Ženský, demonymMužský = "Litovčan", adjectival = "litovský")
   val Ukrajina = PlaceName(entry = "Ukrajina", rod = Ženský, demonymMužský = "Ukrajinec", adjectival = "ukrajinský")
 
@@ -139,7 +140,6 @@ package object slovník {
   val Belgicko = PlaceName(entry = "Belgicko", rod = Stredný, demonymMužský = "Belgičan", adjectival = "belgický")
   val Bielorusko = PlaceName(entry = "Bielorusko", rod = Stredný, demonymMužský = "Bielorus", adjectival = "bieloruský")
   val Česko = PlaceName(entry = "Česko", rod = Stredný, demonymMužský = "Čech", demonymŽenský = "Češka", adjectival = "český")
-  val Kanada = PlaceName(entry = "Kanada ", rod = Stredný, demonymMužský = "Kanaďan", adjectival = "kanadský")
   val Estónsko = PlaceName(entry = "Estónsko", rod = Stredný, demonymMužský = "Estónec", adjectival = "estónsky")
   val Fínsko = PlaceName(entry = "Fínsko", rod = Stredný, demonymMužský = "Fín", adjectival = "fínsky")
   val Francúzsko = PlaceName(entry = "Francúzsko", rod = Stredný, demonymMužský = "Francúz", adjectival = "francúzsky")
@@ -256,6 +256,22 @@ package object slovník {
 
   // Type 13 verbs follow "vidieť" - "vidím"
   val Vidieť = SlovesoType13("vidieť")
+
+  // Irregular verb: to know
+  val Vedieť = SlovesoFactory("vedieť", { (čislo: Čislo, osoba: Osoba, záporný: Boolean) =>
+    (čislo match {
+      case Jednotné => osoba match {
+        case First =>  "viem"
+        case Second => "vieš"
+        case Third =>  "vie"
+      }
+      case Množné => osoba match {
+        case First =>  "vieme"
+        case Second => "viete"
+        case Third =>  "vedia"
+      }
+    })
+  })
 
   // Irregular verb: to go
   case class ísť(
