@@ -41,6 +41,164 @@ trait Sloveso {
   }
 }
 
+trait Paradigm {
+  val presentStem: String
+  val presentThematicMorpheme: String
+  val presentThematicMorpheme2: String
+  val thirdPersonPluralRelationalMorpheme = "ú"
+
+  lazy val t = if (finalSyllableIsLong(presentStem)) presentThematicMorpheme match {
+    case "á" => "a"
+    case "í" => "i"
+    case o => o
+  } else presentThematicMorpheme
+
+  def apply(čislo: Čislo, osoba: Osoba, záporný: Boolean): String = {
+    (if (záporný) "ne" else "") +
+    presentStem +
+    {
+      čislo match {
+        case Jednotné => osoba match {
+          case First =>  t + "m"
+          case Second => t + "š"
+          case Third =>  t
+        }
+        case Množné => osoba match {
+          case First =>  t + "me"
+          case Second => t + "te"
+          case Third =>  presentThematicMorpheme2 + thirdPersonPluralRelationalMorpheme
+        }
+      }
+    }
+
+  }
+}
+
+object Paradigm {
+  class Chytať(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "á"
+    val presentThematicMorpheme2 = "aj"
+  }
+  class Rozumieť(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "ie"
+    val presentThematicMorpheme2 = "ej"
+  }
+  class Niesť(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "ie"
+    val presentThematicMorpheme2 = ""
+  }
+  class Hynúť(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "ie"
+    val presentThematicMorpheme2 = ""
+  }
+  class Trieť(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "ie"
+    val presentThematicMorpheme2 = ""
+  }
+  class Brať(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "ie"
+    val presentThematicMorpheme2 = ""
+  }
+  class Česať(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "e"
+    val presentThematicMorpheme2 = ""
+  }
+  class Žat(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "e"
+    val presentThematicMorpheme2 = ""
+  }
+  class Chudnúť(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "ne"
+    val presentThematicMorpheme2 = "n"
+  }
+  class Žuť(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "je"
+    val presentThematicMorpheme2 = "j"
+  }
+  class Pracovať(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "je"
+    val presentThematicMorpheme2 = "j"
+  }
+  class Robiť(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "í"
+    val presentThematicMorpheme2 = ""
+    override val thirdPersonPluralRelationalMorpheme = "ia"
+  }
+  class Vidieť(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "í"
+    val presentThematicMorpheme2 = ""
+    override val thirdPersonPluralRelationalMorpheme = "ia"
+  }
+  class Kričať(infinitív: String, val presentStem: String) extends Paradigm {
+    val presentThematicMorpheme = "í"
+    val presentThematicMorpheme2 = ""
+    override val thirdPersonPluralRelationalMorpheme = "ia"
+  }
+}
+
+object Sloveso {
+  def apply(infinitív: String, thirdPerSing: String) = {
+    import Paradigm._
+    val paradigm =
+      if (thirdPerSing.endsWith("e") &&
+        (infinitív.endsWith("čať") || infinitív.endsWith("jať") || infinitív.endsWith("päť") || infinitív.endsWith("žať"))) {
+        val presentStem = thirdPerSing.replaceFirst("e$", "")
+        new Žat(infinitív, presentStem)
+      } else if (infinitív endsWith "ať") {
+        if (thirdPerSing endsWith "á") {
+          val presentStem = thirdPerSing.replaceFirst("á$", "")
+          new Chytať(infinitív, presentStem)
+        } else if (thirdPerSing endsWith "ie") {
+          val presentStem = thirdPerSing.replaceFirst("ie$", "")
+          new Brať(infinitív, presentStem)
+        } else if (thirdPerSing endsWith "í") {
+          val presentStem = thirdPerSing.replaceFirst("í$", "")
+          new Kričať(infinitív, presentStem)
+        } else if (thirdPerSing endsWith "uje") {
+          val presentStem = thirdPerSing.replaceFirst("je$", "")
+          new Pracovať(infinitív, presentStem)
+        } else if (thirdPerSing endsWith "e") {
+          val presentStem = thirdPerSing.replaceFirst("e$", "")
+          new Česať(infinitív, presentStem)
+        } else throw new Exception(s"invalid verb form $infinitív/$thirdPerSing")
+      } else if (infinitív endsWith "ieť") {
+        if (thirdPerSing endsWith "ie") {
+          val presentStem = thirdPerSing.replaceFirst("ie$", "")
+          new Rozumieť(infinitív, presentStem)
+        } else if (thirdPerSing endsWith "í") {
+          val presentStem = thirdPerSing.replaceFirst("í$", "")
+          new Vidieť(infinitív, presentStem)
+        } else  throw new Exception(s"invalid verb form $infinitív/$thirdPerSing")
+      } else if (infinitív endsWith "úť") {
+        if (thirdPerSing endsWith "ie") {
+          val presentStem = thirdPerSing.replaceFirst("ie$", "")
+          new Hynúť(infinitív, presentStem)
+        } else if (thirdPerSing endsWith "e") {
+          val presentStem = thirdPerSing.replaceFirst("ne$", "")
+          new Chudnúť(infinitív, presentStem)
+        } else throw new Exception(s"invalid verb form $infinitív/$thirdPerSing")
+      } else if (infinitív endsWith "iť") {
+        val presentStem = thirdPerSing.replaceFirst("í$", "")
+        new Robiť(infinitív, presentStem)
+      } else if (thirdPerSing endsWith "ie") {
+        if (infinitív.endsWith("riesť") || infinitív == "mlieť" || infinitív == "smieť") {
+          val presentStem = thirdPerSing.replaceFirst("ie$", "")
+          new Trieť(infinitív, presentStem)
+        } else {
+          val presentStem = thirdPerSing.replaceFirst("ie$", "")
+          new Niesť(infinitív, presentStem)
+        }
+      } else if (thirdPerSing endsWith "je") {
+        val presentStem = thirdPerSing.replaceFirst("je$", "")
+        new Žuť(infinitív, presentStem)
+      } else
+          throw new Exception(s"invalid verb form $infinitív/$thirdPerSing")
+
+    SlovesoFactory(infinitív, paradigm.apply(_,_,_))
+  }
+
+}
+
 trait RegularSloveso extends Sloveso {
   val directPredmet: Option[PodstatnéMeno]
   def setPredmet(o: PodstatnéMeno): Sloveso
@@ -60,7 +218,6 @@ object SlovesoFactory {
       záporný       : Boolean               = false
     ) extends RegularSloveso {
       val infinitív = _infinitív
-      val infinitívSuffix = infinitív.substring(infinitív.length - 2, infinitív.length)
       val paradigm = _paradigm
       def addPodmet(p: NounPhrase)= this.copy(podmet = podmet :+ p)
       def setPodmet(s: Seq[NounPhrase])= this.copy(podmet = s)
@@ -73,78 +230,3 @@ object SlovesoFactory {
   }
 }
 
-object SlovesoType1 {
-  def apply(infinitív: String) = SlovesoFactory(infinitív, { (čislo: Čislo, osoba: Osoba, záporný: Boolean) =>
-    val stem = infinitív.substring(0, infinitív.length -2 )
-    (if (záporný) "ne" else "") +
-    stem +
-    {
-       val a = if (finalSyllableIsLong(stem)) "a" else "á"
-        čislo match {
-          case Jednotné => osoba match {
-            case First =>  a + "m"
-            case Second => a + "š"
-            case Third =>  a
-          }
-          case Množné => osoba match {
-            case First =>  a + "me"
-            case Second => a + "te"
-            case Third =>  "ajú"
-          }
-        }
-    }
-  })
-}
-
-// Type11 Verbs Follow "procuvať"
-object SlovesoType11 {
-  def apply(infinitív: String) = SlovesoFactory(infinitív, { (čislo: Čislo, osoba: Osoba, záporný: Boolean) =>
-    (if (záporný) "ne" else "") +
-    infinitív.substring(0, infinitív.length -4) +
-    (čislo match {
-      case Jednotné => osoba match {
-        case First =>  "ujem"
-      }
-      case Množné => osoba match {
-        case _ => throw new Exception("not implemented")
-      }
-    })
-  })
-}
-
-// Type12 Verbs Follow "robiť"
-object SlovesoType12 {
-  def apply(infinitív: String) = SlovesoFactory(infinitív, { (čislo: Čislo, osoba: Osoba, záporný: Boolean) =>
-    val stem = infinitív.substring(0, infinitív.length -2 )
-    val i = if (finalSyllableIsLong(stem)) "i" else "í"
-    stem +
-    (čislo match {
-      case Jednotné => osoba match {
-        case First =>  i + "m"
-        case Second => i + "š"
-        case Third =>  i
-      }
-      case Množné => osoba match {
-        case Second => i + "te"
-      }
-    })
-  })
-}
-
-object SlovesoType13 {
-  def apply(infinitív: String) = SlovesoFactory(infinitív, { (čislo: Čislo, osoba: Osoba, záporný: Boolean) =>
-    infinitív.substring(0, infinitív.length -3) +
-    (čislo match {
-      case Jednotné => osoba match {
-        case First =>  "ím"
-        case Second => "íš"
-        case Third =>  "í"
-      }
-      case Množné => osoba match {
-        case First =>  "íme"
-        case Second => "íte"
-        case Third =>  "ia"
-      }
-    })
-  })
-}

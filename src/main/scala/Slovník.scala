@@ -224,38 +224,38 @@ package object slovník {
 
   // Type1 Verbs follow "chytať" - "chytám"
 
-  val Bývať = SlovesoType1("bývať")
-  val Čakať = SlovesoType1("čakať")
-  val Čítať = SlovesoType1("čítať")
-  val Hľadať = SlovesoType1("hľadať")
+  val Bývať = Sloveso("bývať", "bývá")
+  val Čakať = Sloveso("čakať", "čaká")
+  val Čítať = Sloveso("čítať", "čítá")
+  val Hľadať = Sloveso("hľadať", "hľadá")
   // apparently this is not really a word, but its negative is
-  val Chávať = SlovesoType1("chávať")
-  val Chodievať = SlovesoType1("chodievať")
-  val Konať = SlovesoType1("konať")
-  val Mať = SlovesoType1("mať")
-  val Pamätať = SlovesoType1("pamätať")
-  val Poznať = SlovesoType1("poznať")
-  val Prichádzať = SlovesoType1("prichádzať")
-  val Rozprávať = SlovesoType1("rozprávať")
+  val Chávať = Sloveso("chávať", "chává")
+  val Chodievať = Sloveso("chodievať", "chodievá")
+  val Konať = Sloveso("konať", "koná")
+  val Mať = Sloveso("mať", "má")
+  val Pamätať = Sloveso("pamätať", "pamätá")
+  val Poznať = Sloveso("poznať", "pozná")
+  val Prichádzať = Sloveso("prichádzať", "prichádzá")
+  val Rozprávať = Sloveso("rozprávať", "rozprává")
   // nespavať appears in the Mistrík textbook
-   val Spať = SlovesoType1("spať")
-  val Vstávať = SlovesoType1("vstávať")
-  val Vychádzať = SlovesoType1("vychádzať")
-  val Začinať = SlovesoType1("začinať")
-  val Žiadať = SlovesoType1("žiadať")
-  val Znamenať = SlovesoType1("znamenať")
+   val Spať = Sloveso("spať", "spá")
+  val Vstávať = Sloveso("vstávať", "vstává")
+  val Vychádzať = Sloveso("vychádzať", "vychádzá")
+  val Začinať = Sloveso("začinať", "začiná")
+  val Žiadať = Sloveso("žiadať", "žiadá")
+  val Znamenať = Sloveso("znamenať", "znamená")
 
   // Type 11 verbs follow "pracuvať"
-  val Potrebovať = SlovesoType11("potrebovať")
+  val Potrebovať = Sloveso("potrebovať", "potrebuje")
 
   // Type 12 verbs follow "robiť"
   // TOTO WARNING I ONLY GUESSED THIS VERB's TYPE!!!!
-  val Hovoriť = SlovesoType12("hovoriť")
-  val Obrátiť = SlovesoType12("obrátiť")
-  val Robiť = SlovesoType12("robiť")
+  val Hovoriť = Sloveso("hovoriť", "hovorí")
+  val Obrátiť = Sloveso("obrátiť", "obrátí")
+  val Robiť = Sloveso("robiť", "robí")
 
   // Type 13 verbs follow "vidieť" - "vidím"
-  val Vidieť = SlovesoType13("vidieť")
+  val Vidieť = Sloveso("vidieť", "vidí")
 
   // Irregular verb: to know
   val Vedieť = SlovesoFactory("vedieť", { (čislo: Čislo, osoba: Osoba, záporný: Boolean) =>
