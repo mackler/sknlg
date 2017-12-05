@@ -21,7 +21,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
     withSubject.asText shouldEqual "ja mám"
   }
 
-  val infinitiveWithObject = infinitive setPredmet slovník.Kufor()
+  val infinitiveWithObject = infinitive setPredmet slovník.Kufor
   // add a direct object to the infinitive
   "A regular Type1 verb with no subject" should "accept a direct object" in {
     infinitiveWithObject.asText shouldEqual "mať kufor"
@@ -29,7 +29,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
 
   // add a direct object to the verb with a subject
   "A regular Type1 verb with a subject" should "accept a direct object" in {
-    (withSubject setPredmet slovník.Kufor() asText) shouldEqual "ja mám kufor"
+    (withSubject setPredmet slovník.Kufor asText) shouldEqual "ja mám kufor"
   }
 
   // add a subject to the verb with a direct object
@@ -51,7 +51,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
   }
 
   // add an object to the Type13 that has a subject
-  val type13WithSubjectAndObject = type13WithSubject setPredmet slovník.Kufor()
+  val type13WithSubjectAndObject = type13WithSubject setPredmet slovník.Kufor
   "An Type13 verb with a subject" should "accept a direct object" in {
     type13WithSubjectAndObject.asText shouldEqual "ja vidím kufor"
   }

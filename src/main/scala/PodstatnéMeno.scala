@@ -5,31 +5,6 @@ import Čislo._
 import Pád._
 import Skloňovanie._
 
-abstract class PodstatnéMenoFactory(entry: String, rod: Rod) {
-  case class PodstatnéMenoInstance(
-    override protected val entry        : String,
-    override           val rod          : Rod,
-    override           val čislo        : Čislo,
-    override           val prídavnéMeno : Option[PrídavnéMeno],
-    protected val demonstrative: Boolean,
-    _predložka: Option[String] = None
-  ) extends PodstatnéMeno {
-    def predložka(p: String) = this.copy(_predložka = Some(p))
-    def predložka() = _predložka
-    def setČislo(č: Čislo) = this.copy(čislo = č)
-    def setPrídavnéMeno(p: PrídavnéMeno): PodstatnéMeno = this.copy(prídavnéMeno = Some(p))
-
-    override def asText(pád: Pád): String = _predložka.map(_ + " ").getOrElse("") + super.asText(pád)
-  }
-
-  def apply(
-    čislo: Čislo = Jednotné,
-    prídavnéMeno: Option[PrídavnéMeno] = None,
-    demonstrative: Boolean = false
-  ) = new PodstatnéMenoInstance(entry, rod, čislo, prídavnéMeno, demonstrative)
-
-}
-
 /* This is the superclass of both pronouns (zámeno) and common nouns (podstatmé meno) */
 trait Noun extends NounPhrase {
   val rod   : Rod
@@ -47,6 +22,31 @@ case class Pomenovanie(name: String, rod: Rod) extends Noun {
   override def decline(pad: Pád = Nominatív) = name
 }
 
+object PodstatnéMeno {
+  def apply(entry: String, rod: Rod) = {
+    val _entry = entry
+    val _rod = rod
+    case class PodstatnéMenoInstance(
+      override           val čislo        : Čislo,
+      override           val prídavnéMeno : Option[PrídavnéMeno],
+      protected val demonstrative: Boolean,
+      _predložka: Option[String]
+    ) extends PodstatnéMeno {
+      override protected val entry = _entry
+      override val rod = _rod
+
+      def predložka(p: String) = this.copy(_predložka = Some(p))
+      def predložka() = _predložka
+      def setČislo(č: Čislo) = this.copy(čislo = č)
+      def setPrídavnéMeno(p: PrídavnéMeno): PodstatnéMeno = this.copy(prídavnéMeno = Some(p))
+      def setDemonstrative(d: Boolean) = this.copy(demonstrative = d)
+
+      override def asText(pád: Pád): String = _predložka.map(_ + " ").getOrElse("") + super.asText(pád)
+    }
+    PodstatnéMenoInstance(čislo = Jednotné, prídavnéMeno = None, demonstrative = false, _predložka = None)
+  }
+}
+
 /* These are only common nouns (not pronouns) */
 trait PodstatnéMeno extends Noun {
   protected val entry         : String   // form of the slovo as listed in a slovník
@@ -54,6 +54,7 @@ trait PodstatnéMeno extends Noun {
   val prídavnéMeno            : Option[PrídavnéMeno] = None
   protected val demonstrative : Boolean
   def setČislo(č: Čislo): PodstatnéMeno
+  def setPrídavnéMeno(p: PrídavnéMeno): PodstatnéMeno
 
   override def asText(pád: Pád = Nominatív) =
     (if (demonstrative) Ten.asText(rod, čislo, pád) + " " else "") +

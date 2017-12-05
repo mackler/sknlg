@@ -19,101 +19,100 @@ package object slovník {
 
   // Masculine Animate
   // not ending in -a, e.g., "chlap", "muž"
-  object Býk extends PodstatnéMenoFactory(entry = "býk", rod = MužskýŽivotný)
-  object Muž extends PodstatnéMenoFactory(entry = "muž", rod = MužskýŽivotný)
-  object Chlapec extends PodstatnéMenoFactory(entry = "chlapec", rod = MužskýŽivotný)
-  object Kocúr extends PodstatnéMenoFactory(entry = "kocúr", rod = MužskýŽivotný)
-  object Kôň extends PodstatnéMenoFactory(entry = "kôň", rod = MužskýŽivotný)
-  object Manžel extends PodstatnéMenoFactory(entry = "manžel", rod = MužskýŽivotný)
-  object Pán extends PodstatnéMenoFactory(entry = "pán", rod = MužskýŽivotný)
-  object Spolubývajúci extends PodstatnéMenoFactory(entry = "spolubývajúci", rod = MužskýŽivotný)
-  object Učiteľ extends PodstatnéMenoFactory(entry = "učiteľ", rod = MužskýŽivotný)
+  val Býk = PodstatnéMeno("býk", MužskýŽivotný)
+  val Muž = PodstatnéMeno("muž", MužskýŽivotný)
+  val Chlapec = PodstatnéMeno("chlapec", MužskýŽivotný)
+  val Kocúr = PodstatnéMeno("kocúr", MužskýŽivotný)
+  val Kôň = PodstatnéMeno("kôň", MužskýŽivotný)
+  val Manžel = PodstatnéMeno("manžel", MužskýŽivotný)
+  val Pán = PodstatnéMeno("pán", MužskýŽivotný)
+  val Spolubývajúci = PodstatnéMeno("spolubývajúci", MužskýŽivotný)
+  val Učiteľ = PodstatnéMeno("učiteľ", MužskýŽivotný)
   // ending in -a, e.g., "hrdina", "kolega""
 
   // Masculine Inanimate
   // ending in hard or neutral consonant, e.g., "dub", "plán"
-  object Breh extends PodstatnéMenoFactory(entry = "breh", rod = MužskýNeživotný)
-  object Deň extends PodstatnéMenoFactory(entry = "deň", rod = MužskýNeživotný)
-  object Dom extends PodstatnéMenoFactory(entry = "dom", rod = MužskýNeživotný)
-  object Dvor extends PodstatnéMenoFactory(entry = "dvor", rod = MužskýNeživotný)
-  object Hrad extends PodstatnéMenoFactory(entry = "hrad", rod = MužskýNeživotný)
-  object Kufor extends PodstatnéMenoFactory(entry = "kufor", rod = MužskýNeživotný)
-  object Kvet extends PodstatnéMenoFactory(entry = "kvet", rod = MužskýNeživotný)
-  object Les extends PodstatnéMenoFactory(entry = "les", rod = MužskýNeživotný)
-  object Obchod extends PodstatnéMenoFactory(entry = "obchod", rod = MužskýNeživotný)
-  object Obraz extends PodstatnéMenoFactory(entry = "obraz", rod = MužskýNeživotný)
-  object Plot extends PodstatnéMenoFactory(entry = "plot", rod = MužskýNeživotný)
-  object Prst extends PodstatnéMenoFactory(entry = "prst", rod = MužskýNeživotný)
-  object Strom extends PodstatnéMenoFactory(entry = "strom", rod = MužskýNeživotný)
-  object Večer extends PodstatnéMenoFactory(entry = "večer", rod = MužskýNeživotný)
-  object Voz extends PodstatnéMenoFactory(entry = "voz", rod = MužskýNeživotný)
+  val Breh = PodstatnéMeno("breh", MužskýNeživotný)
+  val Deň = PodstatnéMeno("deň", MužskýNeživotný)
+  val Dom = PodstatnéMeno("dom", MužskýNeživotný)
+  val Dvor = PodstatnéMeno("dvor", MužskýNeživotný)
+  val Hrad = PodstatnéMeno("hrad", MužskýNeživotný)
+  val Kufor = PodstatnéMeno("kufor", MužskýNeživotný)
+  val Kvet = PodstatnéMeno("kvet", MužskýNeživotný)
+  val Les = PodstatnéMeno("les", MužskýNeživotný)
+  val Obchod = PodstatnéMeno("obchod", MužskýNeživotný)
+  val Obraz = PodstatnéMeno("obraz", MužskýNeživotný)
+  val Plot = PodstatnéMeno("plot", MužskýNeživotný)
+  val Prst = PodstatnéMeno("prst", MužskýNeživotný)
+  val Strom = PodstatnéMeno("strom", MužskýNeživotný)
+  val Večer = PodstatnéMeno("večer", MužskýNeživotný)
+  val Voz = PodstatnéMeno("voz", MužskýNeživotný)
   // ending in soft consonant, e.g., "počitač"
-  object Dunaj extends PodstatnéMenoFactory(entry = "Dunaj", rod = MužskýNeživotný)
+  val Dunaj = PodstatnéMeno("Dunaj", MužskýNeživotný)
 
   // Feminine
   // ending in -a preceded by a hard or neutral consonant, e.g., "žena"
-  object Cena extends PodstatnéMenoFactory(entry = "cena", rod = Ženský)
-  object Dedina extends PodstatnéMenoFactory(entry = "dedina", rod = Ženský)
-  object Hlava extends PodstatnéMenoFactory(entry = "hlava", rod = Ženský)
-  object Izba extends PodstatnéMenoFactory(entry = "izba", rod = Ženský)
-  object Kniha extends PodstatnéMenoFactory(entry = "kniha", rod = Ženský)
-  object Krava extends PodstatnéMenoFactory(entry = "krava", rod = Ženský)
-  object Lúka extends PodstatnéMenoFactory(entry = "lúka", rod = Ženský)
-  object Mačka extends PodstatnéMenoFactory(entry = "mačka", rod = Ženský)
-  object Manželka extends PodstatnéMenoFactory(entry = "manželka", rod = Ženský)
-  object Minúta extends PodstatnéMenoFactory(entry = "minúta", rod = Ženský)
-  object Noha extends PodstatnéMenoFactory(entry = "noha", rod = Ženský)
-  object Otázka extends PodstatnéMenoFactory(entry = "otázka", rod = Ženský)
-  object Rada extends PodstatnéMenoFactory(entry = "rada", rod = Ženský)
-  object Rieka extends PodstatnéMenoFactory(entry = "rieka", rod = Ženský)
-  object Ruka extends PodstatnéMenoFactory(entry = "ruka", rod = Ženský)
-  object Stavba extends PodstatnéMenoFactory(entry = "stavba", rod = Ženský)
-  object Stena extends PodstatnéMenoFactory(entry = "stena", rod = Ženský)
-  object Škola extends PodstatnéMenoFactory(entry = "škola", rod = Ženský)
-  object Trieda extends PodstatnéMenoFactory(entry = "trieda", rod = Ženský)
-  object Učiteľka extends PodstatnéMenoFactory(entry = "učiteľka", rod = Ženský)
-  object Voda extends PodstatnéMenoFactory(entry = "voda", rod = Ženský)
-  object Žena extends PodstatnéMenoFactory(entry = "žena", rod = Ženský)
-  object Záhrada extends PodstatnéMenoFactory(entry = "záhrada", rod = Ženský)
+  val Cena = PodstatnéMeno("cena", Ženský)
+  val Dedina = PodstatnéMeno("dedina", Ženský)
+  val Hlava = PodstatnéMeno("hlava", Ženský)
+  val Izba = PodstatnéMeno("izba", Ženský)
+  val Kniha = PodstatnéMeno("kniha", Ženský)
+  val Krava = PodstatnéMeno("krava", Ženský)
+  val Lúka = PodstatnéMeno("lúka", Ženský)
+  val Mačka = PodstatnéMeno("mačka", Ženský)
+  val Manželka = PodstatnéMeno("manželka", Ženský)
+  val Minúta = PodstatnéMeno("minúta", Ženský)
+  val Noha = PodstatnéMeno("noha", Ženský)
+  val Otázka = PodstatnéMeno("otázka", Ženský)
+  val Rada = PodstatnéMeno("rada", Ženský)
+  val Rieka = PodstatnéMeno("rieka", Ženský)
+  val Ruka = PodstatnéMeno("ruka", Ženský)
+  val Stavba = PodstatnéMeno("stavba", Ženský)
+  val Stena = PodstatnéMeno("stena", Ženský)
+  val Škola = PodstatnéMeno("škola", Ženský)
+  val Trieda = PodstatnéMeno("trieda", Ženský)
+  val Učiteľka = PodstatnéMeno("učiteľka", Ženský)
+  val Voda = PodstatnéMeno("voda", Ženský)
+  val Žena = PodstatnéMeno("žena", Ženský)
+  val Záhrada = PodstatnéMeno("záhrada", Ženský)
 
   // Feminine ending in -a preceding by a soft consonant, e.g., "ulica", "stanica"
-  object Spolubývajúca extends PodstatnéMenoFactory(entry = "spolubývajúca", rod = Ženský)
-  object Stanica extends PodstatnéMenoFactory(entry = "stanica", rod = Ženský)
-  object Ulica extends PodstatnéMenoFactory(entry = "ulica", rod = Ženský)
+  val Spolubývajúca = PodstatnéMeno("spolubývajúca", Ženský)
+  val Stanica = PodstatnéMeno("stanica",  Ženský)
+  val Ulica = PodstatnéMeno("ulica", Ženský)
   // following "dlaň", "loď"
-  object Dlaň extends PodstatnéMenoFactory(entry = "dlaň", rod = Ženský)
-  object Kaviareň extends PodstatnéMenoFactory(entry = "kaviareň", rod = Ženský)
-  object Radosť extends PodstatnéMenoFactory(entry = "radosť", rod = Ženský)
+  val Dlaň = PodstatnéMeno("dlaň", Ženský)
+  val Kaviareň = PodstatnéMeno("kaviareň", Ženský)
+  val Radosť = PodstatnéMeno("radosť", Ženský)
   // ending in consonant in nominative singular, -i in genitive singular, e.g., "kosť", "miestnosť"
-  object Pomoc extends PodstatnéMenoFactory(entry = "pomoc", rod = Ženský)
-  object Vec extends PodstatnéMenoFactory(entry = "vec", rod = Ženský)
+  val Pomoc = PodstatnéMeno("pomoc", Ženský)
+  val Vec = PodstatnéMeno("vec", Ženský)
   // uncategorized Feminine
-  object Tvár extends PodstatnéMenoFactory(entry = "tvár", rod = Ženský)
-  object Pani extends PodstatnéMenoFactory(entry = "pani", rod = Ženský)
+  val Tvár = PodstatnéMeno("tvár", Ženský)
+  val Pani = PodstatnéMeno("pani", Ženský)
 
   // Neuter
   // ending in -o, e.g., "mesto"
-  object Albánsko extends PodstatnéMenoFactory(entry = "auto", rod = Stredný) // Albánec/Albánka - albánsky
-  object Auto extends PodstatnéMenoFactory(entry = "auto", rod = Stredný)
-  object Čelo extends PodstatnéMenoFactory(entry = "čelo", rod = Stredný)
-  object Mesto extends PodstatnéMenoFactory(entry = "mesto", rod = Stredný)
-  object Mlieko extends PodstatnéMenoFactory(entry = "mlieko", rod = Stredný)
-  object Monako extends PodstatnéMenoFactory(entry = "mlieko", rod = Stredný) // Monačan/Monačanka
-  object Oko extends PodstatnéMenoFactory(entry = "oko", rod = Stredný)
-  object Rameno extends PodstatnéMenoFactory(entry = "rameno", rod = Stredný)
-  object Ráno extends PodstatnéMenoFactory(entry = "ráno", rod = Stredný)
-  object Rumunsko extends PodstatnéMenoFactory(entry = "ráno", rod = Stredný) // Rumun/Rumunka - rumunský
-  object Sklo extends PodstatnéMenoFactory(entry = "sklo", rod = Stredný)
+
+  val Družstvo = PodstatnéMeno("družstvo", Stredný)
+  val Auto = PodstatnéMeno("auto", Stredný)
+  val Čelo = PodstatnéMeno("čelo", Stredný)
+  val Mesto = PodstatnéMeno("mesto", Stredný)
+  val Mlieko = PodstatnéMeno("mlieko", Stredný)
+  val Oko = PodstatnéMeno("oko", Stredný)
+  val Rameno = PodstatnéMeno("rameno", Stredný)
+  val Ráno = PodstatnéMeno("ráno", Stredný)
+  val Sklo = PodstatnéMeno("sklo", Stredný)
 
   // Neuter ending in "-e", e.g., "more"
-  object Srdce extends PodstatnéMenoFactory(entry = "srdce", rod = Stredný)
+  val Srdce = PodstatnéMeno("srdce", Stredný)
   // ending -ie, e.g., "poschodie""
-  object Namestie extends PodstatnéMenoFactory(entry = "namestie", rod = Stredný)
+  val Namestie = PodstatnéMeno("namestie", Stredný)
   // ending -a or -ä, e.g., "dievča"
-  object Dieťa extends PodstatnéMenoFactory(entry = "dieťa", rod = Stredný)
-  object Dievča extends PodstatnéMenoFactory(entry = "dievča", rod = Stredný)
-  object Mača extends PodstatnéMenoFactory(entry = "mača", rod = Stredný)
-  object Teľa extends PodstatnéMenoFactory(entry = "teľa", rod = Stredný)
+  val Dieťa = PodstatnéMeno("dieťa", Stredný)
+  val Dievča = PodstatnéMeno("dievča", Stredný)
+  val Mača = PodstatnéMeno("mača", Stredný)
+  val Teľa = PodstatnéMeno("teľa", Stredný)
 
   /*
    * Country and other place names
@@ -136,6 +135,7 @@ package object slovník {
   val Ukrajina = PlaceName(entry = "Ukrajina", rod = Ženský, demonymMužský = "Ukrajinec", adjectival = "ukrajinský")
 
   // Neuter place names
+  val Albánsko = PlaceName(entry = "Albánsko", rod = Stredný, demonymMužský = "Albánec", adjectival = "albánsky")
   val Anglicko = PlaceName(entry = "Anglicko", rod = Stredný, demonymMužský = "Angličan", adjectival = "anglický")
   val Belgicko = PlaceName(entry = "Belgicko", rod = Stredný, demonymMužský = "Belgičan", adjectival = "belgický")
   val Bielorusko = PlaceName(entry = "Bielorusko", rod = Stredný, demonymMužský = "Bielorus", adjectival = "bieloruský")
@@ -157,12 +157,14 @@ package object slovník {
   val Maďarsko = PlaceName(entry = "Maďarsko", rod = Stredný, demonymMužský = "Maďar", adjectival = "maďarský")
   val Mexiko = PlaceName(entry = "Mexiko", rod = Stredný, demonymMužský = "Mexičan", adjectival = "mexický")
   val Moldavsko = PlaceName(entry = "Moldavsko", rod = Stredný, demonymMužský = "Moldavčan", adjectival = "moldavský")
+  val Monako = PlaceName(entry = "Monako", rod = Stredný, demonymMužský = "Monačan", adjectival = "monakský")
   val Nemecko = PlaceName(entry = "Nemecko", rod = Stredný, demonymMužský = "Nemec", adjectival = "nemecký")
   val Nórsko = PlaceName(entry = "Nórsko", rod = Stredný, demonymMužský = "Nór", adjectival = "nórsky")
   val Poľsko = PlaceName(entry = "Poľsko", rod = Stredný,
                             demonymMužský = "Poliak", demonymŽenský = "Poľka", adjectival = "poľský")
   val Portugalsko = PlaceName(entry = "Portugalsko", rod = Stredný, demonymMužský = "Portugalec", adjectival = "portugalský")
   val Rakúsko = PlaceName(entry = "Rakúsko", rod = Stredný, demonymMužský = "Rakúšan", adjectival = "rakúsky")
+  val Rumunsko = PlaceName(entry = "Rumunsko", rod = Stredný, demonymMužský = "Rumun", adjectival = "rumunský")
   val Rusko = PlaceName(entry = "Rusko", rod = Stredný, demonymMužský = "Rus", adjectival = "ruský")
   val Škótsko = PlaceName(entry = "Škótsko", rod = Stredný, demonymMužský = "Škót", adjectival = "škótsky")
   val Slovensko = PlaceName(entry = "Slovensko", rod = Stredný,
@@ -175,7 +177,7 @@ package object slovník {
   val Taliansko = PlaceName(entry = "Taliansko", rod = Stredný, demonymMužský = "Talian", adjectival = "taliansky")
   val Turecko = PlaceName(entry = "Turecko", rod = Stredný, adjectival = "turecký")
 
-  val allKrajiny = List(Amerika, Anglicko, Belgicko, Bielorusko, Bosna, Británia, Česko, ČiernaHora, Čína, Estónsko, Fínsko, Francúzsko, Grécko, Hercegovina, Holandsko, Chorvátsko, Írsko, Japonsko, Kanada, Lichtenštajnsko, Litva, Lotyšsko, Luxembursko, Macedónsko, Maďarsko, Mexiko, Moldavsko, Nemecko, Nórsko, Poľsko, Portugalsko, Rakúsko, Rusko, Škótsko, Slovensko, Slovinsko, Španielsko, Srbsko, Švajčiarsko, Švédsko, Taliansko, Turecko, Ukrajina, Vatikán)
+  val allKrajiny = List(Albánsko, Amerika, Anglicko, Belgicko, Bielorusko, Bosna, Británia, Česko, ČiernaHora, Čína, Estónsko, Fínsko, Francúzsko, Grécko, Hercegovina, Holandsko, Chorvátsko, Írsko, Japonsko, Kanada, Lichtenštajnsko, Litva, Lotyšsko, Luxembursko, Macedónsko, Maďarsko, Mexiko, Moldavsko, Monako, Nemecko, Nórsko, Poľsko, Portugalsko, Rakúsko, Rumunsko, Rusko, Škótsko, Slovensko, Slovinsko, Španielsko, Srbsko, Švajčiarsko, Švédsko, Taliansko, Turecko, Ukrajina, Vatikán)
 
   val allPlaces = allKrajiny :+ Európa
 
@@ -183,9 +185,10 @@ package object slovník {
    * PrídavnéMeno
    */
 
+  val Bohatý = new PrídavnéMeno("bohatý")
   val Čistý = new PrídavnéMeno("čistý")
   val Dobrý = new PrídavnéMeno("dobrý")
-//  val Ešte = new PrídavnéMeno("hnedý")
+//  val Ešte = new PrídavnéMeno("ešte")
   val Hnedý = new PrídavnéMeno("hnedý")
   val Hlavný = new PrídavnéMeno("hlavny")
   val Hospodársky = new PrídavnéMeno("hospodársky")
@@ -220,6 +223,7 @@ package object slovník {
 
   /*
    * Sloveso
+   * First argument is invifitive, second is third person singular present
    */
 
   // Type1 Verbs follow "chytať" - "chytám"
@@ -234,28 +238,42 @@ package object slovník {
   val Konať = Sloveso("konať", "koná")
   val Mať = Sloveso("mať", "má")
   val Pamätať = Sloveso("pamätať", "pamätá")
+  val Počúvať = Sloveso("počúvať", "počúva")
   val Poznať = Sloveso("poznať", "pozná")
   val Prichádzať = Sloveso("prichádzať", "prichádzá")
   val Rozprávať = Sloveso("rozprávať", "rozprává")
   // nespavať appears in the Mistrík textbook
-   val Spať = Sloveso("spať", "spá")
+  val Spávať = Sloveso("spávať", "spǎva")
+  val Spievať = Sloveso("spievať", "spieva")
+  val Strácať = Sloveso("strácať", "stráca")
   val Vstávať = Sloveso("vstávať", "vstává")
   val Vychádzať = Sloveso("vychádzať", "vychádzá")
   val Začinať = Sloveso("začinať", "začiná")
   val Žiadať = Sloveso("žiadať", "žiadá")
   val Znamenať = Sloveso("znamenať", "znamená")
 
+  // Type 6 verbs follow "brať" - "beriem"
+  val Brať = Sloveso("brať", "berie")
+
   // Type 11 verbs follow "pracuvať"
   val Potrebovať = Sloveso("potrebovať", "potrebuje")
 
   // Type 12 verbs follow "robiť"
-  // TOTO WARNING I ONLY GUESSED THIS VERB's TYPE!!!!
-  val Hovoriť = Sloveso("hovoriť", "hovorí")
+  val Chodiť = Sloveso("chodiť", "chodí")
   val Obrátiť = Sloveso("obrátiť", "obrátí")
   val Robiť = Sloveso("robiť", "robí")
 
   // Type 13 verbs follow "vidieť" - "vidím"
   val Vidieť = Sloveso("vidieť", "vidí")
+  val Sedieť = Sloveso("sedieť", "sedí")
+
+  // Type 13 verbs follow "kričať" - "kričím"
+  val Kričať = Sloveso("kričať", "kričí")
+  val Spať = Sloveso("spať", "spí")
+
+  // Uncategorized verbs--whatever type they are, that type is probbaly untested
+  val Hovoriť = Sloveso("hovoriť", "hovorí")
+
 
   // Irregular verb: to know
   val Vedieť = SlovesoFactory("vedieť", { (čislo: Čislo, osoba: Osoba, záporný: Boolean) =>

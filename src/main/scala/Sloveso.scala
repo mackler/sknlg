@@ -145,8 +145,8 @@ object Sloveso {
         val presentStem = thirdPerSing.replaceFirst("e$", "")
         new Žat(infinitív, presentStem)
       } else if (infinitív endsWith "ať") {
-        if (thirdPerSing endsWith "á") {
-          val presentStem = thirdPerSing.replaceFirst("á$", "")
+        if (thirdPerSing.endsWith("á") || thirdPerSing.endsWith("a")) {
+          val presentStem = thirdPerSing.replaceFirst("[aá]$", "")
           new Chytať(infinitív, presentStem)
         } else if (thirdPerSing endsWith "ie") {
           val presentStem = thirdPerSing.replaceFirst("ie$", "")

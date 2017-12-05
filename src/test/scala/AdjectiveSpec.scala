@@ -8,35 +8,35 @@ import org.scalatest._
 class PrídavnéMenoSpec extends FlatSpec with Matchers {
 
   "A prídavnéMeno referring to a masculine noun" should "generate the masculine prídavnéMeno" in {
-    slovník.Kufor(prídavnéMeno = Some(slovník.Pekný)).asText() shouldEqual "pekný kufor"
+    (slovník.Kufor setPrídavnéMeno slovník.Pekný).asText() shouldEqual "pekný kufor"
   }
 
   "A prídavnéMeno referring to a feminine noun" should "generate the feminine prídavnéMeno" in {
-    slovník.Rieka(prídavnéMeno = Some(slovník.Pekný)).asText() shouldEqual "pekná rieka"
+    (slovník.Rieka setPrídavnéMeno slovník.Pekný asText()) shouldEqual "pekná rieka"
   }
 
   "A prídavnéMeno referring to a neuter noun" should "generate the neuter prídavnéMeno" in {
-    slovník.Auto(prídavnéMeno = Some(slovník.Pekný)).asText() shouldEqual "pekné auto"
+    (slovník.Auto setPrídavnéMeno slovník.Pekný).asText() shouldEqual "pekné auto"
   }
 
-  "A prídavnéMeno referring to a masculine noun" should "generate the masculine prídavnéMeno without two long vowels in a row" in {
-    slovník.Kufor(prídavnéMeno = Some(slovník.Krázny)).asText() shouldEqual "krázny kufor"
+  "An long-syllable adjective referring to a masculine noun" should "generate the masculine masculine adjective" in {
+    (slovník.Kufor setPrídavnéMeno slovník.Krázny).asText() shouldEqual "krázny kufor"
   }
 
   "A prídavnéMeno referring to a feminine noun" should "generate the feminine prídavnéMeno without two long vowels in a row" in {
-    slovník.Rieka(prídavnéMeno = Some(slovník.Krázny)).asText() shouldEqual "krázna rieka"
+    (slovník.Rieka setPrídavnéMeno slovník.Krázny asText()) shouldEqual "krázna rieka"
   }
 
   "A prídavnéMeno referring to a neuter noun" should "generate the neuter prídavnéMeno without two long vowels in a row" in {
-    slovník.Auto(prídavnéMeno = Some(slovník.Krázny)).asText() shouldEqual "krázne auto"
+    (slovník.Auto setPrídavnéMeno slovník.Krázny).asText() shouldEqual "krázne auto"
   }
 
   "A one-sylable prídavnéMeno referring to a neuter noun" should "generate the neuter prídavnéMeno" in {
-    slovník.Auto(prídavnéMeno = Some(slovník.Zlý)).asText() shouldEqual "zlé auto"
+    (slovník.Auto setPrídavnéMeno slovník.Zlý).asText() shouldEqual "zlé auto"
   }
 
   "An adjective with a root ending in a long syllable" should "obey the rhythmic rule in the nominative case" in {
-    slovník.Kniha() setPrídavnéMeno slovník.Nízky asText() shouldEqual "nízka kniha"
+    slovník.Kniha setPrídavnéMeno slovník.Nízky asText() shouldEqual "nízka kniha"
   }
 
   // Combinations of gender, number & case

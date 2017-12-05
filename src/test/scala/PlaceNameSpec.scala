@@ -44,15 +44,15 @@ class PlaceNameSpec extends FlatSpec with Matchers {
 
   /* Adjectival forms of place names */
   "A masculine noun" should "be complemented by a geographic adjective" in {
-    (Byť() addPodmet Hrad() setComplement Slovensko.adjectival asText) shouldEqual
+    (Byť() addPodmet Hrad setComplement Slovensko.adjectival asText) shouldEqual
     "hrad je slovenský"
   }
   "A feminine noun" should "be complemented by a geographic adjective" in {
-    (Byť() addPodmet Kniha() setComplement Slovensko.adjectival asText) shouldEqual
+    (Byť() addPodmet Kniha setComplement Slovensko.adjectival asText) shouldEqual
     "kniha je slovenská"
   }
   "A neuter noun" should "be complemented by a geographic adjective" in {
-    (Byť() addPodmet Sklo() setComplement Slovensko.adjectival asText) shouldEqual
+    (Byť() addPodmet Sklo setComplement Slovensko.adjectival asText) shouldEqual
     "sklo je slovenské"
   }
 

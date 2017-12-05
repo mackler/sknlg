@@ -5,13 +5,13 @@ import Čislo._
 import Pád._
 
 trait Demonym extends NounPhrase {
-  val mužský: PodstatnéMenoFactory
-  val ženskský: PodstatnéMenoFactory
+  val mužský: PodstatnéMeno
+  val ženskský: PodstatnéMeno
   override def asText(pád: Pád)= asText(MužskýŽivotný, Jednotné, pád)
   def asText(rod: Rod.Value, čislo: Čislo.Value, pád: Pád.Value): String =
     (rod match {
-      case MužskýŽivotný => mužský(čislo = čislo)
-      case Ženský => ženskský(čislo = čislo)
+      case MužskýŽivotný => mužský setČislo čislo
+      case Ženský => ženskský setČislo čislo
     }) asText pád
 }
 
@@ -22,8 +22,8 @@ trait PlaceName extends PodstatnéMeno {
   val demonstrative = false
   def demonym: Option[Demonym] = demonymMužský map { m =>
     new Demonym {
-      object mužský extends PodstatnéMenoFactory(entry = m, rod = MužskýŽivotný)
-      object ženskský extends PodstatnéMenoFactory(entry = demonymŽenský.getOrElse(m.replaceFirst("(ec)?$", "ka")), rod = Ženský)
+      val mužský = PodstatnéMeno(m, MužskýŽivotný)
+      val ženskský = PodstatnéMeno(demonymŽenský getOrElse m.replaceFirst("(ec)?$", "ka"), Ženský)
     }
   }
   def asPrídavnéMeno: PrídavnéMeno = adjectival
@@ -54,6 +54,7 @@ object PlaceName {
       val entry = _entry
       val rod = _rod
       override val prídavnéMeno = _prídavnéMeno
+      def setPrídavnéMeno(p: PrídavnéMeno): PodstatnéMeno = throw new Exception(s"not implemented")
       val demonymMužský = _demonymMužský
       val demonymŽenský = _demonymŽenský
       val adjectival = PrídavnéMeno(_adjectival)

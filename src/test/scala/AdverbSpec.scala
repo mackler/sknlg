@@ -15,7 +15,7 @@ class PríslovkaSpec extends FlatSpec with Matchers {
   }
 
   "An adverb" should "modify a regular transitive verb" in {
-    (slovník.Mať setPodmet Seq(Ja()) setPredmet slovník.Kufor() setPríslovka Príslovka("tu") asText) shouldEqual
+    (slovník.Mať setPodmet Seq(Ja()) setPredmet slovník.Kufor setPríslovka Príslovka("tu") asText) shouldEqual
     "ja mám tu kufor"
   }
 

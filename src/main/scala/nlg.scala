@@ -33,7 +33,7 @@ object Main extends App {
       Set(Bývať setPodmet subject setPríslovka Príslovka("tu") setZáporný negate asText,
        Byť(podmet = subject, príslovka = Some(Príslovka("tu")), záporný = negate).asText,
        Čakať setPodmet subject setZáporný negate asText) ++
-      nouns.map{ noun => Mať setPodmet subject setPredmet noun() setZáporný negate asText }
+      nouns.map{ noun => Mať setPodmet subject setPredmet noun setZáporný negate asText }
     }
 
     r.flatten
@@ -41,8 +41,8 @@ object Main extends App {
 
   /* Exercises corresponding to Naughton Unit 1 Adjectives */
   def exN1AGendersAdjective() {
-    val nouns = Set[PodstatnéMenoFactory](Auto, Býk, Dieťa, Dievča, Dunaj, Hrad, Kaviareň, Kocúr, Krava, Kufor, Mača, Mačka, Mesto, Muž, Namestie, Rieka, Radosť, Srdce, Teľa, Učiteľ, Učiteľka, Voda, Žena)
-  val adjectives = Seq(Čistý, Zlý, Dobrý, Hnedý, Krázny, Malý, Mladý, Modrý, Nový, Pekný, Škaredý, Špinavý, Starý, Veľký)
+    val nouns = Set[PodstatnéMeno](Auto, Býk, Dieťa, Dievča, Dunaj, Hrad, Kaviareň, Kocúr, Krava, Kufor, Mača, Mačka, Mesto, Muž, Namestie, Rieka, Radosť, Srdce, Teľa, Učiteľ, Učiteľka, Voda, Žena)
+    val adjectives = Seq(Čistý, Zlý, Dobrý, Hnedý, Krázny, Malý, Mladý, Modrý, Nový, Pekný, Škaredý, Špinavý, Starý, Veľký)
 
     for {
       noun <- nouns
@@ -51,7 +51,6 @@ object Main extends App {
 // change demonstrative to determiner
 //      println(noun(demonstrative = true, prídavnéMeno = Some(adjective)).asText())
     }
-
 
   }
 
@@ -64,8 +63,7 @@ object Main extends App {
     for {
       noun <- nouns
       adjective <- adjectives
-    } yield Byť(podmet = Seq(noun()), complement = Some(adjective)).asText
-
+    } yield Byť(podmet = Seq(noun), complement = Some(adjective)).asText
   }
 
   /* Exercises corresponding to Mistrík Chapter 3 - declining nouns: singular/plural, nominative/accusative */
@@ -74,9 +72,9 @@ object Main extends App {
     Rieka, Ruka, Škola, Stanica, Stavba, Stena, Strom, Trieda, Vec, Ulica, Večer, Voz, Záhrada)
   def exM3Plural: Set[String] = {
     val singularNominative =
-      exM3Nouns.map(noun => Byť(podmet = Seq(noun()), príslovka = Some(Príslovka("tu"))).asText)
+      exM3Nouns.map(noun => Byť(podmet = Seq(noun), príslovka = Some(Príslovka("tu"))).asText)
     val pluralNominative =
-      exM3Nouns.map(noun => Byť(podmet = Seq(noun(čislo = Množné)), príslovka = Some(Príslovka("tu"))).asText)
+      exM3Nouns.map(noun => Byť(podmet = Seq(noun setČislo Množné), príslovka = Some(Príslovka("tu"))).asText)
     singularNominative ++ pluralNominative
   }
   def exM3Accusative: Set[String] = {
@@ -99,7 +97,7 @@ object Main extends App {
       number <- Set(Jednotné, Množné)
       subject <- subjects
     } yield {
-      val directObject = noun() setČislo number
+      val directObject = noun setČislo number
       verb setPredmet directObject asText
     }
     accusative
@@ -112,7 +110,7 @@ object Main extends App {
       adjective <- adjectives
       noun <- exM3Nouns
     } yield {
-      val modifiedNoun = noun() setČislo number setPrídavnéMeno adjective
+      val modifiedNoun = noun setČislo number setPrídavnéMeno adjective
       Set(
         Mať addPodmet Ja() setPredmet modifiedNoun asText,
         Byť() addPodmet Príslovka("tu") setComplement modifiedNoun asText
@@ -170,12 +168,22 @@ object Main extends App {
       Vedieť addPodmet vlado setPríslovka country.asPríslovka asText,
       Čítať addPodmet vlado setPríslovka country.asPríslovka asText,
       Hovoriť addPodmet vlado setPríslovka country.asPríslovka asText,
-      Mať addPodmet Ja() setPredmet (Auto() setPrídavnéMeno country.adjectival) asText,
-      Mať addPodmet Ja() setPredmet (Kniha() setPrídavnéMeno country.adjectival) asText,
-      Mať addPodmet Ja() setPredmet (Obchod() setPrídavnéMeno country.adjectival) asText
+      Mať addPodmet Ja() setPredmet (Auto setPrídavnéMeno country.adjectival) asText,
+      Mať addPodmet Ja() setPredmet (Kniha setPrídavnéMeno country.adjectival) asText,
+      Mať addPodmet Ja() setPredmet (Obchod setPrídavnéMeno country.adjectival) asText
     )
 
     (places ++ demonyms ++ languages).flatten.toSet
+  }
+
+  /* Mistrík chapter 5 */
+  def exM5verbs: Set[String] = {
+    val verbs = List[Sloveso](Robiť, Chodiť, Bývať, Začinať, Poznať, Žiadať, Vedieť, Vidieť, Sedieť, Kričať,
+                              Prichádzať, Znamenať, Spávať, Spievať, Počúvať, Strácať, Pamätať, Rozprávať)
+    val nouns = List()
+    val adjectives = List(Bohatý)
+
+    Set.empty[String]
   }
 
   exPlaces foreach { line => println(line) }
