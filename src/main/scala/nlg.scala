@@ -22,61 +22,91 @@ object Main extends App {
       } ++ Set(Seq(properNouns(0)), Seq(properNouns(1)), properNouns)
   }
 
-  /* Exercises corresponding to Naughton Unit 1 Verb Conjugation and negation */
-  def exN1ATypeVerbs(): Set[String] = {
-    val nouns = Set(Kufor)
-
-    val r =for {
-      subject <- subjects
-      negate <- Set(true, false)
-    } yield {
-      Set(Bývať setPodmet subject setPríslovka Príslovka("tu") setZáporný negate asText,
-       Byť(podmet = subject, príslovka = Some(Príslovka("tu")), záporný = negate).asText,
-       Čakať setPodmet subject setZáporný negate asText) ++
-      nouns.map{ noun => Mať setPodmet subject setPredmet noun setZáporný negate asText }
-    }
-
-    r.flatten
-  }
-
-  /* Exercises corresponding to Naughton Unit 1 Adjectives */
-  def exN1AGendersAdjective() {
-    val nouns = Set[PodstatnéMeno](Auto, Býk, Dieťa, Dievča, Dunaj, Hrad, Kaviareň, Kocúr, Krava, Kufor, Mača, Mačka, Mesto, Muž, Namestie, Rieka, Radosť, Srdce, Teľa, Učiteľ, Učiteľka, Voda, Žena)
-    val adjectives = Seq(Čistý, Zlý, Dobrý, Hnedý, Krázny, Malý, Mladý, Modrý, Nový, Pekný, Škaredý, Špinavý, Starý, Veľký)
-
-    for {
-      noun <- nouns
-      adjective <- adjectives
-    } {
-// change demonstrative to determiner
-//      println(noun(demonstrative = true, prídavnéMeno = Some(adjective)).asText())
-    }
-
-  }
-
-  /* Exercise corresponding to Mistrík Chapter 2 - adjective, noun gender */
-  def exM2Adjectives: Set[String] = {
-    val nouns = Set(Čelo, Dedina, Deň, Dieťa, Dlaň, Dom, Hlava, Chlapec, Kniha, Kôň, Les, Lúka, Mesto, Mlieko, Muž, Noha, Obraz, Oko, Pani, Pán,
-                    Prst, Rameno, Ráno, Ruka, Sklo, Stena, Strom, Škola, Trieda, Tvár, Ulica, Večer, Voda, Záhrada)
-    val adjectives = Set(Čistý, Dobrý, Malý, Nový, Pekný, Veľký, Vysoký, Zelený, Zlý)
-
+  /**
+    * Takes a set of nouns, a set of adjectives, and joins them with the verb for "to be".
+    */
+  def nominativeNounsAdjectives(nouns: Set[PodstatnéMeno], adjectives: Set[PrídavnéMeno]): Set[String] =
     for {
       noun <- nouns
       adjective <- adjectives
     } yield Byť(podmet = Seq(noun), complement = Some(adjective)).asText
-  }
 
-  /* Exercises corresponding to Mistrík Chapter 3 - declining nouns: singular/plural, nominative/accusative */
-  val exM3Nouns = Set(Auto, Breh, Cena, Dedina, Dom, Dvor, Hlava, Kniha, Kvet, Les, Lúka, Mesto, Minúta, Muž, Noha,
-    Obchod, Obraz, Otázka, Pán, Plot, Prst,
-    Rieka, Ruka, Škola, Stanica, Stavba, Stena, Strom, Trieda, Vec, Ulica, Večer, Voz, Záhrada)
-  def exM3Plural: Set[String] = {
+  /**
+    * Take a set of nouns, make each into a sentence saying that it is or they are here.
+    */
+  def nounsSingularPluralNominative(nouns: Set[PodstatnéMeno]): Set[String] = {
     val singularNominative =
       exM3Nouns.map(noun => Byť(podmet = Seq(noun), príslovka = Some(Príslovka("tu"))).asText)
     val pluralNominative =
       exM3Nouns.map(noun => Byť(podmet = Seq(noun setČislo Množné), príslovka = Some(Príslovka("tu"))).asText)
     singularNominative ++ pluralNominative
   }
+
+  /**
+    * Takes a set of verbs and a set of nouns and generates all combinations of them with all subjects using
+    * the nouns as direct objects, both singular and plural.
+    */
+  def accusativeSingularPlural(verbs: Set[RegularSloveso], nouns: Set[PodstatnéMeno]): Set[String] = {
+    for {
+      verb <- verbs
+      noun <- nouns
+      number <- Set(Jednotné, Množné)
+      subject <- subjects
+    } yield { verb setPredmet (noun setČislo number) asText }
+  }
+
+  /**
+    * Takes a set of nouns and a set of adjectives. Returns phrases with the adjective-modified nouns in
+    * both nominative (using "to be") and accusative (using "I have") cases, singular and plural numbers.
+    */
+  def nounsAdjectivesNominativeAccusativeSingularPlural(nouns: Set[PodstatnéMeno], adjectives: Set[PrídavnéMeno]): Set[String] = {
+    val r = for {
+      adjective <- adjectives
+      noun <- nouns
+      number <- Set(Jednotné, Množné)
+    } yield {
+      val modifiedNoun = noun setČislo number setPrídavnéMeno adjective
+      Set(
+        Mať addPodmet Ja() setPredmet modifiedNoun asText,
+        Byť() addPodmet Príslovka("tu") setComplement modifiedNoun asText
+      )
+    }
+
+    r.flatten
+  }
+
+  /**
+    * Takes a set of verbs.  Returns combinations of subjects with the verbs, negated and not negated.
+    */
+  def verbsNegated(verbs: Set[Sloveso]): Set[String] =
+    for {
+      negate <- Set(true,false)
+      subject <- subjects
+      verb <- verbs if verb.infinitív != "chávať"
+    } yield verb setPodmet subject setZáporný negate asText
+
+
+  // END OF GENERIC FUNCTIONS -- BEGIN SPECIFIC EXERCISES
+
+
+  /* Exercise corresponding to Mistrík Chapter 2 - adjective, noun gender */
+  def exM2Adjectives: Set[String] = {
+    val nouns = Set[PodstatnéMeno](Čelo, Dedina, Deň, Dieťa, Dlaň, Dom, Hlava, Chlapec, Kniha, Kôň, Les, Lúka, Mesto, Mlieko, Muž, Noha, Obraz, Oko, Pani, Pán,
+                    Prst, Rameno, Ráno, Ruka, Sklo, Stena, Strom, Škola, Trieda, Tvár, Ulica, Večer, Voda, Záhrada)
+    val adjectives = Set(Čistý, Dobrý, Malý, Nový, Pekný, Veľký, Vysoký, Zelený, Zlý)
+
+    nominativeNounsAdjectives(nouns, adjectives)
+  }
+
+  /* Exercises corresponding to Mistrík Chapter 3 - declining nouns: singular/plural, nominative/accusative */
+  val exM3Nouns: Set[PodstatnéMeno] = Set(Auto, Breh, Cena, Dedina, Dom, Dvor, Hlava, Kniha, Kvet, Les, Lúka, Mesto, Minúta, Muž, Noha,
+    Obchod, Obraz, Otázka, Pán, Plot, Prst,
+    Rieka, Ruka, Škola, Stanica, Stavba, Stena, Strom, Trieda, Vec, Ulica, Večer, Voz, Záhrada)
+
+  def exM3Plural: Set[String] = nounsSingularPluralNominative(exM3Nouns)
+
+  // this is a customized version of the accusativeSingularPlural method above to limit the number of generated phrases.
+  // It only uses certain subject/verb combinations
   def exM3Accusative: Set[String] = {
     val verbs = Set(Hľadať addPodmet Ja(),
                     Mať addPodmet Ja(),
@@ -105,19 +135,7 @@ object Main extends App {
 
   def exM3Adjectives(number: Čislo): Set[String] = {
     val adjectives = Set(Dobrý, Hlavný, Jednoduchý, Ktorý, Nejaký, Nízky, Nový, Posledný, Pekný, Pravý, Široký, Taký, Vysoký)
-
-    val r = for {
-      adjective <- adjectives
-      noun <- exM3Nouns
-    } yield {
-      val modifiedNoun = noun setČislo number setPrídavnéMeno adjective
-      Set(
-        Mať addPodmet Ja() setPredmet modifiedNoun asText,
-        Byť() addPodmet Príslovka("tu") setComplement modifiedNoun asText
-      )
-    }
-
-    r.flatten
+    nounsAdjectivesNominativeAccusativeSingularPlural(exM3Nouns, adjectives)
   }
 
   /* Some words from Krížom Krážom */
@@ -125,16 +143,10 @@ object Main extends App {
   val KK1adjectives = Set(Slobodný, Ženatý, Zaujímavý )
 
   /* Some exercises corresponding to Mistrík chapter 4 */
-  def exM4: List[String] = {
-    val verbs = List[Sloveso](Vstávať, Mať, Byť(), Bývať, Začinať, Poznať, Chodievať, Žiadať, Konať, Znamenať, Vychádzať,
+  def exM4: Set[String] = {
+    val verbs = Set[Sloveso](Vstávať, Mať, Byť(), Bývať, Začinať, Poznať, Chodievať, Žiadať, Konať, Znamenať, Vychádzať,
                  Chávať, Rozprávať, Prichádzať, Spať, Pamätať)
-//    val nouns = Set(Večer, Vlak, Učiteľ, Poriadok, Práca, Auto, Obraz, Čislo)
-//    val adjectives = Set(Voľný, Čistý, Dobrý, Nový, Veľký, Nejaký, Vlastný, Iný)
-    for {
-      negate <- List(true,false)
-      subject <- subjects
-      verb <- verbs if verb.infinitív != "chávať"
-    } yield verb setPodmet subject setZáporný negate asText
+    verbsNegated(verbs)
   }
 
   /* Countries, places, languages */

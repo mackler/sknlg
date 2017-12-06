@@ -23,7 +23,7 @@ case class Pomenovanie(name: String, rod: Rod) extends Noun {
 }
 
 object PodstatnéMeno {
-  def apply(entry: String, rod: Rod) = {
+  def apply(entry: String, rod: Rod): PodstatnéMeno = {
     val _entry = entry
     val _rod = rod
     case class PodstatnéMenoInstance(
@@ -39,7 +39,7 @@ object PodstatnéMeno {
       def predložka() = _predložka
       def setČislo(č: Čislo) = this.copy(čislo = č)
       def setPrídavnéMeno(p: PrídavnéMeno): PodstatnéMeno = this.copy(prídavnéMeno = Some(p))
-      def setDemonstrative(d: Boolean) = this.copy(demonstrative = d)
+      override def setDemonstrative(d: Boolean) = this.copy(demonstrative = d)
 
       override def asText(pád: Pád): String = _predložka.map(_ + " ").getOrElse("") + super.asText(pád)
     }
@@ -55,6 +55,7 @@ trait PodstatnéMeno extends Noun {
   protected val demonstrative : Boolean
   def setČislo(č: Čislo): PodstatnéMeno
   def setPrídavnéMeno(p: PrídavnéMeno): PodstatnéMeno
+  def setDemonstrative(d: Boolean) = this
 
   override def asText(pád: Pád = Nominatív) =
     (if (demonstrative) Ten.asText(rod, čislo, pád) + " " else "") +
