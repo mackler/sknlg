@@ -86,6 +86,17 @@ object Main extends App {
     } yield verb setPodmet subject setZáporný negate asText
 
 
+  def locative(nouns: Set[PodstatnéMeno]): Set[String] = {
+    val r = for {
+      noun <- nouns
+    } yield Set(
+      Byť() addPodmet Príslovka("tu") setComplement noun asText,
+      Byť() addPodmet Ten setComplement noun asText
+    )
+
+    r.flatten
+  }
+
   // END OF GENERIC FUNCTIONS -- BEGIN SPECIFIC EXERCISES
 
 
@@ -189,15 +200,19 @@ object Main extends App {
   }
 
   /* Mistrík chapter 5 */
+  val exM5nouns = Set(Družstvo, Matka)
   def exM5verbs: Set[String] = {
     val verbs = List[Sloveso](Robiť, Chodiť, Bývať, Začinať, Poznať, Žiadať, Vedieť, Vidieť, Sedieť, Kričať,
                               Prichádzať, Znamenať, Spávať, Spievať, Počúvať, Strácať, Pamätať, Rozprávať)
-    val nouns = List()
     val adjectives = List(Bohatý)
 
     Set.empty[String]
   }
 
-  exPlaces foreach { line => println(line) }
+  def exM5: Set[String] = {
+    locative(exM5nouns)
+  }
+
+  exM5 foreach { line => println(line) }
 
 }

@@ -152,4 +152,11 @@ trait PodstatnéMeno extends Noun {
     }
   }
 
+  override def equals(other: Any): Boolean = other match {
+    case that: PodstatnéMeno => that.entry == this.entry
+    case _ => false
+  }
+
+  override def hashCode = entry.##
+
 }

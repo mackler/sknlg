@@ -7,6 +7,21 @@ import org.scalatest._
 
 class PodstatméMenoSpec extends FlatSpec with Matchers {
 
+  // first test the meta-aspects of nouns: the equals method
+
+  "Two different nouns" should "not equal each other" in {
+    PodstatnéMeno("muž", MužskýNeživotný) == PodstatnéMeno("žena", Ženský) shouldEqual false
+  }
+
+  "Two different nouns" should "have different hash codes" in {
+    PodstatnéMeno("muž", MužskýNeživotný).hashCode should not equal PodstatnéMeno("Žena", Ženský).hashCode
+  }
+
+  "Two equivalent nouns" should "have the same hash code" in {
+    PodstatnéMeno("muž", MužskýNeživotný).hashCode shouldEqual PodstatnéMeno("muž", Ženský).hashCode
+  }
+  // now we test the behavior of nouns
+
   "A noun-object in a Set" should "allow companion class construction using default parameters" in {
     val set = Set[PodstatnéMeno](slovník.Kufor, slovník.Auto)
     for {

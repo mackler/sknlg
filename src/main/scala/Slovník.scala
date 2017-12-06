@@ -61,6 +61,7 @@ package object slovník {
   val Lúka = PodstatnéMeno("lúka", Ženský)
   val Mačka = PodstatnéMeno("mačka", Ženský)
   val Manželka = PodstatnéMeno("manželka", Ženský)
+  val Matka = PodstatnéMeno("matka", Ženský)
   val Minúta = PodstatnéMeno("minúta", Ženský)
   val Noha = PodstatnéMeno("noha", Ženský)
   val Otázka = PodstatnéMeno("otázka", Ženský)
