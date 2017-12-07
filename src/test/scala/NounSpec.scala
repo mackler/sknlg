@@ -223,6 +223,12 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   "A feminine noun following kosť" should "decline in the accusative case plural" in {
     (slovník.Radosť setČislo Množné asText Akusatív) shouldEqual "radosťi"
   }
+  "A feminine noun following kosť" should "decline in the locative case singular" in {
+    (slovník.Radosť asText Lokatív) shouldEqual "radosťi"
+  }
+  "A feminine noun following kosť" should "decline in the locative case plural" in {
+    (slovník.Radosť setČislo Množné asText Lokatív) shouldEqual "radosťiach"
+  }
   // "jar" follows "kosť" even though it ends with an "r", which usually follows "dlaň"
   "The noun 'jar'" should "follow 'kosť' in the genitive singular" in {
     (slovník.Jar asText Genitív) shouldEqual "jari"

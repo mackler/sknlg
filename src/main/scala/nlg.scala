@@ -90,14 +90,16 @@ object Main extends App {
    * Take a set of nouns. Return a phrase of each in nominative, accusative and locative cases,
    * using all subjects for the accusatives and locatives, and each locative as both "in" and "near."
    */
-  def locative(nouns: Set[PodstatnéMeno]): Set[String] = {
+  def locative(nouns: Set[PodstatnéMeno], adjectives: Set[PrídavnéMeno]): Set[String] = {
     val r = for {
       noun <- nouns
+      adjective <- adjectives
       subject <- subjects
     } yield Set(
 //      Byť() addPodmet Príslovka("tu") setComplement noun asText,
 //      Vidieť setPodmet subject setPredmet noun asText,
-      Byť() setPodmet subject setComplement (noun predložka "pri") asText
+//      Byť() setPodmet subject setComplement (noun predložka "pri") asText,
+      Byť() setPodmet subject setComplement (noun setPrídavnéMeno adjective predložka "vo") asText
     )
 
     r.flatten
@@ -206,17 +208,13 @@ object Main extends App {
   }
 
   /* Mistrík chapter 5 */
-  val exM5nouns = Set(Chlap, Družstvo, Jar, Jeseň, Leto, Matka, Mesto, Otec, Práca, Priateľ, Rodina, Škola, Ulica, Zima, Žena)
-  def exM5verbs: Set[String] = {
+  def exM5: Set[String] = {
+    val exM5nouns = Set(Chlap, Družstvo, Jar, Jeseň, Leto, Matka, Mesto, Otec, Práca, Priateľ, Rodina, Škola, Ulica, Zima, Žena)
     val verbs = List[Sloveso](Robiť, Chodiť, Bývať, Začinať, Poznať, Žiadať, Vedieť, Vidieť, Sedieť, Kričať,
                               Prichádzať, Znamenať, Spávať, Spievať, Počúvať, Strácať, Pamätať, Rozprávať)
-    val adjectives = List(Bohatý)
+    val adjectives = Set(Bohatý, Chorý, Dobrý, Hlavný, Iný, Nový, Pekný, Posledný, Šťastný, Veľký, Vysoký, Starý, Ťažká, Známy)
 
-    Set.empty[String]
-  }
-
-  def exM5: Set[String] = {
-    locative(exM5nouns)
+    locative(exM5nouns, adjectives)
   }
 
   exM5 foreach { line => println(line) }

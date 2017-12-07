@@ -38,7 +38,7 @@ package object slovník {
   // Masculine Inanimate
   // ending in hard or neutral consonant, e.g., "dub", "plán"
   val Breh = PodstatnéMeno("breh")
-  val Deň = PodstatnéMeno("deň", MužskýNeživotný)
+  val Deň = PodstatnéMeno("deň", MužskýNeživotný)  // TODO seems to be irregular
   val Dom = PodstatnéMeno("dom")
   val Dvor = PodstatnéMeno("dvor")
   val Hrad = PodstatnéMeno("hrad")
@@ -210,11 +210,13 @@ package object slovník {
 
   val Bohatý = new PrídavnéMeno("bohatý")
   val Čistý = new PrídavnéMeno("čistý")
+  val Chorý = new PrídavnéMeno("chorý")
   val Dobrý = new PrídavnéMeno("dobrý")
 //  val Ešte = new PrídavnéMeno("ešte")
   val Hnedý = new PrídavnéMeno("hnedý")
   val Hlavný = new PrídavnéMeno("hlavny")
   val Hospodársky = new PrídavnéMeno("hospodársky")
+  val Iný = new PrídavnéMeno("iný")
   // TODO jeden, jedna, jedno
   val Jednoduchý = new PrídavnéMeno("jednoduchý")
   val Krázny = new PrídavnéMeno("krázný")
@@ -233,16 +235,19 @@ package object slovník {
   val Široký = new PrídavnéMeno("široký")
   val Škaredý = new PrídavnéMeno("škaredý")
   val Slobodný = new PrídavnéMeno("slobodný")
-  val Špinavý = new PrídavnéMeno("špinavý")
   val Starý = new PrídavnéMeno("starý")
+  val Špinavý = new PrídavnéMeno("špinavý")
+  val Šťastný = new PrídavnéMeno("šťastný")
   // This is not actually an adjective but a demonstrative pronoun
   val Taký = new PrídavnéMeno("taký")
+  val Ťažká = new PrídavnéMeno("ťažká")
   val Veľký = new PrídavnéMeno("veľký")
   val Vysoký = new PrídavnéMeno("vysoký")
   val Zaujímavý = new PrídavnéMeno("Zaujímavý")
   val Zelený = new PrídavnéMeno("zelený")
   val Ženatý = new PrídavnéMeno("Ženatý")
   val Zlý = new PrídavnéMeno("zlý")
+  val Známy = new PrídavnéMeno("známy")
 
   /*
    * Sloveso

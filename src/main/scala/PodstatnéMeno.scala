@@ -193,11 +193,13 @@ trait PodstatnéMeno extends Noun {
           case Nominatív => entry
           case Genitív => entry + "i"
           case Akusatív => entry
+          case Lokatív => entry + "i"
         }
         case Množné => pád match {
           case Nominatív => entry + "i"
           case Genitív => entry + "í"
           case Akusatív => entry + "i"
+          case Lokatív => entry + "iach"
         }
       }
       case Mesto => čislo match {

@@ -7,6 +7,7 @@ import org.scalatest._
 
 class PrídavnéMenoSpec extends FlatSpec with Matchers {
 
+  // Adjectives must be the same case as nouns to which they refer
   "An adjective referring to a masculine noun" should "generate the masculine adjective" in {
     (slovník.Kufor setPrídavnéMeno slovník.Pekný).asText() shouldEqual "pekný kufor"
   }
@@ -30,6 +31,28 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
   }
   "An adjective with a root ending in a long syllable" should "obey the rhythmic rule in the nominative case" in {
     slovník.Kniha setPrídavnéMeno slovník.Nízky asText() shouldEqual "nízka kniha"
+  }
+
+  // If an adjective refers to a noun that becomes an adverb by use of a preposition, such adjective must have the
+  // same case as such noun
+  "An adjective referring to a masculine noun" should "have the correct case when the noun becomes an adverb" in {
+    (slovník.Kvet setPrídavnéMeno slovník.Dobrý predložka "vo" asText) shouldEqual "v dobrom kvete"
+  }
+  "An adjective referring to a feminine noun" should "have the correct case when the noun becomes an adverb" in {
+    (slovník.Stanica setPrídavnéMeno slovník.Hlavný predložka "pri" asText) shouldEqual "pri hlavnej stanici"
+  }
+  "An adjective referring to a neuter noun" should "have the correct case when the noun becomes an adverb" in {
+    (slovník.Mesto setPrídavnéMeno slovník.Dobrý predložka "pri" asText) shouldEqual "pri dobrom meste"
+  }
+  // plural
+  "An adjective referring to a plural masculine noun" should "have the correct case when the noun becomes an adverb" in {
+    (slovník.Kvet setČislo Množné setPrídavnéMeno slovník.Dobrý predložka "vo" asText) shouldEqual "v dobrých kvetoch"
+  }
+  "An adjective referring to a plural feminine noun" should "have the correct case when the noun becomes an adverb" in {
+    (slovník.Stanica setČislo Množné setPrídavnéMeno slovník.Hlavný predložka "pri" asText) shouldEqual "pri hlavných staniciach"
+  }
+  "An adjective referring to a plural neuter noun" should "have the correct case when the noun becomes an adverb" in {
+    (slovník.Mesto setČislo Množné setPrídavnéMeno slovník.Dobrý predložka "pri" asText) shouldEqual "pri dobrých mestách"
   }
 
   // Combinations of gender, number & case
