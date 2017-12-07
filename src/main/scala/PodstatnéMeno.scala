@@ -23,9 +23,19 @@ case class Pomenovanie(name: String, rod: Rod) extends Noun {
 }
 
 object PodstatnéMeno {
-  def apply(entry: String, rod: Rod): PodstatnéMeno = {
+  // The `rod` parameter is needed only if the noun is exceptional
+  def apply(entry: String, rod: Rod = Neznámy): PodstatnéMeno = {
     val _entry = entry
-    val _rod = rod
+    val _rod = {
+      if (rod != Neznámy) rod // explicitly provided
+        else if (entry.matches(".*(a|osť|eň)$")) // ends with "a" or "osť" or "eň" (last one is debatable)
+        Ženský
+      else if (entry.matches(".*[bcčdďfghjklľĺmnňprŕsštťvyýzž]$")) // ends with any consonant
+        MužskýNeživotný
+      else if (entry.matches(".*[eo]$")) // ends with e or o
+        Stredný
+      else throw new Exception(s"unknown gender for $entry")
+    }
     case class PodstatnéMenoInstance(
       override           val čislo        : Čislo,
       override           val prídavnéMeno : Option[PrídavnéMeno],
@@ -35,7 +45,6 @@ object PodstatnéMeno {
       override protected val entry = _entry
       override val rod = _rod
 
-      def predložka(p: String) = this.copy(_predložka = Some(p))
       def predložka() = _predložka
       def setČislo(č: Čislo) = this.copy(čislo = č)
       def setPrídavnéMeno(p: PrídavnéMeno): PodstatnéMeno = this.copy(prídavnéMeno = Some(p))
@@ -62,6 +71,16 @@ trait PodstatnéMeno extends Noun {
     (prídavnéMeno map { a => a.asText(rod, čislo, pád) + " " }).getOrElse("") +
     super.asText(pád)
 
+  // setting a preposition turns this noun into an adverb
+  def predložka(p: String) = Príslovka {
+    p match {
+      case "pri" => "pri " + asText(Lokatív)
+      case "vo" =>
+        val t = asText(Lokatív)
+        "v" + (if (t.matches("^[vVfF].*")) "o " else " ") + t
+    }
+  }
+
   object Spoluhláska {
     val hard = Set("g", "h", "ch", "k", "d", "n", "t")
     val neutral = Set("b", "f", "l", "m", "p", "r", "s", "v", "z")
@@ -70,53 +89,72 @@ trait PodstatnéMeno extends Noun {
   }
   private lazy val skloňovanie = rod match {
     case MužskýŽivotný =>
-      if (entry.endsWith("a"))                               Hrdina
-      else                                                   Chlap
+      if (entry.endsWith("a"))                                          Hrdina
+      else                                                              Chlap
     case MužskýNeživotný =>
-      if (Spoluhláska.mäkký.exists(entry.endsWith))          Stroj
-      else /* ends with hard or neutral consonant */         Dub
+      if (Spoluhláska.mäkký.exists(entry.endsWith))                     Stroj
+      else /* ends with hard or neutral consonant */                    Dub
     case Ženský =>
-      if (Set("c","s","p","v","st").exists(entry.endsWith))  Kosť
+      if (Set("c","s","p","v","sť").exists(entry.endsWith) ||
+      Set("jar","zver","chuť","ortuť","pamäť","smrť").contains(entry))  Kosť
       else if (Spoluhláska.tvrdný.exists(c => entry.endsWith(c + "a")))
-                                                             Žena
-        else if (entry.endsWith("a"))                        Ulica
-        else                                                 Dlaň
+                                                                        Žena
+        else if (entry.endsWith("a"))                                   Ulica
+        else                                                            Dlaň
     case Stredný =>
-      if (entry.endsWith("o"))                               Mesto
-      else if (entry.endsWith("ie"))                         Vysvedčenie
-      else if (entry.endsWith("e"))                          Srdce
-      else if (entry.endsWith("a") || entry.endsWith("ä"))   Dievča
+      if (entry.endsWith("o"))                                          Mesto
+      else if (entry.endsWith("ie"))                                    Vysvedčenie
+      else if (entry.endsWith("e"))                                     Srdce
+      else if (entry.endsWith("a") || entry.endsWith("ä"))              Dievča
     }
 
   override protected def decline(pád: Pád): String = {
-    skloňovanie match {
-      case Chlap => pád match {
-        case Nominatív => čislo match {
-          case Jednotné => entry
-          case Množné   => entry + "i"
+    val r = skloňovanie match {
+      case Chlap => čislo match {
+        case Jednotné => pád match {
+          case Nominatív => entry
+          case Akusatív => entry + "a"
+          case Lokatív => entry + "ovi"
         }
-        case Akusatív => čislo match {
-          case Jednotné => entry + "a"
-          case Množné   => entry + "ov"
+        case Množné => pád match {
+          case Nominatív => entry + "i"
+          case Akusatív  => entry + "ov"
+          case Lokatív => entry + "och"
         }
       }
       case Dub => čislo match {
         case Jednotné => pád match {
           case Nominatív | Akusatív => entry
           case Genitív => entry + "a"
+          case Lokatív => entry + "e"
         }
-        case Množné   => entry + "y"
+        case Množné => pád match {
+          case Nominatív => entry + "y"
+          case Akusatív => entry + "y"
+          case Lokatív => entry + "och"
+        }
       }
-      case Stroj => entry
+      case Stroj => čislo match {
+        case Jednotné => pád match {
+          case Nominatív => entry
+          case Akusatív => entry
+        }
+        case Množné => pád match {
+          case Nominatív => entry + "e"
+          case Akusatív => entry + "e"
+        }
+      }
       case Žena => čislo match {
         case Jednotné => pád match {
           case Nominatív => entry
           case Genitív => entry.replaceFirst("a$", "y")
           case Akusatív => entry.replaceFirst("a$", "u")
+          case Lokatív => entry.replaceFirst("a$", "e")
         }
         case Množné => pád match {
           case Nominatív => entry.replaceFirst("a$", "y")
           case Akusatív => entry.replaceFirst("a$", "y")
+          case Lokatív => entry.replaceFirst("a$", "ách")
         }
       }
       case Ulica => čislo match {
@@ -124,32 +162,74 @@ trait PodstatnéMeno extends Noun {
           case Nominatív => entry
           case Genitív => entry.replaceFirst("a$", "e")
           case Akusatív => entry.replaceFirst("a$", "u")
+          case Lokatív => entry.replaceFirst("a$", "i")
         }
         case Množné => pád match {
           case Nominatív => entry.replaceFirst("a$", "e")
           case Genitív => entry.replaceFirst("a$", "")
           case Akusatív => entry.replaceFirst("a$", "e")
+          case Lokatív => entry.replaceFirst("a$", "iach")
         }
       }
-      case Dlaň => entry
+      case Dlaň =>
+        val fleeting = entry.replaceFirst("eň$", "ň")
+        čislo match {
+          case Jednotné => pád match {
+            case Nominatív => entry
+            case Genitív => fleeting + "e"
+            case Akusatív => entry
+            case Lokatív => fleeting + "i"
+          }
+          case Množné => pád match {
+            case Nominatív => fleeting + "e"
+            case Genitív => fleeting + "í"
+            case Datív => fleeting + (if (finalSyllableIsLong(fleeting)) "" else "i") + "am"
+            case Akusatív => fleeting + "e"
+            case Lokatív => fleeting + (if (finalSyllableIsLong(fleeting)) "" else "i") + "ach"
+          }
+        }
       case Kosť => čislo match {
-        case Jednotné => entry
-        case Množné => entry + "i"
+        case Jednotné => pád match {
+          case Nominatív => entry
+          case Genitív => entry + "i"
+          case Akusatív => entry
+        }
+        case Množné => pád match {
+          case Nominatív => entry + "i"
+          case Genitív => entry + "í"
+          case Akusatív => entry + "i"
+        }
       }
-
       case Mesto => čislo match {
         case Jednotné => pád match {
           case Nominatív | Akusatív => entry
           case Genitív => entry.replaceFirst("o$", "a")
+          case Lokatív => entry.replaceFirst("o$", "e")
         }
-        case Množné   => entry.replaceFirst("o$", "á")
+        case Množné   => pád match {
+          case Nominatív => entry.replaceFirst("o$", "á")
+          case Akusatív => entry.replaceFirst("o$", "á")
+          case Lokatív => entry.replaceFirst("o$", "ách")
+        }
       }
-      case Srdce => entry
+      case Srdce => čislo match {
+        case Jednotné => pád match {
+          case Nominatív => entry
+        }
+      }
       case Vysvedčenie => čislo match {
-        case Jednotné => entry
+        case Jednotné => pád match {
+          case Nominatív => entry
+        }
       }
-      case Dievča => entry
+      case Dievča => čislo match {
+        case Jednotné => pád match {
+          case Nominatív => entry
+        }
+      }
     }
+    // remove unnecessary soft-marks
+    r.replaceFirst("ň([iíe])", "n$1")
   }
 
   override def equals(other: Any): Boolean = other match {

@@ -15,27 +15,39 @@ case class PrídavnéMeno(entry: String) extends NounPhrase {
   def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív) = root + {
     čislo match {
       case Jednotné => rod match {
-        case MužskýNeživotný => y
         case MužskýŽivotný => pád match {
           case Nominatív => y
           case Akusatív => e + "ho"
+          case Lokatív => "om"
+        }
+        case MužskýNeživotný => pád match {
+          case Nominatív => y
+          case Akusatív => y
+          case Lokatív => "om"
         }
         case Ženský => pád match {
           case Nominatív => a
           case Genitív => "ej"
           case Akusatív => u
+          case Lokatív => "ej"
         }
-        case Stredný => e
+        case Stredný => pád match {
+          case Nominatív => e
+          case Akusatív => e
+          case Lokatív => "om"
+        }
       }
 
       case Množné => rod match {
         case MužskýŽivotný => pád match {
           case Nominatív => i
           case Akusatív => y + "ch"
+          case Lokatív => y + "ch"
         }
         case MužskýNeživotný | Ženský | Stredný => pád match {
           case Nominatív => e
           case Akusatív => e
+          case Lokatív => y + "ch"
         }
       }
     }

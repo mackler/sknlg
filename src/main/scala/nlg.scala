@@ -86,12 +86,18 @@ object Main extends App {
     } yield verb setPodmet subject setZáporný negate asText
 
 
+  /*
+   * Take a set of nouns. Return a phrase of each in nominative, accusative and locative cases,
+   * using all subjects for the accusatives and locatives, and each locative as both "in" and "near."
+   */
   def locative(nouns: Set[PodstatnéMeno]): Set[String] = {
     val r = for {
       noun <- nouns
+      subject <- subjects
     } yield Set(
-      Byť() addPodmet Príslovka("tu") setComplement noun asText,
-      Byť() addPodmet Ten setComplement noun asText
+//      Byť() addPodmet Príslovka("tu") setComplement noun asText,
+//      Vidieť setPodmet subject setPredmet noun asText,
+      Byť() setPodmet subject setComplement (noun predložka "pri") asText
     )
 
     r.flatten
@@ -200,7 +206,7 @@ object Main extends App {
   }
 
   /* Mistrík chapter 5 */
-  val exM5nouns = Set(Družstvo, Matka)
+  val exM5nouns = Set(Chlap, Družstvo, Jar, Jeseň, Leto, Matka, Mesto, Otec, Práca, Priateľ, Rodina, Škola, Ulica, Zima, Žena)
   def exM5verbs: Set[String] = {
     val verbs = List[Sloveso](Robiť, Chodiť, Bývať, Začinať, Poznať, Žiadať, Vedieť, Vidieť, Sedieť, Kričať,
                               Prichádzať, Znamenať, Spávať, Spievať, Počúvať, Strácať, Pamätať, Rozprávať)

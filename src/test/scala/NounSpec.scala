@@ -20,7 +20,6 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   "Two equivalent nouns" should "have the same hash code" in {
     PodstatnéMeno("muž", MužskýNeživotný).hashCode shouldEqual PodstatnéMeno("muž", Ženský).hashCode
   }
-  // now we test the behavior of nouns
 
   "A noun-object in a Set" should "allow companion class construction using default parameters" in {
     val set = Set[PodstatnéMeno](slovník.Kufor, slovník.Auto)
@@ -31,45 +30,66 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
     }
   }
 
+  // now we test the declension of nouns
+
+  /*
+   * Masculine Nouns
+   */
+  // Following CHLAP
+  "A masculine noun following chlap" should "decline in the nominative singular" in {
+    (slovník.Muž setČislo Jednotné asText Nominatív) shouldEqual "muž"
+  }
   "A masculine, animate noun not ending in 'a'" should "decline in the nominative case singular" in {
     slovník.Učiteľ.asText() shouldEqual "učiteľ"
   }
-
-  "A masculine, animate noun not ending in 'a'" should "decline in the nominative case plural" in {
-    (slovník.Učiteľ setČislo Množné asText()) shouldEqual "učiteľi"
+  "A masculine noun following chlap" should "decline in the accusative singular" in {
+    (slovník.Muž setČislo Jednotné asText Akusatív) shouldEqual "muža"
   }
-
   "A masculine, animate noun not ending in 'a'" should "decline in the accusative case singular" in {
     (slovník.Učiteľ asText(pád = Akusatív)) shouldEqual "učiteľa"
   }
+  "A masculine, animate noun not ending in 'a'" should "decline in the locative case singular" in {
+    slovník.Učiteľ.asText(Lokatív) shouldEqual "učiteľovi"
+  }
 
+  // plural
+  "A masculine noun following chlap" should "decline in the nominative plural" in {
+    (slovník.Muž setČislo Množné asText Nominatív) shouldEqual "muži"
+  }
+  "A masculine, animate noun not ending in 'a'" should "decline in the nominative case plural" in {
+    (slovník.Učiteľ setČislo Množné asText()) shouldEqual "učiteľi"
+  }
+  "A masculine noun following chlap" should "decline in the accusative plural" in {
+    (slovník.Muž setČislo Množné asText Akusatív) shouldEqual "mužov"
+  }
   "A masculine, animate noun not ending in 'a'" should "decline in the accusative case plural" in {
-    (slovník.Učiteľ setČislo Množné asText(pád = Akusatív)) shouldEqual "učiteľov"
+    slovník.Učiteľ setČislo Množné asText Akusatív shouldEqual "učiteľov"
+  }
+  "A masculine, animate noun not ending in 'a'" should "decline in the locative case plural" in {
+    slovník.Učiteľ setČislo Množné asText Lokatív shouldEqual "učiteľoch"
   }
 
+
+  // Following DUB
+  "A masculine, inanimate noun ending in a hard consonant" should "decline in the locative case singular" in {
+    slovník.Hrad asText Lokatív shouldEqual "hrade"
+  }
+  "A masculine, inanimate noun ending in a hard consonant" should "decline in the locative case plural" in {
+    slovník.Hrad setČislo Množné asText Lokatív shouldEqual "hradoch"
+  }
+
+  // Following STROJ
   "A masculine, inanimate noun ending in a soft consonant" should "decline in the accusative case singular" in {
-    (slovník.Dunaj setČislo Množné asText Akusatív) shouldEqual "Dunaj"
+    (slovník.Dunaj asText Akusatív) shouldEqual "Dunaj"
+  }
+  "A masculine, inanimate noun ending in a soft consonant" should "decline in the accusative case plural" in {
+    (slovník.Dunaj setČislo Množné asText Akusatív) shouldEqual "Dunaje"
   }
 
-  "A feminine noun ending in soft consonant -a" should "decline in the nominative case singular" in {
-    slovník.Krava.asText() shouldEqual "krava"
+  "A masculine noun following dub" should "decline in the nominative plural" in {
+    (slovník.Voz setČislo Množné asText()) shouldEqual "vozy"
   }
 
-  "A feminine noun following dlaň" should "decline in the accusative case plural" in {
-    (slovník.Radosť setČislo Množné asText Akusatív) shouldEqual "radosť"
-  }
-
-  "A neuter noun ending in '-e'" should "decline in the nominative case singular" in {
-    slovník.Srdce.asText() shouldEqual "srdce"
-  }
-
-  "A neuter noun ending in '-ie'" should "decline in the nominative case singular" in {
-    slovník.Namestie.asText() shouldEqual "namestie"
-  }
-
-  "A neuter noun ending in '-a'" should "decline in the nominative case singular" in {
-    slovník.Mača.asText() shouldEqual "mača"
-  }
 
   "A proper noun" should "be usable as a verb subject" in {
     slovník.Byť(podmet = Seq(Pomenovanie("Igor", MužskýŽivotný))).asText shouldEqual "Igor je"
@@ -78,6 +98,31 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   /*
    * Feminine Nouns
    */
+
+  "A feminine noun ending in soft consonant -a" should "decline in the nominative case singular" in {
+    slovník.Krava.asText() shouldEqual "krava"
+  }
+
+  // Following ŽENA
+
+  "A feminine noun following žena" should "decline in the locative singular" in {
+    (slovník.Matka asText Lokatív) shouldEqual "matke"
+  }
+  "A feminine noun following žena" should "decline in the locative plural" in {
+    (slovník.Matka setČislo Množné asText Lokatív) shouldEqual "matkách"
+  }
+
+  "A feminine noun following žena" should "turn into an adverb with preposition \"pri\"" in {
+    (slovník.Matka predložka "pri" asText) shouldEqual "pri matke"
+  }
+  "A feminine noun following žena" should "turn into an adverb with preposition \"vo\"" in {
+    (slovník.Matka predložka "vo" asText) shouldEqual "v matke"
+  }
+  "A feminine \"žena\" noun starting with \"v\"" should "turn into an adverb with preposition \"vo\"" in {
+    (slovník.Voda predložka "vo" asText) shouldEqual "vo vode"
+  }
+
+
   // Following ULICA
   // Singular
   "A feminine noun following ulica" should "decline in the nominative singular" in {
@@ -89,25 +134,110 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   "A feminine noun following ulica" should "decline in the accusative case singular" in {
     (slovník.Ulica asText Akusatív) shouldEqual "ulicu"
   }
+  "A feminine noun following ulica" should "decline in the locative case singular" in {
+    (slovník.Ulica asText Lokatív) shouldEqual "ulici"
+  }
+
   // Plural
   "A feminine noun following ulica" should "decline in the nominative plural" in {
-    (slovník.Stanica setČislo Množné asText()) shouldEqual "stanice"
+    slovník.Stanica setČislo Množné asText() shouldEqual "stanice"
   }
   "A feminine noun following ulica" should "decline in the genitive case plural" in {
-    (slovník.Ulica setČislo Množné asText Genitív) shouldEqual "ulic"
+    slovník.Ulica setČislo Množné asText Genitív shouldEqual "ulic"
   }
   "A feminine noun following ulica" should "decline in the accusative case plural" in {
-    (slovník.Ulica setČislo Množné asText Akusatív) shouldEqual "ulice"
+    slovník.Ulica setČislo Množné asText Akusatív shouldEqual "ulice"
+  }
+  "A feminine noun following ulica" should "decline in the locative case plural" in {
+    slovník.Ulica setČislo Množné asText Lokatív shouldEqual "uliciach"
+  }
+
+  // following DLAŇ
+  "A feminine noun following dlaň" should "decline in the nominative case singular" in {
+    slovník.Dlaň asText Nominatív shouldEqual "dlaň"
+  }
+  "A feminine noun following dlaň" should "decline in the genitive case singular" in {
+    slovník.Dlaň asText Genitív shouldEqual "dlane"
+  }
+  "A feminine noun following dlaň" should "decline in the accusative case singular" in {
+    slovník.Dlaň asText Akusatív shouldEqual "dlaň"
+  }
+  "A feminine noun following dlaň" should "decline in the locative case singular" in {
+    slovník.Dlaň asText Lokatív shouldEqual "dlani"
+  }
+  // Plural
+  "A feminine noun following dlaň" should "decline in the nominative case plural" in {
+    slovník.Dlaň setČislo Množné asText Nominatív shouldEqual "dlane"
+  }
+  "A feminine noun following dlaň" should "decline in the genitive case plural" in {
+    slovník.Dlaň setČislo Množné asText Genitív shouldEqual "dlaní"
+  }
+  "A feminine noun following dlaň" should "decline in the dative case plural" in {
+    slovník.Dlaň setČislo Množné asText Datív shouldEqual "dlaniam"
+  }
+  "A feminine noun following dlaň" should "decline in the accusative case plural" in {
+    slovník.Dlaň setČislo Množné asText Akusatív shouldEqual "dlane"
+  }
+  "A feminine noun following dlaň" should "decline in the locative case plural" in {
+    slovník.Dlaň setČislo Množné asText Lokatív shouldEqual "dlaniach"
+  }
+  // Different dlaň-noun with a dipthong long final syllable
+  "A final-dipthong feminine noun following dlaň" should "decline in the nominative case singular" in {
+    slovník.Kaviareň asText Nominatív shouldEqual "kaviareň"
+  }
+  "A final-dipthong feminine noun following dlaň" should "decline in the genitive case singular" in {
+    slovník.Kaviareň asText Genitív shouldEqual "kaviarne"
+  }
+  "A final-dipthong feminine noun following dlaň" should "decline in the accusative case singular" in {
+    slovník.Kaviareň asText Akusatív shouldEqual "kaviareň"
+  }
+  "A final-dipthong feminine noun following dlaň" should "decline in the locative case singular" in {
+    slovník.Kaviareň asText Lokatív shouldEqual "kaviarni"
+  }
+  // Plural
+  "A final-dipthong feminine noun following dlaň" should "decline in the nominative case plural" in {
+    slovník.Kaviareň setČislo Množné asText Nominatív shouldEqual "kaviarne"
+  }
+  "A final-dipthong feminine noun following dlaň" should "decline in the genitive case plural" in {
+    slovník.Kaviareň setČislo Množné asText Genitív shouldEqual "kaviarní"
+  }
+  "A final-dipthong feminine noun following dlaň" should "decline in the dative case plural" in {
+    slovník.Kaviareň setČislo Množné asText Datív shouldEqual "kaviarňam"
+  }
+  "A final-dipthong feminine noun following dlaň" should "decline in the accusative case plural" in {
+    slovník.Kaviareň setČislo Množné asText Akusatív shouldEqual "kaviarne"
+  }
+  "A final-dipthong feminine noun following dlaň" should "decline in the locative case plural" in {
+    slovník.Kaviareň setČislo Množné asText Lokatív shouldEqual "kaviarňach"
+  }
+  // With a long-mark long final-syllable
+  "A long-final-syllable feminine noun following dlaň" should "decline in the dative case pleral" in {
+    slovník.Továreň setČislo Množné asText Datív shouldEqual "továrňam"
+  }
+  "A long-final-syllable feminine noun following dlaň" should "decline in the locative case plural" in {
+    slovník.Továreň setČislo Množné asText Lokatív shouldEqual "továrňach"
+  }
+
+
+  // following KOSŤ
+  "A feminine noun following kosť" should "decline in the accusative case plural" in {
+    (slovník.Radosť setČislo Množné asText Akusatív) shouldEqual "radosťi"
+  }
+  // "jar" follows "kosť" even though it ends with an "r", which usually follows "dlaň"
+  "The noun 'jar'" should "follow 'kosť' in the genitive singular" in {
+    (slovník.Jar asText Genitív) shouldEqual "jari"
+  }
+  "The noun 'jar'" should "follow 'kosť' in the nominative plural" in {
+    (slovník.Jar setČislo Množné asText Nominatív) shouldEqual "jari"
+  }
+  "The noun 'jar'" should "follow 'kosť' in the accusative plural" in {
+    (slovník.Jar setČislo Množné asText Akusatív) shouldEqual "jari"
   }
 
   /*
    * Pluralize Nouns in the Nominatív Case
    */
  
-  "A masculine noun following dub" should "decline in the nominative plural" in {
-    (slovník.Voz setČislo Množné asText()) shouldEqual "vozy"
-  }
-
   "A feminine noun following žena" should "decline in the nominative plural" in {
     (slovník.Stavba setČislo Množné asText()) shouldEqual "stavby"
   }
@@ -129,17 +259,28 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
     (slovník.Stavba setČislo Množné asText Akusatív) shouldEqual "stavby"
   }
 
-  "A masculine noun following chlap" should "decline in the nominative singular" in {
-    (slovník.Muž setČislo Jednotné asText Nominatív) shouldEqual "muž"
+
+  /*
+   * Neuter Nouns
+   */
+
+  "A neuter noun ending in '-o'" should "decline in the locative case singular" in {
+    slovník.Mesto asText Lokatív shouldEqual "meste"
   }
-  "A masculine noun following chlap" should "decline in the nominative plural" in {
-    (slovník.Muž setČislo Množné asText Nominatív) shouldEqual "muži"
+  "A neuter noun ending in '-o'" should "decline in the locative case plural" in {
+    slovník.Mesto setČislo Množné asText Lokatív shouldEqual "mestách"
   }
-  "A masculine noun following chlap" should "decline in the accusative singular" in {
-    (slovník.Muž setČislo Jednotné asText Akusatív) shouldEqual "muža"
+
+  "A neuter noun ending in '-e'" should "decline in the nominative case singular" in {
+    slovník.Srdce.asText() shouldEqual "srdce"
   }
-  "A masculine noun following chlap" should "decline in the accusative plural" in {
-    (slovník.Muž setČislo Množné asText Akusatív) shouldEqual "mužov"
+
+  "A neuter noun ending in '-ie'" should "decline in the nominative case singular" in {
+    slovník.Namestie.asText() shouldEqual "namestie"
+  }
+
+  "A neuter noun ending in '-a'" should "decline in the nominative case singular" in {
+    slovník.Mača.asText() shouldEqual "mača"
   }
 
 

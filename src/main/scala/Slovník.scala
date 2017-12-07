@@ -15,100 +15,122 @@ package object slovník {
 
   /*
    * PodstatnéMeno
+   * Specify the gender for animate-masculine or if the rules-of-thumb would indicate wrongly
    */
 
   // Masculine Animate
   // not ending in -a, e.g., "chlap", "muž"
   val Býk = PodstatnéMeno("býk", MužskýŽivotný)
   val Muž = PodstatnéMeno("muž", MužskýŽivotný)
+  val Chlap = PodstatnéMeno("chlap", MužskýŽivotný)
   val Chlapec = PodstatnéMeno("chlapec", MužskýŽivotný)
   val Kocúr = PodstatnéMeno("kocúr", MužskýŽivotný)
   val Kôň = PodstatnéMeno("kôň", MužskýŽivotný)
   val Manžel = PodstatnéMeno("manžel", MužskýŽivotný)
+  val Otec = PodstatnéMeno("otec", MužskýŽivotný)
   val Pán = PodstatnéMeno("pán", MužskýŽivotný)
+  val Priateľ = PodstatnéMeno("priateľ", MužskýŽivotný)
+  val Robotník = PodstatnéMeno("robotník", MužskýŽivotný)
   val Spolubývajúci = PodstatnéMeno("spolubývajúci", MužskýŽivotný)
   val Učiteľ = PodstatnéMeno("učiteľ", MužskýŽivotný)
   // ending in -a, e.g., "hrdina", "kolega""
 
   // Masculine Inanimate
   // ending in hard or neutral consonant, e.g., "dub", "plán"
-  val Breh = PodstatnéMeno("breh", MužskýNeživotný)
+  val Breh = PodstatnéMeno("breh")
   val Deň = PodstatnéMeno("deň", MužskýNeživotný)
-  val Dom = PodstatnéMeno("dom", MužskýNeživotný)
-  val Dvor = PodstatnéMeno("dvor", MužskýNeživotný)
-  val Hrad = PodstatnéMeno("hrad", MužskýNeživotný)
-  val Kufor = PodstatnéMeno("kufor", MužskýNeživotný)
-  val Kvet = PodstatnéMeno("kvet", MužskýNeživotný)
-  val Les = PodstatnéMeno("les", MužskýNeživotný)
-  val Obchod = PodstatnéMeno("obchod", MužskýNeživotný)
-  val Obraz = PodstatnéMeno("obraz", MužskýNeživotný)
-  val Plot = PodstatnéMeno("plot", MužskýNeživotný)
-  val Prst = PodstatnéMeno("prst", MužskýNeživotný)
-  val Strom = PodstatnéMeno("strom", MužskýNeživotný)
-  val Večer = PodstatnéMeno("večer", MužskýNeživotný)
-  val Voz = PodstatnéMeno("voz", MužskýNeživotný)
+  val Dom = PodstatnéMeno("dom")
+  val Dvor = PodstatnéMeno("dvor")
+  val Hrad = PodstatnéMeno("hrad")
+  val Kufor = PodstatnéMeno("kufor")
+  val Kvet = PodstatnéMeno("kvet")
+  val Les = PodstatnéMeno("les")
+  val Obchod = PodstatnéMeno("obchod")
+  val Obraz = PodstatnéMeno("obraz")
+  val Plot = PodstatnéMeno("plot")
+  val Prst = PodstatnéMeno("prst")
+  val Strom = PodstatnéMeno("strom")
+  val Telefón = PodstatnéMeno("telefón")
+  val Večer = PodstatnéMeno("večer")
+  val Voz = PodstatnéMeno("voz")
   // ending in soft consonant, e.g., "počitač"
-  val Dunaj = PodstatnéMeno("Dunaj", MužskýNeživotný)
+  val Dunaj = PodstatnéMeno("Dunaj")
 
   // Feminine
   // ending in -a preceded by a hard or neutral consonant, e.g., "žena"
-  val Cena = PodstatnéMeno("cena", Ženský)
-  val Dedina = PodstatnéMeno("dedina", Ženský)
-  val Hlava = PodstatnéMeno("hlava", Ženský)
-  val Izba = PodstatnéMeno("izba", Ženský)
-  val Kniha = PodstatnéMeno("kniha", Ženský)
-  val Krava = PodstatnéMeno("krava", Ženský)
-  val Lúka = PodstatnéMeno("lúka", Ženský)
-  val Mačka = PodstatnéMeno("mačka", Ženský)
-  val Manželka = PodstatnéMeno("manželka", Ženský)
-  val Matka = PodstatnéMeno("matka", Ženský)
-  val Minúta = PodstatnéMeno("minúta", Ženský)
-  val Noha = PodstatnéMeno("noha", Ženský)
-  val Otázka = PodstatnéMeno("otázka", Ženský)
-  val Rada = PodstatnéMeno("rada", Ženský)
-  val Rieka = PodstatnéMeno("rieka", Ženský)
-  val Ruka = PodstatnéMeno("ruka", Ženský)
-  val Stavba = PodstatnéMeno("stavba", Ženský)
-  val Stena = PodstatnéMeno("stena", Ženský)
-  val Škola = PodstatnéMeno("škola", Ženský)
-  val Trieda = PodstatnéMeno("trieda", Ženský)
-  val Učiteľka = PodstatnéMeno("učiteľka", Ženský)
-  val Voda = PodstatnéMeno("voda", Ženský)
-  val Žena = PodstatnéMeno("žena", Ženský)
-  val Záhrada = PodstatnéMeno("záhrada", Ženský)
+  val Cena = PodstatnéMeno("cena")
+  val Dedina = PodstatnéMeno("dedina")
+  val Hlava = PodstatnéMeno("hlava")
+  val Izba = PodstatnéMeno("izba")
+  val Kniha = PodstatnéMeno("kniha")
+  val Krava = PodstatnéMeno("krava")
+  val Lúka = PodstatnéMeno("lúka")
+  val Mačka = PodstatnéMeno("mačka")
+  val Manželka = PodstatnéMeno("manželka")
+  val Matka = PodstatnéMeno("matka")
+  val Minúta = PodstatnéMeno("minúta")
+  val Noha = PodstatnéMeno("noha")
+  val Otázka = PodstatnéMeno("otázka")
+  val Práca = PodstatnéMeno("práca")
+  val Rada = PodstatnéMeno("rada")
+  val Rieka = PodstatnéMeno("rieka")
+  val Rodina = PodstatnéMeno("rodina")
+  val Ruka = PodstatnéMeno("ruka")
+  val Stavba = PodstatnéMeno("stavba")
+  val Stena = PodstatnéMeno("stena")
+  val Škola = PodstatnéMeno("škola")
+  val Trieda = PodstatnéMeno("trieda")
+  val Učiteľka = PodstatnéMeno("učiteľka")
+  val Voda = PodstatnéMeno("voda")
+  val Žena = PodstatnéMeno("žena")
+  val Záhrada = PodstatnéMeno("záhrada")
+  val Zima = PodstatnéMeno("zima")
 
-  // Feminine ending in -a preceding by a soft consonant, e.g., "ulica", "stanica"
-  val Spolubývajúca = PodstatnéMeno("spolubývajúca", Ženský)
-  val Stanica = PodstatnéMeno("stanica",  Ženský)
-  val Ulica = PodstatnéMeno("ulica", Ženský)
+  // Feminine ending in -a preceded by a soft consonant, e.g., "ulica", "stanica"
+  val Spolubývajúca = PodstatnéMeno("spolubývajúca")
+  val Stanica = PodstatnéMeno("stanica")
+  val Ulica = PodstatnéMeno("ulica")
+
   // following "dlaň", "loď"
+  // genitive singular ends with 'e'
+  // nomivative singular ends with either 'j', 'z', 'ň', 'ž', 'č', 'š', 'ď', 'f', 'dz', 'sť', 'r'
   val Dlaň = PodstatnéMeno("dlaň", Ženský)
+  val Jeseň = PodstatnéMeno("jeseň", Ženský)
   val Kaviareň = PodstatnéMeno("kaviareň", Ženský)
-  val Radosť = PodstatnéMeno("radosť", Ženský)
-  // ending in consonant in nominative singular, -i in genitive singular, e.g., "kosť", "miestnosť"
+  val Radosť = PodstatnéMeno("radosť")
+  val Továreň = PodstatnéMeno("továreň", Ženský)
+
+  // Feminine Following "kosť", "miestnosť"
+  // Nominative singular ends with a consodant, -i in genitive singular.
+  // Nominative singular usually ends with either "c", "s", "p", "v", or "sť"
+  val Jar = PodstatnéMeno("jar", Ženský)
   val Pomoc = PodstatnéMeno("pomoc", Ženský)
   val Vec = PodstatnéMeno("vec", Ženský)
+
   // uncategorized Feminine
+  // this can follow either "dlaň" or "kosť"
   val Tvár = PodstatnéMeno("tvár", Ženský)
+  // this follows I don't know what paradigm
   val Pani = PodstatnéMeno("pani", Ženský)
 
   // Neuter
   // ending in -o, e.g., "mesto"
 
-  val Družstvo = PodstatnéMeno("družstvo", Stredný)
-  val Auto = PodstatnéMeno("auto", Stredný)
-  val Čelo = PodstatnéMeno("čelo", Stredný)
-  val Mesto = PodstatnéMeno("mesto", Stredný)
-  val Mlieko = PodstatnéMeno("mlieko", Stredný)
-  val Oko = PodstatnéMeno("oko", Stredný)
-  val Rameno = PodstatnéMeno("rameno", Stredný)
-  val Ráno = PodstatnéMeno("ráno", Stredný)
-  val Sklo = PodstatnéMeno("sklo", Stredný)
+  val Družstvo = PodstatnéMeno("družstvo")
+  val Auto = PodstatnéMeno("auto")
+  val Čelo = PodstatnéMeno("čelo")
+  val Leto = PodstatnéMeno("leto")
+  val Mesto = PodstatnéMeno("mesto")
+  val Mlieko = PodstatnéMeno("mlieko")
+  val Oko = PodstatnéMeno("oko")
+  val Rameno = PodstatnéMeno("rameno")
+  val Ráno = PodstatnéMeno("ráno")
+  val Sklo = PodstatnéMeno("sklo")
 
   // Neuter ending in "-e", e.g., "more"
-  val Srdce = PodstatnéMeno("srdce", Stredný)
+  val Srdce = PodstatnéMeno("srdce")
   // ending -ie, e.g., "poschodie""
-  val Namestie = PodstatnéMeno("namestie", Stredný)
+  val Namestie = PodstatnéMeno("namestie")
   // ending -a or -ä, e.g., "dievča"
   val Dieťa = PodstatnéMeno("dieťa", Stredný)
   val Dievča = PodstatnéMeno("dievča", Stredný)

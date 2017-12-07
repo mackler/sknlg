@@ -85,5 +85,13 @@ class PlaceNameSpec extends FlatSpec with Matchers {
     "Peter žiada po slovensky"
   }
 
+  /* Adverbs and the locative case */
+  "A feminine place name" should "allow a noun to be in it" in {
+    (Byť() addPodmet Ja() setComplement (Amerika predložka "pri") asText) shouldEqual "ja som pri Amerike"
+  }
+  "A netur place name" should "allow a noun to be in it" in {
+    (Byť() addPodmet Ja() setComplement (Slovensko predložka "pri") asText) shouldEqual "ja som pri Slovenske"
+  }
+
 }
 

@@ -33,7 +33,6 @@ trait PlaceName extends PodstatnéMeno {
     Príslovka("z" + (if (p.matches("^[szSZ].*")) "o" else "") + " " + p)
   }
 
-
 }
 
 object PlaceName {
@@ -49,7 +48,8 @@ object PlaceName {
     val _adjectival = adjectival
     val _rod = rod
     case class PlaceNameInstance(
-      čislo: Čislo = Jednotné
+      čislo: Čislo = Jednotné,
+      predložka: String = ""
     ) extends PlaceName {
       val entry = _entry
       val rod = _rod
