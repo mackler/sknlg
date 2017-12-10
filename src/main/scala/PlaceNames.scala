@@ -52,6 +52,7 @@ object PlaceName {
       predložka: String = ""
     ) extends PlaceName {
       val entry = _entry
+      override protected val genitiveSingular = "" // until I see a place name that needs this
       val rod = _rod
       override val prídavnéMeno = _prídavnéMeno
       def setPrídavnéMeno(p: PrídavnéMeno): PodstatnéMeno = throw new Exception(s"not implemented")

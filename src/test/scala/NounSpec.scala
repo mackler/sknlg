@@ -13,6 +13,10 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
     PodstatnéMeno("muž", MužskýNeživotný) == PodstatnéMeno("žena", Ženský) shouldEqual false
   }
 
+  "Two instances of the same noun with different numberns" should "not equal each other" in {
+    slovník.Muž should not equal slovník.Muž.setČislo(Množné)
+  }
+
   "Two different nouns" should "have different hash codes" in {
     PodstatnéMeno("muž", MužskýNeživotný).hashCode should not equal PodstatnéMeno("Žena", Ženský).hashCode
   }
@@ -51,7 +55,6 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   "A masculine, animate noun not ending in 'a'" should "decline in the locative case singular" in {
     slovník.Učiteľ.asText(Lokatív) shouldEqual "učiteľovi"
   }
-
   // plural
   "A masculine noun following chlap" should "decline in the nominative plural" in {
     (slovník.Muž setČislo Množné asText Nominatív) shouldEqual "muži"
@@ -68,7 +71,10 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   "A masculine, animate noun not ending in 'a'" should "decline in the locative case plural" in {
     slovník.Učiteľ setČislo Množné asText Lokatív shouldEqual "učiteľoch"
   }
-
+  // with a fleeting 'e'
+  "A masculine, animate noun not ending in 'a' with fleeting 'e'" should "decline in the locative case singular" in {
+    slovník.Otec.asText(Lokatív) shouldEqual "otcovi"
+  }
 
   // Following DUB
   "A masculine, inanimate noun ending in a hard consonant" should "decline in the locative case singular" in {
@@ -195,6 +201,7 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
     slovník.Kaviareň asText Lokatív shouldEqual "kaviarni"
   }
   // Plural
+  // dipthong syllable with fleeting-e
   "A final-dipthong feminine noun following dlaň" should "decline in the nominative case plural" in {
     slovník.Kaviareň setČislo Množné asText Nominatív shouldEqual "kaviarne"
   }
@@ -216,6 +223,26 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   }
   "A long-final-syllable feminine noun following dlaň" should "decline in the locative case plural" in {
     slovník.Továreň setČislo Množné asText Lokatív shouldEqual "továrňach"
+  }
+  // ends in "eň" WITHOUT fleeting-e
+  "A 'eň'-ending feminine noun following dlaň without fleeting e" should "decline in the nominative case singular" in {
+    slovník.Jeseň asText Nominatív shouldEqual "jeseň"
+  }
+  "A 'eň'-ending feminine noun following dlaň without fleeting e" should "decline in the accusative case singular" in {
+    slovník.Jeseň asText Akusatív shouldEqual "jeseň"
+  }
+  "A 'eň'-ending feminine noun following dlaň without fleeting e" should "decline in the locative case singular" in {
+    slovník.Jeseň asText Lokatív shouldEqual "jeseni"
+  }
+  // plural
+  "A 'eň'-ending feminine noun following dlaň without fleeting e" should "decline in the nominative case plural" in {
+    slovník.Jeseň setČislo Množné asText Nominatív shouldEqual "jesene"
+  }
+  "A 'eň'-ending feminine noun following dlaň without fleeting e" should "decline in the accusative case plural" in {
+    slovník.Jeseň setČislo Množné asText Akusatív shouldEqual "jesene"
+  }
+  "A 'eň'-ending feminine noun following dlaň without fleeting e" should "decline in the locative case plural" in {
+    slovník.Jeseň setČislo Množné asText Lokatív shouldEqual "jeseniach"
   }
 
 

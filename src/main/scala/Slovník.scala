@@ -27,7 +27,7 @@ package object slovník {
   val Kocúr = PodstatnéMeno("kocúr", MužskýŽivotný)
   val Kôň = PodstatnéMeno("kôň", MužskýŽivotný)
   val Manžel = PodstatnéMeno("manžel", MužskýŽivotný)
-  val Otec = PodstatnéMeno("otec", MužskýŽivotný)
+  val Otec = PodstatnéMeno("otec", MužskýŽivotný, "otca")
   val Pán = PodstatnéMeno("pán", MužskýŽivotný)
   val Priateľ = PodstatnéMeno("priateľ", MužskýŽivotný)
   val Robotník = PodstatnéMeno("robotník", MužskýŽivotný)
@@ -95,7 +95,7 @@ package object slovník {
   // genitive singular ends with 'e'
   // nomivative singular ends with either 'j', 'z', 'ň', 'ž', 'č', 'š', 'ď', 'f', 'dz', 'sť', 'r'
   val Dlaň = PodstatnéMeno("dlaň", Ženský)
-  val Jeseň = PodstatnéMeno("jeseň", Ženský)
+  val Jeseň = PodstatnéMeno("jeseň", Ženský, genitiveSingular = "jesene")
   val Kaviareň = PodstatnéMeno("kaviareň", Ženský)
   val Radosť = PodstatnéMeno("radosť")
   val Továreň = PodstatnéMeno("továreň", Ženský)

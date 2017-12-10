@@ -24,8 +24,9 @@ case class Pomenovanie(name: String, rod: Rod) extends Noun {
 
 object PodstatnéMeno {
   // The `rod` parameter is needed only if the noun is exceptional
-  def apply(entry: String, rod: Rod = Neznámy): PodstatnéMeno = {
+  def apply(entry: String, rod: Rod = Neznámy, genitiveSingular: String = ""): PodstatnéMeno = {
     val _entry = entry
+    val _genitiveSingular = genitiveSingular
     val _rod = {
       if (rod != Neznámy) rod // explicitly provided
         else if (entry.matches(".*(a|osť|eň)$")) // ends with "a" or "osť" or "eň" (last one is debatable)
@@ -43,6 +44,7 @@ object PodstatnéMeno {
       _predložka: Option[String]
     ) extends PodstatnéMeno {
       override protected val entry = _entry
+      override protected val genitiveSingular = _genitiveSingular
       override val rod = _rod
 
       def predložka() = _predložka
@@ -59,6 +61,7 @@ object PodstatnéMeno {
 /* These are only common nouns (not pronouns) */
 trait PodstatnéMeno extends Noun {
   protected val entry         : String   // form of the slovo as listed in a slovník
+  protected val genitiveSingular: String // optional; ignored if empty
   override  val rod           : Rod // removing this line caused an exception that looked like a bug
   val prídavnéMeno            : Option[PrídavnéMeno] = None
   protected val demonstrative : Boolean
@@ -110,18 +113,20 @@ trait PodstatnéMeno extends Noun {
 
   override protected def decline(pád: Pád): String = {
     val r = skloňovanie match {
-      case Chlap => čislo match {
-        case Jednotné => pád match {
-          case Nominatív => entry
-          case Akusatív => entry + "a"
-          case Lokatív => entry + "ovi"
+      case Chlap =>
+        val stem = if (genitiveSingular == "") entry else genitiveSingular.replaceFirst("a$", "")
+        čislo match {
+          case Jednotné => pád match {
+            case Nominatív => entry
+            case Akusatív => stem + "a"
+            case Lokatív => stem + "ovi"
+          }
+          case Množné => pád match {
+            case Nominatív => entry + "i"
+            case Akusatív  => stem + "ov"
+            case Lokatív => stem + "och"
+          }
         }
-        case Množné => pád match {
-          case Nominatív => entry + "i"
-          case Akusatív  => entry + "ov"
-          case Lokatív => entry + "och"
-        }
-      }
       case Dub => čislo match {
         case Jednotné => pád match {
           case Nominatív | Akusatív => entry
@@ -172,20 +177,21 @@ trait PodstatnéMeno extends Noun {
         }
       }
       case Dlaň =>
-        val fleeting = entry.replaceFirst("eň$", "ň")
+        val stem = if (genitiveSingular != "") genitiveSingular.replaceFirst("e$", "")
+                   else entry.replaceFirst("eň$", "ň")
         čislo match {
           case Jednotné => pád match {
             case Nominatív => entry
-            case Genitív => fleeting + "e"
+            case Genitív => stem + "e"
             case Akusatív => entry
-            case Lokatív => fleeting + "i"
+            case Lokatív => stem + "i"
           }
           case Množné => pád match {
-            case Nominatív => fleeting + "e"
-            case Genitív => fleeting + "í"
-            case Datív => fleeting + (if (finalSyllableIsLong(fleeting)) "" else "i") + "am"
-            case Akusatív => fleeting + "e"
-            case Lokatív => fleeting + (if (finalSyllableIsLong(fleeting)) "" else "i") + "ach"
+            case Nominatív => stem + "e"
+            case Genitív => stem + "í"
+            case Datív => stem + (if (finalSyllableIsLong(stem)) "" else "i") + "am"
+            case Akusatív => stem + "e"
+            case Lokatív => stem + (if (finalSyllableIsLong(stem)) "" else "i") + "ach"
           }
         }
       case Kosť => čislo match {
@@ -235,7 +241,7 @@ trait PodstatnéMeno extends Noun {
   }
 
   override def equals(other: Any): Boolean = other match {
-    case that: PodstatnéMeno => that.entry == this.entry
+    case that: PodstatnéMeno => that.entry == this.entry && this.čislo == that.čislo
     case _ => false
   }
 

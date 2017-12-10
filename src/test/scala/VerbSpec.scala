@@ -6,6 +6,12 @@ import org.scalatest._
 
 class VerbSpec extends FlatSpec with Matchers {
 
+  // Before testing conjugation, we check some characteristics of verb objects
+  "Two different verbs" should "not equal each other" in {
+    slovník.Robiť should not equal slovník.Chodiť
+  }
+
+
   // Ísť is irregular
 
   "The Ísť object without a subject noun" should "generate the infinitive" in {

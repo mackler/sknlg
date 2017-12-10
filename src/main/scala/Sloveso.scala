@@ -225,8 +225,15 @@ object SlovesoFactory {
       def setPríslovka(p: Príslovka) = this.copy(príslovka = Some(p))
       def toggleZáporný() = this.copy(záporný = !záporný)
       def setZáporný(z: Boolean) = this.copy(záporný = z)
+
+      override def equals(other: Any): Boolean = other match {
+        case that: RegularSloveso => this.infinitív == that.infinitív
+        case _ => false
+      }
+
+      override def hashCode = infinitív.##
+
     }
     SlovesoInstance()
   }
 }
-

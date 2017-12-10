@@ -6,7 +6,9 @@ object Main extends App {
   import slovník._
   import Rod._
 
-  /* Combinations of sentence subjects, both singular and plural, proper names and pronouns. */
+  /**
+    *  Combinations of sentence subjects, both singular and plural, proper names and pronouns.
+    */
   val subjects: Set[Seq[Noun]] = {
     val pronouns = Set(Ja, Ty, On, Ona)
     val properNouns: Seq[Noun] = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))
@@ -20,6 +22,31 @@ object Main extends App {
           proper ++ pro
         }
       } ++ Set(Seq(properNouns(0)), Seq(properNouns(1)), properNouns)
+  }
+
+  /**
+    * Like the above, but a function that takes a set of nouns and returns a set of subjects that includes the
+    * first and second person, and excludes proper names.
+    */
+  def subjectNouns(nouns: Set[PodstatnéMeno]): Set[Seq[Noun]] = {
+    val nounCombos = for {
+      noun1 <- nouns
+      noun2 <- nouns if noun2 != noun1
+    } yield Seq(noun1, noun2)
+
+    nouns.map(Seq(_)) ++ nouns.map(n => Seq(n setČislo Množné)) ++ nouns.map(Seq(_, Ja())) ++ nouns.map(Seq(Ty(), _))
+  }
+
+  /*
+   * Takes a set of nouns and a set of verbs.  Use all the nouns as subjects with all the verbs.
+   */
+  def nominativeNounsVerbs(verbs: Set[Sloveso], nouns: Set[PodstatnéMeno]): Set[String] = {
+    val s = subjectNouns(nouns)
+
+    for {
+      subject <- s
+      verb <- verbs
+    } yield verb setPodmet subject asText
   }
 
   /**
@@ -98,8 +125,8 @@ object Main extends App {
     } yield Set(
 //      Byť() addPodmet Príslovka("tu") setComplement noun asText,
 //      Vidieť setPodmet subject setPredmet noun asText,
-//      Byť() setPodmet subject setComplement (noun predložka "pri") asText,
-      Byť() setPodmet subject setComplement (noun setPrídavnéMeno adjective predložka "vo") asText
+      Byť() setPodmet subject setComplement (noun predložka "pri") asText //,
+//      Byť() setPodmet subject setComplement (noun setPrídavnéMeno adjective predložka "vo") asText
     )
 
     r.flatten
@@ -208,15 +235,19 @@ object Main extends App {
   }
 
   /* Mistrík chapter 5 */
-  def exM5: Set[String] = {
-    val exM5nouns = Set(Chlap, Družstvo, Jar, Jeseň, Leto, Matka, Mesto, Otec, Práca, Priateľ, Rodina, Škola, Ulica, Zima, Žena)
-    val verbs = List[Sloveso](Robiť, Chodiť, Bývať, Začinať, Poznať, Žiadať, Vedieť, Vidieť, Sedieť, Kričať,
-                              Prichádzať, Znamenať, Spávať, Spievať, Počúvať, Strácať, Pamätať, Rozprávať)
+  val exM5nouns = Set(Chlap, Družstvo, Jar, Jeseň, Leto, Matka, Mesto, Otec, Práca, Priateľ, Rodina, Škola, Ulica, Zima, Žena)
+  val exM5Verbs = Set[Sloveso](Bývať, Chodiť, Kričať, Počúvať, Pamätať, Poznať, Prichádzať, Robiť, Rozprávať, Sedieť, Spávať,
+                               Spievať, Strácať, Vedieť, Vidieť, Začinať, Žiadať, Znamenať)
+  def exM5locative: Set[String] = {
     val adjectives = Set(Bohatý, Chorý, Dobrý, Hlavný, Iný, Nový, Pekný, Posledný, Šťastný, Veľký, Vysoký, Starý, Ťažká, Známy)
 
     locative(exM5nouns, adjectives)
   }
 
-  exM5 foreach { line => println(line) }
+  def exM5verbsNouns: Set[String] = {
+    nominativeNounsVerbs(exM5Verbs, exM5nouns)
+  }
+
+  exM5verbsNouns foreach { line => println(line) }
 
 }
