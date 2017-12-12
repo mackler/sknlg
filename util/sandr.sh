@@ -37,19 +37,28 @@ perl -i -p -e 's/ muž(i|ov)($| )/ men$2/' $file
 perl -i -p -e 's/ pán(|a)($| )/ gentleman$2/' $file
 perl -i -p -e 's/ pán(i|ov)($| )/ gentlemen$2/' $file
 
+# Verbs
+
 perl -i -p -e 's/ býva(?=$| )/ resides/' $file
 perl -i -p -e 's/ býva[^ \n]+(?=$| )/ reside/' $file
 perl -i -p -e 's/ nebýva(?=$| )/ does not reside/' $file
 perl -i -p -e 's/ nebýva[^ \n]+(?=$| )/ do not reside/' $file
-perl -i -p -e 's/ chodieva[^ \n]+(?=$| )/ go/' $file
-perl -i -p -e 's/ chodieva(?=$| )/ goes/' $file
+perl -i -p -e 's/ číta[^ ]*(?=$| )/ reads/' $file
 perl -i -p -e 's/ nechodieva[^ \n]+(?=$| )/ do not go/' $file
 perl -i -p -e 's/ nechodieva/ does not go/' $file
+perl -i -p -e 's/ hovor[^ ]*(?=$| )/ speaks/' $file
+perl -i -p -e 's/ chod(ia|(í(t|m)e))(?=$| )/ walk/' $file
+perl -i -p -e 's/ chodí(?=$| )/ walks/' $file
+perl -i -p -e 's/ chodieva[^ \n]+(?=$| )/ walk/' $file
+perl -i -p -e 's/ chodieva(?=$| )/ walks/' $file
 perl -i -p -e 's/ kon(a|á)[^ \n]+(?=$| )/ act/' $file
 perl -i -p -e 's/ koná(?=$| )/ acts/' $file
+perl -i -p -e 's/ kričí(?=$| )/ shouts/' $file
+perl -i -p -e 's/ krič(í(m|t)e|ia)(?=$| )/ shout/' $file
 perl -i -p -e 's/ nekon(a|á)[^ \n]+(?=$| )/ do not act/' $file
 perl -i -p -e 's/ nekoná(?=$| )/ does not act/' $file
-perl -i -p -e 's/ m(a|á)[^ \n]{1,4}(?=$| )/ have/' $file
+# commented out line matches mother incorrectly
+#perl -i -p -e 's/ m(a|á)[^ \n]{1,4}(?=$| )/ have/' $file
 perl -i -p -e 's/ má(?=$| )/ has/' $file
 perl -i -p -e 's/ nem(a|á)[^ \n]+(?=$| )/ do not have/' $file
 perl -i -p -e 's/ nemá(?=$| )/ does not have/' $file
@@ -57,6 +66,8 @@ perl -i -p -e 's/ pamätá(?=$| )/ remembers/' $file
 perl -i -p -e 's/ pamät[^ \n]+(?=$| )/ remember/' $file
 perl -i -p -e 's/ nepamätá(?=$| )/ does not remember/' $file
 perl -i -p -e 's/ nepamät[^ \n]+(?=$| )/ do not remember/' $file
+perl -i -p -e 's/ počúva(?=$| )/ listens/' $file
+perl -i -p -e 's/ počúva((m|t)e|jú)(?=$| )/ listen/' $file
 perl -i -p -e 's/ pozn(a|á)[^ \n]+(?=$| )/ know/' $file
 perl -i -p -e 's/ pozná(?=$| )/ knows/' $file
 perl -i -p -e 's/ nepozn(a|á)[^ \n]+(?=$| )/ know not/' $file
@@ -65,14 +76,31 @@ perl -i -p -e 's/ prichádza[^ \n]+(?=$| )/ arrive/' $file
 perl -i -p -e 's/ prichádza(?=$| )/ arrives/' $file
 perl -i -p -e 's/ neprichádza[^ \n]+(?=$| )/ do not arrive/' $file
 perl -i -p -e 's/ neprichádza(?=$| )/ does not arrive/' $file
+perl -i -p -e 's/ robí(?=$| )/ makes/' $file
+perl -i -p -e 's/ (robia|robí(m|t)e)(?=$| )/ make/' $file
 perl -i -p -e 's/ rozpráva[^ \n]+(?=$| )/ speak/' $file
 perl -i -p -e 's/ rozpráva(?=$| )/ speaks/' $file
 perl -i -p -e 's/ nerozpráva[^ \n]+(?=$| )/ do not speak/' $file
 perl -i -p -e 's/ nerozpráva(?=$| )/ does not speak/' $file
-perl -i -p -e 's/ sp(a|á)[^ \n]+(?=$| )/ sleep/' $file
+perl -i -p -e 's/ spávajú(?=$| )/ are sleeping/' $file
+perl -i -p -e 's/ spáva(?=$| )/ sleeps/' $file
+perl -i -p -e 's/ spáva((t|m)e|jú)(?=$| )/ sleep/' $file
+perl -i -p -e 's/ sedí(m|t)e/ are sitting/' $file
+perl -i -p -e 's/ sedia/ are sitting/' $file
+perl -i -p -e 's/ sedí/ sits/' $file
 perl -i -p -e 's/ spá(?=$| )/ sleeps/' $file
+perl -i -p -e 's/ spieva(?=$| )/ sings/' $file
+perl -i -p -e 's/ spieva((t|m)e|jú)(?=$| )/ sing/' $file
+perl -i -p -e 's/ stráca(?=$| )/ loses/' $file
+perl -i -p -e 's/ stráca(t|m)e(?=$| )/ lose/' $file
+perl -i -p -e 's/ strácajú/ lose/' $file
 perl -i -p -e 's/ nesp(a|á)[^ \n]+(?=$| )/ do not sleep/' $file
 perl -i -p -e 's/ nespá(?=$| )/ does not sleep/' $file
+perl -i -p -e 's/ vidí(m|te)(?=$| )/ see/' $file
+perl -i -p -e 's/ vid(ia|í(t|m)e)(?=$| )/ see/' $file
+perl -i -p -e 's/ vidí(?=$| )/ sees/' $file
+perl -i -p -e 's/ vie(?=$| )/ is familiar with/' $file
+perl -i -p -e 's/ (vie(t|m)e|vedia)(?=$| )/ are familiar with/' $file
 perl -i -p -e 's/ vstáva[^ \n]+(?=$| )/ get up/' $file
 perl -i -p -e 's/ vstáva(?=$| )/ gets up/' $file
 perl -i -p -e 's/ nevstáva[^ \n]+(?=$| )/ do not get up/' $file
@@ -85,6 +113,8 @@ perl -i -p -e 's/ začin(a|á)[^ \n]+(?=$| )/ begin/' $file
 perl -i -p -e 's/ začiná(?=$| )/ begins/' $file
 perl -i -p -e 's/ nezačin(a|á)[^ \n]+(?=$| )/ do not begin/' $file
 perl -i -p -e 's/ nezačiná(?=$| )/ does not begin/' $file
+perl -i -p -e 's/(^| )žena(?=$| )/$1the woman/' $file
+perl -i -p -e 's/(^| )ženy(?=$| )/$1the women/' $file
 perl -i -p -e 's/ žiada[^ \n]+(?=$| )/ ask/' $file
 perl -i -p -e 's/ žiada(?=$| )/ asks/' $file
 perl -i -p -e 's/ nežiada[^ \n]+(?=$| )/ do not ask/' $file
@@ -94,81 +124,102 @@ perl -i -p -e 's/ znamená(?=$| )/ means/' $file
 perl -i -p -e 's/ neznamen(a|á)[^ \n]+(?=$| )/ do not mean/' $file
 perl -i -p -e 's/ neznamená(?=$| )/ does not mean/' $file
 
-perl -i -p -e 's/ číta[^ ]*(?=$| )/ reads/' $file
-perl -i -p -e 's/ hovor[^ ]*(?=$| )/ speaks/' $file
-perl -i -p -e 's/ vidím(?=$| )/ see/' $file
-perl -i -p -e 's/ vie(?=$| )/ knows/' $file
 
 
+# Nouns
+
+perl -i -p -e 's/ auto($| )/ car$1/' $file
+perl -i -p -e 's/ autá($| )/ cars$1/' $file
+perl -i -p -e 's/ brehy($| )/ riverbanks$1/' $file
+perl -i -p -e 's/ breh($| )/ riverbank$1/' $file
+perl -i -p -e 's/ cen(a|u)($| )/ price$2/' $file
+perl -i -p -e 's/ ceny($| )/ prices$1/' $file
+perl -i -p -e 's/chlap /the fellow /' $file
+perl -i -p -e 's/chlapi /the fellows /' $file
+perl -i -p -e 's/ dedin(a|u)($| )/ village$2/' $file
+perl -i -p -e 's/ dediny($| )/ villages$1/' $file
 perl -i -p -e 's/ dom($| )/ home$1/' $file
 perl -i -p -e 's/ domy($| )/ homes$1/' $file
-perl -i -p -e 's/ plot($| )/ fence$1/' $file
-perl -i -p -e 's/ ploty($| )/ fences$1/' $file
+perl -i -p -e 's/(^| )družstvo(?=$| )/$1the team/' $file
+perl -i -p -e 's/(^| )družstvá(?=$| )/$1the teams/' $file
+perl -i -p -e 's/ hlav(a|u)($| )/ head$2/' $file
+perl -i -p -e 's/ hlavy($| )/ heads$1/' $file
+perl -i -p -e 's/jar(?=$| )/springtime/' $file
+perl -i -p -e 's/jari(?=$| )/the springtimes/' $file
+perl -i -p -e 's/jeseň(?=$| )/autumn/' $file
+perl -i -p -e 's/jesene(?=$| )/the autumns/' $file
+perl -i -p -e 's/ knih(a|u)($| )/ book$2/' $file
+perl -i -p -e 's/ knihy($| )/ books$1/' $file
 perl -i -p -e 's/ kvet($| )/ flower$1/' $file
 perl -i -p -e 's/ kvety($| )/ flowers$1/' $file
-perl -i -p -e 's/ večer($| )/ evening$1/' $file
-perl -i -p -e 's/ večery($| )/ evenings$1/' $file
-perl -i -p -e 's/ voz($| )/ vehicle$1/' $file
-perl -i -p -e 's/ vozy($| )/ vehicles$1/' $file
+perl -i -p -e 's/ les($| )/ forest$1/' $file
+perl -i -p -e 's/ lesy($| )/ forests$1/' $file
+perl -i -p -e 's/leto /the summer /' $file
+perl -i -p -e 's/letá /summers /' $file
+perl -i -p -e 's/ lúk(a|u)($| )/ meadow$2/' $file
+perl -i -p -e 's/ lúky($| )/ meadows$1/' $file
+perl -i -p -e 's/matka(?=$| )/mother/' $file
+perl -i -p -e 's/matky(?=$| )/the mothers/' $file
+perl -i -p -e 's/mesto(?=$| )/the town/' $file
+perl -i -p -e 's/ mesto($| )/ town$1/' $file
+perl -i -p -e 's/ mestá($| )/ towns$1/' $file
+perl -i -p -e 's/mestá(?=$| )/the towns/' $file
+perl -i -p -e 's/ minút(a|u)($| )/ minute$2/' $file
+perl -i -p -e 's/ minúty($| )/ minutes$1/' $file
+perl -i -p -e 's/ noh(a|u)($| )/ foot$2/' $file
+perl -i -p -e 's/ nohy($| )/ feet$1/' $file
 perl -i -p -e 's/ obraz($| )/ picture$1/' $file
 perl -i -p -e 's/ obrazy($| )/ pictures$1/' $file
 perl -i -p -e 's/ obchod($| )/ shop$1/' $file
 perl -i -p -e 's/ obchody($| )/ shops$1/' $file
-perl -i -p -e 's/ les($| )/ forest$1/' $file
-perl -i -p -e 's/ lesy($| )/ forests$1/' $file
+perl -i -p -e 's/ otázk(a|u)($| )/ question$2/' $file
+perl -i -p -e 's/ otázky($| )/ questions$1/' $file
+perl -i -p -e 's/otec(?=$| )/father/' $file
+perl -i -p -e 's/oteci(?=$| )/the fathers/' $file
+perl -i -p -e 's/ plot($| )/ fence$1/' $file
+perl -i -p -e 's/ ploty($| )/ fences$1/' $file
+perl -i -p -e 's/práca(?=$| )/work/' $file
+perl -i -p -e 's/práce(?=$| )/jobs/' $file
+perl -i -p -e 's/priateľ(?=$| )/a friend/' $file
+perl -i -p -e 's/priateľi(?=$| )/friends/' $file
+perl -i -p -e 's/ riek(a|u)($| )/ river$2/' $file
+perl -i -p -e 's/ rieky($| )/ rivers$1/' $file
+perl -i -p -e 's/ sten(a|u)($| )/ wall$2/' $file
+perl -i -p -e 's/ steny($| )/ walls$1/' $file
 perl -i -p -e 's/ strom($| )/ tree$1/' $file
 perl -i -p -e 's/ stromy($| )/ trees$1/' $file
 perl -i -p -e 's/ prst($| )/ finger$1/' $file
 perl -i -p -e 's/ prsty($| )/ fingers$1/' $file
 perl -i -p -e 's/ dvor($| )/ yard$1/' $file
 perl -i -p -e 's/ dvory($| )/ yards$1/' $file
-
+perl -i -p -e 's/(^| )rodina(?=$| )/$1the family/' $file
+perl -i -p -e 's/rodiny(?=$| )/families/' $file
+perl -i -p -e 's/škola(?=$| )/the school/' $file
+perl -i -p -e 's/ škol(a|u)($| )/ school$2/' $file
+perl -i -p -e 's/( |^)školy(?=$| )/$1the schools/' $file
 perl -i -p -e 's/ stavb(a|u)($| )/ building$2/' $file
 perl -i -p -e 's/ stavby($| )/ buildings$1/' $file
 perl -i -p -e 's/ ruk(a|u)($| )/ hand$2/' $file
 perl -i -p -e 's/ ruky($| )/ hands$1/' $file
-perl -i -p -e 's/ tried(a|u)($| )/ class$2/' $file
-perl -i -p -e 's/ triedy($| )/ classes$1/' $file
-perl -i -p -e 's/ záhrad(a|u)($| )/ garden$2/' $file
-perl -i -p -e 's/ záhrady($| )/ gardens$1/' $file
-perl -i -p -e 's/ škol(a|u)($| )/ school$2/' $file
-perl -i -p -e 's/ školy($| )/ schools$1/' $file
-perl -i -p -e 's/ knih(a|u)($| )/ book$2/' $file
-perl -i -p -e 's/ knihy($| )/ books$1/' $file
-perl -i -p -e 's/ cen(a|u)($| )/ price$2/' $file
-perl -i -p -e 's/ ceny($| )/ prices$1/' $file
-perl -i -p -e 's/ brehy($| )/ riverbanks$1/' $file
-perl -i -p -e 's/ breh($| )/ riverbank$1/' $file
-perl -i -p -e 's/ otázk(a|u)($| )/ question$2/' $file
-perl -i -p -e 's/ otázky($| )/ questions$1/' $file
-perl -i -p -e 's/ dedin(a|u)($| )/ village$2/' $file
-perl -i -p -e 's/ dediny($| )/ villages$1/' $file
-perl -i -p -e 's/ noh(a|u)($| )/ foot$2/' $file
-perl -i -p -e 's/ nohy($| )/ feet$1/' $file
-perl -i -p -e 's/ hlav(a|u)($| )/ head$2/' $file
-perl -i -p -e 's/ hlavy($| )/ heads$1/' $file
-perl -i -p -e 's/ minút(a|u)($| )/ minute$2/' $file
-perl -i -p -e 's/ minúty($| )/ minutes$1/' $file
-perl -i -p -e 's/ sten(a|u)($| )/ wall$2/' $file
-perl -i -p -e 's/ steny($| )/ walls$1/' $file
-perl -i -p -e 's/ riek(a|u)($| )/ river$2/' $file
-perl -i -p -e 's/ rieky($| )/ rivers$1/' $file
-perl -i -p -e 's/ lúk(a|u)($| )/ meadow$2/' $file
-perl -i -p -e 's/ lúky($| )/ meadows$1/' $file
-
-perl -i -p -e 's/ ulic(a|u)($| )/ street$2/' $file
-perl -i -p -e 's/ ulice($| )/ streets$1/' $file
 perl -i -p -e 's/ stanic(a|u)($| )/ station$2/' $file
 perl -i -p -e 's/ stanice($| )/ stations$1/' $file
-
+perl -i -p -e 's/ tried(a|u)($| )/ class$2/' $file
+perl -i -p -e 's/ triedy($| )/ classes$1/' $file
+perl -i -p -e 's/(^| )ulic(a|u)(?=$| )/$1the street/' $file
+perl -i -p -e 's/ ulice($| )/ streets$1/' $file
+perl -i -p -e 's/ulice(?=$| )/the streets/' $file
 perl -i -p -e 's/ vec($| )/ thing$1/' $file
 perl -i -p -e 's/ veci($| )/ things$1/' $file
+perl -i -p -e 's/ večer($| )/ evening$1/' $file
+perl -i -p -e 's/ večery($| )/ evenings$1/' $file
+perl -i -p -e 's/ voz($| )/ vehicle$1/' $file
+perl -i -p -e 's/ vozy($| )/ vehicles$1/' $file
+perl -i -p -e 's/ záhrad(a|u)($| )/ garden$2/' $file
+perl -i -p -e 's/ záhrady($| )/ gardens$1/' $file
+perl -i -p -e 's/zima(?=$| )/winter/' $file
+perl -i -p -e 's/zimy(?=$| )/winters/' $file
 
-perl -i -p -e 's/ auto($| )/ car$1/' $file
-perl -i -p -e 's/ autá($| )/ cars$1/' $file
-perl -i -p -e 's/ mesto($| )/ town$1/' $file
-perl -i -p -e 's/ mestá($| )/ towns$1/' $file
-
+# Adjectives
 
 perl -i -p -e 's/ hlavn[^$ ]+($| )/ main$1/' $file
 perl -i -p -e 's/ ktor[^$ ]+($| )/ which$1/' $file

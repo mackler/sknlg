@@ -271,7 +271,7 @@ package object slovník {
   val Prichádzať = Sloveso("prichádzať", "prichádzá")
   val Rozprávať = Sloveso("rozprávať", "rozprává")
   // nespavať appears in the Mistrík textbook
-  val Spávať = Sloveso("spávať", "spǎva")
+  val Spávať = Sloveso("spávať", "spáva")
   val Spievať = Sloveso("spievať", "spieva")
   val Strácať = Sloveso("strácať", "stráca")
   val Vstávať = Sloveso("vstávať", "vstává")

@@ -169,12 +169,21 @@ trait PodstatnéMeno extends Noun {
           case Akusatív => entry.replaceFirst("a$", "u")
           case Lokatív => entry.replaceFirst("a$", "i")
         }
-        case Množné => pád match {
-          case Nominatív => entry.replaceFirst("a$", "e")
-          case Genitív => entry.replaceFirst("a$", "")
-          case Akusatív => entry.replaceFirst("a$", "e")
-          case Lokatív => entry.replaceFirst("a$", "iach")
-        }
+        case Množné =>
+          val stem = entry.substring(0, entry.length -1)
+          val rhythmic = finalSyllableIsLong(stem)
+          pád match {
+//            case Nominatív => entry.replaceFirst("a$", "e")
+//            case Genitív => entry.replaceFirst("a$", "")
+//            case Akusatív => entry.replaceFirst("a$", "e")
+//            case Lokatív => entry.replaceFirst("a$", "iach")
+            case Nominatív => stem + "e"
+            case Genitív => stem
+          // Dative case is altered by a long final syllable
+            case Datív => stem + (if (rhythmic) "" else "i") +  "am"
+            case Akusatív => stem + "e"
+            case Lokatív => stem + (if (rhythmic) "" else "i") +  "ach"
+          }
       }
       case Dlaň =>
         val stem = if (genitiveSingular != "") genitiveSingular.replaceFirst("e$", "")

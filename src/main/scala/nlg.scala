@@ -114,22 +114,17 @@ object Main extends App {
 
 
   /*
-   * Take a set of nouns. Return a phrase of each in nominative, accusative and locative cases,
-   * using all subjects for the accusatives and locatives, and each locative as both "in" and "near."
+   * Take a set of nouns. Return a phrase of each in the locative cases, both singular and plural,
+   * using the prepositions for both "in" and "near."
    */
   def locative(nouns: Set[PodstatnéMeno], adjectives: Set[PrídavnéMeno]): Set[String] = {
-    val r = for {
+    for {
       noun <- nouns
-      adjective <- adjectives
       subject <- subjects
-    } yield Set(
-//      Byť() addPodmet Príslovka("tu") setComplement noun asText,
-//      Vidieť setPodmet subject setPredmet noun asText,
-      Byť() setPodmet subject setComplement (noun predložka "pri") asText //,
-//      Byť() setPodmet subject setComplement (noun setPrídavnéMeno adjective predložka "vo") asText
-    )
-
-    r.flatten
+      number <- Set(Jednotné, Množné)
+      preposition <- Set("vo", "pri")
+    } yield
+      Byť() setPodmet subject setComplement (noun setČislo number predložka preposition) asText
   }
 
   // END OF GENERIC FUNCTIONS -- BEGIN SPECIFIC EXERCISES
@@ -248,6 +243,6 @@ object Main extends App {
     nominativeNounsVerbs(exM5Verbs, exM5nouns)
   }
 
-  exM5verbsNouns foreach { line => println(line) }
+  exM5locative foreach { line => println(line) }
 
 }

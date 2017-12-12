@@ -143,7 +143,6 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   "A feminine noun following ulica" should "decline in the locative case singular" in {
     (slovník.Ulica asText Lokatív) shouldEqual "ulici"
   }
-
   // Plural
   "A feminine noun following ulica" should "decline in the nominative plural" in {
     slovník.Stanica setČislo Množné asText() shouldEqual "stanice"
@@ -156,6 +155,13 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   }
   "A feminine noun following ulica" should "decline in the locative case plural" in {
     slovník.Ulica setČislo Množné asText Lokatív shouldEqual "uliciach"
+  }
+  // Rhythmic Rule for ulica
+  "A noun following ulica with a long syllable" should "decline in the dative case plural" in {
+    slovník.Práca setČislo Množné asText Datív shouldEqual "prácam"
+  }
+  "A noun following ulica with a long syllable" should "decline in the locative case plural" in {
+    slovník.Práca setČislo Množné asText Lokatív shouldEqual "prácach"
   }
 
   // following DLAŇ
