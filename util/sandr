@@ -1,0 +1,479 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Encode;
+
+my $input_filename = $ARGV[0];
+my $output_filename = $input_filename =~ s/\.sk/\.en/r;
+
+open(my $input, '<:encoding(UTF-8)', $input_filename)
+  or die "Could not open file '$input_filename': for reading $!";
+
+open(my $output, ">$output_filename")
+  or die "Could not open file '$output_filename' for writing: $!";
+
+while (<$input>) {
+    print translate($_);
+}
+
+sub translate {
+    $_ = encode_utf8($_);
+
+    s/ a / and /;
+    s/^tu /here /;
+
+    s/((?<= )|(?<=^))ja /I /;
+    s/((?<= )|(?<=^))ty /you /;
+    s/^my /we /;
+    s/^vy /y'all /;
+    s/^on /he /;
+    s/^ona /she /;
+    s/^oni /they /;
+    s/^ony /they /;
+    s/ som(?= |$)/ am/;
+
+    s/ (si|sú|sme|ste)(?= |$)/ are/;
+    s/ je(?= |$)/ is/;
+    s/ nie (am|is|are)(?=$| )/ $1 not/;
+
+    s/ idete / are going /;
+
+    s/ cez / via /;
+
+    s/ po / /;
+    s/ zo? / from /;
+    s/ muž(|a)($| )/ man$2/;
+
+    s/ muž(i|ov)($| )/ men$2/;
+    s/ pán(|a)($| )/ gentleman$2/;
+    s/ pán(i|ov)($| )/ gentlemen$2/;
+    s/ býva(?=$| )/ resides/;
+
+#Verbs
+    s/ býva[^ \n]+(?=$| )/ reside/;
+    s/ nebýva(?=$| )/ does not reside/;
+    s/ nebýva[^ \n]+(?=$| )/ do not reside/;
+    s/ číta[^ ]*(?=$| )/ reads/;
+    s/ chod(ia|(í(t|m)e))(?=$| )/ walk/;
+    s/ chodí(?=$| )/ walks/;
+    s/ nechod(ia|(í(t|m)e))(?=$| )/ do not walk/;
+    s/ nechodí(?=$| )/ does not walk/;
+    s/ nechodieva[^ \n]+(?=$| )/ are not walking/;
+    s/ nechodieva/ is not walking/;
+    s/ hovor[^ ]*(?=$| )/ speaks/;
+    s/ chodieva[^ \n]+(?=$| )/ walk/;
+    s/ chodieva(?=$| )/ walks/;
+    s/ kon(a|á)[^ \n]+(?=$| )/ act/;
+    s/ koná(?=$| )/ acts/;
+    s/ kričí(?=$| )/ shouts/;
+    s/ krič(í(m|t)e|ia)(?=$| )/ shout/;
+    s/ nekričí(?=$| )/ does not shout/;
+    s/ nekrič(í(m|t)e|ia)(?=$| )/ do not shout/;
+    s/ nekon(a|á)[^ \n]+(?=$| )/ do not act/;
+    s/ nekoná(?=$| )/ does not act/;
+# commented out lines matches mother incorrectly
+#    s/ m(a|á)[^ \n]{1,4}(?=$| )/ have/;
+#    s/ m(a|á)[^ \n]{1,4}(?=$| )/ have/;
+    s/ má(?=$| )/ has/;
+    s/ nem(a|á)[^ \n]+(?=$| )/ do not have/;
+    s/ nemá(?=$| )/ does not have/;
+    s/ pamätá(?=$| )/ remembers/;
+    s/ pamät[^ \n]+(?=$| )/ remember/;
+    s/ nepamätá(?=$| )/ does not remember/;
+    s/ nepamät[^ \n]+(?=$| )/ do not remember/;
+    s/ počúva(?=$| )/ listens/;
+    s/ počúva((m|t)e|jú)(?=$| )/ listen/;
+    s/ nepočúva(?=$| )/ does not listen/;
+    s/ nepočúva((m|t)e|jú)(?=$| )/ do not listen/;
+    s/ pozn(a|á)[^ \n]+(?=$| )/ know/;
+    s/ pozná(?=$| )/ knows/;
+    s/ nepozn(a|á)[^ \n]+(?=$| )/ know not/;
+    s/ nepozná(?=$| )/ knows not/;
+    s/ prichádza[^ \n]+(?=$| )/ arrive/;
+    s/ prichádza(?=$| )/ arrives/;
+    s/ neprichádza[^ \n]+(?=$| )/ do not arrive/;
+    s/ neprichádza(?=$| )/ does not arrive/;
+    s/ robí(?=$| )/ makes/;
+    s/ (robia|robí(m|t)e)(?=$| )/ make/;
+    s/ nerobí(?=$| )/ does not make/;
+    s/ ne(robia|robí(m|t)e)(?=$| )/ do not make/;
+    s/ rozpráva[^ \n]+(?=$| )/ speak/;
+    s/ rozpráva(?=$| )/ speaks/;
+    s/ nerozpráva[^ \n]+(?=$| )/ do not speak/;
+    s/ nerozpráva(?=$| )/ does not speak/;
+    s/ spá(?=$| )/ sleeps/;
+#    s/ nesp(a|á)[^ \n]+(?=$| )/ do not sleep/;
+    s/ nespá(?=$| )/ does not sleep/;
+    s/ spáva(?=$| )/ is sleeping/;
+    s/ spáva(me|te|jú)(?=$| )/ are sleeping/;
+    s/ nespáva(?=$| )/ is not sleeping/;
+    s/ nespáva(te|jú|me)(?=$| )/ are not sleeping/;
+    s/ sedí(m|t)e/ are sitting/;
+    s/ sedia/ are sitting/;
+    s/ sedí/ sits/;
+    s/ nesedí(m|t)e/ are not sitting/;
+    s/ nesedia/ are not sitting/;
+    s/ nesedí/ does not sit/;
+    s/ spieva(?=$| )/ sings/;
+    s/ spieva((t|m)e|jú)(?=$| )/ sing/;
+    s/ nespieva(?=$| )/ does not sing/;
+    s/ nespieva((t|m)e|jú)(?=$| )/ do not sing/;
+    s/ stráca(?=$| )/ loses/;
+    s/ stráca(t|m)e(?=$| )/ lose/;
+    s/ strácajú/ lose/;
+    s/ nestráca(?=$| )/ does not lose/;
+    s/ nestráca(t|m)e(?=$| )/ do not lose/;
+    s/ nestrácajú/ do not lose/;
+    s/ vidí(m|te)(?=$| )/ see/;
+    s/ vid(ia|í(t|m)e)(?=$| )/ see/;
+    s/ vidí(?=$| )/ sees/;
+    s/ nevidí(m|te)(?=$| )/ do not see/;
+    s/ nevid(ia|í(t|m)e)(?=$| )/ do not see/;
+    s/ nevidí(?=$| )/ does not see/;
+    s/ vie(?=$| )/ is familiar with/;
+    s/ (vie(t|m)e|vedia)(?=$| )/ are familiar with/;
+    s/ nevie(?=$| )/ is not familiar with/;
+    s/ ne(vie(t|m)e|vedia)(?=$| )/ are not familiar with/;
+    s/ vstáva[^ \n]+(?=$| )/ get up/;
+    s/ vstáva(?=$| )/ gets up/;
+    s/ nevstáva[^ \n]+(?=$| )/ do not get up/;
+    s/ nevstáva(?=$| )/ does not get up/;
+    s/ vychádza[^ \n]+(?=$| )/ go out/;
+    s/ vychádza(?=$| )/ goes out/;
+    s/ nevychádza[^ \n]+(?=$| )/ do not go out/;
+    s/ nevychádza(?=$| )/ does not go out/;
+    s/ začin(a|á)[^ \n]+(?=$| )/ begin/;
+    s/ začiná(?=$| )/ begins/;
+    s/ nezačin(a|á)[^ \n]+(?=$| )/ do not begin/;
+    s/ nezačiná(?=$| )/ does not begin/;
+    s/(^| )žen(a|e)(?=$| )/$1a woman/;
+    s/(^| )žen(y|ách)(?=$| )/$1the women/;
+    s/ žiada[^ \n]+(?=$| )/ ask/;
+    s/ žiada(?=$| )/ asks/;
+    s/ nežiada[^ \n]+(?=$| )/ do not ask/;
+    s/ nežiada(?=$| )/ does not ask/;
+    s/ znamen(a|á)[^ \n]+(?=$| )/ mean/;
+    s/ znamená(?=$| )/ means/;
+    s/ neznamen(a|á)[^ \n]+(?=$| )/ do not mean/;
+    s/ neznamená(?=$| )/ does not mean/;
+
+# Nouns
+
+    s/ auto($| )/ car$1/;
+    s/ autá($| )/ cars$1/;
+    s/ brehy($| )/ riverbanks$1/;
+    s/ breh($| )/ riverbank$1/;
+    s/ cen(a|u)($| )/ price$2/;
+    s/ ceny($| )/ prices$1/;
+    s/chlap(ovi)?(?= |$)/the fellow/;
+    s/chlap(i|och)(?= |$)/the fellows/;
+    s/ dedin(a|u)($| )/ village$2/;
+    s/ dediny($| )/ villages$1/;
+    s/ dom($| )/ home$1/;
+    s/ domy($| )/ homes$1/;
+    s/(^| )družstv(o|e)(?=$| )/$1the team/;
+    s/(^| )družstvá(ch)?(?=$| )/$1the teams/;
+    s/ hlav(a|u)($| )/ head$2/;
+    s/ hlavy($| )/ heads$1/;
+# jar follows kosš: "jari" is both plural-nominative/accusative and singular-locative
+    s/jar(?=$| )/springtime/;
+    s/((vo?|pri) ([^ ]+ )?)jari(?=$| )/$1springtime/;
+    s/jar(i|iach)(?=$| )/the springtimes/;
+    s/jese(ň|ni)(?=$| )/autumn/;
+    s/jesen(e|iach)(?=$| )/the autumns/;
+    s/ knih(a|u)($| )/ book$2/;
+    s/ knihy($| )/ books$1/;
+    s/ kvet($| )/ flower$1/;
+    s/ kvety($| )/ flowers$1/;
+    s/ les($| )/ forest$1/;
+    s/ lesy($| )/ forests$1/;
+    s/( |^)let(o|e)(?= |$)/$1the summer/;
+    s/letá(ch)?(?= |$)/summers/;
+    s/ lúk(a|u)($| )/ meadow$2/;
+    s/ lúky($| )/ meadows$1/;
+    s/matka(?=$| )/mother/;
+    s/matk(y|ách)(?=$| )/the mothers/;
+    s/mest(o|e)(?=$| )/the town/;
+    s/ mestá($| )/ towns$1/;
+    s/mestá(ch)?(?=$| )/the towns/;
+    s/ minút(a|u)($| )/ minute$2/;
+    s/ minúty($| )/ minutes$1/;
+    s/ noh(a|u)($| )/ foot$2/;
+    s/ nohy($| )/ feet$1/;
+    s/ obraz($| )/ picture$1/;
+    s/ obrazy($| )/ pictures$1/;
+    s/ obchod($| )/ shop$1/;
+    s/ obchody($| )/ shops$1/;
+    s/ otázk(a|u)($| )/ question$2/;
+    s/ otázky($| )/ questions$1/;
+    s/ot(ec|covi)(?=$| )/father/;
+    s/ot(eci|coch)(?=$| )/the fathers/;
+    s/ plot($| )/ fence$1/;
+    s/ ploty($| )/ fences$1/;
+    s/prác(a|i)(?=$| )/a job/;
+    s/prác(e|ach)(?=$| )/the jobs/;
+    s/priateľ(ovi)?(?=$| )/a friend/;
+    s/priateľ(i|och)(?=$| )/friends/;
+    s/ riek(a|u)($| )/ river$2/;
+    s/ rieky($| )/ rivers$1/;
+    s/ sten(a|u)($| )/ wall$2/;
+    s/ steny($| )/ walls$1/;
+    s/ strom($| )/ tree$1/;
+    s/ stromy($| )/ trees$1/;
+    s/ prst($| )/ finger$1/;
+    s/ prsty($| )/ fingers$1/;
+    s/ dvor($| )/ yard$1/;
+    s/ dvory($| )/ yards$1/;
+    s/(^| )rodin(a|e)(?=$| )/$1the family/;
+    s/rodin(y|ách)(?=$| )/families/;
+    s/škola(?=$| )/the school/;
+    s/ škol(a|u|e)($| )/ school$2/;
+    s/( |^)škol(y|ách)(?=$| )/$1the schools/;
+    s/ stavb(a|u)($| )/ building$2/;
+    s/ stavby($| )/ buildings$1/;
+    s/ ruk(a|u)($| )/ hand$2/;
+    s/ ruky($| )/ hands$1/;
+    s/ stanic(a|u)($| )/ station$2/;
+    s/ stanice($| )/ stations$1/;
+    s/ tried(a|u)($| )/ class$2/;
+    s/ triedy($| )/ classes$1/;
+    s/(^| )ulic(a|u|i)(?=$| )/$1the street/;
+    s/ ulice($| )/ streets$1/;
+    s/ulic(e|iach)(?=$| )/the streets/;
+    s/ vec($| )/ thing$1/;
+    s/ veci($| )/ things$1/;
+    s/ večer($| )/ evening$1/;
+    s/ večery($| )/ evenings$1/;
+    s/ voz($| )/ vehicle$1/;
+    s/ vozy($| )/ vehicles$1/;
+    s/ záhrad(a|u)($| )/ garden$2/;
+    s/ záhrady($| )/ gardens$1/;
+    s/zim(a|e)(?=$| )/winter/;
+    s/zim(y|ách)(?=$| )/winters/;
+    s/ hlavn[^$ ]+($| )/ main$1/;
+
+# Adjectives
+
+    s/ ktor[^$ ]+($| )/ which$1/;
+    s/ vysok[^$ ]+($| )/ tall$1/;
+    s/ nov[^$ ]+($| )/ new$1/;
+    s/ prav[^$ ]+($| )/ right$1/;
+    s/ širok[^$ ]+($| )/ wide$1/;
+    s/ nejak[^$ ]+($| )/ some$1/;
+    s/ tak[^$ ]+($| )/ such$1/;
+    s/ nízk[^$ ]+($| )/ low$1/;
+    s/ jednoduch[^$ ]+($| )/ simple$1/;
+    s/ dobr[^$ ]+($| )/ good$1/;
+    s/ pekn[^$ \n]+(?=$| )/ nice/;
+    s/ posledn[^$ ]+($| )/ last$1/;
+    s/Anglick.(?=$| )/England/;
+
+# Place names
+
+    s/Amerik.(?=$| )/America/;
+    s/Belgick.(?=$| )/Belgium/;
+    s/Bielorusk.(?=$| )/Belarus/;
+    s/Bosn.(?=$| )/Bosnia/;
+    s/Veľk.[^\s]? Británi.(?=$| )/Great Britain/;
+    s/Čiern.[^ ]? Hor.(?=$| )/Montenegro/;
+    s/(?=^| )Belgick.(?=$| )/Belgium/;
+    s/Česk.(?=$| )/Czechia/;
+    s/Čiern. Hor.(?=$| )/Montenegro/;
+    s/Čín(a|u|y)(?=$| )/China/;
+    s/Estónsk.(?=$| )/Estonia/;
+    s/Európ.(?=$| )/Europe/;
+    s/Fínsk.(?=$| )/Finland/;
+    s/Francúzsk.(?=$| )/France/;
+    s/Gréck.(?=$| )/Greece/;
+    s/Hercegovin.(?=$| )/Herzegovina/;
+    s/Holandsk.(?=$| )/Holland/;
+    s/Chorvátsk.(?=$| )/Croatia/;
+    s/Írsk.(?=$| )/Ireland/;
+    s/Japonsk.(?=$| )/Japan/;
+    s/Kanad.(?=$| )/Canada/;
+    s/Lichtenštajnsk.(?=$| )/Liechtenstein/;
+    s/Litv.(?=$| )/Lithuania/;
+    s/Lotyšsk.(?=$| )/Latvia/;
+    s/Luxembursk.(?=$| )/Luxembourg/;
+    s/Mexik.(?=$| )/Mexico/;
+    s/Maďarsk.(?=$| )/Hungary/;
+    s/Moldavsk.(?=$| )/Moldova/;
+    s/Nemeck.(?=$| )/Germany/;
+    s/Nórsk.(?=$| )/Norway/;
+    s/Poľsk.(?=$| )/Poland/;
+    s/Portugalsk.(?=$| )/Portugal/;
+    s/Rakúsk[ao](?=$| )/Austria/;
+    s/Rusko(?=$| )/Russia/;
+    s/(from )Ruska(?=$| )/$1Russia/;
+    s/Škótsk.(?=$| )/Scotland/;
+    s/Slovensk.(?=$| )/Slovakia/;
+    s/Slovinsk.(?=$| )/Slovenia/;
+    s/Španielsk.(?=$| )/Spain/;
+    s/Srbsk.(?=$| )/Serbia/;
+    s/Švajčiarsk.(?=$| )/Switzerland/;
+    s/Švédsk.(?=$| )/Sweden/;
+    s/Taliansk.(?=$| )/Italy/;
+    s/Tureck.(?=$| )/Turkey/;
+    s/Ukrajin.(?=$| )/Ukraine/;
+    s/Vatikán.?(?=$| )/the Vatican/;
+    s/ americk[^$ \n]+(?=$| )/ american/;
+
+# Place name adjectives
+
+    s/ anglick[^$ \n]+(?=$| )/ english/;
+    s/ belgick[^$ \n]+(?=$| )/ belgian/;
+    s/ bielorusk[^$ \n]+(?=$| )/ belarusian/;
+    s/ bosniansk[^$ \n]+(?=$| )/ bosnian/;
+    s/ britsk[^$ \n]+(?=$| )/ british/;
+    s/ česk[^$ \n]+(?=$| )/ czech/;
+    s/ čiernohorsk[^$ \n]+(?=$| )/ montenegrin/;
+    s/ čínsk[^$ \n]+(?=$| )/ chinese/;
+    s/ estónsk[^$ \n]+(?=$| )/ estonian/;
+    s/ fínsk[^$ \n]+(?=$| )/ finnish/;
+    s/ francúzsk[^$ \n]+(?=$| )/ french/;
+    s/ gréck[^$ \n]+(?=$| )/ greek/;
+    s/ hercegovsk[^$ \n]+(?=$| )/ herzegovinian/;
+    s/ holandsk[^$ \n]+(?=$| )/ dutch/;
+    s/ chorvátsk[^$ \n]+(?=$| )/ croatian/;
+    s/ írsk[^$ \n]+(?=$| )/ irish/;
+    s/ japonsk[^$ \n]+(?=$| )/ japanese/;
+    s/ kanadsk[^$ \n]+(?=$| )/ canadian/;
+    s/ lichtenštajnsk[^$ \n]+(?=$| )/ liechtensteinish/;
+    s/ litovsk[^$ \n]+(?=$| )/ lithuanian/;
+    s/ lotyšsk[^$ \n]+(?=$| )/ latvian/;
+    s/ luxembursk[^$ \n]+(?=$| )/ luxembourgish/;
+    s/ macedónsk[^$ \n]+(?=$| )/ macedonian/;
+    s/ maďarsk[^$ \n]+(?=$| )/ hungarian/;
+    s/ mexick[^$ \n]+(?=$| )/ mexican/;
+    s/ moldavsk[^$ \n]+(?=$| )/ moldavian/;
+    s/ nemeck[^$ \n]+(?=$| )/ german/;
+    s/ nórsk[^$ \n]+(?=$| )/ norwegian/;
+    s/ poľsk[^$ \n]+(?=$| )/ polish/;
+    s/ portugalsk[^$ \n]+(?=$| )/ portugese/;
+    s/ rakúsk[^$ \n]+(?=$| )/ austrian/;
+    s/ rusk[^$ \n]+(?=$| )/ russian/;
+    s/ škótsk[^$ \n]+(?=$| )/ scottish/;
+    s/ slovensk[^$ \n]+(?=$| )/ slovakian/;
+    s/ slovinsk[^$ \n]+(?=$| )/ slovenian/;
+    s/ španielsk[^$ \n]+(?=$| )/ spanish/;
+    s/ srbsk[^$ \n]+(?=$| )/ serbian/;
+    s/ švajčiarsk[^$ \n]+(?=$| )/ swiss/;
+    s/ švédsk[^$ \n]+(?=$| )/ swedish/;
+    s/ taliansk[^$ \n]+(?=$| )/ italian/;
+    s/ tureck[^$ \n]+(?=$| )/ turkish/;
+    s/ ukrajinsk[^$ \n]+(?=$| )/ ukranian/;
+    s/ vatikánsk[^$ \n]+(?=$| )/ vatican/;
+    s/ Angličan(?=$| )/ an Englishman/;
+
+# Demonyms
+
+    s/ Angličanka(?=$| )/ English/;
+    s/ Angličani?(?=$| )/ Englishmen/;
+    s/ Angličanky(?=$| )/ English/;
+    s/ Američan(ka)?(?=$| )/ an American/;
+    s/ Američan(i|ky)(?=$| )/ Americans/;
+    s/ Belgičan(ka)?(?=$| )/ a Belgian/;
+    s/ Belgičan(i|ky)(?=$| )/ Belgians/;
+    s/ Bielorus(?=$| )/ a Belarusian/;
+    s/ Bielorusi(?=$| )/ Belarusians/;
+    s/ Bosnia(k|čka)(?=$| )/ a Bosnian/;
+    s/ Bosnia(ki|čky)(?=$| )/ Bosnians/;
+    s/ Brit(ka)?(?=$| )/ a brit/;
+    s/ Brit(i|ky)(?=$| )/ brits/;
+    s/ Če(ch|ška)(?=$| )/ a Czech/;
+    s/ Če(chi|šky)(?=$| )/ Czechs/;
+    s/ Čiernohor(ec|ka)(?=$| )/ a Montenegrin/;
+    s/ Čiernohor(eci|ky)(?=$| )/ Montenegrins/;
+    s/ Číňan(ka)?(?=$| )/ Chinese/;
+    s/ Číňan(i|ky)(?=$| )/ Chinese/;
+    s/ Estón(ec|ka)(?=$| )/ an Estonian/;
+    s/ Estón(eci|ky)(?=$| )/ Estonians/;
+    s/ Európanka(?=$| )/ a European/;
+    s/ Európan(i|ky)(?=$| )/ Europeans/;
+    s/ Fín(ka)?(?=$| )/ a Finn/;
+    s/ Fín(i|ky)(?=$| )/ Finns/;
+    s/ Francúz[^\n ]*(?=$| )/ French/;
+    s/ Grék(yňa)?(?=$| )/ a Greek/;
+    s/ Grék(i|yňe)(?=$| )/ Greeks/;
+    s/ Hercegovin(ec|ka)(?=$| )/ a Herzegovinian/;
+    s/ Hercegovin(eci|ky)(?=$| )/ Herzegovinians/;
+    s/ Holanďan(ka)?(?=$| )/ Dutch/;
+    s/ Holanďan(i|ky)(?=$| )/ Dutch/;
+    s/ Chorvát(ka)?(?=$| )/ a Croat/;
+    s/ Chorvát(i|ky)(?=$| )/ Croatians/;
+    s/ Ír(?=$| )/ an Irishman/;
+    s/ Írka(?=$| )/ an Irishwoman/;
+    s/ Ír(i|ky)(?=$| )/ Irish/;
+    s/ Japon(ec|ka)(?=$| )/ Japanese/;
+    s/ Japon(eci|ky)(?=$| )/ Japanese/;
+    s/ Kanaďan(ka)?(?=$| )/ a Canadian/;
+    s/ Kanaďan(i|ky)(?=$| )/ Canadians/;
+    s/ Lichtenštajnčan(ka)?(?=$| )/ a Liechtensteiner/;
+    s/ Lichtenštajnčan(i|ky)(?=$| )/ Liechtensteiners/;
+    s/ Litovčan(ka)?(?=$| )/ a Lithuanian/;
+    s/ Litovčan(i|ky)(?=$| )/ Lithuanians/;
+    s/ Lotyš(ka)?(?=$| )/ a Latvian/;
+    s/ Lotyš(i|ky)(?=$| )/ Latvians/;
+    s/ Luxemburčan(ka)(?=$| )/ a Luxembourger/;
+    s/ Luxemburčan(i|k.)(?=$| )/ Luxembourgers/;
+    s/ Macedón(ec|ka)(?=$| )/ a Macedonian/;
+    s/ Macedón(eci|ky)(?=$| )/ Macedonians/;
+    s/ Maďar(ka)?(?=$| )/ a Hungarian/;
+    s/ Maďar(i|ky)(?=$| )/ Hungarians/;
+    s/ Mexičan(ka)?(?=$| )/ a Mexican/;
+    s/ Mexičan(i|ky)(?=$| )/ Mexicans/;
+    s/ Moldavčan(ka)?(?=$| )/ a Moldavian/;
+    s/ Moldavčan(i|ky)(?=$| )/ Moldavians/;
+    s/ Nem(ec|ka)(?=$| )/ a German/;
+    s/ Nem(ec|ky)(?=$| )/ a German/;
+    s/ Nemeci(?=$| )/ Germans/;
+    s/ Nór(ka)?(?=$| )/ a Norwegian/;
+    s/ Nór(i|ky)(?=$| )/ Norwegians/;
+    s/ (Poľka|Poliak)(?=$| )/ a Pole/;
+    s/ (Poliaki|Poľky)(?=$| )/ Poles/;
+    s/ Portugal(ec|ka)(?=$| )/ a Portugese/;
+    s/ Portugal(eci|ky)(?=$| )/ Portugese/;
+    s/ Rakúšan(ka)?(?=$| )/ an Austrian/;
+    s/ Rakúšan[^ \n]*(?=$| )/ Austrians/;
+    s/ Rus(ka)?(?=$| )/ a Russian/;
+    s/ Rus(i|ky)(?=$| )/ Russians/;
+    s/ Škót(ka)?(?=$| )/ a Scot/;
+    s/ Škót(i|ky)(?=$| )/ Scots/;
+    s/ Slov(ák|enka)(?=$| )/ a Slovak/;
+    s/ (Slováki|Slovenky)(?=$| )/ Slovaks/;
+    s/ Slovin(ec|ka)(?=$| )/ a Slovene/;
+    s/ (Slovinky|Slovineci)(?=$| )/ Slovenians/;
+    s/ Španiel(ka)?(?=$| )/ a Spaniard/;
+    s/ Španiel(i|ky)(?=$| )/ Spaniards/;
+    s/ Srb(ka)?(?=$| )/ a Serb/;
+    s/ Srb(i|ky)(?=$| )/ Serbians/;
+    s/ Švajčiar(ka)?(?=$| )/ Swiss/;
+    s/ Švajčiar(i|ky)(?=$| )/ Swiss/;
+    s/ Švéd(ka)?(?=$| )/ a Swede/;
+    s/ Švéd(i|ky)(?=$| )/ Swedes/;
+    s/ Talian(ka)?(?=$| )/ an Italian/;
+    s/ Talian(i|ky)(?=$| )/ Italians/;
+    s/ Ukrajin(ec|ka)(?=$| )/ a Ukranian/;
+    s/ Ukrajin(eci|ky)(?=$| )/ Ukranians/;
+
+# Prepositions
+    s/ vo? / in /;
+    s/ pri / near /;
+
+
+# add article before singular adjectives, excluding "which" and "some"
+#    s/ have (?!which)(?!some)(.+)(?<!s)(?<!men)(?<!feet)$/ have a $1$2/;
+# Since "class" ends in 's' is is incorrectly identified as plural by the preceeding line
+#    s/ have (?!which)(?!some)(.+)(class)$/ have a $1$2/;
+#    s/ a (a|i)/ an $1/;
+
+# this one causes problem with 'ona nie je' -> 'she is not' becomes "she is a not'
+#    s/ is (?!some)(?!which)/ is a /;
+    s/ a such / such a /;
+
+    s/ going via (.+)(?<!s)(?<!men)$/ going via a $1/;
+
+    s/.*which.*/$&?/;
+
+    return $_;
+}

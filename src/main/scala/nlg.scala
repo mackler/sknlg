@@ -46,7 +46,8 @@ object Main extends App {
     for {
       subject <- s
       verb <- verbs
-    } yield verb setPodmet subject asText
+      negate <- Set(true, false)
+    } yield verb setPodmet subject setZáporný negate asText
   }
 
   /**
@@ -240,9 +241,9 @@ object Main extends App {
   }
 
   def exM5verbsNouns: Set[String] = {
-    nominativeNounsVerbs(exM5Verbs, exM5nouns)
+    nominativeNounsVerbs(/*exM5Verbs*/ Set(Spávať), exM5nouns)
   }
 
-  exM5locative foreach { line => println(line) }
+  exM5verbsNouns foreach { line => println(line) }
 
 }

@@ -305,6 +305,7 @@ package object slovník {
 
   // Irregular verb: to know
   val Vedieť = SlovesoFactory("vedieť", { (čislo: Čislo, osoba: Osoba, záporný: Boolean) =>
+    (if (záporný) "ne" else "") +
     (čislo match {
       case Jednotné => osoba match {
         case First =>  "viem"

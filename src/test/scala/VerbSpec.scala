@@ -44,23 +44,26 @@ class VerbSpec extends FlatSpec with Matchers {
   "The Vedieť verb without a subject" should "generate the infinitive" in {
     slovník.Vedieť.asText shouldEqual "vedieť"
   }
-  "The Vedieť" should "conjugate in the first person singular" in {
+  "The verb Vedieť" should "conjugate in the first person singular" in {
     (slovník.Vedieť addPodmet Ja() asText) shouldEqual "ja viem"
   }
-  "The Vedieť" should "conjugate in the second person singular" in {
+  "The verb Vedieť" should "conjugate in the second person singular" in {
     (slovník.Vedieť addPodmet Ty() asText) shouldEqual "ty vieš"
   }
-  "The Vedieť" should "conjugate in the third person singular" in {
+  "The verb Vedieť" should "conjugate in the third person singular" in {
     (slovník.Vedieť addPodmet On() asText) shouldEqual "on vie"
   }
-  "The Vedieť" should "conjugate in the first person plural" in {
+  "The verb Vedieť" should "conjugate in the first person plural" in {
     (slovník.Vedieť addPodmet Ja(čislo = Množné) asText) shouldEqual "my vieme"
   }
-  "The Vedieť" should "conjugate in the second person plural" in {
+  "The verb Vedieť" should "conjugate in the second person plural" in {
     (slovník.Vedieť addPodmet Ty(čislo = Množné) asText) shouldEqual "vy viete"
   }
-  "The Vedieť" should "conjugate in the third person plural" in {
+  "The verb Vedieť" should "conjugate in the third person plural" in {
     (slovník.Vedieť addPodmet On(čislo = Množné) asText) shouldEqual "oni vedia"
+  }
+  "The verb Vedieť negated" should "conjugate in the first person plural" in {
+    (slovník.Vedieť addPodmet Ja(čislo = Množné) setZáporný true asText) shouldEqual "my nevieme"
   }
 
   /*
