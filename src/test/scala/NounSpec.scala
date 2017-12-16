@@ -104,7 +104,7 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
 
 
   "A proper noun" should "be usable as a verb subject" in {
-    slovník.Byť(podmet = Seq(Pomenovanie("Igor", MužskýŽivotný))).asText shouldEqual "Igor je"
+    (slovník.Byť addPodmet Pomenovanie("Igor", MužskýŽivotný) asText) shouldEqual "Igor je"
   }
 
   /*

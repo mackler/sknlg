@@ -57,16 +57,16 @@ object Main extends App {
     for {
       noun <- nouns
       adjective <- adjectives
-    } yield Byť(podmet = Seq(noun), complement = Some(adjective)).asText
+    } yield Byť addPodmet noun setComplement adjective asText
 
   /**
     * Take a set of nouns, make each into a sentence saying that it is or they are here.
     */
   def nounsSingularPluralNominative(nouns: Set[PodstatnéMeno]): Set[String] = {
     val singularNominative =
-      exM3Nouns.map(noun => Byť(podmet = Seq(noun), príslovka = Some(Príslovka("tu"))).asText)
+      exM3Nouns.map(noun => Byť addPodmet noun setPríslovka Príslovka("tu") asText)
     val pluralNominative =
-      exM3Nouns.map(noun => Byť(podmet = Seq(noun setČislo Množné), príslovka = Some(Príslovka("tu"))).asText)
+      exM3Nouns.map(noun => Byť addPodmet (noun setČislo Množné) setPríslovka Príslovka("tu") asText)
     singularNominative ++ pluralNominative
   }
 
@@ -96,7 +96,7 @@ object Main extends App {
       val modifiedNoun = noun setČislo number setPrídavnéMeno adjective
       Set(
         Mať addPodmet Ja() setPredmet modifiedNoun asText,
-        Byť() addPodmet Príslovka("tu") setComplement modifiedNoun asText
+        Byť addPodmet Príslovka("tu") setComplement modifiedNoun asText
       )
     }
 
@@ -125,7 +125,7 @@ object Main extends App {
       number <- Set(Jednotné, Množné)
       preposition <- Set("vo", "pri")
     } yield
-      Byť() setPodmet subject setComplement (noun setČislo number predložka preposition) asText
+      Byť setPodmet subject setComplement (noun setČislo number predložka preposition) asText
   }
 
   // END OF GENERIC FUNCTIONS -- BEGIN SPECIFIC EXERCISES
@@ -186,7 +186,7 @@ object Main extends App {
 
   /* Some exercises corresponding to Mistrík chapter 4 */
   def exM4: Set[String] = {
-    val verbs = Set[Sloveso](Vstávať, Mať, Byť(), Bývať, Začinať, Poznať, Chodievať, Žiadať, Konať, Znamenať, Vychádzať,
+    val verbs = Set[Sloveso](Vstávať, Mať, Byť, Bývať, Začinať, Poznať, Chodievať, Žiadať, Konať, Znamenať, Vychádzať,
                  Chávať, Rozprávať, Prichádzať, Spať, Pamätať)
     verbsNegated(verbs)
   }
@@ -199,20 +199,20 @@ object Main extends App {
     val places = for {
       place <- List(Kanada) //allPlaces
     } yield Set (
-      Byť() addPodmet place setComplement Pekný asText,
+      Byť addPodmet place setComplement Pekný asText,
       Vidieť addPodmet Ja() setPredmet place asText,
-      Byť() addPodmet vlado setComplement place.asOrigin asText
+      Byť addPodmet vlado setComplement place.asOrigin asText
     )
 
     val demonyms = for {
       place <- List(Kanada) //allPlaces if place.demonym.isDefined
       demonym <- place.demonym
     } yield Set(
-      Byť() addPodmet vlado setComplement place.demonym.get asText,
-      Byť() addPodmet natália setComplement place.demonym.get asText,
-      Byť() addPodmet Pomenovanie("Jakub", MužskýŽivotný) addPodmet vlado
+      Byť addPodmet vlado setComplement place.demonym.get asText,
+      Byť addPodmet natália setComplement place.demonym.get asText,
+      Byť addPodmet Pomenovanie("Jakub", MužskýŽivotný) addPodmet vlado
         setComplement place.demonym.get asText,
-      Byť() addPodmet Pomenovanie("Sofia", Ženský) addPodmet natália
+      Byť addPodmet Pomenovanie("Sofia", Ženský) addPodmet natália
         setComplement place.demonym.get asText
     )
 

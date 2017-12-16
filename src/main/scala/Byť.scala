@@ -6,12 +6,34 @@ import Rod._
 import Osoba._
 import Čislo._
 
-case class Byť(
-  podmet: Seq[NounPhrase] = Seq.empty[PodstatnéMeno],
-  príslovka: Option[Príslovka] = None,
+trait Byť extends Sloveso {
+  val infinitív = "byť"
+
+  override val paradigm = { (čislo: Čislo, person: Osoba, negate: Boolean) =>
+    (if (negate) "nie " else "") + časovanie(čislo.id)(person.id)
+  }
+  val časovanie = Array(
+    Array("som", "si", "je"),   // singular
+    Array("sme", "ste", "sú")   // plural
+  )
+}
+
+object Byť extends Byť {
+  def apply = ByťInstance()
+  val podmet= Seq.empty[PodstatnéMeno]
+  def setPodmet(p: Seq[NounPhrase]) = ByťInstance(podmet = p)
+  def addPodmet(p: NounPhrase) = ByťInstance(podmet = Seq(p))
+  val príslovka: Option[Príslovka] = None
+  val záporný = false
+  def setZáporný(z: Boolean) = ByťInstance(záporný = z)
+}
+
+case class ByťInstance(
+  override val podmet: Seq[NounPhrase] = Seq.empty[PodstatnéMeno],
+  override val príslovka: Option[Príslovka] = None,
   záporný: Boolean = false,
   complement: Option[NounPhrase] = None
-) extends Sloveso {
+) extends Byť {
   // can't use require here because of erasure
   complement match {
     case None => // ok
@@ -22,20 +44,12 @@ case class Byť(
     case _ => throw new Exception(s"predicate must be a noun, adjective, demonym or adverb")
   }
 
-  val infinitív = "byť"
-  def toggleZáporný() = this.copy(záporný = !záporný)
-  def setZáporný(z: Boolean) = this.copy(záporný = z)
+  def toggleZáporný() = copy(záporný = !záporný)
+  def setZáporný(z: Boolean) = copy(záporný = z)
   def setComplement(p: NounPhrase) = copy(complement = Some(p))
   def addPodmet(p: NounPhrase) = copy(podmet = podmet :+ p)
   def setPodmet(p: Seq[NounPhrase]) = copy(podmet = p)
-
-  val časovanie = Array(
-    Array("som", "si", "je"),   // singular
-    Array("sme", "ste", "sú")   // plural
-  )
-  override val paradigm = { (čislo: Čislo, person: Osoba, negate: Boolean) =>
-    (if (negate) "nie " else "") + časovanie(čislo.id)(person.id)
-  }
+  def setPríslovka(p: Príslovka) = copy(príslovka = Some(p))
 
   override def asText = {
     // There may or may not be a subject, may or may not be a complement
