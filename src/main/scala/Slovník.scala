@@ -20,7 +20,7 @@ package object slovník {
 
   // Masculine Animate
   // not ending in -a, e.g., "chlap", "muž"
-  val Brat = PodstatnéMeno("brat", MužskýŽivotný)
+  val Brat = PodstatnéMeno("brat", MužskýŽivotný, nominativePlural = "bratia")
   val Býk = PodstatnéMeno("býk", MužskýŽivotný)
   val Muž = PodstatnéMeno("muž", MužskýŽivotný)
   val Chlap = PodstatnéMeno("chlap", MužskýŽivotný)

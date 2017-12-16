@@ -24,9 +24,10 @@ case class Pomenovanie(name: String, rod: Rod) extends Noun {
 
 object PodstatnéMeno {
   // The `rod` parameter is needed only if the noun is exceptional
-  def apply(entry: String, rod: Rod = Neznámy, genitiveSingular: String = ""): PodstatnéMeno = {
+  def apply(entry: String, rod: Rod = Neznámy, genitiveSingular: String = "", nominativePlural: String = ""): PodstatnéMeno = {
     val _entry = entry
     val _genitiveSingular = genitiveSingular
+    val _nominativePlural = nominativePlural
     val _rod = {
       if (rod != Neznámy) rod // explicitly provided
         else if (entry.matches(".*(a|osť|eň)$")) // ends with "a" or "osť" or "eň" (last one is debatable)
@@ -45,6 +46,7 @@ object PodstatnéMeno {
     ) extends PodstatnéMeno {
       override protected val entry = _entry
       override protected val genitiveSingular = _genitiveSingular
+      override protected val nominativePlural = _nominativePlural
       override val rod = _rod
 
       def predložka() = _predložka
@@ -62,6 +64,7 @@ object PodstatnéMeno {
 trait PodstatnéMeno extends Noun {
   protected val entry         : String   // form of the slovo as listed in a slovník
   protected val genitiveSingular: String // optional; ignored if empty
+  protected val nominativePlural: String = "" // optional; ignored if empty
   override  val rod           : Rod // removing this line caused an exception that looked like a bug
   val prídavnéMeno            : Option[PrídavnéMeno] = None
   protected val demonstrative : Boolean
@@ -124,7 +127,8 @@ trait PodstatnéMeno extends Noun {
             case Lokatív => stem + "ovi"
           }
           case Množné => pád match {
-            case Nominatív => entry + "i"
+            case Nominatív =>
+              if (nominativePlural != "") nominativePlural else entry + "i"
             case Akusatív  => stem + "ov"
             case Lokatív => stem + "och"
           }

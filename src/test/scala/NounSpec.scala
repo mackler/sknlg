@@ -75,6 +75,10 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   "A masculine, animate noun not ending in 'a' with fleeting 'e'" should "decline in the locative case singular" in {
     slovník.Otec.asText(Lokatív) shouldEqual "otcovi"
   }
+  // with an exceptional nominative plural
+  "A masculine, animate noun not ending in 'a' with exceptional ending" should "decline in the nominative case plural" in {
+    slovník.Brat setČislo Množné asText Nominatív shouldEqual "bratia"
+  }
 
   // Following DUB
   "A masculine, inanimate noun ending in a hard consonant" should "decline in the nominative case singular" in {
