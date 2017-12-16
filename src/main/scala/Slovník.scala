@@ -20,6 +20,7 @@ package object slovník {
 
   // Masculine Animate
   // not ending in -a, e.g., "chlap", "muž"
+  val Brat = PodstatnéMeno("brat", MužskýŽivotný)
   val Býk = PodstatnéMeno("býk", MužskýŽivotný)
   val Muž = PodstatnéMeno("muž", MužskýŽivotný)
   val Chlap = PodstatnéMeno("chlap", MužskýŽivotný)
@@ -76,6 +77,7 @@ package object slovník {
   val Rieka = PodstatnéMeno("rieka")
   val Rodina = PodstatnéMeno("rodina")
   val Ruka = PodstatnéMeno("ruka")
+  val Sestra = PodstatnéMeno("sestra")
   val Stavba = PodstatnéMeno("stavba")
   val Stena = PodstatnéMeno("stena")
   val Škola = PodstatnéMeno("škola")
@@ -208,46 +210,46 @@ package object slovník {
    * PrídavnéMeno
    */
 
-  val Bohatý = new PrídavnéMeno("bohatý")
-  val Čistý = new PrídavnéMeno("čistý")
-  val Chorý = new PrídavnéMeno("chorý")
-  val Dobrý = new PrídavnéMeno("dobrý")
-//  val Ešte = new PrídavnéMeno("ešte")
-  val Hnedý = new PrídavnéMeno("hnedý")
-  val Hlavný = new PrídavnéMeno("hlavny")
-  val Hospodársky = new PrídavnéMeno("hospodársky")
-  val Iný = new PrídavnéMeno("iný")
+  val Bohatý = PrídavnéMeno("bohatý")
+  val Čistý = PrídavnéMeno("čistý")
+  val Chorý = PrídavnéMeno("chorý")
+  val Dobrý = PrídavnéMeno("dobrý")
+//  val Ešte = PrídavnéMeno("ešte")
+  val Hnedý = PrídavnéMeno("hnedý")
+  val Hlavný = PrídavnéMeno("hlavny")
+  val Hospodársky = PrídavnéMeno("hospodársky")
+  val Iný = PrídavnéMeno("iný")
   // TODO jeden, jedna, jedno
-  val Jednoduchý = new PrídavnéMeno("jednoduchý")
-  val Krázny = new PrídavnéMeno("krázný")
+  val Jednoduchý = PrídavnéMeno("jednoduchý")
+  val Krázny = PrídavnéMeno("krázný")
   // TODO this is actually not an adjective but an interrogative pronoun
-  val Ktorý = new PrídavnéMeno("ktorý")
-  val Malý = new PrídavnéMeno("malý")
-  val Mladý = new PrídavnéMeno("mladý")
-  val Modrý = new PrídavnéMeno("modrý")
+  val Ktorý = PrídavnéMeno("ktorý")
+  val Malý = PrídavnéMeno("malý")
+  val Mladý = PrídavnéMeno("mladý")
+  val Modrý = PrídavnéMeno("modrý")
   // TODO this is not actually an adjective but an indefinite pronoun
-  val Nejaký = new PrídavnéMeno("nejaký")
-  val Nízky = new PrídavnéMeno("nízky")
-  val Nový = new PrídavnéMeno("nový")
-  val Pekný = new PrídavnéMeno("pekný")
-  val Posledný = new PrídavnéMeno("posledný")
-  val Pravý = new PrídavnéMeno("pravý")
-  val Široký = new PrídavnéMeno("široký")
-  val Škaredý = new PrídavnéMeno("škaredý")
-  val Slobodný = new PrídavnéMeno("slobodný")
-  val Starý = new PrídavnéMeno("starý")
-  val Špinavý = new PrídavnéMeno("špinavý")
-  val Šťastný = new PrídavnéMeno("šťastný")
+  val Nejaký = PrídavnéMeno("nejaký")
+  val Nízky = PrídavnéMeno("nízky")
+  val Nový = PrídavnéMeno("nový")
+  val Pekný = PrídavnéMeno("pekný")
+  val Posledný = PrídavnéMeno("posledný")
+  val Pravý = PrídavnéMeno("pravý")
+  val Široký = PrídavnéMeno("široký")
+  val Škaredý = PrídavnéMeno("škaredý")
+  val Slobodný = PrídavnéMeno("slobodný")
+  val Starý = PrídavnéMeno("starý")
+  val Špinavý = PrídavnéMeno("špinavý")
+  val Šťastný = PrídavnéMeno("šťastný")
   // This is not actually an adjective but a demonstrative pronoun
-  val Taký = new PrídavnéMeno("taký")
-  val Ťažká = new PrídavnéMeno("ťažká")
-  val Veľký = new PrídavnéMeno("veľký")
-  val Vysoký = new PrídavnéMeno("vysoký")
-  val Zaujímavý = new PrídavnéMeno("Zaujímavý")
-  val Zelený = new PrídavnéMeno("zelený")
-  val Ženatý = new PrídavnéMeno("Ženatý")
-  val Zlý = new PrídavnéMeno("zlý")
-  val Známy = new PrídavnéMeno("známy")
+  val Taký = PrídavnéMeno("taký")
+  val Ťažká = PrídavnéMeno("ťažká")
+  val Veľký = PrídavnéMeno("veľký")
+  val Vysoký = PrídavnéMeno("vysoký")
+  val Zaujímavý = PrídavnéMeno("Zaujímavý")
+  val Zelený = PrídavnéMeno("zelený")
+  val Ženatý = PrídavnéMeno("Ženatý")
+  val Zlý = PrídavnéMeno("zlý")
+  val Známy = PrídavnéMeno("známy")
 
   /*
    * Sloveso
@@ -292,7 +294,7 @@ package object slovník {
   val Robiť = Sloveso("robiť", "robí")
 
   // Type 13 verbs follow "vidieť" - "vidím"
-  val Vidieť = Sloveso("vidieť", "vidí")
+  val Vidieť = Sloveso("vidieť", "vidí") // "to see"
   val Sedieť = Sloveso("sedieť", "sedí")
 
   // Type 13 verbs follow "kričať" - "kričím"

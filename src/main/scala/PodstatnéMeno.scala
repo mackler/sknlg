@@ -96,7 +96,9 @@ trait PodstatnéMeno extends Noun {
       else                                                              Chlap
     case MužskýNeživotný =>
       if (Spoluhláska.mäkký.exists(entry.endsWith))                     Stroj
-      else /* ends with hard or neutral consonant */                    Dub
+      else /* ends with hard or neutral consonant */
+        if (Spoluhláska.tvrdný.exists(entry.endsWith))                  Dub
+      else throw new Exception(s"unrecognized noun form $entry")
     case Ženský =>
       if (Set("c","s","p","v","sť").exists(entry.endsWith) ||
       Set("jar","zver","chuť","ortuť","pamäť","smrť").contains(entry))  Kosť

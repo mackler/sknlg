@@ -135,7 +135,7 @@ object Main extends App {
   def exM2Adjectives: Set[String] = {
     val nouns = Set[PodstatnéMeno](Čelo, Dedina, Deň, Dieťa, Dlaň, Dom, Hlava, Chlapec, Kniha, Kôň, Les, Lúka, Mesto, Mlieko, Muž, Noha, Obraz, Oko, Pani, Pán,
                     Prst, Rameno, Ráno, Ruka, Sklo, Stena, Strom, Škola, Trieda, Tvár, Ulica, Večer, Voda, Záhrada)
-    val adjectives = Set(Čistý, Dobrý, Malý, Nový, Pekný, Veľký, Vysoký, Zelený, Zlý)
+    val adjectives = Set[PrídavnéMeno](Čistý, Dobrý, Malý, Nový, Pekný, Veľký, Vysoký, Zelený, Zlý)
 
     nominativeNounsAdjectives(nouns, adjectives)
   }
@@ -176,7 +176,7 @@ object Main extends App {
   }
 
   def exM3Adjectives(number: Čislo): Set[String] = {
-    val adjectives = Set(Dobrý, Hlavný, Jednoduchý, Ktorý, Nejaký, Nízky, Nový, Posledný, Pekný, Pravý, Široký, Taký, Vysoký)
+    val adjectives = Set[PrídavnéMeno](Dobrý, Hlavný, Jednoduchý, Ktorý, Nejaký, Nízky, Nový, Posledný, Pekný, Pravý, Široký, Taký, Vysoký)
     nounsAdjectivesNominativeAccusativeSingularPlural(exM3Nouns, adjectives)
   }
 
@@ -235,7 +235,7 @@ object Main extends App {
   val exM5Verbs = Set[Sloveso](Bývať, Chodiť, Kričať, Počúvať, Pamätať, Poznať, Prichádzať, Robiť, Rozprávať, Sedieť, Spávať,
                                Spievať, Strácať, Vedieť, Vidieť, Začinať, Žiadať, Znamenať)
   def exM5locative: Set[String] = {
-    val adjectives = Set(Bohatý, Chorý, Dobrý, Hlavný, Iný, Nový, Pekný, Posledný, Šťastný, Veľký, Vysoký, Starý, Ťažká, Známy)
+    val adjectives = Set[PrídavnéMeno](Bohatý, Chorý, Dobrý, Hlavný, Iný, Nový, Pekný, Posledný, Šťastný, Veľký, Vysoký, Starý, Ťažká, Známy)
 
     locative(exM5nouns, adjectives)
   }

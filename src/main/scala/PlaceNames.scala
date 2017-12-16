@@ -42,7 +42,7 @@ object PlaceName {
     val parts: Array[String] = entry.split("\\s+")
     require(parts.length <= 2)
     val _entry = parts(parts.length-1)
-    val _prídavnéMeno = if (parts.length == 2) Some(new PrídavnéMeno(parts(0))) else None
+    val _prídavnéMeno = if (parts.length == 2) Some(PrídavnéMeno(parts(0))) else None
     val _demonymMužský = if (demonymMužský.length > 0) Some(demonymMužský) else None
     val _demonymŽenský = if (demonymŽenský.length > 0) Some(demonymŽenský) else None
     val _adjectival = adjectival

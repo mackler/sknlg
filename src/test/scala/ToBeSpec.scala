@@ -13,6 +13,9 @@ class ByťSpec extends FlatSpec with Matchers {
   "The Byť object without subject noun" should "generate the infinitive" in {
     slovník.Byť().asText shouldEqual "byť"
   }
+  "The Byť object" should "allow adding one subject noun" in {
+    (slovník.Byť() addPodmet slovník.Muž asText) shouldEqual "muž je"
+  }
 
   "The Byť object with a 1st/male/singular subject pronoun" should "return the first person singular" in {
     slovník.Byť(podmet = Seq(Ja(Jednotné))).asText shouldEqual "ja som"

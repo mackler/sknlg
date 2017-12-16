@@ -4,7 +4,15 @@ import Rod._
 import Čislo._
 import Pád._
 
-case class PrídavnéMeno(entry: String) extends NounPhrase {
+trait PrídavnéMeno extends NounPhrase {
+  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String
+}
+
+object PrídavnéMeno {
+  def apply(entry: String) = new PrídavnéMenoRegular(entry)
+}
+
+class PrídavnéMenoRegular(entry: String) extends PrídavnéMeno {
   private val root = entry.replaceFirst(".$", "")
   val (y, e, a, u, i) =
     if (finalSyllableIsLong(root)) ("y", "e", "a", "u", "i")
@@ -53,4 +61,48 @@ case class PrídavnéMeno(entry: String) extends NounPhrase {
     }
   }
 
+}
+
+package slovník {
+
+  object Môj extends PrídavnéMeno {
+    def asText(pád: Pád) = asText(Stredný, Jednotné, pád)
+
+    def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String = {
+      čislo match {
+        case Jednotné => rod match {
+          case MužskýŽivotný | MužskýNeživotný => pád match {
+            case Nominatív => "môj"
+            case Akusatív => rod match {
+              case MužskýŽivotný => "môjho"
+              case MužskýNeživotný => "môj"
+            }
+            case Lokatív => "mojom"
+          }
+
+          case Ženský => pád match {
+            case Nominatív => "moja"
+            case Akusatív => "moju"
+            case Lokatív => "mojej"
+          }
+
+          case Stredný => pád match {
+            case Nominatív | Akusatív => "moje"
+            case Lokatív => "mojom"
+          }
+        }
+
+        case Množné => rod match {
+          case MužskýŽivotný => pád match {
+            case Nominatív => "moji"
+            case Akusatív | Lokatív => "mojich"
+          }
+          case MužskýNeživotný | Ženský | Stredný => pád match {
+            case Nominatív | Akusatív => "moje"
+            case Lokatív => "mojich"
+          }
+        }
+      }
+    }
+  }
 }

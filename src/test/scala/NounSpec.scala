@@ -77,6 +77,12 @@ class PodstatméMenoSpec extends FlatSpec with Matchers {
   }
 
   // Following DUB
+  "A masculine, inanimate noun ending in a hard consonant" should "decline in the nominative case singular" in {
+    slovník.Hrad asText Nominatív shouldEqual "hrad"
+  }
+  "A masculine, inanimate noun ending in a hard consonant" should "decline in the accusative case singular" in {
+    slovník.Hrad asText Akusatív shouldEqual "hrad"
+  }
   "A masculine, inanimate noun ending in a hard consonant" should "decline in the locative case singular" in {
     slovník.Hrad asText Lokatív shouldEqual "hrade"
   }
