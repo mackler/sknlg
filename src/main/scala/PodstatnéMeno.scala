@@ -8,7 +8,7 @@ import Skloňovanie._
 /* This is the superclass of both pronouns (zámeno) and common nouns (podstatmé meno) */
 trait Noun extends NounPhrase {
   val rod   : Rod
-  val čislo : Čislo
+  val čislo : Čislo = Jednotné
   protected def decline(pád: Pád): String
   override def asText(pád: Pád = Nominatív): String = {
     decline(pád)

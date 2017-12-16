@@ -10,14 +10,14 @@ object Main extends App {
     *  Combinations of sentence subjects, both singular and plural, proper names and pronouns.
     */
   val subjects: Set[Seq[Noun]] = {
-    val pronouns = Set(Ja, Ty, On, Ona)
+    val pronouns = Set[Zámeno](Ja, Ty, On, Ona)
     val properNouns: Seq[Noun] = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))
 
       Čislo.values.flatMap { number =>
         pronouns flatMap { pronoun =>
-          val proper: Set[Seq[Noun]] = Set(Seq[Noun](pronoun(number)))
+          val proper: Set[Seq[Noun]] = Set(Seq[Noun](pronoun setČislo number))
           val pro: Set[Seq[Noun]] = if (number == Jednotné && (pronoun == Ja || pronoun == Ty))
-                                      Set(Seq[Noun](properNouns(1), pronoun(number)))
+                                      Set(Seq[Noun](properNouns(1), pronoun setČislo number))
                                     else Set.empty[Seq[Noun]]
           proper ++ pro
         }
@@ -34,7 +34,7 @@ object Main extends App {
       noun2 <- nouns if noun2 != noun1
     } yield Seq(noun1, noun2)
 
-    nouns.map(Seq(_)) ++ nouns.map(n => Seq(n setČislo Množné)) ++ nouns.map(Seq(_, Ja())) ++ nouns.map(Seq(Ty(), _))
+    nouns.map(Seq(_)) ++ nouns.map(n => Seq(n setČislo Množné)) ++ nouns.map(Seq(_, Ja)) ++ nouns.map(Seq(Ty, _))
   }
 
   /*
@@ -95,7 +95,7 @@ object Main extends App {
     } yield {
       val modifiedNoun = noun setČislo number setPrídavnéMeno adjective
       Set(
-        Mať addPodmet Ja() setPredmet modifiedNoun asText,
+        Mať addPodmet Ja setPredmet modifiedNoun asText,
         Byť addPodmet Príslovka("tu") setComplement modifiedNoun asText
       )
     }
@@ -150,17 +150,17 @@ object Main extends App {
   // this is a customized version of the accusativeSingularPlural method above to limit the number of generated phrases.
   // It only uses certain subject/verb combinations
   def exM3Accusative: Set[String] = {
-    val verbs = Set(Hľadať addPodmet Ja(),
-                    Mať addPodmet Ja(),
-                    Poznať addPodmet Ty(čislo = Množné),
-                    Vidieť addPodmet Ja(),
-                    Obrátiť.addPodmet(Ty(čislo = Množné)),
-                    Potrebovať.addPodmet(Ja()),
-                    Mať.addPodmet(Ty(čislo = Jednotné)),
-                    Mať.addPodmet(On(čislo = Množné)),
-                    Mať.addPodmet(Ja(čislo = Množné)).toggleZáporný,
-                    Mať.addPodmet(On()).toggleZáporný,
-                    Ísť.setPredložka("cez").addPodmet(Ty(čislo = Množné))
+    val verbs = Set(Hľadať addPodmet Ja,
+                    Mať addPodmet Ja,
+                    Poznať addPodmet (Ty setČislo Množné),
+                    Vidieť addPodmet Ja,
+                    Obrátiť.addPodmet(Ty setČislo Množné),
+                    Potrebovať.addPodmet(Ja),
+                    Mať.addPodmet(Ty setČislo Jednotné),
+                    Mať.addPodmet(On setČislo Množné),
+                    Mať.addPodmet(Ja setČislo Množné).toggleZáporný,
+                    Mať.addPodmet(On).toggleZáporný,
+                    Ísť.setPredložka("cez").addPodmet(Ty setČislo Množné)
     )
 
     val accusative: Set[String] = for {
@@ -200,7 +200,7 @@ object Main extends App {
       place <- List(Kanada) //allPlaces
     } yield Set (
       Byť addPodmet place setComplement Pekný asText,
-      Vidieť addPodmet Ja() setPredmet place asText,
+      Vidieť addPodmet Ja setPredmet place asText,
       Byť addPodmet vlado setComplement place.asOrigin asText
     )
 
@@ -222,9 +222,9 @@ object Main extends App {
       Vedieť addPodmet vlado setPríslovka country.asPríslovka asText,
       Čítať addPodmet vlado setPríslovka country.asPríslovka asText,
       Hovoriť addPodmet vlado setPríslovka country.asPríslovka asText,
-      Mať addPodmet Ja() setPredmet (Auto setPrídavnéMeno country.adjectival) asText,
-      Mať addPodmet Ja() setPredmet (Kniha setPrídavnéMeno country.adjectival) asText,
-      Mať addPodmet Ja() setPredmet (Obchod setPrídavnéMeno country.adjectival) asText
+      Mať addPodmet Ja setPredmet (Auto setPrídavnéMeno country.adjectival) asText,
+      Mať addPodmet Ja setPredmet (Kniha setPrídavnéMeno country.adjectival) asText,
+      Mať addPodmet Ja setPredmet (Obchod setPrídavnéMeno country.adjectival) asText
     )
 
     (places ++ demonyms ++ languages).flatten.toSet

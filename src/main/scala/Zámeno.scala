@@ -4,12 +4,13 @@ import Pád._
 import Čislo._
 import Rod._
 
-trait Zámeno extends Noun
-
-case class Ja(val čislo: Čislo = Jednotné) extends Zámeno {
+trait Zámeno extends Noun {
   val rod = MužskýŽivotný
-  def setČislo(č: Čislo) = copy(čislo = č)
-  override def decline(pád: Pád = Nominatív) = pád match {
+  def setČislo(č: Čislo): Zámeno
+}
+
+trait Ja extends Zámeno {
+  def decline(pád: Pád = Nominatív) = pád match {
     case Nominatív => čislo match {
       case Jednotné => "ja"
       case Množné => "my"
@@ -20,11 +21,16 @@ case class Ja(val čislo: Čislo = Jednotné) extends Zámeno {
     }
   }
 }
-
-case class Ty(val čislo: Čislo = Jednotné) extends Zámeno {
-  val rod = MužskýŽivotný
+object Ja extends Ja {
+  def apply = JaInstance()
+  def setČislo(č: Čislo) = JaInstance(čislo = č)
+}
+case class JaInstance(override val čislo: Čislo = Jednotné) extends Ja {
   def setČislo(č: Čislo) = copy(čislo = č)
-  override def decline(pád: Pád = Nominatív) = pád match {
+}
+
+trait Ty extends Zámeno {
+  def decline(pád: Pád = Nominatív) = pád match {
     case Nominatív => čislo match {
       case Jednotné => "ty"
       case Množné => "vy"
@@ -36,10 +42,16 @@ case class Ty(val čislo: Čislo = Jednotné) extends Zámeno {
   }
 }
 
-case class On(val čislo: Čislo = Jednotné) extends Zámeno {
-  val rod = MužskýŽivotný
+object Ty extends Ty {
+  def apply = TyInstance()
+  def setČislo(č: Čislo) = TyInstance(čislo = č)
+}
+case class TyInstance(override val čislo: Čislo = Jednotné) extends Ty {
   def setČislo(č: Čislo) = copy(čislo = č)
-  override def decline(pád: Pád = Nominatív) = pád match {
+}
+
+trait On extends Zámeno {
+  def decline(pád: Pád = Nominatív) = pád match {
     case Nominatív => čislo match {
       case Jednotné => "on"
       case Množné => "oni"
@@ -50,10 +62,17 @@ case class On(val čislo: Čislo = Jednotné) extends Zámeno {
     }
   }
 }
+object On extends On {
+  def apply = OnInstance()
+  def setČislo(č: Čislo) = OnInstance(čislo = č)
+}
+case class OnInstance(override val čislo: Čislo = Jednotné) extends On {
+  def setČislo(č: Čislo) = copy(čislo = č)
+}
 
-case class Ona(val čislo: Čislo = Jednotné) extends Zámeno {
-  val rod = Ženský
-  override def decline(pád: Pád = Nominatív) = pád match {
+trait Ona extends Zámeno {
+  override val rod = Ženský
+  def decline(pád: Pád = Nominatív) = pád match {
     case Nominatív => čislo match {
       case Jednotné => "ona"
       case Množné => "ony"
@@ -64,10 +83,17 @@ case class Ona(val čislo: Čislo = Jednotné) extends Zámeno {
     }
   }
 }
+object Ona extends Ona {
+  def apply = OnaInstance()
+  def setČislo(č: Čislo) = OnaInstance(čislo = č)
+}
+case class OnaInstance(override val čislo: Čislo = Jednotné) extends Ona {
+  def setČislo(č: Čislo) = copy(čislo = č)
+}
 
-case class To(val čislo: Čislo) extends Zámeno {
-  val rod = Stredný
-  override def decline(pád: Pád = Nominatív): String = {
+trait To extends Zámeno {
+  override val rod = Stredný
+  def decline(pád: Pád = Nominatív): String = {
     pád match {
       case Nominatív => čislo match {
         case Jednotné => "to"
@@ -76,7 +102,15 @@ case class To(val čislo: Čislo) extends Zámeno {
     }
   }
 }
+object To extends To {
+  def apply = ToInstance()
+  def setČislo(č: Čislo) = ToInstance(čislo = č)
+}
+case class ToInstance(override val čislo: Čislo = Jednotné) extends To {
+  def setČislo(č: Čislo) = copy(čislo = č)
+}
 
+// TODO combine this with the preceding `To` object
 // demonstrative ten, tá, to
 object Ten extends NounPhrase {
   override def asText(pád: Pád) = asText(Stredný, Jednotné, pád)

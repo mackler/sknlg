@@ -7,15 +7,15 @@ import org.scalatest._
 class PríslovkaSpec extends FlatSpec with Matchers {
 
   "An adverb" should "modify an irregular verb" in {
-    (slovník.Byť addPodmet Ja() setPríslovka Príslovka("tu") asText) shouldEqual "ja som tu"
+    (slovník.Byť addPodmet Ja setPríslovka Príslovka("tu") asText) shouldEqual "ja som tu"
   }
 
   "An adverb" should "modify a regular intransitive verb" in {
-    (slovník.Bývať setPodmet Seq(Ja()) setPríslovka Príslovka("tu") asText) shouldEqual "ja bývam tu"
+    (slovník.Bývať setPodmet Seq(Ja) setPríslovka Príslovka("tu") asText) shouldEqual "ja bývam tu"
   }
 
   "An adverb" should "modify a regular transitive verb" in {
-    (slovník.Mať setPodmet Seq(Ja()) setPredmet slovník.Kufor setPríslovka Príslovka("tu") asText) shouldEqual
+    (slovník.Mať setPodmet Seq(Ja) setPredmet slovník.Kufor setPríslovka Príslovka("tu") asText) shouldEqual
     "ja mám tu kufor"
   }
 

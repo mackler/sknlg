@@ -16,7 +16,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
   }
 
   // add a subject noun
-  val withSubject = infinitive addPodmet Ja()
+  val withSubject = infinitive addPodmet Ja
   "A regular Type1 verb without a subject" should "accept a subject noun" in {
     withSubject.asText shouldEqual "ja mám"
   }
@@ -33,7 +33,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
   }
 
   // add a subject to the verb with a direct object
-  val withObjectAndSubject = infinitiveWithObject addPodmet Ja()
+  val withObjectAndSubject = infinitiveWithObject addPodmet Ja
   "An infinitive Type1 verb with a direct object" should "accept a subject" in {
     withObjectAndSubject.asText shouldEqual "ja mám kufor"
   }
@@ -45,7 +45,7 @@ class VerbConstructionSpec extends FlatSpec with Matchers {
   }
 
   // add a subject to the Type13 infinitive
-  val type13WithSubject = infinitive13 addPodmet Ja()
+  val type13WithSubject = infinitive13 addPodmet Ja
   "An infinitive Type13 verb" should "accept a subject" in {
     type13WithSubject.asText shouldEqual "ja vidím"
   }

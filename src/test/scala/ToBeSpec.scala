@@ -18,44 +18,44 @@ class ByťSpec extends FlatSpec with Matchers {
   }
 
   "The Byť object with a 1st/male/singular subject pronoun" should "return the first person singular" in {
-    (slovník.Byť addPodmet Ja(Jednotné) asText) shouldEqual "ja som"
+    (slovník.Byť addPodmet Ja asText) shouldEqual "ja som"
   }
 
   "The Byť object with a 1st/male/plural subject pronoun" should "return the first person plural" in {
-    (slovník.Byť addPodmet Ja(Množné) asText) shouldEqual "my sme"
+    (slovník.Byť addPodmet (Ja setČislo Množné) asText) shouldEqual "my sme"
   }
 
   "The Byť object with a 2nd/male/singular subject pronoun" should "return the second person singular" in {
-    (slovník.Byť addPodmet Ty(Jednotné) asText) shouldEqual "ty si"
+    (slovník.Byť addPodmet Ty asText) shouldEqual "ty si"
   }
 
   "The Byť object with a 2nd/male/plural subject pronoun" should "return the second person plural" in {
-    (slovník.Byť addPodmet Ty(Množné) asText) shouldEqual "vy ste"
+    (slovník.Byť addPodmet (Ty setČislo Množné) asText) shouldEqual "vy ste"
   }
 
   "The Byť object with a 3nd/male/singular subject pronoun" should "return the third person male singular" in {
-    (slovník.Byť addPodmet On(Jednotné) asText) shouldEqual "on je"
+    (slovník.Byť addPodmet On asText) shouldEqual "on je"
   }
 
   "The Byť object with a 3rd/male/plural subject pronoun" should "return the third person male plural" in {
-    (slovník.Byť addPodmet On(Množné) asText) shouldEqual "oni sú"
+    (slovník.Byť addPodmet (On setČislo Množné) asText) shouldEqual "oni sú"
   }
 
   "The Byť object with a 3rd/female/singular subject pronoun" should "return the third person female singular" in {
-    (slovník.Byť addPodmet Ona(Jednotné) asText) shouldEqual "ona je"
+    (slovník.Byť addPodmet Ona asText) shouldEqual "ona je"
   }
 
   "The Byť object with a 3rd/neutar/singular subject pronoun" should "return the third person neuter singular" in {
-    (slovník.Byť addPodmet To(Jednotné) asText) shouldEqual "to je"
+    (slovník.Byť addPodmet To asText) shouldEqual "to je"
   }
 
   "The Byť object with a 3rd/neuter/plural subject pronoun" should "return the third person neuter plural" in {
-    (slovník.Byť addPodmet To(Množné) asText) shouldEqual "ony sú"
+    (slovník.Byť addPodmet (To setČislo Množné) asText) shouldEqual "ony sú"
   }
 
   // Byť can be negated
   "The Byť verb negated" should "be in the negative" in {
-    (slovník.Byť addPodmet Ja() setPríslovka "tu" setZáporný true asText) shouldEqual "ja nie som tu"
+    (slovník.Byť addPodmet Ja setPríslovka "tu" setZáporný true asText) shouldEqual "ja nie som tu"
   }
 
   /*
@@ -76,32 +76,32 @@ class ByťSpec extends FlatSpec with Matchers {
   // subject is a 1st person pronoun, complement a single common noun
   // I AM A TEACHER
   "The Byť verb" should "connect a 1st person subject pronoun to a singular common noun" in {
-    (slovník.Byť addPodmet Ja() setComplement slovník.Učiteľ asText) shouldEqual "ja som učiteľ"
+    (slovník.Byť addPodmet Ja setComplement slovník.Učiteľ asText) shouldEqual "ja som učiteľ"
   }
   // subject is a 2nd person pronoun, complement a single common noun
   // YOU ARE A TEACHER
   "The Byť verb" should "connect a 2nd person subject pronoun to a singular common noun" in {
-    (slovník.Byť addPodmet Ty() setComplement slovník.Učiteľ asText) shouldEqual "ty si učiteľ"
+    (slovník.Byť addPodmet Ty setComplement slovník.Učiteľ asText) shouldEqual "ty si učiteľ"
   } 
   // subject is a 3rd person pronoun, complement a single common noun
   // HE IS A TEACHER
   "The Byť verb" should "connect a 3rd person subject pronoun to a singular common noun" in {
-    (slovník.Byť addPodmet On() setComplement slovník.Učiteľ asText) shouldEqual "on je učiteľ"
+    (slovník.Byť addPodmet On setComplement slovník.Učiteľ asText) shouldEqual "on je učiteľ"
   }
   // subject is a 1st person pronoun, complement a plural common noun
   // WE (M) ARE TEACHERS
   "The Byť verb" should "connect a 1st person subject pronoun to a plural common noun" in {
-    (slovník.Byť addPodmet Ja() setComplement (slovník.Učiteľ setČislo Množné) asText) shouldEqual "my sme učiteľi"
+    (slovník.Byť addPodmet Ja setComplement (slovník.Učiteľ setČislo Množné) asText) shouldEqual "my sme učiteľi"
   }
   // subject is a 2nd person pronoun, complement a plural common noun
   // YOU ALL (M) ARE TEACHERS
   "The Byť verb" should "connect a 2nd person subject pronoun to a plural common noun" in {
-    (slovník.Byť addPodmet Ty() setComplement (slovník.Učiteľ setČislo Množné) asText) shouldEqual "vy ste učiteľi"
+    (slovník.Byť addPodmet Ty setComplement (slovník.Učiteľ setČislo Množné) asText) shouldEqual "vy ste učiteľi"
   } 
   // subject is a 3rd person pronoun, complement a plural common noun
   // THEY (M) ARE TEACHERS
   "The Byť verb" should "connect a plural 3rd person subject pronoun to a plural common noun" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Učiteľ setČislo Množné) asText) shouldEqual "oni sú učiteľi"
+    (slovník.Byť addPodmet On setComplement (slovník.Učiteľ setČislo Množné) asText) shouldEqual "oni sú učiteľi"
   }
 
   // demonstrative <-> common noun
@@ -157,12 +157,12 @@ class ByťSpec extends FlatSpec with Matchers {
   // subject is proper nouns + 1st per pronoun, complement a masculine common noun
   // IGOR AND I ARE TEACHERS
   "The Byť verb" should "connect a proper nouns plus 1st per pronoun to a masculine common noun" in {
-    (slovník.Byť addPodmet igor addPodmet Ja() setComplement slovník.Učiteľ asText) shouldEqual "Igor a ja sme učiteľi"
+    (slovník.Byť addPodmet igor addPodmet Ja setComplement slovník.Učiteľ asText) shouldEqual "Igor a ja sme učiteľi"
   }
   // subject is proper nouns + 2nd per pronoun, complement a masculine common noun
   // IGOR AND YOU ARE TEACHERS
   "The Byť verb" should "connect a proper nouns plus 2nd per pronoun to a masculine common noun" in {
-    (slovník.Byť addPodmet igor addPodmet Ty() setComplement slovník.Učiteľ asText) shouldEqual "Igor a ty ste učiteľi"
+    (slovník.Byť addPodmet igor addPodmet Ty setComplement slovník.Učiteľ asText) shouldEqual "Igor a ty ste učiteľi"
   }
 
   // common-noun <-> adjective
@@ -259,35 +259,35 @@ class ByťSpec extends FlatSpec with Matchers {
   // pronoun <-> adjective
   // I (M) AM TALL
   "The Byť verb" should "connect a 1st per singular pronoun to an adjective" in {
-    (slovník.Byť addPodmet Ja() setComplement slovník.Vysoký asText) shouldEqual "ja som vysoký"
+    (slovník.Byť addPodmet Ja setComplement slovník.Vysoký asText) shouldEqual "ja som vysoký"
   }
   // YOU (M) ARE TALL
   "The Byť verb" should "connect a 2nd per singular pronoun to an adjective" in {
-    (slovník.Byť addPodmet Ty() setComplement slovník.Vysoký asText) shouldEqual "ty si vysoký"
+    (slovník.Byť addPodmet Ty setComplement slovník.Vysoký asText) shouldEqual "ty si vysoký"
   }
   // HE IS TALL
   "The Byť verb" should "connect a 3rd per singular masculine pronoun to an adjective" in {
-    (slovník.Byť addPodmet On() setComplement slovník.Vysoký asText) shouldEqual "on je vysoký"
+    (slovník.Byť addPodmet On setComplement slovník.Vysoký asText) shouldEqual "on je vysoký"
   }
   // SHE IS TALL
   "The Byť verb" should "connect a 3rd per singular feminine pronoun to an adjective" in {
-    (slovník.Byť addPodmet Ona() setComplement slovník.Vysoký asText) shouldEqual "ona je vysoká"
+    (slovník.Byť addPodmet Ona setComplement slovník.Vysoký asText) shouldEqual "ona je vysoká"
   }
   // WE (M) ARE TALL
   "The Byť verb" should "connect a 1st per plural pronoun to an adjective" in {
-    (slovník.Byť addPodmet Ja(čislo = Množné) setComplement slovník.Vysoký asText) shouldEqual "my sme vysokí"
+    (slovník.Byť addPodmet (Ja setČislo Množné) setComplement slovník.Vysoký asText) shouldEqual "my sme vysokí"
   }
   // YOU ALL ARE TALL
   "The Byť verb" should "connect a 2nd per plural pronoun to an adjective" in {
-    (slovník.Byť addPodmet Ty(čislo = Množné) setComplement slovník.Vysoký asText) shouldEqual "vy ste vysokí"
+    (slovník.Byť addPodmet (Ty setČislo Množné) setComplement slovník.Vysoký asText) shouldEqual "vy ste vysokí"
   }
   // THEY (M) ARE TALL
   "The Byť verb" should "connect a 3rd per singular masculine pronoun to a adjective" in {
-    (slovník.Byť addPodmet On(čislo = Množné) setComplement slovník.Vysoký asText) shouldEqual "oni sú vysokí"
+    (slovník.Byť addPodmet (On setČislo Množné) setComplement slovník.Vysoký asText) shouldEqual "oni sú vysokí"
   }
   // THEY (F) ARE TALL
   "The Byť verb" should "connect a 3rd per singular feminine pronoun to a adjective" in {
-    (slovník.Byť addPodmet Ona(čislo = Množné) setComplement slovník.Vysoký asText) shouldEqual "ony sú vysoké"
+    (slovník.Byť addPodmet (Ona setČislo Množné) setComplement slovník.Vysoký asText) shouldEqual "ony sú vysoké"
   }
 
 }

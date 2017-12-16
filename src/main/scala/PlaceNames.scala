@@ -48,7 +48,7 @@ object PlaceName {
     val _adjectival = adjectival
     val _rod = rod
     case class PlaceNameInstance(
-      čislo: Čislo = Jednotné,
+      override val čislo: Čislo = Jednotné,
       predložka: String = ""
     ) extends PlaceName {
       val entry = _entry

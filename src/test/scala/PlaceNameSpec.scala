@@ -24,22 +24,22 @@ class PlaceNameSpec extends FlatSpec with Matchers {
   "A place name" should "generate a feminine demonym from a male" in {
     val myPlace = PlaceName(entry = "whatevera", rod = Ženský,
                             demonymMužský = "abc", adjectival = "whateversky")
-    (Byť addPodmet Ona() setComplement myPlace.demonym.get asText) shouldEqual "ona je abcka"
+    (Byť addPodmet Ona setComplement myPlace.demonym.get asText) shouldEqual "ona je abcka"
   }
   "A place name" should "generate a feminine demonym from a male anding in -ec" in {
     val myPlace = PlaceName(entry = "whatevera", rod = Ženský,
                             demonymMužský = "abec", adjectival = "whateversky")
-    (Byť addPodmet Ona() setComplement myPlace.demonym.get asText) shouldEqual "ona je abka"
+    (Byť addPodmet Ona setComplement myPlace.demonym.get asText) shouldEqual "ona je abka"
   }
   "A place name" should "not generate a feminine demonym when one is given" in {
     val myPlace = PlaceName(entry = "whatevera", rod = Ženský,
                             demonymMužský = "abc", demonymŽenský = "othera", adjectival = "whateversky")
-    (Byť addPodmet Ona() setComplement myPlace.demonym.get asText) shouldEqual "ona je othera"
+    (Byť addPodmet Ona setComplement myPlace.demonym.get asText) shouldEqual "ona je othera"
   }
 
   /* Multi-word place name */
   "A two-word place name" should "decline all words" in {
-    (Vidieť addPodmet Ja() setPredmet Británia asText) shouldEqual "ja vidím Veľkú Britániu"
+    (Vidieť addPodmet Ja setPredmet Británia asText) shouldEqual "ja vidím Veľkú Britániu"
   }
 
   /* Adjectival forms of place names */
@@ -64,16 +64,16 @@ class PlaceNameSpec extends FlatSpec with Matchers {
     (Slovensko.asOrigin asText) shouldEqual "zo Slovenska"
   }
   "A masculine place origin" should "complement a verb's subject" in {
-    (Byť addPodmet Ja() setComplement Vatikán.asOrigin asText) shouldEqual "ja som z Vatikána"
+    (Byť addPodmet Ja setComplement Vatikán.asOrigin asText) shouldEqual "ja som z Vatikána"
   }
   "A feminine place origin" should "complement a verb's subject" in {
-    (Byť addPodmet Ja() setComplement Amerika.asOrigin asText) shouldEqual "ja som z Ameriky"
+    (Byť addPodmet Ja setComplement Amerika.asOrigin asText) shouldEqual "ja som z Ameriky"
   }
   "A neuter place origin" should "complement a verb's subject" in {
-    (Byť addPodmet Ja() setComplement Francúzsko.asOrigin asText) shouldEqual "ja som z Francúzska"
+    (Byť addPodmet Ja setComplement Francúzsko.asOrigin asText) shouldEqual "ja som z Francúzska"
   }
   "A place origin starting with S" should "complement a verb's subject" in {
-    (Byť addPodmet Ja() setComplement Slovensko.asOrigin asText) shouldEqual "ja som zo Slovenska"
+    (Byť addPodmet Ja setComplement Slovensko.asOrigin asText) shouldEqual "ja som zo Slovenska"
   }
 
   /* Knowing/speaking/reading/etc a language */
@@ -87,10 +87,10 @@ class PlaceNameSpec extends FlatSpec with Matchers {
 
   /* Adverbs and the locative case */
   "A feminine place name" should "allow a noun to be in it" in {
-    (Byť addPodmet Ja() setComplement (Amerika predložka "pri") asText) shouldEqual "ja som pri Amerike"
+    (Byť addPodmet Ja setComplement (Amerika predložka "pri") asText) shouldEqual "ja som pri Amerike"
   }
   "A netur place name" should "allow a noun to be in it" in {
-    (Byť addPodmet Ja() setComplement (Slovensko predložka "pri") asText) shouldEqual "ja som pri Slovenske"
+    (Byť addPodmet Ja setComplement (Slovensko predložka "pri") asText) shouldEqual "ja som pri Slovenske"
   }
 
 }

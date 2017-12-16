@@ -18,13 +18,13 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
     (slovník.Byť addPodmet Ten setComplement (slovník.Brat setPrídavnéMeno slovník.Môj) asText) shouldEqual "ten je môj brat"
   }
   "The possessive 'môj'" should "modify a masculine-animate noun in the accusative singular" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Brat setPrídavnéMeno slovník.Môj) asText) shouldEqual "on vidí môjho brata"
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Brat setPrídavnéMeno slovník.Môj) asText) shouldEqual "on vidí môjho brata"
   }
   "The possessive 'môj'" should "modify a masculine-inanimate noun in the accusative singular" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Hrad setPrídavnéMeno slovník.Môj) asText) shouldEqual "on vidí môj hrad"
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Hrad setPrídavnéMeno slovník.Môj) asText) shouldEqual "on vidí môj hrad"
   }
   "The possessive 'môj'" should "modify a masculine-animate noun in the locative singular" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Brat setPrídavnéMeno slovník.Môj predložka "pri") asText) shouldEqual
+    (slovník.Byť addPodmet On setComplement (slovník.Brat setPrídavnéMeno slovník.Môj predložka "pri") asText) shouldEqual
     "on je pri mojom bratovi"
   }
 
@@ -34,10 +34,10 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
     (slovník.Byť addPodmet Ten setComplement (slovník.Sestra setPrídavnéMeno slovník.Môj) asText) shouldEqual "tá je moja sestra"
   }
   "The possessive 'môj'" should "modify a feminine noun in the accusative singular" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Sestra setPrídavnéMeno slovník.Môj) asText) shouldEqual "on vidí moju sestru"
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Sestra setPrídavnéMeno slovník.Môj) asText) shouldEqual "on vidí moju sestru"
   }
   "The possessive 'môj'" should "modify a feminine noun in the locative singular" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Sestra setPrídavnéMeno slovník.Môj predložka "pri") asText) shouldEqual
+    (slovník.Byť addPodmet On setComplement (slovník.Sestra setPrídavnéMeno slovník.Môj predložka "pri") asText) shouldEqual
     "on je pri mojej sestre"
   }
 
@@ -46,10 +46,10 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
     (slovník.Byť addPodmet Ten setComplement (slovník.Auto setPrídavnéMeno slovník.Môj) asText) shouldEqual "to je moje auto"
   }
   "The possessive 'môj'" should "modify a neuter noun in the accusative singular" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Auto setPrídavnéMeno slovník.Môj) asText) shouldEqual "on vidí moje auto"
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Auto setPrídavnéMeno slovník.Môj) asText) shouldEqual "on vidí moje auto"
   }
   "The possessive 'môj'" should "modify a neuter noun in the locative singular" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Auto setPrídavnéMeno slovník.Môj predložka "pri") asText) shouldEqual
+    (slovník.Byť addPodmet On setComplement (slovník.Auto setPrídavnéMeno slovník.Môj predložka "pri") asText) shouldEqual
     "on je pri mojom aute"
   }
 
@@ -64,15 +64,15 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
       "tie sú moje hrady"
   }
   "The possessive 'môj'" should "modify a masculine-animate noun in the accusative plural" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
       "on vidí mojich bratov"
   }
   "The possessive 'môj'" should "modify a masculine-inanimate noun in the accusative plural" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Hrad setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Hrad setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
       "on vidí moje hrady"
   }
   "The possessive 'môj'" should "modify a masculine-animate noun in the locative plural" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Môj predložka "pri") asText) shouldEqual
+    (slovník.Byť addPodmet On setComplement (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Môj predložka "pri") asText) shouldEqual
     "on je pri mojich bratoch"
   }
 
@@ -82,11 +82,11 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
       "tie sú moje sestry"
   }
   "The possessive 'môj'" should "modify a feminine noun in the accusative plural" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
       "on vidí moje sestry"
   }
   "The possessive 'môj'" should "modify a feminine noun in the locative plural" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Môj predložka "pri") asText) shouldEqual
+    (slovník.Byť addPodmet On setComplement (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Môj predložka "pri") asText) shouldEqual
       "on je pri mojich sestrách"
   }
 
@@ -96,11 +96,11 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
       "tie sú moje autá"
   }
   "The possessive 'môj'" should "modify a neuter noun in the accusative plural" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
       "on vidí moje autá"
   }
   "The possessive 'môj'" should "modify a neuter noun in the locative plural" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Môj predložka "pri") asText) shouldEqual
+    (slovník.Byť addPodmet On setComplement (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Môj predložka "pri") asText) shouldEqual
     "on je pri mojich autách"
   }
 
@@ -110,13 +110,13 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
     (slovník.Byť addPodmet Ten setComplement (slovník.Brat setPrídavnéMeno slovník.Tvoj) asText) shouldEqual "ten je tvoj brat"
   }
   "The possessive 'tvoj'" should "modify a masculine-animate noun in the accusative singular" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Brat setPrídavnéMeno slovník.Tvoj) asText) shouldEqual "on vidí tvojho brata"
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Brat setPrídavnéMeno slovník.Tvoj) asText) shouldEqual "on vidí tvojho brata"
   }
   "The possessive 'tvoj'" should "modify a masculine-inanimate noun in the accusative singular" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Hrad setPrídavnéMeno slovník.Tvoj) asText) shouldEqual "on vidí tvoj hrad"
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Hrad setPrídavnéMeno slovník.Tvoj) asText) shouldEqual "on vidí tvoj hrad"
   }
   "The possessive 'tvoj'" should "modify a masculine-animate noun in the locative singular" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Brat setPrídavnéMeno slovník.Tvoj predložka "pri") asText) shouldEqual
+    (slovník.Byť addPodmet On setComplement (slovník.Brat setPrídavnéMeno slovník.Tvoj predložka "pri") asText) shouldEqual
     "on je pri tvojom bratovi"
   }
 
@@ -126,10 +126,10 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
     (slovník.Byť addPodmet Ten setComplement (slovník.Sestra setPrídavnéMeno slovník.Tvoj) asText) shouldEqual "tá je tvoja sestra"
   }
   "The possessive 'tvoj'" should "modify a feminine noun in the accusative singular" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Sestra setPrídavnéMeno slovník.Tvoj) asText) shouldEqual "on vidí tvoju sestru"
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Sestra setPrídavnéMeno slovník.Tvoj) asText) shouldEqual "on vidí tvoju sestru"
   }
   "The possessive 'tvoj'" should "modify a feminine noun in the locative singular" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Sestra setPrídavnéMeno slovník.Tvoj predložka "pri") asText) shouldEqual
+    (slovník.Byť addPodmet On setComplement (slovník.Sestra setPrídavnéMeno slovník.Tvoj predložka "pri") asText) shouldEqual
     "on je pri tvojej sestre"
   }
 
@@ -138,10 +138,10 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
     (slovník.Byť addPodmet Ten setComplement (slovník.Auto setPrídavnéMeno slovník.Tvoj) asText) shouldEqual "to je tvoje auto"
   }
   "The possessive 'tvoj'" should "modify a neuter noun in the accusative singular" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Auto setPrídavnéMeno slovník.Tvoj) asText) shouldEqual "on vidí tvoje auto"
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Auto setPrídavnéMeno slovník.Tvoj) asText) shouldEqual "on vidí tvoje auto"
   }
   "The possessive 'tvoj'" should "modify a neuter noun in the locative singular" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Auto setPrídavnéMeno slovník.Tvoj predložka "pri") asText) shouldEqual
+    (slovník.Byť addPodmet On setComplement (slovník.Auto setPrídavnéMeno slovník.Tvoj predložka "pri") asText) shouldEqual
     "on je pri tvojom aute"
   }
 
@@ -156,15 +156,15 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
       "tie sú tvoje hrady"
   }
   "The possessive 'tvoj'" should "modify a masculine-animate noun in the accusative plural" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
       "on vidí tvojich bratov"
   }
   "The possessive 'tvoj'" should "modify a masculine-inanimate noun in the accusative plural" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Hrad setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Hrad setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
       "on vidí tvoje hrady"
   }
   "The possessive 'tvoj'" should "modify a masculine-animate noun in the locative plural" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Tvoj predložka "pri") asText) shouldEqual
+    (slovník.Byť addPodmet On setComplement (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Tvoj predložka "pri") asText) shouldEqual
     "on je pri tvojich bratoch"
   }
 
@@ -174,11 +174,11 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
       "tie sú tvoje sestry"
   }
   "The possessive 'tvoj'" should "modify a feminine noun in the accusative plural" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
       "on vidí tvoje sestry"
   }
   "The possessive 'tvoj'" should "modify a feminine noun in the locative plural" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Tvoj predložka "pri") asText) shouldEqual
+    (slovník.Byť addPodmet On setComplement (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Tvoj predložka "pri") asText) shouldEqual
       "on je pri tvojich sestrách"
   }
 
@@ -188,14 +188,12 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
       "tie sú tvoje autá"
   }
   "The possessive 'tvoj'" should "modify a neuter noun in the accusative plural" in {
-    (slovník.Vidieť addPodmet On() setPredmet (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
+    (slovník.Vidieť addPodmet On setPredmet (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
       "on vidí tvoje autá"
   }
   "The possessive 'tvoj'" should "modify a neuter noun in the locative plural" in {
-    (slovník.Byť addPodmet On() setComplement (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Tvoj predložka "pri") asText) shouldEqual
+    (slovník.Byť addPodmet On setComplement (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Tvoj predložka "pri") asText) shouldEqual
     "on je pri tvojich autách"
   }
 
 }
-
-
