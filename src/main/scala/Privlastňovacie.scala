@@ -91,4 +91,10 @@ object Tvoj extends PrídavnéMeno {
   }
 }
 
+object Jeho extends PrídavnéMeno {
+  def asText(pád: Pád) = asText(Stredný, Jednotné, pád)
 
+  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String = {
+    "jeho"
+  }
+}

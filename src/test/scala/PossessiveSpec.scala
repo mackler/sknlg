@@ -196,4 +196,93 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
     "on je pri tvojich autách"
   }
 
+
+  // Third person
+  // Singular masculine
+  "The possessive 'jeho'" should "modify a masculine noun in the nominative singular" in {
+    // TODO I'm unsure whether it should be "ten je" or "to je" (but that's not what we're testing here)
+    (slovník.Byť addPodmet Ten setComplement (slovník.Brat setPrídavnéMeno slovník.Jeho) asText) shouldEqual "ten je jeho brat"
+  }
+  "The possessive 'jeho'" should "modify a masculine-animate noun in the accusative singular" in {
+    (slovník.Vidieť addPodmet Ja setPredmet (slovník.Brat setPrídavnéMeno slovník.Jeho) asText) shouldEqual "ja vidím jeho brata"
+  }
+  "The possessive 'jeho'" should "modify a masculine-inanimate noun in the accusative singular" in {
+    (slovník.Vidieť addPodmet Ja setPredmet (slovník.Hrad setPrídavnéMeno slovník.Jeho) asText) shouldEqual "ja vidím jeho hrad"
+  }
+  "The possessive 'jeho'" should "modify a masculine-animate noun in the locative singular" in {
+    (slovník.Byť addPodmet Ja setComplement (slovník.Brat setPrídavnéMeno slovník.Jeho predložka "pri") asText) shouldEqual
+    "ja som pri jeho bratovi"
+  }
+  // singular feminine
+  "The possessive 'jeho'" should "modify a feminine noun in the nominative singular" in {
+    (slovník.Byť addPodmet Ten setComplement (slovník.Sestra setPrídavnéMeno slovník.Jeho) asText) shouldEqual "tá je jeho sestra"
+  }
+  "The possessive 'jeho'" should "modify a feminine noun in the accusative singular" in {
+    (slovník.Vidieť addPodmet Ja setPredmet (slovník.Sestra setPrídavnéMeno slovník.Jeho) asText) shouldEqual "ja vidím jeho sestru"
+  }
+  "The possessive 'jeho'" should "modify a feminine noun in the locative singular" in {
+    (slovník.Byť addPodmet Ja setComplement (slovník.Sestra setPrídavnéMeno slovník.Jeho predložka "pri") asText) shouldEqual
+    "ja som pri jeho sestre"
+  }
+  // singular neuter
+  "The possessive 'jeho'" should "modify a neuter noun in the nominative singular" in {
+    (slovník.Byť addPodmet Ten setComplement (slovník.Auto setPrídavnéMeno slovník.Jeho) asText) shouldEqual "to je jeho auto"
+  }
+  "The possessive 'jeho'" should "modify a neuter noun in the accusative singular" in {
+    (slovník.Vidieť addPodmet Ja setPredmet (slovník.Auto setPrídavnéMeno slovník.Jeho) asText) shouldEqual "ja vidím jeho auto"
+  }
+  "The possessive 'jeho'" should "modify a neuter noun in the locative singular" in {
+    (slovník.Byť addPodmet Ja setComplement (slovník.Auto setPrídavnéMeno slovník.Jeho predložka "pri") asText) shouldEqual
+    "ja som pri jeho aute"
+  }
+
+  // Second person plural
+  // plural masculine
+  "The possessive 'jeho'" should "modify a masculine noun in the nominative plural" in {
+    (slovník.Byť addPodmet Ten setComplement (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Jeho) asText) shouldEqual
+      "tí sú jeho bratia"
+  }
+  "The possessive 'jeho'" should "modify a masculine-inanimate noun in the nominative plural" in {
+    (slovník.Byť addPodmet Ten setComplement (slovník.Hrad setČislo Množné setPrídavnéMeno slovník.Jeho) asText) shouldEqual
+      "tie sú jeho hrady"
+  }
+  "The possessive 'jeho'" should "modify a masculine-animate noun in the accusative plural" in {
+    (slovník.Vidieť addPodmet Ja setPredmet (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Jeho) asText) shouldEqual
+      "ja vidím jeho bratov"
+  }
+  "The possessive 'jeho'" should "modify a masculine-inanimate noun in the accusative plural" in {
+    (slovník.Vidieť addPodmet Ja setPredmet (slovník.Hrad setČislo Množné setPrídavnéMeno slovník.Jeho) asText) shouldEqual
+      "ja vidím jeho hrady"
+  }
+  "The possessive 'jeho'" should "modify a masculine-animate noun in the locative plural" in {
+    (slovník.Byť addPodmet Ja setComplement (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Jeho predložka "pri") asText) shouldEqual
+    "ja som pri jeho bratoch"
+  }
+  // plural feminine
+  "The possessive 'jeho'" should "modify a feminine noun in the nominative plural" in {
+    (slovník.Byť addPodmet Ten setComplement (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Jeho) asText) shouldEqual
+      "tie sú jeho sestry"
+  }
+  "The possessive 'jeho'" should "modify a feminine noun in the accusative plural" in {
+    (slovník.Vidieť addPodmet Ja setPredmet (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Jeho) asText) shouldEqual
+      "ja vidím jeho sestry"
+  }
+  "The possessive 'jeho'" should "modify a feminine noun in the locative plural" in {
+    (slovník.Byť addPodmet Ja setComplement (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Jeho predložka "pri") asText) shouldEqual
+      "ja som pri jeho sestrách"
+  }
+  // plural neuter
+  "The possessive 'jeho'" should "modify a neuter noun in the nominative plural" in {
+    (slovník.Byť addPodmet Ten setComplement (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Jeho) asText) shouldEqual
+      "tie sú jeho autá"
+  }
+  "The possessive 'jeho'" should "modify a neuter noun in the accusative plural" in {
+    (slovník.Vidieť addPodmet Ja setPredmet (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Jeho) asText) shouldEqual
+      "ja vidím jeho autá"
+  }
+  "The possessive 'jeho'" should "modify a neuter noun in the locative plural" in {
+    (slovník.Byť addPodmet Ja setComplement (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Jeho predložka "pri") asText) shouldEqual
+    "ja som pri jeho autách"
+  }
+
 }
