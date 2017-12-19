@@ -129,7 +129,7 @@ object Main extends App {
   }
 
   /*
-   * take a set of adjectives. Use each in nominative, accusative and locative cases
+   * take a set of adjectives. Use each in nominative, accusative and locative cases, both singular and plural.
    */
   def locativeAdjectives(adjectives: Set[PrídavnéMeno]): Set[String] = {
     (for {
@@ -137,10 +137,16 @@ object Main extends App {
       noun <- Set[PodstatnéMeno](Muž, Hrad, Kniha, Auto)
       number <- Set(Jednotné, Množné)
     } yield Set(
-      Byť addPodmet (noun setČislo number) setComplement adjective asText,
+      Byť addPodmet Ten setComplement (noun setČislo number setPrídavnéMeno adjective) asText,
       Vidieť addPodmet Ja setPredmet (noun setPrídavnéMeno adjective setČislo number) asText,
       Byť addPodmet Ja setComplement (noun setPrídavnéMeno adjective setČislo number predložka "pri") asText
     )) flatten
+  }
+
+  /* Use possessive pronouns in nominative, accusative and locative cases, with singular and plural possessors and possessions,
+   * masculine and feminine possessors and possessions. */
+  def possessives = {
+    locativeAdjectives(Set(Môj, Náš, Tvoj, Váš, Jeho, Jej))
   }
 
   // END OF GENERIC FUNCTIONS -- BEGIN SPECIFIC EXERCISES
@@ -254,15 +260,14 @@ object Main extends App {
   }
 
   def exM5verbsNouns: Set[String] = {
-    nominativeNounsVerbs(/*exM5Verbs*/ Set(Spávať), exM5nouns)
+    nominativeNounsVerbs(exM5Verbs, exM5nouns)
   }
 
   def exM5locativeAdjectives: Set[String] = {
     val adjectives = Set[PrídavnéMeno](Bohatý, Chorý, Dobrý, Hlavný, Iný, Nový, Pekný, Posledný, Šťastný, Veľký, Vysoký, Starý, Ťažký, Známy)
-
     locativeAdjectives(adjectives)
   }
 
-  exM5locativeAdjectives foreach { line => println(line) }
+  possessives foreach { line => println(line) }
 
 }

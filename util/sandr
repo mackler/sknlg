@@ -1,25 +1,31 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use diagnostics;
 use utf8;
-#use Encode;
+use open ':encoding(UTF-8)';
+binmode STDOUT, ':encoding(UTF-8)';
 
 my $input_filename = $ARGV[0];
 my $output_filename = $input_filename =~ s/\.sk/\.en/r;
 
-open(my $input, '<:encoding(UTF-8)', $input_filename)
+#open(my $input, '<:encoding(UTF-8)', $input_filename)
+open(my $input, '<', $input_filename)
   or die "Could not open file '$input_filename': for reading $!";
 
 open(my $output, ">$output_filename")
   or die "Could not open file '$output_filename' for writing: $!";
 
 while (<$input>) {
-#    print STDERR "working on: $_";
     print translate($_);
 }
 
 sub translate {
-#    $_ = encode_utf8($_);
+
+# demonstratives
+
+    s/(^| )(ten|tá|to)(?= |$)/$1that/;
+    s/(^| )(tí|tie)(?= |$)/$1those/;
 
     s/ a / and /;
     s/^tu /here /;
@@ -48,25 +54,14 @@ sub translate {
     s/ býva(?=$| )/ resides/;
 
 #Verbs
+# Class 1 verbs: chytať
     s/ býva[^ \n]+(?=$| )/ reside/;
     s/ nebýva(?=$| )/ does not reside/;
     s/ nebýva[^ \n]+(?=$| )/ do not reside/;
-    s/ číta[^ ]*(?=$| )/ reads/;
-    s/ chod(ia|(í(t|m)e))(?=$| )/ walk/;
-    s/ chodí(?=$| )/ walks/;
-    s/ nechod(ia|(í(t|m)e))(?=$| )/ do not walk/;
-    s/ nechodí(?=$| )/ does not walk/;
-    s/ nechodieva[^ \n]+(?=$| )/ are not walking/;
-    s/ nechodieva/ is not walking/;
-    s/ hovor[^ ]*(?=$| )/ speaks/;
     s/ chodieva[^ \n]+(?=$| )/ walk/;
     s/ chodieva(?=$| )/ walks/;
     s/ kon(a|á)[^ \n]+(?=$| )/ act/;
     s/ koná(?=$| )/ acts/;
-    s/ kričí(?=$| )/ shouts/;
-    s/ krič(í(m|t)e|ia)(?=$| )/ shout/;
-    s/ nekričí(?=$| )/ does not shout/;
-    s/ nekrič(í(m|t)e|ia)(?=$| )/ do not shout/;
     s/ nekon(a|á)[^ \n]+(?=$| )/ do not act/;
     s/ nekoná(?=$| )/ does not act/;
 # commented out lines matches mother incorrectly
@@ -91,10 +86,6 @@ sub translate {
     s/ prichádza(?=$| )/ arrives/;
     s/ neprichádza[^ \n]+(?=$| )/ do not arrive/;
     s/ neprichádza(?=$| )/ does not arrive/;
-    s/ robí(?=$| )/ makes/;
-    s/ (robia|robí(m|t)e)(?=$| )/ make/;
-    s/ nerobí(?=$| )/ does not make/;
-    s/ ne(robia|robí(m|t)e)(?=$| )/ do not make/;
     s/ rozpráva[^ \n]+(?=$| )/ speak/;
     s/ rozpráva(?=$| )/ speaks/;
     s/ nerozpráva[^ \n]+(?=$| )/ do not speak/;
@@ -106,12 +97,6 @@ sub translate {
     s/ spáva(me|te|jú)(?=$| )/ are sleeping/;
     s/ nespáva(?=$| )/ is not sleeping/;
     s/ nespáva(te|jú|me)(?=$| )/ are not sleeping/;
-    s/ sedí(m|t)e/ are sitting/;
-    s/ sedia/ are sitting/;
-    s/ sedí/ sits/;
-    s/ nesedí(m|t)e/ are not sitting/;
-    s/ nesedia/ are not sitting/;
-    s/ nesedí/ does not sit/;
     s/ spieva(?=$| )/ sings/;
     s/ spieva((t|m)e|jú)(?=$| )/ sing/;
     s/ nespieva(?=$| )/ does not sing/;
@@ -122,16 +107,6 @@ sub translate {
     s/ nestráca(?=$| )/ does not lose/;
     s/ nestráca(t|m)e(?=$| )/ do not lose/;
     s/ nestrácajú/ do not lose/;
-    s/ vidí(m|te)(?=$| )/ see/;
-    s/ vid(ia|í(t|m)e)(?=$| )/ see/;
-    s/ vidí(?=$| )/ sees/;
-    s/ nevidí(m|te)(?=$| )/ do not see/;
-    s/ nevid(ia|í(t|m)e)(?=$| )/ do not see/;
-    s/ nevidí(?=$| )/ does not see/;
-    s/ vie(?=$| )/ is familiar with/;
-    s/ (vie(t|m)e|vedia)(?=$| )/ are familiar with/;
-    s/ nevie(?=$| )/ is not familiar with/;
-    s/ ne(vie(t|m)e|vedia)(?=$| )/ are not familiar with/;
     s/ vstáva[^ \n]+(?=$| )/ get up/;
     s/ vstáva(?=$| )/ gets up/;
     s/ nevstáva[^ \n]+(?=$| )/ do not get up/;
@@ -144,8 +119,6 @@ sub translate {
     s/ začiná(?=$| )/ begins/;
     s/ nezačin(a|á)[^ \n]+(?=$| )/ do not begin/;
     s/ nezačiná(?=$| )/ does not begin/;
-    s/(^| )žen(a|e)(?=$| )/$1a woman/;
-    s/(^| )žen(y|ách)(?=$| )/$1the women/;
     s/ žiada[^ \n]+(?=$| )/ ask/;
     s/ žiada(?=$| )/ asks/;
     s/ nežiada[^ \n]+(?=$| )/ do not ask/;
@@ -154,6 +127,43 @@ sub translate {
     s/ znamená(?=$| )/ means/;
     s/ neznamen(a|á)[^ \n]+(?=$| )/ do not mean/;
     s/ neznamená(?=$| )/ does not mean/;
+
+# Class 7 verbs: robiť, vidieť, kričať
+    s/ číta[^ ]*(?=$| )/ reads/;
+    s/ chod(ia|(í(t|m)e))(?=$| )/ walk/;
+    s/ chodí(?=$| )/ walks/;
+    s/ nechod(ia|(í(t|m)e))(?=$| )/ do not walk/;
+    s/ nechodí(?=$| )/ does not walk/;
+    s/ nechodieva[^ \n]+(?=$| )/ are not walking/;
+    s/ nechodieva/ is not walking/;
+    s/ hovor[^ ]*(?=$| )/ speaks/;
+    s/ kričí(?=$| )/ shouts/;
+    s/ krič(í(m|t)e|ia)(?=$| )/ shout/;
+    s/ nekričí(?=$| )/ does not shout/;
+    s/ nekrič(í(m|t)e|ia)(?=$| )/ do not shout/;
+    s/ robí(?=$| )/ makes/;
+    s/ (robia|robí(m|t)e)(?=$| )/ make/;
+    s/ nerobí(?=$| )/ does not make/;
+    s/ ne(robia|robí(m|t)e)(?=$| )/ do not make/;
+    s/ sedí(m|t)e/ are sitting/;
+    s/ sedia/ are sitting/;
+    s/ sedí/ sits/;
+    s/ nesedí(m|t)e/ are not sitting/;
+    s/ nesedia/ are not sitting/;
+    s/ nesedí/ does not sit/;
+    s/ vidí(m|te)(?=$| )/ see/;
+    s/ vid(ia|í(t|m)e)(?=$| )/ see/;
+    s/ vidí(?=$| )/ sees/;
+    s/ nevidí(m|te)(?=$| )/ do not see/;
+    s/ nevid(ia|í(t|m)e)(?=$| )/ do not see/;
+    s/ nevidí(?=$| )/ does not see/;
+
+# irregular verbs
+    s/ vie(?=$| )/ is familiar with/;
+    s/ (vie(t|m)e|vedia)(?=$| )/ are familiar with/;
+    s/ nevie(?=$| )/ is not familiar with/;
+    s/ ne(vie(t|m)e|vedia)(?=$| )/ are not familiar with/;
+
 
 # Nouns
 
@@ -252,6 +262,8 @@ sub translate {
     s/(^| )vozy(?=$| )/$1vehicles/;
     s/(^| )záhrad(a|u)(?=$| )/$1garden/;
     s/(^| )záhrady(?=$| )/$1gardens/;
+    s/(^| )žen(a|e)(?=$| )/$1a woman/;
+    s/(^| )žen(y|ách)(?=$| )/$1the women/;
     s/zim(a|e)(?=$| )/winter/;
     s/zim(y|ách)(?=$| )/winters/;
 
@@ -484,6 +496,27 @@ sub translate {
     s/ Ukrajin(ec|ka)(?=$| )/ a Ukranian/;
     s/ Ukrajin(eci|ky)(?=$| )/ Ukranians/;
 
+# Possessive pronouns
+
+    my $p_endings = "(a|e|ej|ho|i|om|ich|u)?";
+    my @possessives = (
+        [  'm[ôo]j$p_endings'  ,  'my'  ],
+        [  'n[aá]š$p_endings'  ,  'our'  ],
+        [  'tvoj$p_endings'  ,  'your'  ],
+        [  'v[aá]š$p_endings'  ,  "y'all's"  ],
+        [  'jeho'  ,  'his'  ],
+        [  'jej'  ,  'her'  ],
+        [  'ich'  ,  'their'  ]
+    );
+
+    foreach my $p (@possessives) {
+        my $s = $p->[0];
+        my $r = $p->[1];
+        my $x = "s/(^| )$s( (a|the))?(?= )/$1$r/";
+        eval ($x);
+    }
+
+
 # Prepositions
     s/ vo? / in /;
     s/ pri / near /;
@@ -493,7 +526,7 @@ sub translate {
 #    s/ have (?!which)(?!some)(.+)(?<!s)(?<!men)(?<!feet)$/ have a $2$2/;
 # Since "class" ends in 's' is is incorrectly identified as plural by the preceeding line
 #    s/ have (?!which)(?!some)(.+)(class)$/ have a $1$2/;
-#    s/ a (a|i)/ an $1/;
+    s/ a (?=(a|i|o))/ an /;
 
 # this one causes problem with 'ona nie je' -> 'she is not' becomes "she is a not'
 #    s/ is (?!some)(?!which)/ is a /;

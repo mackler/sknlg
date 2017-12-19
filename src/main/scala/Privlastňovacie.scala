@@ -9,92 +9,112 @@ import Pád._
  * Possessive Pronouns
  */
 
-object Môj extends PrídavnéMeno {
+sealed trait Privlastňovacie extends PrídavnéMeno {
   def asText(pád: Pád) = asText(Stredný, Jednotné, pád)
+  def setČislo(č: Čislo): Privlastňovacie
+}
 
-  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String = {
+sealed trait Môj extends Privlastňovacie {
+
+  def decline(stem: String, rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String = {
+    val shortStem = stem.replaceFirst("ô","o").replaceFirst("á","a")
     čislo match {
       case Jednotné => rod match {
         case MužskýŽivotný | MužskýNeživotný => pád match {
-          case Nominatív => "môj"
+          case Nominatív => stem
           case Akusatív => rod match {
-            case MužskýŽivotný => "môjho"
-            case MužskýNeživotný => "môj"
+            case MužskýŽivotný => stem + "ho"
+            case MužskýNeživotný => stem
           }
-          case Lokatív => "mojom"
+          case Lokatív => shortStem + "om"
         }
 
         case Ženský => pád match {
-          case Nominatív => "moja"
-          case Akusatív => "moju"
-          case Lokatív => "mojej"
+          case Nominatív => shortStem + "a"
+          case Akusatív => shortStem + "u"
+          case Lokatív => shortStem + "ej"
         }
 
         case Stredný => pád match {
-          case Nominatív | Akusatív => "moje"
-          case Lokatív => "mojom"
+          case Nominatív | Akusatív => shortStem + "e"
+          case Lokatív => shortStem + "om"
         }
       }
 
       case Množné => rod match {
         case MužskýŽivotný => pád match {
-          case Nominatív => "moji"
-          case Akusatív | Lokatív => "mojich"
+          case Nominatív => shortStem + "i"
+          case Akusatív | Lokatív => shortStem + "ich"
         }
         case MužskýNeživotný | Ženský | Stredný => pád match {
-          case Nominatív | Akusatív => "moje"
-          case Lokatív => "mojich"
+          case Nominatív | Akusatív => shortStem + "e"
+          case Lokatív => shortStem + "ich"
         }
       }
     }
   }
-}
 
-object Tvoj extends PrídavnéMeno {
-  def asText(pád: Pád) = asText(Stredný, Jednotné, pád)
-
-  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String = {
-    čislo match {
-      case Jednotné => rod match {
-        case MužskýŽivotný | MužskýNeživotný => pád match {
-          case Nominatív => "tvoj"
-          case Akusatív => rod match {
-            case MužskýŽivotný => "tvojho"
-            case MužskýNeživotný => "tvoj"
-          }
-          case Lokatív => "tvojom"
-        }
-
-        case Ženský => pád match {
-          case Nominatív => "tvoja"
-          case Akusatív => "tvoju"
-          case Lokatív => "tvojej"
-        }
-
-        case Stredný => pád match {
-          case Nominatív | Akusatív => "tvoje"
-          case Lokatív => "tvojom"
-        }
-      }
-
-      case Množné => rod match {
-        case MužskýŽivotný => pád match {
-          case Nominatív => "tvoji"
-          case Akusatív | Lokatív => "tvojich"
-        }
-        case MužskýNeživotný | Ženský | Stredný => pád match {
-          case Nominatív | Akusatív => "tvoje"
-          case Lokatív => "tvojich"
-        }
-      }
+  def setČislo(č: Čislo): Môj = č match {
+    case Jednotné => this match {
+      case Môj | Tvoj => this
+      case Náš => Môj
+      case Váš => Tvoj
+    }
+    case Množné => this match {
+      case Náš | Váš => this
+      case Môj => Náš
+      case Tvoj => Váš
     }
   }
 }
 
-object Jeho extends PrídavnéMeno {
-  def asText(pád: Pád) = asText(Stredný, Jednotné, pád)
+object Môj extends Môj {
+  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String =
+    decline("môj", rod, čislo, pád)
+}
 
-  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String = {
-    "jeho"
+object Náš extends Môj {
+  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String =
+    decline("náš", rod, čislo, pád)
+}
+
+object Tvoj extends Môj {
+  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String =
+    decline("tvoj", rod, čislo, pád)
+}
+
+object Váš extends Môj {
+  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String =
+    decline("váš", rod, čislo, pád)
+}
+
+trait Jeho extends Privlastňovacie {
+  def setČislo(č: Čislo): Jeho = č match {
+    case Jednotné => this match {
+      case Jeho => Jeho
+      case Jej => Jej
+    }
+    case Množné => Ich
   }
+  def setRod(r: Rod) = r match {
+    case MužskýŽivotný => this match {
+      case Ich => Ich
+      case Jeho | Jej => Jeho
+    }
+    case Ženský => this match {
+      case Ich => Ich
+      case Jeho | Jej => Jej
+    }
+  }
+}
+
+object Jeho extends Jeho {
+  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String = "jeho"
+}
+
+object Jej extends Jeho {
+  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String = "jej"
+}
+object Ich extends Jeho {
+  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String = "ich"
 }
