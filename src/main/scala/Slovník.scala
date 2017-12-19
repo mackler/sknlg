@@ -242,7 +242,7 @@ package object slovník {
   val Šťastný = PrídavnéMeno("šťastný")
   // This is not actually an adjective but a demonstrative pronoun
   val Taký = PrídavnéMeno("taký")
-  val Ťažká = PrídavnéMeno("ťažká")
+  val Ťažký = PrídavnéMeno("ťažký")
   val Veľký = PrídavnéMeno("veľký")
   val Vysoký = PrídavnéMeno("vysoký")
   val Zaujímavý = PrídavnéMeno("Zaujímavý")

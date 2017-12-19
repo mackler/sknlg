@@ -118,7 +118,7 @@ object Main extends App {
    * Take a set of nouns. Return a phrase of each in the locative cases, both singular and plural,
    * using the prepositions for both "in" and "near."
    */
-  def locative(nouns: Set[PodstatnéMeno], adjectives: Set[PrídavnéMeno]): Set[String] = {
+  def locativeNouns(nouns: Set[PodstatnéMeno]): Set[String] = {
     for {
       noun <- nouns
       subject <- subjects
@@ -126,6 +126,21 @@ object Main extends App {
       preposition <- Set("vo", "pri")
     } yield
       Byť setPodmet subject setComplement (noun setČislo number predložka preposition) asText
+  }
+
+  /*
+   * take a set of adjectives. Use each in nominative, accusative and locative cases
+   */
+  def locativeAdjectives(adjectives: Set[PrídavnéMeno]): Set[String] = {
+    (for {
+      adjective <- adjectives
+      noun <- Set[PodstatnéMeno](Muž, Hrad, Kniha, Auto)
+      number <- Set(Jednotné, Množné)
+    } yield Set(
+      Byť addPodmet (noun setČislo number) setComplement adjective asText,
+      Vidieť addPodmet Ja setPredmet (noun setPrídavnéMeno adjective setČislo number) asText,
+      Byť addPodmet Ja setComplement (noun setPrídavnéMeno adjective setČislo number predložka "pri") asText
+    )) flatten
   }
 
   // END OF GENERIC FUNCTIONS -- BEGIN SPECIFIC EXERCISES
@@ -234,16 +249,20 @@ object Main extends App {
   val exM5nouns = Set(Chlap, Družstvo, Jar, Jeseň, Leto, Matka, Mesto, Otec, Práca, Priateľ, Rodina, Škola, Ulica, Zima, Žena)
   val exM5Verbs = Set[Sloveso](Bývať, Chodiť, Kričať, Počúvať, Pamätať, Poznať, Prichádzať, Robiť, Rozprávať, Sedieť, Spávať,
                                Spievať, Strácať, Vedieť, Vidieť, Začinať, Žiadať, Znamenať)
-  def exM5locative: Set[String] = {
-    val adjectives = Set[PrídavnéMeno](Bohatý, Chorý, Dobrý, Hlavný, Iný, Nový, Pekný, Posledný, Šťastný, Veľký, Vysoký, Starý, Ťažká, Známy)
-
-    locative(exM5nouns, adjectives)
+  def exM5locativeNouns: Set[String] = {
+    locativeNouns(exM5nouns)
   }
 
   def exM5verbsNouns: Set[String] = {
     nominativeNounsVerbs(/*exM5Verbs*/ Set(Spávať), exM5nouns)
   }
 
-  exM5verbsNouns foreach { line => println(line) }
+  def exM5locativeAdjectives: Set[String] = {
+    val adjectives = Set[PrídavnéMeno](Bohatý, Chorý, Dobrý, Hlavný, Iný, Nový, Pekný, Posledný, Šťastný, Veľký, Vysoký, Starý, Ťažký, Známy)
+
+    locativeAdjectives(adjectives)
+  }
+
+  exM5locativeAdjectives foreach { line => println(line) }
 
 }

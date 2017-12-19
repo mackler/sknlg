@@ -1,7 +1,8 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Encode;
+use utf8;
+#use Encode;
 
 my $input_filename = $ARGV[0];
 my $output_filename = $input_filename =~ s/\.sk/\.en/r;
@@ -13,11 +14,12 @@ open(my $output, ">$output_filename")
   or die "Could not open file '$output_filename' for writing: $!";
 
 while (<$input>) {
+#    print STDERR "working on: $_";
     print translate($_);
 }
 
 sub translate {
-    $_ = encode_utf8($_);
+#    $_ = encode_utf8($_);
 
     s/ a / and /;
     s/^tu /here /;
@@ -42,11 +44,7 @@ sub translate {
 
     s/ po / /;
     s/ zo? / from /;
-    s/ muž(|a)($| )/ man$2/;
 
-    s/ muž(i|ov)($| )/ men$2/;
-    s/ pán(|a)($| )/ gentleman$2/;
-    s/ pán(i|ov)($| )/ gentlemen$2/;
     s/ býva(?=$| )/ resides/;
 
 #Verbs
@@ -159,118 +157,108 @@ sub translate {
 
 # Nouns
 
-    s/ auto($| )/ car$1/;
-    s/ autá($| )/ cars$1/;
-    s/ brehy($| )/ riverbanks$1/;
-    s/ breh($| )/ riverbank$1/;
-    s/ cen(a|u)($| )/ price$2/;
-    s/ ceny($| )/ prices$1/;
+    s/(^| )aut(o|e)(?=$| )/$1a car/;
+    s/( |^)aut(á|ách)(?=$| )/$1cars/;
+    s/(^| )brehy(?=$| )/$1riverbanks/;
+    s/(^| )breh(?=$| )/$1riverbank/;
+    s/(^| )cen(a|u)(?=$| )/$1price/;
+    s/(^| )ceny(?=$| )/$1prices/;
     s/chlap(ovi)?(?= |$)/the fellow/;
     s/chlap(i|och)(?= |$)/the fellows/;
-    s/ dedin(a|u)($| )/ village$2/;
-    s/ dediny($| )/ villages$1/;
-    s/ dom($| )/ home$1/;
-    s/ domy($| )/ homes$1/;
+    s/(^| )dedin(a|u)(?=$| )/$1village/;
+    s/(^| )dediny(?=$| )/$1villages/;
+    s/(^| )dom(?=$| )/$1home/;
+    s/(^| )domy(?=$| )/$1homes/;
     s/(^| )družstv(o|e)(?=$| )/$1the team/;
     s/(^| )družstvá(ch)?(?=$| )/$1the teams/;
-    s/ hlav(a|u)($| )/ head$2/;
-    s/ hlavy($| )/ heads$1/;
+    s/(^| )hlav(a|u)(?=$| )/$1head$2/;
+    s/(^| )hlavy($| )/$1heads/;
+    s/(^| )hrad(?= |$)/$1a castle/;
+    s/(^| )hrad(e|och|y)(?= |$)/$1the castles/;
 # jar follows kosš: "jari" is both plural-nominative/accusative and singular-locative
     s/jar(?=$| )/springtime/;
     s/((vo?|pri) ([^ ]+ )?)jari(?=$| )/$1springtime/;
     s/jar(i|iach)(?=$| )/the springtimes/;
-    s/jese(ň|ni)(?=$| )/autumn/;
-    s/jesen(e|iach)(?=$| )/the autumns/;
-    s/ knih(a|u)($| )/ book$2/;
-    s/ knihy($| )/ books$1/;
-    s/ kvet($| )/ flower$1/;
-    s/ kvety($| )/ flowers$1/;
-    s/ les($| )/ forest$1/;
-    s/ lesy($| )/ forests$1/;
+    s/(^| )jese(ň|ni)(?=$| )/$1autumn/;
+    s/(^| )jesen(e|iach)(?=$| )/$1the autumns/;
+    s/(^| )knih(a|u|e)(?=$| )/$1a book/;
+    s/(^| )knih(y|ách)(?=$| )/$1books/;
+    s/(^| )kvet(?=$| )/$1flower/;
+    s/(^| )kvety(?=$| )/$1flowers/;
+    s/(^| )les(?=$| )/$1forest/;
+    s/(^| )lesy(?=$| )/$1forests/;
     s/( |^)let(o|e)(?= |$)/$1the summer/;
     s/letá(ch)?(?= |$)/summers/;
-    s/ lúk(a|u)($| )/ meadow$2/;
-    s/ lúky($| )/ meadows$1/;
+    s/(^| )lúk(a|u)(?=$| )/$1meadow/;
+    s/(^| )lúky(?=$| )/$1meadows/;
     s/matka(?=$| )/mother/;
     s/matk(y|ách)(?=$| )/the mothers/;
     s/mest(o|e)(?=$| )/the town/;
-    s/ mestá($| )/ towns$1/;
+    s/(^| )mestá(?=$| )/$1towns/;
     s/mestá(ch)?(?=$| )/the towns/;
-    s/ minút(a|u)($| )/ minute$2/;
-    s/ minúty($| )/ minutes$1/;
-    s/ noh(a|u)($| )/ foot$2/;
-    s/ nohy($| )/ feet$1/;
-    s/ obraz($| )/ picture$1/;
-    s/ obrazy($| )/ pictures$1/;
-    s/ obchod($| )/ shop$1/;
-    s/ obchody($| )/ shops$1/;
-    s/ otázk(a|u)($| )/ question$2/;
-    s/ otázky($| )/ questions$1/;
+    s/(^| )minút(a|u)(?=$| )/$1minute/;
+    s/(^| )minúty(?=$| )/$1minutes/;
+    s/(^| )muž(|a|ovi)(?=$| )/$1a man/;
+    s/(^| )muž(i|ov|och)(?=$| )/$1men/;
+    s/(^| )noh(a|u)(?=$| )/$1foot/;
+    s/(^| )nohy(?=$| )/$1feet/;
+    s/(^| )obraz(?=$| )/$1picture/;
+    s/(^| )obrazy(?=$| )/$1pictures/;
+    s/(^| )obchod(?=$| )/$1shop/;
+    s/(^| )obchody(?=$| )/$1shops/;
+    s/(^| )otázk(a|u)(?=$| )/$1question/;
+    s/(^| )otázky(?=$| )/$1questions/;
     s/ot(ec|covi)(?=$| )/father/;
     s/ot(eci|coch)(?=$| )/the fathers/;
-    s/ plot($| )/ fence$1/;
-    s/ ploty($| )/ fences$1/;
+    s/ pán(|a)($| )/ gentleman$2/;
+    s/ pán(i|ov)($| )/ gentlemen$2/;
+    s/(^| )plot(?=$| )/$1fence/;
+    s/(^| )ploty(?=$| )/$1fences/;
     s/prác(a|i)(?=$| )/a job/;
     s/prác(e|ach)(?=$| )/the jobs/;
     s/priateľ(ovi)?(?=$| )/a friend/;
     s/priateľ(i|och)(?=$| )/friends/;
-    s/ riek(a|u)($| )/ river$2/;
-    s/ rieky($| )/ rivers$1/;
-    s/ sten(a|u)($| )/ wall$2/;
-    s/ steny($| )/ walls$1/;
-    s/ strom($| )/ tree$1/;
-    s/ stromy($| )/ trees$1/;
-    s/ prst($| )/ finger$1/;
-    s/ prsty($| )/ fingers$1/;
-    s/ dvor($| )/ yard$1/;
-    s/ dvory($| )/ yards$1/;
+    s/(^| )riek(a|u)(?=$| )/$1river/;
+    s/(^| )rieky(?=$| )/$1rivers/;
+    s/(^| )sten(a|u)(?=$| )/$1wall/;
+    s/(^| )steny(?=$| )/$1walls/;
+    s/(^| )strom(?=$| )/$1tree/;
+    s/(^| )stromy(?=$| )/$1trees/;
+    s/(^| )prst(?=$| )/$1finger/;
+    s/(^| )prsty(?=$| )/$1fingers/;
+    s/(^| )dvor(?=$| )/$1yard/;
+    s/(^| )dvory(?=$| )/$1yards/;
     s/(^| )rodin(a|e)(?=$| )/$1the family/;
     s/rodin(y|ách)(?=$| )/families/;
     s/škola(?=$| )/the school/;
-    s/ škol(a|u|e)($| )/ school$2/;
+    s/(^| )škol(a|u|e)(?=$| )/$1school/;
     s/( |^)škol(y|ách)(?=$| )/$1the schools/;
-    s/ stavb(a|u)($| )/ building$2/;
-    s/ stavby($| )/ buildings$1/;
-    s/ ruk(a|u)($| )/ hand$2/;
-    s/ ruky($| )/ hands$1/;
-    s/ stanic(a|u)($| )/ station$2/;
-    s/ stanice($| )/ stations$1/;
-    s/ tried(a|u)($| )/ class$2/;
-    s/ triedy($| )/ classes$1/;
+    s/(^| )stavb(a|u)(?=$| )/$1building/;
+    s/(^| )stavby(?=$| )/$1buildings/;
+    s/(^| )ruk(a|u)(?=$| )/$1hand/;
+    s/(^| )ruky(?=$| )/$1hands/;
+    s/(^| )stanic(a|u)(?=$| )/$1station/;
+    s/(^| )stanice(?=$| )/$1stations/;
+    s/(^| )tried(a|u)(?=$| )/$1class/;
+    s/(^| )triedy(?=$| )/$1classes/;
     s/(^| )ulic(a|u|i)(?=$| )/$1the street/;
-    s/ ulice($| )/ streets$1/;
+    s/(^| )ulice(?=$| )/$1streets/;
     s/ulic(e|iach)(?=$| )/the streets/;
-    s/ vec($| )/ thing$1/;
-    s/ veci($| )/ things$1/;
-    s/ večer($| )/ evening$1/;
-    s/ večery($| )/ evenings$1/;
-    s/ voz($| )/ vehicle$1/;
-    s/ vozy($| )/ vehicles$1/;
-    s/ záhrad(a|u)($| )/ garden$2/;
-    s/ záhrady($| )/ gardens$1/;
+    s/(^| )vec(?=$| )/$1thing/;
+    s/(^| )veci(?=$| )/$1things/;
+    s/(^| )večer(?=$| )/$1evening/;
+    s/(^| )večery(?=$| )/$1evenings/;
+    s/(^| )voz(?=$| )/$1vehicle/;
+    s/(^| )vozy(?=$| )/$1vehicles/;
+    s/(^| )záhrad(a|u)(?=$| )/$1garden/;
+    s/(^| )záhrady(?=$| )/$1gardens/;
     s/zim(a|e)(?=$| )/winter/;
     s/zim(y|ách)(?=$| )/winters/;
-    s/ hlavn[^$ ]+($| )/ main$1/;
-
-# Adjectives
-
-    s/ ktor[^$ ]+($| )/ which$1/;
-    s/ vysok[^$ ]+($| )/ tall$1/;
-    s/ nov[^$ ]+($| )/ new$1/;
-    s/ prav[^$ ]+($| )/ right$1/;
-    s/ širok[^$ ]+($| )/ wide$1/;
-    s/ nejak[^$ ]+($| )/ some$1/;
-    s/ tak[^$ ]+($| )/ such$1/;
-    s/ nízk[^$ ]+($| )/ low$1/;
-    s/ jednoduch[^$ ]+($| )/ simple$1/;
-    s/ dobr[^$ ]+($| )/ good$1/;
-    s/ pekn[^$ \n]+(?=$| )/ nice/;
-    s/ posledn[^$ ]+($| )/ last$1/;
-    s/Anglick.(?=$| )/England/;
 
 # Place names
 
     s/Amerik.(?=$| )/America/;
+    s/Anglick.(?=$| )/England/;
     s/Belgick.(?=$| )/Belgium/;
     s/Bielorusk.(?=$| )/Belarus/;
     s/Bosn.(?=$| )/Bosnia/;
@@ -316,7 +304,47 @@ sub translate {
     s/Tureck.(?=$| )/Turkey/;
     s/Ukrajin.(?=$| )/Ukraine/;
     s/Vatikán.?(?=$| )/the Vatican/;
-    s/ americk[^$ \n]+(?=$| )/ american/;
+    s/(^| )americk[^$ \n]+(?=$| )/$1american/;
+
+# Adjectives
+
+    my @adjectives = (
+        [  'bohatý'  ,  'rich'  ],
+        [  'chorý'  ,  'sick'  ],
+        [  'dobrý'  ,  'good'  ],
+        [  'hlavný'  ,  'main'  ],
+        [  'iný'  ,  'different'  ],
+        [  'jednoduchý'  ,  'simple'  ],
+        [  'ktorý'  ,  'which'  ],
+        [  'nejaký'  ,  'some'  ],
+        [  'nízky'  ,  'low'  ],
+        [  'nový'  ,  'new'  ],
+        [  'pravý'  ,  'right'  ],
+        [  'pekný'  ,  'nice'  ],
+        [  'posledný'  ,  'last'  ],
+        [  'starý'  ,  'old'  ],
+        [  'široký'  ,  'wide'  ],
+        [  'šťastný'  ,  'happy'  ],
+        [  'taký'  ,  'such'  ],
+        [  'ťažký'  ,  'difficult'  ],
+        [  'veľký'  ,  'large'  ],
+        [  'vysoký'  ,  'tall'  ],
+        [  'známy'  ,  'well-known'  ]
+    );
+
+    foreach my $adjective (@adjectives) {
+        my $s = $adjective->[0];
+        $s = substr($s, 0, length($s) - 1); # remove last character
+        my $r = $adjective->[1];
+        my $endings;
+        if ($s =~ m/[áí][kmz]+$/) { # rhythmic rule
+           $endings = '(a|ej|e|eho|i|om|u|y|ych)';
+        } else {
+           $endings = '(á|ej|é|ého|í|om|ú|ý|ých)';
+        }
+        my $x = "s/ $s$endings( a| the|)(?=\$| )/\$2 $r/";
+        eval ($x);
+    }
 
 # Place name adjectives
 
@@ -462,7 +490,7 @@ sub translate {
 
 
 # add article before singular adjectives, excluding "which" and "some"
-#    s/ have (?!which)(?!some)(.+)(?<!s)(?<!men)(?<!feet)$/ have a $1$2/;
+#    s/ have (?!which)(?!some)(.+)(?<!s)(?<!men)(?<!feet)$/ have a $2$2/;
 # Since "class" ends in 's' is is incorrectly identified as plural by the preceeding line
 #    s/ have (?!which)(?!some)(.+)(class)$/ have a $1$2/;
 #    s/ a (a|i)/ an $1/;
