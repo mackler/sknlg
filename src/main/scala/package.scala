@@ -53,11 +53,28 @@ package object sknlg {
 
   trait NounPhrase { def asText(pád: Pád.Value): String }
 
-  case class Príslovka(head: String) extends NounPhrase {
-    def asText = head
-    override def asText(pád: Pád.Value): String = asText
-  }
-
   implicit def stringToPríslovka(s: String) = Príslovka(s)
+
+  /*
+   * If a possessive adjective refers to the subject of a sentence, it takes the reflexive form.
+   * This method takes a noun possibly modified by an adjective, and a noun possible a pronoun.
+   * If the given adjective is a possessive corresponding to the given pronoun, then change the
+   * adjective to the reflexive form.
+   */
+  import Čislo._
+  def reflexivisePossessive(podmet: Seq[NounPhrase], predmet: PodstatnéMeno) = {
+    predmet.prídavnéMeno map { prídavnéMeno: PrídavnéMeno =>
+      import slovník.{Môj, Náš, Tvoj, Váš, Svoj}
+      val adjective: PrídavnéMeno = if (podmet.length == 1) podmet(0) match {
+        // TODO get rid of the alternative--we want to check for one one
+        case Ja | JaInstance(Jednotné) => if (prídavnéMeno == Môj) Svoj else prídavnéMeno
+        case JaInstance(Množné) => if (prídavnéMeno == Náš) Svoj else prídavnéMeno
+        case Ty | TyInstance(Jednotné) => if (prídavnéMeno == Tvoj) Svoj else prídavnéMeno
+        case TyInstance(Množné) => if (prídavnéMeno == Váš) Svoj else prídavnéMeno
+        case _ => prídavnéMeno // subject is neither first nor second person pronoun
+      } else prídavnéMeno // more than one subject, trying to be flexive too complicated
+      if (adjective != prídavnéMeno) predmet.setPrídavnéMeno(adjective) else predmet
+    } getOrElse(predmet)
+  }
 
 }

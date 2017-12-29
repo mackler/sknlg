@@ -108,15 +108,20 @@ case class ByťInstance(
       else if  (podmet.exists(_.isInstanceOf[Ty])) Second
       else Third
 
+      // update the subjects with the calculated grammatical-number as necessary
+      val updatedPodmet = podmet map { p =>
+        if (p.isInstanceOf[On]) p.asInstanceOf[On] setČislo podmetČislo
+        else if (p.isInstanceOf[Ja] && podmet.length == 1) p.asInstanceOf[Ja] setČislo podmetČislo
+        else if (p.isInstanceOf[Ty] && podmet.length == 1) p.asInstanceOf[Ty] setČislo podmetČislo
+        else p
+      }
+
       // Now we've calculated the gender & number; here is the return value:
       // (1) first the subject
-      podmet.map { p =>
+      updatedPodmet.map { p =>
         if (p == Ten) {
           Ten.asText(podmetRod.getOrElse(Stredný), podmetČislo, Nominatív)
         }
-        else if (p.isInstanceOf[On]) p.asInstanceOf[On] setČislo podmetČislo asText(Nominatív)
-        else if (p.isInstanceOf[Ty] && podmet.length == 1) p.asInstanceOf[Ty] setČislo podmetČislo asText(Nominatív)
-        else if (p.isInstanceOf[Ja] && podmet.length == 1) p.asInstanceOf[Ja] setČislo podmetČislo asText(Nominatív)
         else p.asText(Nominatív)
       }.mkString(" a ") + " " +
       // (2) next the verb
@@ -124,10 +129,10 @@ case class ByťInstance(
       // (3) finally the complement
       (dComplement match {
         case p: Pomenovanie => p.asText(Nominatív)
-        case p: PodstatnéMeno => p setČislo podmetČislo asText Nominatív
+        case p: PodstatnéMeno => reflexivisePossessive(podmet, p) setČislo podmetČislo asText Nominatív
         case p: PrídavnéMeno => p.asText(complementRod, podmetČislo, Nominatív)
         case p: Demonym => p.asText(complementRod, podmetČislo, Nominatív)
-        case p: Príslovka => p.asText
+        case p: Príslovka => p.reflexivisePossessive(podmet).asText
       })
     }
   }

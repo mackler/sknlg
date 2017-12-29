@@ -131,22 +131,23 @@ object Main extends App {
   /*
    * take a set of adjectives. Use each in nominative, accusative and locative cases, both singular and plural.
    */
-  def locativeAdjectives(adjectives: Set[PrídavnéMeno]): Set[String] = {
+  def locativeAdjectives(adjectives: Set[PrídavnéMeno], pronouns: Set[Zámeno] = Set(Ja)): Set[String] = {
     (for {
       adjective <- adjectives
       noun <- Set[PodstatnéMeno](Muž, Hrad, Kniha, Auto)
       number <- Set(Jednotné, Množné)
     } yield Set(
-      Byť addPodmet Ten setComplement (noun setČislo number setPrídavnéMeno adjective) asText,
-      Vidieť addPodmet Ja setPredmet (noun setPrídavnéMeno adjective setČislo number) asText,
-      Byť addPodmet Ja setComplement (noun setPrídavnéMeno adjective setČislo number predložka "pri") asText
-    )) flatten
+      (pronouns map { pronoun => Set(
+        Vidieť addPodmet pronoun setPredmet (noun setPrídavnéMeno adjective setČislo number) asText,
+        Byť addPodmet pronoun setComplement (noun setPrídavnéMeno adjective setČislo number predložka "pri") asText)
+      } flatten) + (Byť addPodmet Ten setComplement (noun setČislo number setPrídavnéMeno adjective) asText)
+    )).flatten.flatten
   }
 
   /* Use possessive pronouns in nominative, accusative and locative cases, with singular and plural possessors and possessions,
    * masculine and feminine possessors and possessions. */
   def possessives = {
-    locativeAdjectives(Set(Môj, Náš, Tvoj, Váš, Jeho, Jej))
+    locativeAdjectives(Set(Môj, Náš, Tvoj, Váš, Jeho, Jej), Set(Ja, Ty))
   }
 
   // END OF GENERIC FUNCTIONS -- BEGIN SPECIFIC EXERCISES

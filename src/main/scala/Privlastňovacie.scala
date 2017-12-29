@@ -14,7 +14,7 @@ sealed trait Privlastňovacie extends PrídavnéMeno {
   def setČislo(č: Čislo): Privlastňovacie
 }
 
-sealed trait Môj extends Privlastňovacie {
+sealed trait MôjBase extends Privlastňovacie {
 
   def decline(stem: String, rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String = {
     val shortStem = stem.replaceFirst("ô","o").replaceFirst("á","a")
@@ -54,38 +54,45 @@ sealed trait Môj extends Privlastňovacie {
     }
   }
 
-  def setČislo(č: Čislo): Môj = č match {
+  def setČislo(č: Čislo): MôjBase = č match {
     case Jednotné => this match {
       case Môj | Tvoj => this
       case Náš => Môj
       case Váš => Tvoj
+      case Svoj => Svoj
     }
     case Množné => this match {
       case Náš | Váš => this
       case Môj => Náš
       case Tvoj => Váš
+      case Svoj => Svoj
     }
   }
 }
 
-object Môj extends Môj {
+object Môj extends MôjBase {
   def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String =
     decline("môj", rod, čislo, pád)
 }
 
-object Náš extends Môj {
+object Náš extends MôjBase {
   def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String =
     decline("náš", rod, čislo, pád)
 }
 
-object Tvoj extends Môj {
+object Tvoj extends MôjBase {
   def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String =
     decline("tvoj", rod, čislo, pád)
 }
 
-object Váš extends Môj {
+object Váš extends MôjBase {
   def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String =
     decline("váš", rod, čislo, pád)
+}
+
+object Svoj extends MôjBase {
+  def asText(rod: Rod, čislo: Čislo = Jednotné, pád: Pád = Nominatív): String =
+    decline("svoj", rod, čislo, pád)
 }
 
 trait Jeho extends Privlastňovacie {

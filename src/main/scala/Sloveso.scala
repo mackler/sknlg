@@ -19,7 +19,7 @@ trait Sloveso {
   protected def asTextInfinitive: String =
     infinitív + príslovka.map(_.asText + " ").getOrElse("") + predložka.map(" " + _).getOrElse("")
 
-  def asText: String  = {
+  def asText: String = {
     (podmet.length match {
       case 0 => // no subject so generate inifinitive form
         asTextInfinitive
@@ -202,8 +202,13 @@ object Sloveso {
 trait RegularSloveso extends Sloveso {
   val directPredmet: Option[PodstatnéMeno]
   def setPredmet(o: PodstatnéMeno): Sloveso
-  override def asText: String  = {
-    super.asText + directPredmet.map(" " + _.asText(Akusatív)).getOrElse("")
+
+  override def asText: String = {
+    super.asText +
+    directPredmet.map { predmet: PodstatnéMeno =>
+      val directObject = reflexivisePossessive(podmet, predmet)
+      " " + directObject.asText(Akusatív)
+    }.getOrElse("")
   }
 }
 

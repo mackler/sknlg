@@ -78,12 +78,16 @@ trait PodstatnéMeno extends Noun {
     super.asText(pád)
 
   // setting a preposition turns this noun into an adverb
-  def predložka(p: String) = Príslovka {
-    p match {
-      case "pri" => "pri " + asText(Lokatív)
-      case "vo" =>
-        val t = asText(Lokatív)
-        "v" + (if (t.matches("^[vVfF].*")) "o " else " ") + t
+  def predložka(p: String): Príslovka = {
+    new Príslovka {
+      def asText = p match {
+        case "pri" => "pri " + PodstatnéMeno.this.asText(Lokatív)
+        case "vo" =>
+          val t = PodstatnéMeno.this.asText(Lokatív)
+          "v" + (if (t.matches("^[vVfF].*")) "o " else " ") + t
+      }
+      def reflexivisePossessive(podmet: Seq[NounPhrase]) =
+        org.mackler.sknlg.reflexivisePossessive(podmet, PodstatnéMeno.this) predložka p
     }
   }
 

@@ -151,7 +151,7 @@ sub translate {
     s/ nesedí(m|t)e/ are not sitting/;
     s/ nesedia/ are not sitting/;
     s/ nesedí/ does not sit/;
-    s/ vidí(m|te)(?=$| )/ see/;
+    s/ vidí(m|š|te)(?=$| )/ see/;
     s/ vid(ia|í(t|m)e)(?=$| )/ see/;
     s/ vidí(?=$| )/ sees/;
     s/ nevidí(m|te)(?=$| )/ do not see/;
@@ -193,33 +193,6 @@ sub translate {
         eval ("s/(^| )$sk(och|y)(?=\$| )/\$1$plur/");
     }
 
-#    s/(^| )brehy(?=$| )/$1riverbanks/;
-#    s/(^| )breh(?=$| )/$1riverbank/;
-#    s/(^| )dom(?=$| )/$1home/;
-#    s/(^| )domy(?=$| )/$1homes/;
-#    s/(^| )hrad(e|)(?= |$)/$1a castle/;
-#    s/(^| )hrad(och|y)(?= |$)/$1the castles/;
-#    s/(^| )kvet(?=$| )/$1flower/;
-#    s/(^| )kvety(?=$| )/$1flowers/;
-#    s/(^| )les(?=$| )/$1forest/;
-#    s/(^| )lesy(?=$| )/$1forests/;
-#    s/(^| )obraz(?=$| )/$1picture/;
-#    s/(^| )obrazy(?=$| )/$1pictures/;
-#    s/(^| )obchod(?=$| )/$1shop/;
-#    s/(^| )obchody(?=$| )/$1shops/;
-#    s/(^| )plot(?=$| )/$1fence/;
-#    s/(^| )ploty(?=$| )/$1fences/;
-#    s/(^| )strom(?=$| )/$1tree/;
-#    s/(^| )stromy(?=$| )/$1trees/;
-#    s/(^| )prst(?=$| )/$1finger/;
-#    s/(^| )prsty(?=$| )/$1fingers/;
-#    s/(^| )dvor(?=$| )/$1yard/;
-#    s/(^| )dvory(?=$| )/$1yards/;
-#    s/(^| )večer(?=$| )/$1evening/;
-#    s/(^| )večery(?=$| )/$1evenings/;
-#    s/(^| )voz(?=$| )/$1vehicle/;
-#    s/(^| )vozy(?=$| )/$1vehicles/;
-
 # Following žena
 
     my @nouns_žena = (
@@ -252,48 +225,6 @@ sub translate {
         eval ("s/(^| )$stem(|a|e|u)(?=\$| )/\$1$sing/");
         eval ("s/(^| )$stem(ách|y)(?=\$| )/\$1$plur/");
     }
-
-#    s/(^| )cen(a|u)(?=$| )/$1price/;
-#    s/(^| )ceny(?=$| )/$1prices/;
-#    s/(^| )dedin(a|u)(?=$| )/$1village/;
-#    s/(^| )dediny(?=$| )/$1villages/;
-#    s/(^| )hlav(a|u)(?=$| )/$1head$2/;
-#    s/(^| )hlavy($| )/$1heads/;
-#    s/(^| )knih(a|u|e)(?=$| )/$1a book/;
-#    s/(^| )knih(y|ách)(?=$| )/$1books/;
-#    s/(^| )lúk(a|u)(?=$| )/$1meadow/;
-#    s/(^| )lúky(?=$| )/$1meadows/;
-#    s/matka(?=$| )/mother/;
-#    s/matk(y|ách)(?=$| )/the mothers/;
-#    s/(^| )minút(a|u)(?=$| )/$1minute/;
-#    s/(^| )minúty(?=$| )/$1minutes/;
-#    s/(^| )noh(a|u)(?=$| )/$1foot/;
-#    s/(^| )nohy(?=$| )/$1feet/;
-#    s/(^| )otázk(a|u)(?=$| )/$1question/;
-#    s/(^| )otázky(?=$| )/$1questions/;
-#    s/prác(a|i)(?=$| )/a job/;
-#    s/prác(e|ach)(?=$| )/the jobs/;
-#    s/(^| )riek(a|u)(?=$| )/$1river/;
-#    s/(^| )rieky(?=$| )/$1rivers/;
-#    s/(^| )sten(a|u)(?=$| )/$1wall/;
-#    s/(^| )steny(?=$| )/$1walls/;
-#    s/(^| )rodin(a|e)(?=$| )/$1the family/;
-#    s/rodin(y|ách)(?=$| )/families/;
-#    s/škola(?=$| )/the school/;
-#    s/(^| )škol(a|u|e)(?=$| )/$1school/;
-#    s/( |^)škol(y|ách)(?=$| )/$1the schools/;
-#    s/(^| )stavb(a|u)(?=$| )/$1building/;
-#    s/(^| )stavby(?=$| )/$1buildings/;
-#    s/(^| )ruk(a|u)(?=$| )/$1hand/;
-#    s/(^| )ruky(?=$| )/$1hands/;
-#    s/(^| )tried(a|u)(?=$| )/$1class/;
-#    s/(^| )triedy(?=$| )/$1classes/;
-#    s/(^| )záhrad(a|u)(?=$| )/$1garden/;
-#    s/(^| )záhrady(?=$| )/$1gardens/;
-#    s/(^| )žen(a|e)(?=$| )/$1a woman/;
-#    s/(^| )žen(y|ách)(?=$| )/$1the women/;
-#    s/zim(a|e)(?=$| )/winter/;
-#    s/zim(y|ách)(?=$| )/winters/;
 
 # uncategorized nouns:
     s/(^| )aut(o|e)(?=$| )/$1a car/;
@@ -577,6 +508,9 @@ sub translate {
         my $x = "s/(^| )$s( (a|the))?(?= )/\$1$r/";
         eval ($x);
     }
+
+    s/(I.*) svoj(|e|ej|ich|ho|om|u) (a |the )?/$1 my /;
+    s/(you.*) svoj(|e|ej|ich|ho|om|u) (a |the )?/$1 your /i;
 
 
 # Prepositions

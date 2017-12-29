@@ -95,7 +95,7 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
 
   // First person plural
   // possessed noun is plural masculine
-  "The possessive 'môj'" should "modify a masculine noun in the nominative plural" in {
+  "The possessive 'môj'" should "modify a plural masculine noun in the nominative" in {
     (slovník.Byť addPodmet Ten setComplement (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
       "tí sú moji bratia"
   }
@@ -116,17 +116,17 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
     "on je pri mojich bratoch"
   }
   // reflexive
-  "The reflexive possessive 'môj'" should "modify a masculine noun in the nominative plural" in {
+  "The reflexive possessive 'môj'" should "modify a plural masculine noun in the nominative" in {
     (slovník.Byť addPodmet Ja setComplement (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
-      "ja som svoji bratia"
+      "my sme svoji bratia" // subject number gets modified because the complement is plural
   }
   "The reflexive possessive 'môj'" should "modify a masculine-inanimate noun in the nominative plural" in {
     (slovník.Byť addPodmet Ja setComplement (slovník.Hrad setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
-      "ja som svoje hrady"
+      "my sme svoje hrady" // subject number gets modified because the complement is plural
   }
   "The reflexive possessive 'môj'" should "modify a masculine-animate noun in the accusative plural" in {
     (slovník.Vidieť addPodmet Ja setPredmet (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
-      "ja vidím svjich bratov"
+      "ja vidím svojich bratov"
   }
   "The reflexive possessive 'môj'" should "modify a masculine-inanimate noun in the accusative plural" in {
     (slovník.Vidieť addPodmet Ja setPredmet (slovník.Hrad setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
@@ -153,7 +153,7 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
   // reflexive
   "The reflexive possessive 'môj'" should "modify a feminine noun in the nominative plural" in {
     (slovník.Byť addPodmet Ja setComplement (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
-      "ja som svoje sestry"
+      "my sme svoje sestry" // subject number gets modified because the complement is plural
   }
   "The reflexive possessive 'môj'" should "modify a feminine noun in the accusative plural" in {
     (slovník.Vidieť addPodmet Ja setPredmet (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
@@ -180,7 +180,7 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
   // reflexive
   "The reflexive possessive 'môj'" should "modify a neuter noun in the nominative plural" in {
     (slovník.Byť addPodmet Ja setComplement (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
-      "ja som svoje autá"
+      "my sme svoje autá" // subject number gets modified because the complement is plural
   }
   "The reflexive possessive 'môj'" should "modify a neuter noun in the accusative plural" in {
     (slovník.Vidieť addPodmet Ja setPredmet (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Môj) asText) shouldEqual
@@ -295,11 +295,11 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
   // reflexive
   "The reflexive possessive 'tvoj'" should "modify a masculine noun in the nominative plural" in {
     (slovník.Byť addPodmet Ty setComplement (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
-      "ty si svoji bratia"
+      "vy ste svoji bratia" // subject number gets modified because the complement is plural
   }
   "The reflexive possessive 'tvoj'" should "modify a masculine-inanimate noun in the nominative plural" in {
     (slovník.Byť addPodmet Ty setComplement (slovník.Hrad setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
-      "ty si svoje hrady"
+      "vy ste svoje hrady" // subject number gets modified because the complement is plural
   }
   "The reflexive possessive 'tvoj'" should "modify a masculine-animate noun in the accusative plural" in {
     (slovník.Vidieť addPodmet Ty setPredmet (slovník.Brat setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
@@ -330,7 +330,7 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
   // reflexive
   "The reflexive possessive 'tvoj'" should "modify a feminine noun in the nominative plural" in {
     (slovník.Byť addPodmet Ty setComplement (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
-      "ty si svoje sestry"
+      "vy ste svoje sestry" // subject number gets modified because the complement is plural
   }
   "The reflexive possessive 'tvoj'" should "modify a feminine noun in the accusative plural" in {
     (slovník.Vidieť addPodmet Ty setPredmet (slovník.Sestra setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
@@ -357,7 +357,7 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
   // reflexive
   "The reflexive possessive 'tvoj'" should "modify a neuter noun in the nominative plural" in {
     (slovník.Byť addPodmet Ty setComplement (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
-      "ty si svoje autá"
+      "vy ste svoje autá" // subject number gets modified because the complement is plural
   }
   "The reflexive possessive 'tvoj'" should "modify a neuter noun in the accusative plural" in {
     (slovník.Vidieť addPodmet Ty setPredmet (slovník.Auto setČislo Množné setPrídavnéMeno slovník.Tvoj) asText) shouldEqual
@@ -556,7 +556,7 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
   // reflexive
   "The reflexive possessive 'náš'" should "modify a masculine noun in the nominative singular" in {
     (slovník.Byť addPodmet (Ja setČislo Množné) setComplement (slovník.Brat setPrídavnéMeno (slovník.Môj setČislo Množné)) asText) shouldEqual
-    "my sme svoj brat"
+    "ja som svoj brat" // subject number gets modified because the complement is singular
   }
   "The reflexive possessive 'náš'" should "modify a masculine-animate noun in the accusative singular" in {
     (slovník.Vidieť addPodmet (Ja setČislo Množné) setPredmet (slovník.Brat setPrídavnéMeno (slovník.Môj setČislo Množné)) asText) shouldEqual
@@ -586,7 +586,7 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
   // reflexive
   "The reflexive possessive 'náš'" should "modify a feminine noun in the nominative singular" in {
     (slovník.Byť addPodmet (Ja setČislo Množné) setComplement (slovník.Sestra setPrídavnéMeno (slovník.Môj setČislo Množné)) asText) shouldEqual
-    "my sme svoja sestra"
+    "ja som svoja sestra" // subject number gets modified because the complement is singular
   }
   "The reflexive possessive 'náš'" should "modify a feminine noun in the accusative singular" in {
     (slovník.Vidieť addPodmet (Ja setČislo Množné) setPredmet (slovník.Sestra setPrídavnéMeno (slovník.Môj setČislo Množné)) asText) shouldEqual
@@ -611,7 +611,7 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
   // reflexive
   "The reflexive possessive 'náš'" should "modify a neuter noun in the nominative singular" in {
     (slovník.Byť addPodmet (Ja setČislo Množné) setComplement (slovník.Auto setPrídavnéMeno (slovník.Môj setČislo Množné)) asText) shouldEqual
-    "my sme svoje auto"
+    "ja som svoje auto" // subject number gets modified because the complement is singular
   }
   "The reflexive possessive 'náš'" should "modify a neuter noun in the accusative singular" in {
     (slovník.Vidieť addPodmet (Ja setČislo Množné) setPredmet (slovník.Auto setPrídavnéMeno (slovník.Môj setČislo Množné)) asText) shouldEqual
@@ -737,7 +737,7 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
   // reflexive
   "The reflexive possessive 'váš'" should "modify a masculine noun in the nominative singular" in {
     (slovník.Byť addPodmet (Ty setČislo Množné) setComplement (slovník.Brat setPrídavnéMeno (slovník.Tvoj setČislo Množné)) asText) shouldEqual
-    "vy ste svoj brat"
+    "ty si svoj brat" // subject number gets modified because the complement is singular
   }
   "The reflexive possessive 'váš'" should "modify a masculine-animate noun in the accusative singular" in {
     (slovník.Vidieť addPodmet (Ty setČislo Množné) setPredmet (slovník.Brat setPrídavnéMeno (slovník.Tvoj setČislo Množné)) asText) shouldEqual
@@ -766,7 +766,7 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
   // reflexive
   "The reflexive possessive 'váš'" should "modify a feminine noun in the nominative singular" in {
     (slovník.Byť addPodmet (Ty setČislo Množné) setComplement (slovník.Sestra setPrídavnéMeno (slovník.Tvoj setČislo Množné)) asText) shouldEqual
-    "vy ste svoja sestra"
+    "ty si svoja sestra" // subject number gets modified because the complement is singular
   }
   "The reflexive possessive 'váš'" should "modify a feminine noun in the accusative singular" in {
     (slovník.Vidieť addPodmet (Ty setČislo Množné) setPredmet (slovník.Sestra setPrídavnéMeno (slovník.Tvoj setČislo Množné)) asText) shouldEqual
@@ -791,7 +791,7 @@ class PrivlastňovacíSpec extends FlatSpec with Matchers {
   // reflexive
   "The reflexive possessive 'váš'" should "modify a neuter noun in the nominative singular" in {
     (slovník.Byť addPodmet (Ty setČislo Množné) setComplement (slovník.Auto setPrídavnéMeno (slovník.Tvoj setČislo Množné)) asText) shouldEqual
-    "vy ste svoje auto"
+    "ty si svoje auto" // subject number gets modified because the complement is singular
   }
   "The reflexive possessive 'váš'" should "modify a neuter noun in the accusative singular" in {
     (slovník.Vidieť addPodmet (Ty setČislo Množné) setPredmet (slovník.Auto setPrídavnéMeno (slovník.Tvoj setČislo Množné)) asText) shouldEqual
