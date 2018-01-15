@@ -21,7 +21,7 @@ package object sknlg {
 
   object Pád extends Enumeration {
     type Pád = Value
-    val Nominatív, Genitív, Datív, Akusatív, Lokatív  = Value
+    val Nominatív, Genitív, Datív, Akusatív, Lokál, Inštrumentál  = Value
   }
 
   object Skloňovanie extends Enumeration {

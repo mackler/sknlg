@@ -4,6 +4,7 @@ import Rod._
 import Osoba._
 import Čislo._
 import Pád._
+import collection.immutable.{ List => ScalaList }
 
 /*
  * Hard consonants: g, h, ch, k, d, n, t
@@ -46,16 +47,23 @@ package object slovník {
   val Kufor = PodstatnéMeno("kufor")
   val Kvet = PodstatnéMeno("kvet")
   val Les = PodstatnéMeno("les")
+  val List = PodstatnéMeno("list")
   val Obchod = PodstatnéMeno("obchod")
   val Obraz = PodstatnéMeno("obraz")
+  val Obrázok = PodstatnéMeno("obrázok")
   val Plot = PodstatnéMeno("plot")
+  val Pohľad = PodstatnéMeno("pohľad")
+  val Predstava = PodstatnéMeno("predstava")
   val Prst = PodstatnéMeno("prst")
   val Strom = PodstatnéMeno("strom")
   val Telefón = PodstatnéMeno("telefón")
   val Večer = PodstatnéMeno("večer")
   val Voz = PodstatnéMeno("voz")
+  val Výhľad = PodstatnéMeno("výhľad")
+
   // ending in soft consonant, e.g., "počitač"
   val Dunaj = PodstatnéMeno("Dunaj")
+  val Kraj = PodstatnéMeno("kraj")
 
   // Feminine
   // ending in -a preceded by a hard or neutral consonant, e.g., "žena"
@@ -64,6 +72,7 @@ package object slovník {
   val Hlava = PodstatnéMeno("hlava")
   val Izba = PodstatnéMeno("izba")
   val Kniha = PodstatnéMeno("kniha")
+  val Krajina = PodstatnéMeno("krajina")
   val Krava = PodstatnéMeno("krava")
   val Lúka = PodstatnéMeno("lúka")
   val Mačka = PodstatnéMeno("mačka")
@@ -71,6 +80,7 @@ package object slovník {
   val Matka = PodstatnéMeno("matka")
   val Minúta = PodstatnéMeno("minúta")
   val Noha = PodstatnéMeno("noha")
+  val Novina = PodstatnéMeno("novina")
   val Otázka = PodstatnéMeno("otázka")
   val Práca = PodstatnéMeno("práca")
   val Rada = PodstatnéMeno("rada")
@@ -81,6 +91,8 @@ package object slovník {
   val Stavba = PodstatnéMeno("stavba")
   val Stena = PodstatnéMeno("stena")
   val Škola = PodstatnéMeno("škola")
+  val Správa = PodstatnéMeno("správa")
+  val Strana = PodstatnéMeno("strana")
   val Trieda = PodstatnéMeno("trieda")
   val Učiteľka = PodstatnéMeno("učiteľka")
   val Voda = PodstatnéMeno("voda")
@@ -99,11 +111,12 @@ package object slovník {
   val Dlaň = PodstatnéMeno("dlaň", Ženský)
   val Jeseň = PodstatnéMeno("jeseň", Ženský, genitiveSingular = "jesene")
   val Kaviareň = PodstatnéMeno("kaviareň", Ženský)
+  val Odpoveď = PodstatnéMeno("odpoveď")
   val Radosť = PodstatnéMeno("radosť")
   val Továreň = PodstatnéMeno("továreň", Ženský)
 
   // Feminine Following "kosť", "miestnosť"
-  // Nominative singular ends with a consodant, -i in genitive singular.
+  // Nominative singular ends with a consonant, -i in genitive singular.
   // Nominative singular usually ends with either "c", "s", "p", "v", or "sť"
   val Jar = PodstatnéMeno("jar", Ženský)
   val Pomoc = PodstatnéMeno("pomoc", Ženský)
@@ -123,6 +136,7 @@ package object slovník {
   val Čelo = PodstatnéMeno("čelo")
   val Leto = PodstatnéMeno("leto")
   val Mesto = PodstatnéMeno("mesto")
+  val Miesto = PodstatnéMeno("miesto")
   val Mlieko = PodstatnéMeno("mlieko")
   val Oko = PodstatnéMeno("oko")
   val Rameno = PodstatnéMeno("rameno")
@@ -131,6 +145,7 @@ package object slovník {
 
   // Neuter ending in "-e", e.g., "more"
   val Srdce = PodstatnéMeno("srdce")
+  val Pole = PodstatnéMeno("pole")
   // ending -ie, e.g., "poschodie""
   val Namestie = PodstatnéMeno("namestie")
   // ending -a or -ä, e.g., "dievča"
@@ -202,7 +217,7 @@ package object slovník {
   val Taliansko = PlaceName(entry = "Taliansko", rod = Stredný, demonymMužský = "Talian", adjectival = "taliansky")
   val Turecko = PlaceName(entry = "Turecko", rod = Stredný, adjectival = "turecký")
 
-  val allKrajiny = List(Albánsko, Amerika, Anglicko, Belgicko, Bielorusko, Bosna, Británia, Česko, ČiernaHora, Čína, Estónsko, Fínsko, Francúzsko, Grécko, Hercegovina, Holandsko, Chorvátsko, Írsko, Japonsko, Kanada, Lichtenštajnsko, Litva, Lotyšsko, Luxembursko, Macedónsko, Maďarsko, Mexiko, Moldavsko, Monako, Nemecko, Nórsko, Poľsko, Portugalsko, Rakúsko, Rumunsko, Rusko, Škótsko, Slovensko, Slovinsko, Španielsko, Srbsko, Švajčiarsko, Švédsko, Taliansko, Turecko, Ukrajina, Vatikán)
+  val allKrajiny = ScalaList(Albánsko, Amerika, Anglicko, Belgicko, Bielorusko, Bosna, Británia, Česko, ČiernaHora, Čína, Estónsko, Fínsko, Francúzsko, Grécko, Hercegovina, Holandsko, Chorvátsko, Írsko, Japonsko, Kanada, Lichtenštajnsko, Litva, Lotyšsko, Luxembursko, Macedónsko, Maďarsko, Mexiko, Moldavsko, Monako, Nemecko, Nórsko, Poľsko, Portugalsko, Rakúsko, Rumunsko, Rusko, Škótsko, Slovensko, Slovinsko, Španielsko, Srbsko, Švajčiarsko, Švédsko, Taliansko, Turecko, Ukrajina, Vatikán)
 
   val allPlaces = allKrajiny :+ Európa
 
@@ -214,6 +229,7 @@ package object slovník {
   val Čistý = PrídavnéMeno("čistý")
   val Chorý = PrídavnéMeno("chorý")
   val Dobrý = PrídavnéMeno("dobrý")
+  val Dôležitý = PrídavnéMeno("dôležitý")
 //  val Ešte = PrídavnéMeno("ešte")
   val Hnedý = PrídavnéMeno("hnedý")
   val Hlavný = PrídavnéMeno("hlavny")
@@ -221,19 +237,24 @@ package object slovník {
   val Iný = PrídavnéMeno("iný")
   // TODO jeden, jedna, jedno
   val Jednoduchý = PrídavnéMeno("jednoduchý")
-  val Krázny = PrídavnéMeno("krázný")
+  val Krásny = PrídavnéMeno("krásný")
+  val Krátky = PrídavnéMeno("krátky")
   // TODO this is actually not an adjective but an interrogative pronoun
   val Ktorý = PrídavnéMeno("ktorý")
   val Malý = PrídavnéMeno("malý")
+  val Milý = PrídavnéMeno("milý")
   val Mladý = PrídavnéMeno("mladý")
   val Modrý = PrídavnéMeno("modrý")
   // TODO this is not actually an adjective but an indefinite pronoun
   val Nejaký = PrídavnéMeno("nejaký")
+  val Nijaký = PrídavnéMeno("nijaký")
   val Nízky = PrídavnéMeno("nízky")
   val Nový = PrídavnéMeno("nový")
   val Pekný = PrídavnéMeno("pekný")
+  val Plný = PrídavnéMeno("plný")
   val Posledný = PrídavnéMeno("posledný")
   val Pravý = PrídavnéMeno("pravý")
+  val Prazdný = PrídavnéMeno("prazdný")
   val Široký = PrídavnéMeno("široký")
   val Škaredý = PrídavnéMeno("škaredý")
   val Slobodný = PrídavnéMeno("slobodný")
@@ -250,6 +271,7 @@ package object slovník {
   val Ženatý = PrídavnéMeno("Ženatý")
   val Zlý = PrídavnéMeno("zlý")
   val Známy = PrídavnéMeno("známy")
+  val Zdravý = PrídavnéMeno("zdravý")
 
   /*
    * Sloveso
@@ -270,14 +292,17 @@ package object slovník {
   val Pamätať = Sloveso("pamätať", "pamätá")
   val Počúvať = Sloveso("počúvať", "počúva")
   val Poznať = Sloveso("poznať", "pozná")
+  val Pozerať = Sloveso("pozerať", "pozerá")
   val Prichádzať = Sloveso("prichádzať", "prichádzá")
   val Rozprávať = Sloveso("rozprávať", "rozprává")
   // nespavať appears in the Mistrík textbook
   val Spávať = Sloveso("spávať", "spáva")
   val Spievať = Sloveso("spievať", "spieva")
+  val Spomínať = Sloveso("spomínať", "spomína")
   val Strácať = Sloveso("strácať", "stráca")
   val Vstávať = Sloveso("vstávať", "vstává")
   val Vychádzať = Sloveso("vychádzať", "vychádzá")
+  val Vyzerať = Sloveso("vyzerať", "vyzera")
   val Začinať = Sloveso("začinať", "začiná")
   val Žiadať = Sloveso("žiadať", "žiadá")
   val Znamenať = Sloveso("znamenať", "znamená")
@@ -292,6 +317,10 @@ package object slovník {
   val Chodiť = Sloveso("chodiť", "chodí")
   val Obrátiť = Sloveso("obrátiť", "obrátí")
   val Robiť = Sloveso("robiť", "robí")
+  val Skončiť = Sloveso("skončiť", "skončí")
+  val Tešiť = Sloveso("tešiť", "teší")
+  val Urobiť = Sloveso("urobiť", "urobí")
+  val Veriť = Sloveso("veriť", "verí")
 
   // Type 13 verbs follow "vidieť" - "vidím"
   val Vidieť = Sloveso("vidieť", "vidí") // "to see"

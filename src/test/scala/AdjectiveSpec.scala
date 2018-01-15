@@ -18,13 +18,13 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
     (slovník.Auto setPrídavnéMeno slovník.Pekný).asText() shouldEqual "pekné auto"
   }
   "An long-syllable adjective referring to a masculine noun" should "generate the masculine masculine adjective" in {
-    (slovník.Kufor setPrídavnéMeno slovník.Krázny).asText() shouldEqual "krázny kufor"
+    (slovník.Kufor setPrídavnéMeno slovník.Krásny).asText() shouldEqual "krásny kufor"
   }
   "An adjective referring to a feminine noun" should "generate the feminine adjective without two long vowels in a row" in {
-    (slovník.Rieka setPrídavnéMeno slovník.Krázny asText()) shouldEqual "krázna rieka"
+    (slovník.Rieka setPrídavnéMeno slovník.Krásny asText()) shouldEqual "krásna rieka"
   }
   "An adjective referring to a neuter noun" should "generate the neuter adjective without two long vowels in a row" in {
-    (slovník.Auto setPrídavnéMeno slovník.Krázny).asText() shouldEqual "krázne auto"
+    (slovník.Auto setPrídavnéMeno slovník.Krásny).asText() shouldEqual "krásne auto"
   }
   "A one-sylable adjective referring to a neuter noun" should "generate the neuter adjective" in {
     (slovník.Auto setPrídavnéMeno slovník.Zlý).asText() shouldEqual "zlé auto"
@@ -64,7 +64,7 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
     slovník.Pekný.asText(rod = MužskýŽivotný, čislo = Jednotné, pád = Akusatív) shouldEqual "pekného"
   }
   "An adjective" should "decline in the male-animate, singular, locative case" in {
-    slovník.Pekný.asText(rod = MužskýŽivotný, čislo = Jednotné, pád = Lokatív) shouldEqual "peknom"
+    slovník.Pekný.asText(rod = MužskýŽivotný, čislo = Jednotné, pád = Lokál) shouldEqual "peknom"
   }
 
   "An adjective" should "decline in the male-inanimate-gender, singular-number, nominative-case" in {
@@ -74,7 +74,7 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
     slovník.Pekný.asText(rod = MužskýNeživotný, čislo = Jednotné, pád = Akusatív) shouldEqual "pekný"
   }
   "An adjective" should "decline in the male-inanimate, singular, locative case" in {
-    slovník.Pekný.asText(rod = MužskýNeživotný, čislo = Jednotné, pád = Lokatív) shouldEqual "peknom"
+    slovník.Pekný.asText(rod = MužskýNeživotný, čislo = Jednotné, pád = Lokál) shouldEqual "peknom"
   }
 
   "An adjective" should "decline in the feminine-gender, singular-number, nominative-case" in {
@@ -87,7 +87,7 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
     slovník.Pekný.asText(rod = Ženský, čislo = Jednotné, pád = Akusatív) shouldEqual "peknú"
   }
   "An adjective" should "decline in the feminine, singular, locative case" in {
-    slovník.Pekný.asText(rod = Ženský, čislo = Jednotné, pád = Lokatív) shouldEqual "peknej"
+    slovník.Pekný.asText(rod = Ženský, čislo = Jednotné, pád = Lokál) shouldEqual "peknej"
   }
 
   "An adjective" should "decline in the neuter-gender, singular-number, nominative-case" in {
@@ -97,7 +97,7 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
     slovník.Pekný.asText(rod = Stredný, čislo = Jednotné, pád = Akusatív) shouldEqual "pekné"
   }
   "An adjective" should "decline in the neuter, singular, locative case" in {
-    slovník.Pekný.asText(rod = Stredný, čislo = Jednotné, pád = Lokatív) shouldEqual "peknom"
+    slovník.Pekný.asText(rod = Stredný, čislo = Jednotné, pád = Lokál) shouldEqual "peknom"
   }
 
   // Plural
@@ -108,7 +108,7 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
     slovník.Pekný.asText(rod = MužskýŽivotný, čislo = Množné, pád = Akusatív) shouldEqual "pekných"
   }
   "An adjective" should "decline in the male-animate, plural, locative case" in {
-    slovník.Pekný.asText(rod = MužskýŽivotný, čislo = Množné, pád = Lokatív) shouldEqual "pekných"
+    slovník.Pekný.asText(rod = MužskýŽivotný, čislo = Množné, pád = Lokál) shouldEqual "pekných"
   }
 
   "An adjective" should "decline in the male-inanimate-gender, plural-number, nominative-case" in {
@@ -118,7 +118,7 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
     slovník.Pekný.asText(rod = MužskýNeživotný, čislo = Množné, pád = Akusatív) shouldEqual "pekné"
   }
   "An adjective" should "decline in the male-inanimate, plural, locative case" in {
-    slovník.Pekný.asText(rod = MužskýNeživotný, čislo = Množné, pád = Lokatív) shouldEqual "pekných"
+    slovník.Pekný.asText(rod = MužskýNeživotný, čislo = Množné, pád = Lokál) shouldEqual "pekných"
   }
 
   "An adjective" should "decline in the feminine-gender, plural-number, nominative-case" in {
@@ -128,7 +128,7 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
     slovník.Pekný.asText(rod = Ženský, čislo = Množné, pád = Akusatív) shouldEqual "pekné"
   }
   "An adjective" should "decline in the feminine, plural, locative case" in {
-    slovník.Pekný.asText(rod = Ženský, čislo = Množné, pád = Lokatív) shouldEqual "pekných"
+    slovník.Pekný.asText(rod = Ženský, čislo = Množné, pád = Lokál) shouldEqual "pekných"
   }
 
   "An adjective" should "decline in the neuter-gender, plural-number, nominative-case" in {
@@ -138,7 +138,7 @@ class PrídavnéMenoSpec extends FlatSpec with Matchers {
     slovník.Pekný.asText(rod = Stredný, čislo = Množné, pád = Akusatív) shouldEqual "pekné"
   }
   "An adjective" should "decline in the neuter, plural, locative case" in {
-    slovník.Pekný.asText(rod = Stredný, čislo = Množné, pád = Lokatív) shouldEqual "pekných"
+    slovník.Pekný.asText(rod = Stredný, čislo = Množné, pád = Lokál) shouldEqual "pekných"
   }
 
   // same as above, but with an adjective whose stem ends with a long syllable

@@ -1,6 +1,7 @@
 package org.mackler.sknlg
 
 import Čislo._
+import collection.immutable.{ List => ScalaList }
 
 object Main extends App {
   import slovník._
@@ -219,7 +220,7 @@ object Main extends App {
     val natália = Pomenovanie("Natália", Ženský)
 
     val places = for {
-      place <- List(Kanada) //allPlaces
+      place <- Set(Kanada) //allPlaces
     } yield Set (
       Byť addPodmet place setComplement Pekný asText,
       Vidieť addPodmet Ja setPredmet place asText,
@@ -227,7 +228,7 @@ object Main extends App {
     )
 
     val demonyms = for {
-      place <- List(Kanada) //allPlaces if place.demonym.isDefined
+      place <- Set(Kanada) //allPlaces if place.demonym.isDefined
       demonym <- place.demonym
     } yield Set(
       Byť addPodmet vlado setComplement place.demonym.get asText,
@@ -239,7 +240,7 @@ object Main extends App {
     )
 
     val languages = for {
-      country <- List(Kanada) //allKrajiny
+      country <- Set(Kanada) //allKrajiny
     } yield Set(
       Vedieť addPodmet vlado setPríslovka country.asPríslovka asText,
       Čítať addPodmet vlado setPríslovka country.asPríslovka asText,
@@ -268,6 +269,15 @@ object Main extends App {
     val adjectives = Set[PrídavnéMeno](Bohatý, Chorý, Dobrý, Hlavný, Iný, Nový, Pekný, Posledný, Šťastný, Veľký, Vysoký, Starý, Ťažký, Známy)
     locativeAdjectives(adjectives)
   }
+
+  /*
+   * Mistrík unit 6
+   */
+
+  val unit6Verbs = Set(Vyzerať, Pozerať, Skončiť, Spomínať, Tešiť, Veriť)
+  val unit6Nouns = Set(Kraj, Krajina, List, Miesto, Novina, Obrázok, Odpoveď, Pole, Predstava, Slovensko, Správa,
+                       Strana, Výhľad)
+  val unit6Adjectives = Set(Dôležitý, Krásny, Krátky, Milý, Nijaký, Plný, Pohľad, Prazdný)
 
   possessives foreach { line => println(line) }
 

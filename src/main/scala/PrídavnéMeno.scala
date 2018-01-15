@@ -26,23 +26,23 @@ class PrídavnéMenoRegular(entry: String) extends PrídavnéMeno {
         case MužskýŽivotný => pád match {
           case Nominatív => y
           case Akusatív => e + "ho"
-          case Lokatív => "om"
+          case Lokál => "om"
         }
         case MužskýNeživotný => pád match {
           case Nominatív => y
           case Akusatív => y
-          case Lokatív => "om"
+          case Lokál => "om"
         }
         case Ženský => pád match {
           case Nominatív => a
           case Genitív => "ej"
           case Akusatív => u
-          case Lokatív => "ej"
+          case Lokál => "ej"
         }
         case Stredný => pád match {
           case Nominatív => e
           case Akusatív => e
-          case Lokatív => "om"
+          case Lokál => "om"
         }
       }
 
@@ -50,12 +50,12 @@ class PrídavnéMenoRegular(entry: String) extends PrídavnéMeno {
         case MužskýŽivotný => pád match {
           case Nominatív => i
           case Akusatív => y + "ch"
-          case Lokatív => y + "ch"
+          case Lokál => y + "ch"
         }
         case MužskýNeživotný | Ženský | Stredný => pád match {
           case Nominatív => e
           case Akusatív => e
-          case Lokatív => y + "ch"
+          case Lokál => y + "ch"
         }
       }
     }

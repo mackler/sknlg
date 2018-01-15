@@ -26,29 +26,29 @@ sealed trait MôjBase extends Privlastňovacie {
             case MužskýŽivotný => stem + "ho"
             case MužskýNeživotný => stem
           }
-          case Lokatív => shortStem + "om"
+          case Lokál => shortStem + "om"
         }
 
         case Ženský => pád match {
           case Nominatív => shortStem + "a"
           case Akusatív => shortStem + "u"
-          case Lokatív => shortStem + "ej"
+          case Lokál => shortStem + "ej"
         }
 
         case Stredný => pád match {
           case Nominatív | Akusatív => shortStem + "e"
-          case Lokatív => shortStem + "om"
+          case Lokál => shortStem + "om"
         }
       }
 
       case Množné => rod match {
         case MužskýŽivotný => pád match {
           case Nominatív => shortStem + "i"
-          case Akusatív | Lokatív => shortStem + "ich"
+          case Akusatív | Lokál => shortStem + "ich"
         }
         case MužskýNeživotný | Ženský | Stredný => pád match {
           case Nominatív | Akusatív => shortStem + "e"
-          case Lokatív => shortStem + "ich"
+          case Lokál => shortStem + "ich"
         }
       }
     }

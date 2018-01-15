@@ -81,9 +81,9 @@ trait PodstatnéMeno extends Noun {
   def predložka(p: String): Príslovka = {
     new Príslovka {
       def asText = p match {
-        case "pri" => "pri " + PodstatnéMeno.this.asText(Lokatív)
+        case "pri" => "pri " + PodstatnéMeno.this.asText(Lokál)
         case "vo" =>
-          val t = PodstatnéMeno.this.asText(Lokatív)
+          val t = PodstatnéMeno.this.asText(Lokál)
           "v" + (if (t.matches("^[vVfF].*")) "o " else " ") + t
       }
       def reflexivisePossessive(podmet: Seq[NounPhrase]) =
@@ -127,74 +127,83 @@ trait PodstatnéMeno extends Noun {
         čislo match {
           case Jednotné => pád match {
             case Nominatív => entry
+            case Datív => stem + "ovi"
             case Akusatív => stem + "a"
-            case Lokatív => stem + "ovi"
+            case Lokál => stem + "ovi"
           }
           case Množné => pád match {
             case Nominatív =>
               if (nominativePlural != "") nominativePlural else entry + "i"
+            case Datív => stem + "om"
             case Akusatív  => stem + "ov"
-            case Lokatív => stem + "och"
+            case Lokál => stem + "och"
           }
         }
       case Dub => čislo match {
         case Jednotné => pád match {
           case Nominatív | Akusatív => entry
           case Genitív => entry + "a"
-          case Lokatív => entry + "e"
+          case Datív => entry + "u"
+          case Lokál => entry + "e"
         }
         case Množné => pád match {
           case Nominatív => entry + "y"
+            case Datív => entry + "om"
           case Akusatív => entry + "y"
-          case Lokatív => entry + "och"
+          case Lokál => entry + "och"
         }
       }
       case Stroj => čislo match {
         case Jednotné => pád match {
           case Nominatív => entry
+          case Datív => entry + "u"
           case Akusatív => entry
         }
         case Množné => pád match {
           case Nominatív => entry + "e"
+            case Datív => entry + "om"
           case Akusatív => entry + "e"
         }
       }
-      case Žena => čislo match {
+      case Žena =>
+        val stem = entry.replaceFirst("a$", "")
+        čislo match {
         case Jednotné => pád match {
           case Nominatív => entry
-          case Genitív => entry.replaceFirst("a$", "y")
-          case Akusatív => entry.replaceFirst("a$", "u")
-          case Lokatív => entry.replaceFirst("a$", "e")
+          case Genitív => stem + "y"
+          case Datív => stem + "e"
+          case Akusatív => stem + "u"
+          case Lokál => stem + "e"
         }
         case Množné => pád match {
-          case Nominatív => entry.replaceFirst("a$", "y")
-          case Akusatív => entry.replaceFirst("a$", "y")
-          case Lokatív => entry.replaceFirst("a$", "ách")
+          case Nominatív => stem + "y"
+          case Datív => stem + "ám"
+          case Akusatív => stem + "y"
+          case Lokál => stem + "ách"
         }
       }
-      case Ulica => čislo match {
-        case Jednotné => pád match {
-          case Nominatív => entry
-          case Genitív => entry.replaceFirst("a$", "e")
-          case Akusatív => entry.replaceFirst("a$", "u")
-          case Lokatív => entry.replaceFirst("a$", "i")
-        }
-        case Množné =>
-          val stem = entry.substring(0, entry.length -1)
-          val rhythmic = finalSyllableIsLong(stem)
-          pád match {
-//            case Nominatív => entry.replaceFirst("a$", "e")
-//            case Genitív => entry.replaceFirst("a$", "")
-//            case Akusatív => entry.replaceFirst("a$", "e")
-//            case Lokatív => entry.replaceFirst("a$", "iach")
-            case Nominatív => stem + "e"
-            case Genitív => stem
-          // Dative case is altered by a long final syllable
-            case Datív => stem + (if (rhythmic) "" else "i") +  "am"
-            case Akusatív => stem + "e"
-            case Lokatív => stem + (if (rhythmic) "" else "i") +  "ach"
+      case Ulica =>
+        val stem = entry dropRight 1
+        čislo match {
+          case Jednotné => pád match {
+            case Nominatív => entry
+            case Genitív => entry.replaceFirst("a$", "e")
+            case Datív => stem + "i"
+            case Akusatív => entry.replaceFirst("a$", "u")
+            case Lokál => entry.replaceFirst("a$", "i")
           }
-      }
+          case Množné =>
+            val stem = entry.substring(0, entry.length -1)
+            val rhythmic = finalSyllableIsLong(stem)
+            pád match {
+              case Nominatív => stem + "e"
+              case Genitív => stem
+              // Dative case is altered by a long final syllable
+              case Datív => stem + (if (rhythmic) "" else "i") +  "am"
+              case Akusatív => stem + "e"
+              case Lokál => stem + (if (rhythmic) "" else "i") +  "ach"
+            }
+        }
       case Dlaň =>
         val stem = if (genitiveSingular != "") genitiveSingular.replaceFirst("e$", "")
                    else entry.replaceFirst("eň$", "ň")
@@ -202,58 +211,74 @@ trait PodstatnéMeno extends Noun {
           case Jednotné => pád match {
             case Nominatív => entry
             case Genitív => stem + "e"
+            case Datív => stem + "i"
             case Akusatív => entry
-            case Lokatív => stem + "i"
+            case Lokál => stem + "i"
           }
           case Množné => pád match {
             case Nominatív => stem + "e"
             case Genitív => stem + "í"
             case Datív => stem + (if (finalSyllableIsLong(stem)) "" else "i") + "am"
             case Akusatív => stem + "e"
-            case Lokatív => stem + (if (finalSyllableIsLong(stem)) "" else "i") + "ach"
+            case Lokál => stem + (if (finalSyllableIsLong(stem)) "" else "i") + "ach"
           }
         }
       case Kosť => čislo match {
         case Jednotné => pád match {
           case Nominatív => entry
           case Genitív => entry + "i"
+          case Datív => entry + "i"
           case Akusatív => entry
-          case Lokatív => entry + "i"
+          case Lokál => entry + "i"
         }
         case Množné => pád match {
           case Nominatív => entry + "i"
           case Genitív => entry + "í"
+          case Datív => entry + "iam"
           case Akusatív => entry + "i"
-          case Lokatív => entry + "iach"
+          case Lokál => entry + "iach"
         }
       }
-      case Mesto => čislo match {
-        case Jednotné => pád match {
-          case Nominatív | Akusatív => entry
-          case Genitív => entry.replaceFirst("o$", "a")
-          case Lokatív => entry.replaceFirst("o$", "e")
+      case Mesto =>
+        val stem = entry dropRight 1
+        čislo match {
+          case Jednotné => pád match {
+            case Nominatív | Akusatív => stem + "o"
+            case Genitív => stem + "a"
+            case Datív => stem + "u"
+            case Lokál => stem + "e"
+          }
+          case Množné   => pád match {
+            case Nominatív => stem + "á"
+            case Datív => stem + "ám"
+            case Akusatív => stem + "á"
+            case Lokál => stem + "ách"
+          }
         }
-        case Množné   => pád match {
-          case Nominatív => entry.replaceFirst("o$", "á")
-          case Akusatív => entry.replaceFirst("o$", "á")
-          case Lokatív => entry.replaceFirst("o$", "ách")
+      case Srdce =>
+        val stem = entry dropRight 1
+        čislo match {
+          case Jednotné => pád match {
+            case Nominatív => stem + "e"
+            case Datív => stem + "u"
+          }
         }
-      }
-      case Srdce => čislo match {
-        case Jednotné => pád match {
-          case Nominatív => entry
+      case Vysvedčenie =>
+        val stem = entry dropRight 2
+        čislo match {
+          case Jednotné => pád match {
+            case Nominatív => stem + "ie"
+            case Datív => stem + "iu"
+          }
         }
-      }
-      case Vysvedčenie => čislo match {
-        case Jednotné => pád match {
-          case Nominatív => entry
+      case Dievča =>
+        val stem = entry dropRight 1
+        čislo match {
+          case Jednotné => pád match {
+            case Nominatív => stem + "a"
+            case Datív => stem + "aťu"
+          }
         }
-      }
-      case Dievča => čislo match {
-        case Jednotné => pád match {
-          case Nominatív => entry
-        }
-      }
     }
     // remove unnecessary soft-marks
     r.replaceFirst("ň([iíe])", "n$1")
