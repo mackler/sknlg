@@ -8,13 +8,14 @@
 Each object representing a word has a method named `asText` that will return a `String` value.  When you have assembled your phrase,
 invoke the `asText` method to render it as a text string.
 
-Words are in the `slovník` package.  You can import them all at once:
+Words are in the `slovník` package.  You can import them all at once. There are also useful constants you may want to import for specifying gender, number, person and case:
 
     import org.mackler.sknlg.slovník._
-
-There are also useful constants you may want to import for specifying gender, number, person and case:
-
-    import org.mackler.sknlg.{Rod, Čislo, Osoba, Pád}
+    import org.mackler.sknlg._
+    import org.mackler.sknlg.{Rod, Osoba, Čislo, Pád}
+    import Pád._
+    import Čislo._
+    import Rod._
 
 ### Verbs
 
@@ -89,9 +90,9 @@ returns
 
 #### Objects
 
-Set a noun to be a direct object by using the `setPriamyPredmet()` method:
+Set a noun to be a direct object by using the `setPredmet()` method:
 
-    > Mať addPodmet On setPriamyPredmet Kniha asText
+    > Mať addPodmet On setPredmet Kniha asText
 
 returns
 

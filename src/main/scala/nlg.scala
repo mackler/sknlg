@@ -10,7 +10,7 @@ object Main extends App {
   /**
     *  Combinations of sentence subjects, both singular and plural, proper names and pronouns.
     */
-  val subjects: Set[Seq[Noun]] = {
+    lazy val subjects: Set[Seq[Noun]] = {
     val pronouns = Set[Zámeno](Ja, Ty, On, Ona)
     val properNouns: Seq[Noun] = Seq(Pomenovanie("Igor", MužskýŽivotný), Pomenovanie("Peter", MužskýŽivotný))
 
@@ -65,9 +65,9 @@ object Main extends App {
     */
   def nounsSingularPluralNominative(nouns: Set[PodstatnéMeno]): Set[String] = {
     val singularNominative =
-      exM3Nouns.map(noun => Byť addPodmet noun setPríslovka Príslovka("tu") asText)
+      nouns.map(noun => Byť addPodmet noun setPríslovka Príslovka("tu") asText)
     val pluralNominative =
-      exM3Nouns.map(noun => Byť addPodmet (noun setČislo Množné) setPríslovka Príslovka("tu") asText)
+      nouns.map(noun => Byť addPodmet (noun setČislo Množné) setPríslovka Príslovka("tu") asText)
     singularNominative ++ pluralNominative
   }
 
